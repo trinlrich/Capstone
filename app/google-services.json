@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "758634412577",
+    "project_id": "capstone-e92a7",
+    "storage_bucket": "capstone-e92a7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:758634412577:android:74a2254e9989dff2cdc160",
+        "android_client_info": {
+          "package_name": "com.example.capstone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "758634412577-nf5ml13na0505modggcnoqlup43p97lv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCObArJnRpa7nisxoHJQnuYuYCMzDy5m4Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "758634412577-nf5ml13na0505modggcnoqlup43p97lv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
