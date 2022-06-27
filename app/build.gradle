@@ -42,6 +42,7 @@ dependencies {
     // Firebase
     // Import the BoM for the Firebase platform
     implementation platform('com.google.firebase:firebase-bom:30.1.0')
+    implementation 'com.google.firebase:firebase-core:9.6.1'
     implementation 'com.firebaseui:firebase-ui-auth:8.0.1'
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.firebase:firebase-firestore'
@@ -51,3 +52,5 @@ dependencies {
     implementation "com.google.firebase:firebase-analytics"
     implementation "com.google.firebase:firebase-database"
 }
+
+//apply plugin: 'com.google.gms.google-services'
