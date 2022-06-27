@@ -7,6 +7,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.splashscreen.SplashScreen;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract;
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult;
 //import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Arrays;
@@ -36,10 +38,12 @@ public class AuthActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         splashScreen = SplashScreen.installSplashScreen(this);
-        // FirebaseApp.initializeApp(AuthActivity.this);
+         FirebaseApp.initializeApp(this);
 
         auth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_auth);
+
+        viewModel = new ViewModelProvider(this).get(AuthViewModel.class);
 
         // Create an observer
         Observer<AuthViewModel.AuthenticationState> authObserver = new Observer<AuthViewModel.AuthenticationState>() {
@@ -57,7 +61,8 @@ public class AuthActivity extends AppCompatActivity {
                 }
             }
         };
-        viewModel.authenticationState.observe(this, authObserver);
+//        viewModel.authenticationState.observe(this, authObserver);
+        createFirebaseSignInIntent();
     }
 
     private void startHomeScreen() {
@@ -70,8 +75,7 @@ public class AuthActivity extends AppCompatActivity {
         // Choose authentication providers
         List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.GoogleBuilder().build(),
-                new AuthUI.IdpConfig.FacebookBuilder().build(),
-                new AuthUI.IdpConfig.TwitterBuilder().build());
+                new AuthUI.IdpConfig.EmailBuilder().build());
 
         // Create and launch sign-in intent
         Intent signInIntent = AuthUI.getInstance()
