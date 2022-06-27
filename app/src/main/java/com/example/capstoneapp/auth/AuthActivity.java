@@ -92,17 +92,6 @@ public class AuthActivity extends AppCompatActivity {
     );
 
     private void onSignInResult(FirebaseAuthUIAuthenticationResult result) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
-
-    public void onLogoutClick(View view) {
-        AuthUI.getInstance()
-                .signOut(this)
-                .addOnCompleteListener(task -> {
-                    Log.i(TAG, "Logged Out");
-                    Intent intent = new Intent(AuthActivity.this, AuthActivity.class);
-                    finish();
-                });
+        // No implementation needed here as viewmodel live data is being observed for Authentication
     }
 }
