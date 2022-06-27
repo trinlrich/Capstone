@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.splashscreen.SplashScreen;
 import androidx.lifecycle.Observer;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,7 +17,7 @@ import com.example.capstoneapp.R;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract;
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult;
-import com.google.firebase.FirebaseApp;
+//import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Arrays;
@@ -34,11 +33,10 @@ public class AuthActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        splashScreen = SplashScreen.installSplashScreen(this);
-
         super.onCreate(savedInstanceState);
 
-        FirebaseApp.initializeApp(this);
+        splashScreen = SplashScreen.installSplashScreen(this);
+        // FirebaseApp.initializeApp(AuthActivity.this);
 
         auth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_auth);
