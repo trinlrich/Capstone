@@ -6,9 +6,18 @@ import com.parse.ParseObject;
 @ParseClassName("User")
 public class FirebaseUser extends ParseObject{
 
+    public static final String KEY_FIREBASE_UID = "firebaseUid";
     public static final String KEY_FIRST_NAME = "firstName";
     public static final String KEY_LAST_NAME = "lastName";
     public static final String KEY_DEGREE_SEEKING = "degreeSeeking";
+
+    public String getFirebaseUid() {
+        return getString(KEY_FIREBASE_UID);
+    }
+
+    public void setFirebaseUid(String firebaseUid) {
+        put(KEY_FIREBASE_UID, firebaseUid);
+    }
 
     public String getFirstName() {
         return getString(KEY_FIRST_NAME);

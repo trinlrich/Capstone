@@ -18,6 +18,8 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import java.util.HashMap;
+
 public class SurveyActivity extends AppCompatActivity {
 
     public static final String TAG = "SurveyActivity";
@@ -43,6 +45,19 @@ public class SurveyActivity extends AppCompatActivity {
     }
 
     public void onDoneClick(View view) {
+        HashMap userInfo = new HashMap();
+        userInfo.put(SurveyViewModel.DictionaryKeys.FIRST_NAME, firstNameText.getText().toString());
+        userInfo.put(SurveyViewModel.DictionaryKeys.LAST_NAME, lastNameText.getText().toString());
+        userInfo.put(SurveyViewModel.DictionaryKeys.DEGREE_SEEKING, degreeSeekingText.getText().toString());
+
+        int result = SurveyViewModel.saveUser(userInfo);
+
+        if (result == R.string.RESULT_FAIL) {
+            Toast.makeText(this, "Error saving profile.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
 
     }
 }
