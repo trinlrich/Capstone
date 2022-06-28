@@ -17,6 +17,7 @@ import android.view.View;
 
 import com.example.capstoneapp.MainActivity;
 import com.example.capstoneapp.R;
+import com.example.capstoneapp.ui.survey.SurveyActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract;
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult;
@@ -49,14 +50,16 @@ public class AuthActivity extends AppCompatActivity {
 
         viewModel = new ViewModelProvider(this).get(AuthViewModel.class);
 
-        // Create an observer
+        // Create an observer for authentication state
         Observer<AuthViewModel.AuthenticationState> authObserver = authState -> {
             Log.i(TAG, "Observer Triggered");
             contentHasLoaded = true;
             if (authState.equals(AuthViewModel.AuthenticationState.AUTHENTICATED)) {
                 Log.i(TAG, "Start Home Screen");
                 startHomeScreen();
-                finish();
+            } else if (authState.equals(AuthViewModel.AuthenticationState.AUTH_INCOMPLETE)) {
+                Log.i(TAG, "Incomplete Survey");
+                startSignInSurvey();
             } else if (authState.equals(AuthViewModel.AuthenticationState.UNAUTHENTICATED)) {
                 Log.e(TAG, "Not Authenticated");
                 createFirebaseSignInIntent();
@@ -65,10 +68,28 @@ public class AuthActivity extends AppCompatActivity {
             }
         };
         viewModel.authenticationState.observe(this, authObserver);
+
+        final Observer<Boolean> signInStateObserver = new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean signInState) {
+                if (signInState.equals(true)) {
+                    startHomeScreen();
+                } else if (signInState.equals(false)) {
+                    startSignInSurvey();
+                }
+            }
+        };
+        viewModel.isSignUpCompleted.observe(this, signInStateObserver);
     }
 
     private void startHomeScreen() {
         Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void startSignInSurvey() {
+        Intent intent = new Intent(this, SurveyActivity.class);
         startActivity(intent);
         finish();
     }

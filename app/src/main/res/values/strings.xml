@@ -3,4 +3,11 @@
 
     // Firebase
     <string name="facebook_application_id" translatable="false">74a2254e9989dff2cdc160</string>
+
+    //Side Navigation
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+
+    <string name="RESULT_OK">24</string>
+    <string name="RESULT_FAIL">-1</string>
 </resources>
