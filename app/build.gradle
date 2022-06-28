@@ -55,6 +55,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
     // Lifecycles only (without ViewModel or LiveData)
     implementation "androidx.lifecycle:lifecycle-runtime:$lifecycle_version"
-}
 
-//apply plugin: 'com.google.gms.google-services'
+    // Parse SDK
+    implementation "com.github.parse-community.Parse-SDK-Android:parse:4.0.0"
+}
