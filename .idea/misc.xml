@@ -5,13 +5,14 @@
       <map>
         <entry key="app/src/main/res/drawable/edit_text_background.xml" value="0.261" />
         <entry key="app/src/main/res/layout/activity_auth.xml" value="0.3885416666666667" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.4574630737304689" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1877303059895833" />
         <entry key="app/src/main/res/layout/activity_survey.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/fragment_college_search.xml" value="0.3885416666666667" />
         <entry key="app/src/main/res/layout/fragment_colleges.xml" value="0.3885416666666667" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.3885416666666667" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.3885416666666667" />
         <entry key="app/src/main/res/layout/fragment_scholarships.xml" value="0.3885416666666667" />
+        <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.30648148148148147" />
         <entry key="app/src/main/res/layout/navigation_action.xml" value="0.18798522949218743" />
         <entry key="app/src/main/res/layout/navigation_header.xml" value="0.203125" />
         <entry key="app/src/main/res/layout/navigation_home.xml" value="0.40260416666666665" />

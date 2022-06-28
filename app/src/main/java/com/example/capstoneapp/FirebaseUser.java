@@ -3,7 +3,7 @@ package com.example.capstoneapp;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 
-@ParseClassName("User")
+@ParseClassName("FirebaseUser")
 public class FirebaseUser extends ParseObject{
 
     public static final String KEY_FIREBASE_UID = "firebaseUid";

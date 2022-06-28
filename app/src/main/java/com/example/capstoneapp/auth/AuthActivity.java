@@ -50,7 +50,7 @@ public class AuthActivity extends AppCompatActivity {
 
         viewModel = new ViewModelProvider(this).get(AuthViewModel.class);
 
-        // Create an observer
+        // Create an observer for authentication state
         Observer<AuthViewModel.AuthenticationState> authObserver = authState -> {
             Log.i(TAG, "Observer Triggered");
             contentHasLoaded = true;
@@ -68,6 +68,18 @@ public class AuthActivity extends AppCompatActivity {
             }
         };
         viewModel.authenticationState.observe(this, authObserver);
+
+        final Observer<Boolean> signInStateObserver = new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean signInState) {
+                if (signInState.equals(true)) {
+                    startHomeScreen();
+                } else if (signInState.equals(false)) {
+                    startSignInSurvey();
+                }
+            }
+        };
+        viewModel.isSignUpCompleted.observe(this, signInStateObserver);
     }
 
     private void startHomeScreen() {

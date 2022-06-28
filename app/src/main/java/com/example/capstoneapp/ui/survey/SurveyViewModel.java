@@ -29,7 +29,7 @@ public class SurveyViewModel extends ViewModel {
         user.setFirstName(userInfo.get(DictionaryKeys.FIRST_NAME).toString());
         user.setLastName(userInfo.get(DictionaryKeys.LAST_NAME).toString());
         user.setDegreeSeeking(userInfo.get(DictionaryKeys.DEGREE_SEEKING).toString());
-        user.setFirebaseUid("null");
+        user.setFirebaseUid(firebaseUid);
         user.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
@@ -40,7 +40,7 @@ public class SurveyViewModel extends ViewModel {
                 }
                 Log.i(TAG, "Post save was successful");
                 result = R.string.RESULT_OK;
-                user.put(FirebaseUser.KEY_FIREBASE_UID, firebaseUid);
+//                user.put(FirebaseUser.KEY_FIREBASE_UID, firebaseUid);
             }
         });
 
