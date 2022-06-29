@@ -14,6 +14,8 @@ import com.example.capstoneapp.R;
 
 public class SettingsFragment extends Fragment {
 
+    //Something New
+
     private SettingsViewModel mViewModel;
 
     public static SettingsFragment newInstance() {

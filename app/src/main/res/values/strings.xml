@@ -8,8 +8,6 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
 
-    // Profile Fields
-    <string name="first_name">First Name</string>
-    <string name="last_name">Last Name</string>
-    <string name="degree_seeking">Degree Seeking</string>
+    <string name="RESULT_OK">24</string>
+    <string name="RESULT_FAIL">-1</string>
 </resources>

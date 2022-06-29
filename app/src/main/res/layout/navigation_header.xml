@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/ivProfileImage"
-        android:layout_width="@dimen/nav_profile_image"
-        android:layout_height="@dimen/nav_profile_image"
+        android:layout_width="@dimen/profile_image"
+        android:layout_height="@dimen/profile_image"
         android:layout_marginTop="0dp"
         android:onClick="onProfileClick"
         app:srcCompat="@drawable/profile_white_48" />
@@ -23,8 +23,9 @@
         android:layout_gravity="center_vertical"
         android:layout_marginStart="@dimen/medium_margin"
         android:onClick="onProfileClick"
+        android:text="Trinitee Richards"
         android:textColor="@color/white"
         android:textSize="@dimen/header_text_size"
         android:textStyle="bold"
-        tools:text="John Doe" />
+        tools:text="Trinitee Richards" />
 </LinearLayout>
