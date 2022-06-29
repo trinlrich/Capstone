@@ -12,7 +12,6 @@ public class FirebaseUserLiveData extends LiveData<FirebaseUser> {
     private FirebaseAuth.AuthStateListener authStateListener = new FirebaseAuth.AuthStateListener() {
         @Override
         public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-//            user = firebaseAuth.getCurrentUser();
             setValue(firebaseAuth.getCurrentUser());
         }
     };

@@ -16,8 +16,6 @@ import com.example.capstoneapp.R;
 
 public class CollegeSearchFragment extends Fragment {
 
-    //Something New
-
     private CollegeSearchViewModel mViewModel;
 
     public static CollegeSearchFragment newInstance() {

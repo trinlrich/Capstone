@@ -1,6 +1,9 @@
 package com.example.capstoneapp.ui.survey;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -26,7 +29,7 @@ public class SurveyActivity extends AppCompatActivity {
 
     protected ParseUser currentUser;
 
-    private ViewModel viewModel;
+    private SurveyViewModel viewModel;
 
     private EditText firstNameText;
     private EditText lastNameText;
@@ -42,6 +45,20 @@ public class SurveyActivity extends AppCompatActivity {
         firstNameText = findViewById(R.id.firstNameText);
         lastNameText = findViewById(R.id.lastNameText);
         degreeSeekingText = findViewById(R.id.degreeSeekingText);
+
+        final Observer<Boolean> saveUserStateObserver = new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean saveUserState) {
+                if (saveUserState.equals(false)) {
+                    makeToast();
+                } else if (saveUserState.equals(true)) {
+                    startHomeScreen();;
+                } else {
+                    Log.e(TAG, "New $signInState state that doesn't require any UI change");
+                }
+            }
+        };
+        viewModel.isUserSaved.observe(this, saveUserStateObserver);
     }
 
     public void onDoneClick(View view) {
@@ -50,14 +67,15 @@ public class SurveyActivity extends AppCompatActivity {
         userInfo.put(SurveyViewModel.DictionaryKeys.LAST_NAME, lastNameText.getText().toString());
         userInfo.put(SurveyViewModel.DictionaryKeys.DEGREE_SEEKING, degreeSeekingText.getText().toString());
 
-        int result = SurveyViewModel.saveUser(userInfo);
+        viewModel.saveUser(userInfo);
+    }
 
-        if (result == R.string.RESULT_FAIL) {
-            Toast.makeText(this, "Error saving profile.", Toast.LENGTH_SHORT).show();
-            return;
-        }
+    private void startHomeScreen() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
 
+    private void makeToast() {
+        Toast.makeText(this, "Error saving profile.", Toast.LENGTH_SHORT).show();
     }
 }

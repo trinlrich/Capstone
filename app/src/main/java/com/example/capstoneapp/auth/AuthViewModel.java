@@ -19,11 +19,10 @@ public class AuthViewModel extends ViewModel {
     public static final String TAG = "AuthViewModel";
 
     private String userId;
-    private Boolean hasUid = false;
     MutableLiveData<Boolean> isSignUpCompleted = new MutableLiveData<>();
 
     public enum AuthenticationState {
-        AUTHENTICATED, AUTH_INCOMPLETE, UNAUTHENTICATED;
+        UNAUTHENTICATED;
     }
 
     FirebaseUserLiveData firebaseUserLiveData = new FirebaseUserLiveData();
@@ -32,16 +31,11 @@ public class AuthViewModel extends ViewModel {
             userId = authenticatedUser.getUid();
             Log.i(TAG, "Checking for User ID");
             checkForUserId(userId);
-            Log.i(TAG, "User exists: " + hasUid);
-            if (hasUid) {
-                return AuthenticationState.AUTHENTICATED;
-            }
-//            return AuthenticationState.AUTH_INCOMPLETE;
         }
         return AuthenticationState.UNAUTHENTICATED;
     });
 
-    private boolean checkForUserId(String userId) {
+    private void checkForUserId(String userId) {
         Log.i(TAG, "userId: " + userId);
         ParseQuery<FirebaseUser> query = ParseQuery.getQuery(FirebaseUser.class);
         query.whereContains(FirebaseUser.KEY_FIREBASE_UID, userId);
@@ -52,26 +46,19 @@ public class AuthViewModel extends ViewModel {
                 if (e != null) {
                     Log.e(TAG, "Issue with getting posts", e);
                     isSignUpCompleted.setValue(false);
-                    return;
-                }
-                if (objects.size() == 0) {
+                } else if (objects.size() == 0) {
                     Log.i(TAG, "FirebaseUid not found");
                     isSignUpCompleted.setValue(false);
-                    return;
-                }
-                if (objects.size() > 1) {
+                } else if (objects.size() > 1) {
                     // TODO:: Debug multiple records with firebaseUid error
                     Log.i(TAG, "Multiple records are fetched");
                     isSignUpCompleted.setValue(false);
-                    return;
+                } else {
+                    Log.i(TAG, "FirebaseUid found");
+                    isSignUpCompleted.setValue(true);
                 }
-                Log.i(TAG, "FirebaseUid found");
-                isSignUpCompleted.setValue(true);
-                hasUid = true;
-                return;
             }
         });
-        return hasUid;
     }
 
     public MutableLiveData<Boolean> getSignUpCompleted() {

@@ -54,13 +54,7 @@ public class AuthActivity extends AppCompatActivity {
         Observer<AuthViewModel.AuthenticationState> authObserver = authState -> {
             Log.i(TAG, "Observer Triggered");
             contentHasLoaded = true;
-            if (authState.equals(AuthViewModel.AuthenticationState.AUTHENTICATED)) {
-                Log.i(TAG, "Start Home Screen");
-                startHomeScreen();
-            } else if (authState.equals(AuthViewModel.AuthenticationState.AUTH_INCOMPLETE)) {
-                Log.i(TAG, "Incomplete Survey");
-                startSignInSurvey();
-            } else if (authState.equals(AuthViewModel.AuthenticationState.UNAUTHENTICATED)) {
+            if (authState.equals(AuthViewModel.AuthenticationState.UNAUTHENTICATED)) {
                 Log.e(TAG, "Not Authenticated");
                 createFirebaseSignInIntent();
             } else {
@@ -69,6 +63,7 @@ public class AuthActivity extends AppCompatActivity {
         };
         viewModel.authenticationState.observe(this, authObserver);
 
+        // Observer for sign in state
         final Observer<Boolean> signInStateObserver = new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean signInState) {
@@ -76,6 +71,8 @@ public class AuthActivity extends AppCompatActivity {
                     startHomeScreen();
                 } else if (signInState.equals(false)) {
                     startSignInSurvey();
+                } else {
+                    Log.e(TAG, "New $signInState state that doesn't require any UI change");
                 }
             }
         };
