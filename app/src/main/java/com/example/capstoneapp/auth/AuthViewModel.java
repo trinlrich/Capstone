@@ -36,20 +36,13 @@ public class AuthViewModel extends ViewModel {
     });
 
     private void checkForUserId(String userId) {
-        Log.i(TAG, "userId: " + userId);
-        ParseQuery<FirebaseUser> query = ParseQuery.getQuery(FirebaseUser.class);
-        query.whereContains(FirebaseUser.KEY_FIREBASE_UID, userId);
-        query.findInBackground(new FindCallback<FirebaseUser>() {
+        GetUserUtil.getProfileFromParse(userId, new GetUserProfileListenerCallback() {
             @Override
-            public void done(List<FirebaseUser> objects, ParseException e) {
-                // check for errors
-                if (e != null) {
-                    Log.e(TAG, "Issue with getting posts", e);
-                    isSignUpCompleted.setValue(false);
-                } else if (objects.size() == 0) {
+            public void onCompleted(List<FirebaseUser> users) {
+                if (users == null) {
                     Log.i(TAG, "FirebaseUid not found");
                     isSignUpCompleted.setValue(false);
-                } else if (objects.size() > 1) {
+                } else if (users.size() > 1) {
                     // TODO:: Debug multiple records with firebaseUid error
                     Log.i(TAG, "Multiple records are fetched");
                     isSignUpCompleted.setValue(false);
@@ -59,6 +52,34 @@ public class AuthViewModel extends ViewModel {
                 }
             }
         });
+
+
+
+
+
+//        Log.i(TAG, "userId: " + userId);
+//        ParseQuery<FirebaseUser> query = ParseQuery.getQuery(FirebaseUser.class);
+//        query.whereContains(FirebaseUser.KEY_FIREBASE_UID, userId);
+//        query.findInBackground(new FindCallback<FirebaseUser>() {
+//            @Override
+//            public void done(List<FirebaseUser> objects, ParseException e) {
+//                // check for errors
+//                if (e != null) {
+//                    Log.e(TAG, "Issue with getting posts", e);
+//                    isSignUpCompleted.setValue(false);
+//                } else if (objects.size() == 0) {
+//                    Log.i(TAG, "FirebaseUid not found");
+//                    isSignUpCompleted.setValue(false);
+//                } else if (objects.size() > 1) {
+//                    // TODO:: Debug multiple records with firebaseUid error
+//                    Log.i(TAG, "Multiple records are fetched");
+//                    isSignUpCompleted.setValue(false);
+//                } else {
+//                    Log.i(TAG, "FirebaseUid found");
+//                    isSignUpCompleted.setValue(true);
+//                }
+//            }
+//        });
     }
 
     public MutableLiveData<Boolean> getSignUpCompleted() {
