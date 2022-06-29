@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
-    public void logoutUser() {
+    public void onLogoutClick(View view) {
         AuthUI.getInstance()
                 .signOut(this)
                 .addOnCompleteListener(task ->
@@ -108,9 +108,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Log.i(TAG, "Settings Clicked");
                 fragment = settingsFragment;
                 break;
-            case R.id.nav_logout:
-                Log.i(TAG, "Logout Clicked");
-                logoutUser();
             case R.id.nav_dashboard:
             default:
                 Log.i(TAG, "Settings Clicked");
