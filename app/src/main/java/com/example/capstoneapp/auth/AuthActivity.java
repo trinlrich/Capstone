@@ -67,9 +67,9 @@ public class AuthActivity extends AppCompatActivity {
         final Observer<Boolean> signInStateObserver = new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean signInState) {
-                if (signInState.equals(true)) {
+                if (signInState == true) {
                     startHomeScreen();
-                } else if (signInState.equals(false)) {
+                } else if (signInState == false) {
                     startSignInSurvey();
                 } else {
                     Log.e(TAG, "New $signInState state that doesn't require any UI change");
@@ -80,14 +80,16 @@ public class AuthActivity extends AppCompatActivity {
     }
 
     private void startHomeScreen() {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        Log.i(TAG, "Start main");
+        Intent homeIntent = new Intent(this, MainActivity.class);
+        startActivity(homeIntent);
         finish();
     }
 
     private void startSignInSurvey() {
-        Intent intent = new Intent(this, SurveyActivity.class);
-        startActivity(intent);
+        Log.i(TAG, "Start survey");
+        Intent surveyIntent = new Intent(this, SurveyActivity.class);
+        startActivity(surveyIntent);
         finish();
     }
 

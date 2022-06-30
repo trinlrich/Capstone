@@ -52,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Log.i(TAG, "main activity started");
+
         // Side Navigation Bar
         toolbar = findViewById(R.id.nav_action);
         drawerLayout = findViewById(R.id.drawerLayout);
@@ -74,22 +76,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    public void logoutUser() {
-        AuthUI.getInstance()
-                .signOut(this)
-                .addOnCompleteListener(task ->
-                        startActivity(new Intent(MainActivity.this, AuthActivity.class)));
-
-        startActivity(new Intent(this, AuthActivity.class));
-        finish();
-    }
-
-    public void onProfileClick(View view) {
-        Log.i(TAG, "Profile Clicked");
-        fragmentManager.beginTransaction().replace(R.id.flContainer, profileFragment).commit();
-        drawerLayout.closeDrawer(GravityCompat.START);
     }
 
     @Override
@@ -120,5 +106,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void onProfileClick(View view) {
+        Log.i(TAG, "Profile Clicked");
+        fragmentManager.beginTransaction().replace(R.id.flContainer, profileFragment).commit();
+        drawerLayout.closeDrawer(GravityCompat.START);
+    }
+
+    public void logoutUser() {
+        AuthUI.getInstance()
+                .signOut(this)
+                .addOnCompleteListener(task ->
+                        startActivity(new Intent(this, AuthActivity.class)));
+        finish();
     }
 }

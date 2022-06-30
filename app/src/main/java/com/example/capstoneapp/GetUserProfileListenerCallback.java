@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface GetUserProfileListenerCallback {
 
-    public void onCompleted(List<FirebaseUser> users);
+    public void onCompleted(List<ParseFirebaseUser> users);
 }

@@ -1,10 +1,7 @@
 package com.example.capstoneapp.ui.survey;
 
-import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
@@ -14,12 +11,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.capstoneapp.FirebaseUser;
 import com.example.capstoneapp.MainActivity;
 import com.example.capstoneapp.R;
-import com.parse.ParseException;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 
 import java.util.HashMap;
 
@@ -39,6 +33,8 @@ public class SurveyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_survey);
+
+        Log.i(TAG, "survey started");
 
         viewModel = new ViewModelProvider(this).get(SurveyViewModel.class);
 
@@ -73,6 +69,7 @@ public class SurveyActivity extends AppCompatActivity {
     private void startHomeScreen() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
     private void makeToast() {

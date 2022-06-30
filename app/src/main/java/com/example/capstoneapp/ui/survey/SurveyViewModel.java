@@ -5,19 +5,19 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.capstoneapp.FirebaseUser;
-import com.example.capstoneapp.R;
+import com.example.capstoneapp.GetUserProfileListenerCallback;
+import com.example.capstoneapp.GetUserUtil;
+import com.example.capstoneapp.ParseFirebaseUser;
 import com.google.firebase.auth.FirebaseAuth;
 import com.parse.ParseException;
-import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class SurveyViewModel extends ViewModel {
 
     public static final String TAG = "SurveyViewModel";
-    private static int result;
     private static String firebaseUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     static MutableLiveData<Boolean> isUserSaved = new MutableLiveData<>();
 
@@ -26,8 +26,7 @@ public class SurveyViewModel extends ViewModel {
     }
 
     public void saveUser(HashMap userInfo) {
-        FirebaseUser user = new FirebaseUser();
-        Log.i(TAG, "Size: "+ userInfo.size() + " Value: " + userInfo.get(DictionaryKeys.FIRST_NAME) + " ");
+        ParseFirebaseUser user = new ParseFirebaseUser();
         user.setFirstName(userInfo.get(DictionaryKeys.FIRST_NAME).toString());
         user.setLastName(userInfo.get(DictionaryKeys.LAST_NAME).toString());
         user.setDegreeSeeking(userInfo.get(DictionaryKeys.DEGREE_SEEKING).toString());
@@ -37,11 +36,30 @@ public class SurveyViewModel extends ViewModel {
             public void done(ParseException e) {
                 if (e != null) {
                     Log.e(TAG, "Error while saving", e);
-                    isUserSaved.setValue(false);
-                    return;
+                } else {
+                    Log.i(TAG, "Post save was successful");
+                    checkForUserId(firebaseUid);
                 }
-                Log.i(TAG, "Post save was successful");
-                isUserSaved.setValue(true);
+            }
+        });
+    }
+
+    private void checkForUserId(String userId) {
+        GetUserUtil.getProfileFromParse(userId, new GetUserProfileListenerCallback() {
+            @Override
+            public void onCompleted(List<ParseFirebaseUser> users) {
+                Log.i(TAG, "in onComplete");
+                if (users == null) {
+                    Log.i(TAG, "FirebaseUid not found");
+                    isUserSaved.setValue(false);
+                } else if (users.size() > 1) {
+                    // TODO:: Debug multiple records with firebaseUid error
+                    Log.i(TAG, "Multiple records are fetched");
+                    isUserSaved.setValue(false);
+                } else {
+                    Log.i(TAG, "FirebaseUid found");
+                    isUserSaved.setValue(true);
+                }
             }
         });
     }

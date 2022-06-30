@@ -13,16 +13,14 @@ public class GetUserUtil {
     private static final String TAG = "GetUserUtil";
 
     public static void getProfileFromParse(String userId, GetUserProfileListenerCallback callback) {
-
-        // do stuff
-        ParseQuery<FirebaseUser> query = ParseQuery.getQuery(FirebaseUser.class);
-        query.whereContains(FirebaseUser.KEY_FIREBASE_UID, userId);
-        query.findInBackground(new FindCallback<FirebaseUser>() {
+        ParseQuery<ParseFirebaseUser> query = ParseQuery.getQuery(ParseFirebaseUser.class);
+        query.whereContains(ParseFirebaseUser.KEY_FIREBASE_UID, userId);
+        query.findInBackground(new FindCallback<ParseFirebaseUser>() {
             @Override
-            public void done(List<FirebaseUser> objects, ParseException e) {
+            public void done(List<ParseFirebaseUser> objects, ParseException e) {
                 // check for errors. pass null values to indicate errors to callers
                 if (e != null) {
-                    Log.e(TAG, "Issue with getting posts", e);
+                    Log.e(TAG, "Issue with getting user", e);
                     callback.onCompleted(null);
                     return;
                 }

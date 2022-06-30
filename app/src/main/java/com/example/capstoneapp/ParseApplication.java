@@ -11,7 +11,7 @@ public class ParseApplication extends Application {
         super.onCreate();
 
         // Register your parse models
-        ParseObject.registerSubclass(FirebaseUser.class);
+        ParseObject.registerSubclass(ParseFirebaseUser.class);
 
         Parse.initialize(new Parse.Configuration.Builder(this)
                 .applicationId("dKuIdqqGpirPpzFMhh1UlG7kufAlZu2QqMAeBkoh")

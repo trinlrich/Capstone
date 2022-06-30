@@ -1,7 +1,39 @@
 package com.example.capstoneapp.ui.profile;
 
+import android.util.Log;
+
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.capstoneapp.ParseFirebaseUser;
+import com.example.capstoneapp.GetUserProfileListenerCallback;
+import com.example.capstoneapp.GetUserUtil;
+import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.List;
+
 public class ProfileViewModel extends ViewModel {
-    // TODO: Implement the ViewModel
+
+    public static final String TAG = "ProfileViewModel";
+    MutableLiveData<ParseFirebaseUser> user = new MutableLiveData<>();
+    private String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+    public void getUserProfileInfo() {
+        GetUserUtil.getProfileFromParse(userId, new GetUserProfileListenerCallback() {
+            @Override
+            public void onCompleted(List<ParseFirebaseUser> users) {
+                if (users == null) {
+                    Log.i(TAG, "FirebaseUid not found");
+                    user.setValue(null);
+                } else if (users.size() > 1) {
+                    // TODO:: Debug multiple records with firebaseUid error
+                    Log.i(TAG, "Multiple records are fetched");
+                    user.setValue(null);
+                } else {
+                    Log.i(TAG, "FirebaseUid found");
+                    user.setValue(users.get(0));
+                }
+            }
+        });
+    }
 }
