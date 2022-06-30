@@ -2,6 +2,7 @@ package com.example.capstoneapp.ui.survey;
 
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -19,13 +20,13 @@ public class SurveyViewModel extends ViewModel {
 
     public static final String TAG = "SurveyViewModel";
     private static String firebaseUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    static MutableLiveData<Boolean> isUserSaved = new MutableLiveData<>();
+    private MutableLiveData<Boolean> isUserSaved = new MutableLiveData<>();
 
     public enum DictionaryKeys{
         FIRST_NAME, LAST_NAME, DEGREE_SEEKING
     }
 
-    public void saveUser(HashMap userInfo) {
+    public LiveData<Boolean> saveUser(HashMap userInfo) {
         ParseFirebaseUser user = new ParseFirebaseUser();
         user.setFirstName(userInfo.get(DictionaryKeys.FIRST_NAME).toString());
         user.setLastName(userInfo.get(DictionaryKeys.LAST_NAME).toString());
@@ -42,6 +43,7 @@ public class SurveyViewModel extends ViewModel {
                 }
             }
         });
+        return isUserSaved;
     }
 
     private void checkForUserId(String userId) {

@@ -28,6 +28,7 @@ public class SurveyActivity extends AppCompatActivity {
     private EditText firstNameText;
     private EditText lastNameText;
     private EditText degreeSeekingText;
+    private Observer<Boolean> saveUserStateObserver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,7 @@ public class SurveyActivity extends AppCompatActivity {
         lastNameText = findViewById(R.id.lastNameText);
         degreeSeekingText = findViewById(R.id.degreeSeekingText);
 
-        final Observer<Boolean> saveUserStateObserver = new Observer<Boolean>() {
+        saveUserStateObserver = new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean saveUserState) {
                 if (saveUserState.equals(false)) {
@@ -54,7 +55,6 @@ public class SurveyActivity extends AppCompatActivity {
                 }
             }
         };
-        viewModel.isUserSaved.observe(this, saveUserStateObserver);
     }
 
     public void onDoneClick(View view) {
@@ -63,7 +63,7 @@ public class SurveyActivity extends AppCompatActivity {
         userInfo.put(SurveyViewModel.DictionaryKeys.LAST_NAME, lastNameText.getText().toString());
         userInfo.put(SurveyViewModel.DictionaryKeys.DEGREE_SEEKING, degreeSeekingText.getText().toString());
 
-        viewModel.saveUser(userInfo);
+        viewModel.saveUser(userInfo).observe(this, saveUserStateObserver);
     }
 
     private void startHomeScreen() {
