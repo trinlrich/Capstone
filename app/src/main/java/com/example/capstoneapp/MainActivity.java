@@ -7,16 +7,21 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.capstoneapp.ui.profile.ProfileFragment;
 import com.example.capstoneapp.ui.dashboard.DashboardFragment;
 import com.example.capstoneapp.ui.collegesearch.CollegeSearchFragment;
@@ -24,9 +29,8 @@ import com.example.capstoneapp.ui.mycolleges.CollegesFragment;
 import com.example.capstoneapp.auth.AuthActivity;
 import com.example.capstoneapp.ui.settings.SettingsFragment;
 import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
+import com.parse.ParseFile;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -36,8 +40,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
     private NavigationView sideNav;
-    private ImageView ivProfileImage;
-    private TextView tvUserName;
+    private View navHeader;
+    private ImageView ivNavProfileImage;
+    private TextView tvNavUserName;
+
+    // ViewModel
+    private MainViewModel viewModel;
 
     // Navigation fragments
     final FragmentManager fragmentManager = getSupportFragmentManager();
@@ -51,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        viewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
         Log.i(TAG, "main activity started");
 
@@ -59,9 +68,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout = findViewById(R.id.drawerLayout);
         toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
         sideNav = findViewById(R.id.sideNav);
-        ivProfileImage = findViewById(R.id.ivProfileImage);
-        tvUserName = findViewById(R.id.tvUserName);
 
+        // Navigation Header
+        navHeader = sideNav.getHeaderView(0);
+        ivNavProfileImage = navHeader.findViewById(R.id.ivNavProfileImage);
+        tvNavUserName = navHeader.findViewById(R.id.tvNavUserName);
+
+        viewModel.getUserProfileInfo();
+
+        // User observer
+        Observer<ParseFirebaseUser> userObserver = new Observer<ParseFirebaseUser>() {
+            @Override
+            public void onChanged(ParseFirebaseUser user) {
+                if (user == null) {
+                    Log.e(TAG, "No user found");
+                } else {
+                    ParseFile profileImage = user.getProfileImage();
+                    setImage(ivNavProfileImage, profileImage, R.drawable.profile_white_48);
+                    tvNavUserName.setText(user.getFirstName() + " " + user.getLastName());
+                }
+            }
+        };
+        viewModel.user.observe(this, userObserver);
+
+        // Set toolbar
         setSupportActionBar(toolbar);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
@@ -106,6 +136,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void setImage(ImageView imageView, ParseFile image, int defaultImage) {
+        if (image != null) {
+            Glide.with(this)
+                    .load(image.getUrl())
+                    .transform(new CircleCrop())
+                    .into(imageView);
+        } else {
+            imageView.setImageResource(defaultImage);
+        }
+
     }
 
     public void onProfileClick(View view) {

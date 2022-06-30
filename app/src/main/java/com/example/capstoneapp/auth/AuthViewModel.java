@@ -35,7 +35,7 @@ public class AuthViewModel extends ViewModel {
     });
 
     private void checkForUserId(String userId) {
-        GetUserUtil.getProfileFromParse(userId, new GetUserProfileListenerCallback() {
+        Utilities.getProfileFromParse(userId, new GetUserProfileListenerCallback() {
             @Override
             public void onCompleted(List<ParseFirebaseUser> users) {
                 Log.i(TAG, "in onComplete");

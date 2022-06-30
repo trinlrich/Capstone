@@ -26,6 +26,8 @@ import com.parse.ParseFile;
 
 public class ProfileFragment extends Fragment {
 
+    public static final String TAG = "ProfileFragment";
+
     private ProfileViewModel viewModel;
 
     private ImageView ivFragProfileImage;
@@ -58,7 +60,7 @@ public class ProfileFragment extends Fragment {
 
         viewModel.getUserProfileInfo();
 
-        // User first name observer
+        // User observer
         Observer<ParseFirebaseUser> userObserver = new Observer<ParseFirebaseUser>() {
             @Override
             public void onChanged(ParseFirebaseUser user) {
@@ -70,18 +72,23 @@ public class ProfileFragment extends Fragment {
                     tvLastName.setText(user.getLastName());
                     tvDegreeSeeking.setText(user.getDegreeSeeking());
                     ParseFile profileImage = user.getProfileImage();
-                    if (profileImage != null) {
-                        Glide.with(getContext())
-                                .load(profileImage.getUrl())
-                                .transform(new CircleCrop())
-                                .into(ivFragProfileImage);
-                    } else {
-                        ivFragProfileImage.setImageResource(R.drawable.profile_black_48);
-                    }
+                    setImage(ivFragProfileImage, profileImage, R.drawable.profile_black_48);
                 }
             }
         };
         viewModel.user.observe(getViewLifecycleOwner(), userObserver);
+    }
+
+    public void setImage(ImageView imageView, ParseFile image, int defaultImage) {
+        if (image != null) {
+            Glide.with(this)
+                    .load(image.getUrl())
+                    .transform(new CircleCrop())
+                    .into(imageView);
+        } else {
+            imageView.setImageResource(defaultImage);
+        }
+
     }
 
 }

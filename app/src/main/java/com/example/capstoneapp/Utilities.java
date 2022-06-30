@@ -1,16 +1,20 @@
 package com.example.capstoneapp;
 
 import android.util.Log;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseQuery;
 
 import java.util.List;
 
-public class GetUserUtil {
+public class Utilities {
 
-    private static final String TAG = "GetUserUtil";
+    private static final String TAG = "Utilities";
 
     public static void getProfileFromParse(String userId, GetUserProfileListenerCallback callback) {
         ParseQuery<ParseFirebaseUser> query = ParseQuery.getQuery(ParseFirebaseUser.class);

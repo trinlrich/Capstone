@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.capstoneapp.GetUserProfileListenerCallback;
-import com.example.capstoneapp.GetUserUtil;
+import com.example.capstoneapp.Utilities;
 import com.example.capstoneapp.ParseFirebaseUser;
 import com.google.firebase.auth.FirebaseAuth;
 import com.parse.ParseException;
@@ -45,7 +45,7 @@ public class SurveyViewModel extends ViewModel {
     }
 
     private void checkForUserId(String userId) {
-        GetUserUtil.getProfileFromParse(userId, new GetUserProfileListenerCallback() {
+        Utilities.getProfileFromParse(userId, new GetUserProfileListenerCallback() {
             @Override
             public void onCompleted(List<ParseFirebaseUser> users) {
                 Log.i(TAG, "in onComplete");
