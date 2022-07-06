@@ -10,4 +10,9 @@
 
     <string name="RESULT_OK">24</string>
     <string name="RESULT_FAIL">-1</string>
+
+    // Profile Attributes
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="degree_seeking">Degree Seeking</string>
 </resources>

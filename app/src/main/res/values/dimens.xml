@@ -17,4 +17,7 @@
 
     <dimen name="border_stroke_width">1dp</dimen>
 
+    <dimen name="card_elevation">10dp</dimen>
+    <dimen name="card_corner_radius">30dp</dimen>
+
 </resources>
