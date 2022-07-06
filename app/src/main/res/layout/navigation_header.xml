@@ -5,15 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="15dp">
+    android:padding="@dimen/medium_margin">
 
-    <ImageView
-        android:id="@+id/ivNavProfileImage"
-        android:layout_width="@dimen/nav_profile_image"
-        android:layout_height="@dimen/nav_profile_image"
-        android:layout_marginTop="0dp"
-        android:onClick="onProfileClick"
-        app:srcCompat="@drawable/profile_white_48" />
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/small_margin"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="5dp">
+
+        <ImageView
+            android:id="@+id/ivNavProfileImage"
+            android:layout_width="@dimen/nav_profile_image"
+            android:layout_height="@dimen/nav_profile_image"
+            android:onClick="onProfileClick"
+            app:srcCompat="@drawable/profile_black_48" />
+    </com.google.android.material.card.MaterialCardView>
 
     <TextView
         android:id="@+id/tvNavUserName"

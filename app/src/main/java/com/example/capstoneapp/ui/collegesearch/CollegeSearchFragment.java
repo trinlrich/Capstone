@@ -16,11 +16,10 @@ import com.example.capstoneapp.R;
 
 public class CollegeSearchFragment extends Fragment {
 
-    private CollegeSearchViewModel mViewModel;
-
     public static CollegeSearchFragment newInstance() {
         return new CollegeSearchFragment();
     }
+    private CollegeSearchViewModel mViewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -29,10 +28,7 @@ public class CollegeSearchFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(CollegeSearchViewModel.class);
-        // TODO: Use the ViewModel
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
-
 }

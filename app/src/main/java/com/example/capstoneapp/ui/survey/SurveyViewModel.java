@@ -31,7 +31,7 @@ public class SurveyViewModel extends ViewModel {
         user.setFirstName(userInfo.get(DictionaryKeys.FIRST_NAME).toString());
         user.setLastName(userInfo.get(DictionaryKeys.LAST_NAME).toString());
         user.setDegreeSeeking(userInfo.get(DictionaryKeys.DEGREE_SEEKING).toString());
-        user.setFirebaseUid(firebaseUid);
+        user. setFirebaseUid(firebaseUid);
         user.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
@@ -40,6 +40,7 @@ public class SurveyViewModel extends ViewModel {
                 } else {
                     Log.i(TAG, "Post save was successful");
                     checkForUserId(firebaseUid);
+                    firebaseUid = null;
                 }
             }
         });

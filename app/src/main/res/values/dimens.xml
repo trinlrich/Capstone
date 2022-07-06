@@ -12,7 +12,7 @@
 
     <dimen name="edit_text_radius">50dp</dimen>
 
-    <dimen name="nav_profile_image">45dp</dimen>
+    <dimen name="nav_profile_image">35dp</dimen>
     <dimen name="frag_profile_image">100dp</dimen>
 
     <dimen name="border_stroke_width">1dp</dimen>
