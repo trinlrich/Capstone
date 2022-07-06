@@ -19,7 +19,7 @@ import java.util.List;
 public class SurveyViewModel extends ViewModel {
 
     public static final String TAG = "SurveyViewModel";
-    private static String firebaseUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    private String firebaseUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private MutableLiveData<Boolean> isUserSaved = new MutableLiveData<>();
 
     public enum DictionaryKeys{
@@ -31,7 +31,8 @@ public class SurveyViewModel extends ViewModel {
         user.setFirstName(userInfo.get(DictionaryKeys.FIRST_NAME).toString());
         user.setLastName(userInfo.get(DictionaryKeys.LAST_NAME).toString());
         user.setDegreeSeeking(userInfo.get(DictionaryKeys.DEGREE_SEEKING).toString());
-        user. setFirebaseUid(firebaseUid);
+        Log.d(TAG,String.format("Saving Firebase UID:%s , F Name: %s, L Name: %s" ,firebaseUid,user.getFirstName(),user.getLastName()));
+        user.setFirebaseUid(firebaseUid);
         user.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
@@ -40,7 +41,6 @@ public class SurveyViewModel extends ViewModel {
                 } else {
                     Log.i(TAG, "Post save was successful");
                     checkForUserId(firebaseUid);
-                    firebaseUid = null;
                 }
             }
         });
@@ -48,19 +48,18 @@ public class SurveyViewModel extends ViewModel {
     }
 
     private void checkForUserId(String userId) {
+        Log.d(TAG,String.format("Checkin if Firebase UID: %s exists after save" ,firebaseUid));
         Utilities.getProfileFromParse(userId, new GetUserProfileListenerCallback() {
             @Override
             public void onCompleted(List<ParseFirebaseUser> users) {
                 Log.i(TAG, "in onComplete");
+
+                // Only two values are possbile null or actual single record for the user
                 if (users == null) {
-                    Log.i(TAG, "FirebaseUid not found");
-                    isUserSaved.setValue(false);
-                } else if (users.size() > 1) {
-                    // TODO:: Debug multiple records with firebaseUid error
-                    Log.i(TAG, "Multiple records are fetched");
+                    Log.i(TAG, "Error -> FirebaseUid not found");
                     isUserSaved.setValue(false);
                 } else {
-                    Log.i(TAG, "FirebaseUid found");
+                    Log.i(TAG, "Success -> FirebaseUid found");
                     isUserSaved.setValue(true);
                 }
             }
