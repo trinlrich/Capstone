@@ -7,7 +7,7 @@ import com.parse.ParseObject;
 @ParseClassName("Colleges")
 public class College extends ParseObject {
 
-    public static final String KEY_NAME = "collegeId";
+    public static final String KEY_NAME = "collegeName";
     public static final String KEY_THUMBNAIL = "collegeThumbnail";
     public static final String KEY_CITY = "collegeCity";
 

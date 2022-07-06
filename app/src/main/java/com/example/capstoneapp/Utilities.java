@@ -4,6 +4,7 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.Key;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -47,4 +48,29 @@ public class Utilities {
         });
     }
 
+    public static void getCollegesListFromParse(GetCollegeListListenerCallback callback) {
+        ParseQuery<College> query = ParseQuery.getQuery(College.class);
+        query.setLimit(20);
+        query.addDescendingOrder(College.KEY_NAME);
+        query.findInBackground(new FindCallback<College>() {
+            @Override
+            public void done(List<College> colleges, ParseException e) {
+                // check for errors. pass null values to indicate errors to callers
+                if (e != null) {
+                    Log.e(TAG, "Issue with getting colleges", e);
+                    callback.onCompleted(null);
+                } else if (colleges.size() == 0) {
+                    Log.i(TAG, "No colleges found");
+                    callback.onCompleted(null);
+                    return;
+                } else {
+                    // Log all colleges
+                    for (College college : colleges) {
+                        Log.i(TAG, "College: " + college.getCollegeName());
+                    }
+                    callback.onCompleted(colleges);
+                }
+            }
+        });
+    }
 }
