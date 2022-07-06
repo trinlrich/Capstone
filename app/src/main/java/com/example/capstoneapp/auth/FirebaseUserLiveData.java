@@ -7,7 +7,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class FirebaseUserLiveData extends LiveData<FirebaseUser> {
-    private FirebaseUser user;
+    private static FirebaseUser user;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private FirebaseAuth.AuthStateListener authStateListener = new FirebaseAuth.AuthStateListener() {
         @Override
@@ -17,7 +17,7 @@ public class FirebaseUserLiveData extends LiveData<FirebaseUser> {
         }
     };
 
-    public FirebaseUser getUser() {
+    public static FirebaseUser getUser() {
         return user;
     }
 

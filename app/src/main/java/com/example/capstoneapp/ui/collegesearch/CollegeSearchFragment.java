@@ -16,8 +16,6 @@ import com.example.capstoneapp.R;
 
 public class CollegeSearchFragment extends Fragment {
 
-    //Something New
-
     private CollegeSearchViewModel mViewModel;
 
     public static CollegeSearchFragment newInstance() {
@@ -31,10 +29,7 @@ public class CollegeSearchFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(CollegeSearchViewModel.class);
-        // TODO: Use the ViewModel
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
-
 }

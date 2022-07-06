@@ -1,20 +1,17 @@
-package com.example.capstoneapp.ui.profile;
+package com.example.capstoneapp;
 
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.capstoneapp.ParseFirebaseUser;
-import com.example.capstoneapp.GetUserProfileListenerCallback;
-import com.example.capstoneapp.Utilities;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
-public class ProfileViewModel extends ViewModel {
+public class MainViewModel extends ViewModel {
 
-    public static final String TAG = "ProfileViewModel";
+    public static final String TAG = "MainViewModel";
     MutableLiveData<ParseFirebaseUser> user = new MutableLiveData<>();
     private String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 

@@ -2,50 +2,67 @@ package com.example.capstoneapp.ui.survey;
 
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.capstoneapp.FirebaseUser;
-import com.example.capstoneapp.R;
+import com.example.capstoneapp.GetUserProfileListenerCallback;
+import com.example.capstoneapp.Utilities;
+import com.example.capstoneapp.ParseFirebaseUser;
 import com.google.firebase.auth.FirebaseAuth;
 import com.parse.ParseException;
-import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class SurveyViewModel extends ViewModel {
 
     public static final String TAG = "SurveyViewModel";
-    private static int result;
-    private static String firebaseUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    private String firebaseUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    private MutableLiveData<Boolean> isUserSaved = new MutableLiveData<>();
 
     public enum DictionaryKeys{
         FIRST_NAME, LAST_NAME, DEGREE_SEEKING
     }
 
-    public static int saveUser(HashMap userInfo) {
-        FirebaseUser user = new FirebaseUser();
-        Log.i(TAG, "Size: "+ userInfo.size() + " Value: " + userInfo.get(DictionaryKeys.FIRST_NAME) + " ");
+    public LiveData<Boolean> saveUser(HashMap userInfo) {
+        ParseFirebaseUser user = new ParseFirebaseUser();
         user.setFirstName(userInfo.get(DictionaryKeys.FIRST_NAME).toString());
         user.setLastName(userInfo.get(DictionaryKeys.LAST_NAME).toString());
         user.setDegreeSeeking(userInfo.get(DictionaryKeys.DEGREE_SEEKING).toString());
+        Log.d(TAG,String.format("Saving Firebase UID:%s , F Name: %s, L Name: %s" ,firebaseUid,user.getFirstName(),user.getLastName()));
         user.setFirebaseUid(firebaseUid);
         user.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
                 if (e != null) {
                     Log.e(TAG, "Error while saving", e);
-                    result = R.string.RESULT_FAIL;
-                    return;
+                } else {
+                    Log.i(TAG, "Post save was successful");
+                    checkForUserId(firebaseUid);
                 }
-                Log.i(TAG, "Post save was successful");
-                result = R.string.RESULT_OK;
-//                user.put(FirebaseUser.KEY_FIREBASE_UID, firebaseUid);
             }
         });
-
-        return result;
-
+        return isUserSaved;
     }
 
+    private void checkForUserId(String userId) {
+        Log.d(TAG,String.format("Checkin if Firebase UID: %s exists after save" ,firebaseUid));
+        Utilities.getProfileFromParse(userId, new GetUserProfileListenerCallback() {
+            @Override
+            public void onCompleted(List<ParseFirebaseUser> users) {
+                Log.i(TAG, "in onComplete");
+
+                // Only two values are possbile null or actual single record for the user
+                if (users == null) {
+                    Log.i(TAG, "Error -> FirebaseUid not found");
+                    isUserSaved.setValue(false);
+                } else {
+                    Log.i(TAG, "Success -> FirebaseUid found");
+                    isUserSaved.setValue(true);
+                }
+            }
+        });
+    }
 }

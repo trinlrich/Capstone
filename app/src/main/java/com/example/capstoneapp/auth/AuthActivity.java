@@ -72,9 +72,9 @@ public class AuthActivity extends AppCompatActivity {
         final Observer<Boolean> signInStateObserver = new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean signInState) {
-                if (signInState.equals(true)) {
+                if (signInState == true) {
                     startHomeScreen();
-                } else if (signInState.equals(false)) {
+                } else if (signInState == false) {
                     startSignInSurvey();
                 }
             }
@@ -83,22 +83,25 @@ public class AuthActivity extends AppCompatActivity {
     }
 
     private void startHomeScreen() {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        Log.i(TAG, "Start main");
+        Intent homeIntent = new Intent(this, MainActivity.class);
+        startActivity(homeIntent);
         finish();
     }
 
     private void startSignInSurvey() {
-        Intent intent = new Intent(this, SurveyActivity.class);
-        startActivity(intent);
+        Log.i(TAG, "Start survey");
+        Intent surveyIntent = new Intent(this, SurveyActivity.class);
+        startActivity(surveyIntent);
         finish();
     }
 
     private void createFirebaseSignInIntent() {
         // Choose authentication providers
         List<AuthUI.IdpConfig> providers = Arrays.asList(
-                new AuthUI.IdpConfig.GoogleBuilder().build(),
-                new AuthUI.IdpConfig.EmailBuilder().build());
+                new AuthUI.IdpConfig.EmailBuilder().build(),
+                new AuthUI.IdpConfig.GoogleBuilder().build());
+
 
         // Create and launch sign-in intent
         Intent signInIntent = AuthUI.getInstance()
