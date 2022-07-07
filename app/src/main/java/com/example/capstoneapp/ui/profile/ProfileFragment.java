@@ -52,6 +52,8 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
 
+        getActivity().setTitle(R.string.profile_title);
+
         ivFragProfileImage = view.findViewById(R.id.ivFragProfileImage);
         tvUserName = view.findViewById(R.id.tvFragUserName);
         tvFirstName = view.findViewById(R.id.tvFirstName);

@@ -49,13 +49,15 @@ public class Utilities {
     }
 
     public static void getCollegesListFromParse(GetCollegeListListenerCallback callback) {
+        Log.i(TAG, "Querying colleges...");
         ParseQuery<College> query = ParseQuery.getQuery(College.class);
         query.setLimit(20);
-        query.addDescendingOrder(College.KEY_NAME);
+        query.addAscendingOrder(College.KEY_NAME);
         query.findInBackground(new FindCallback<College>() {
             @Override
             public void done(List<College> colleges, ParseException e) {
                 // check for errors. pass null values to indicate errors to callers
+                Log.i(TAG, "Query done");
                 if (e != null) {
                     Log.e(TAG, "Issue with getting colleges", e);
                     callback.onCompleted(null);
@@ -65,8 +67,9 @@ public class Utilities {
                     return;
                 } else {
                     // Log all colleges
+                    Log.i(TAG, "Colleges found:");
                     for (College college : colleges) {
-                        Log.i(TAG, "College: " + college.getCollegeName());
+                        Log.i(TAG, "- " + college.getCollegeName());
                     }
                     callback.onCompleted(colleges);
                 }

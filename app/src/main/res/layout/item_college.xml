@@ -4,13 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="15dp">
+    android:clipToPadding="false"
+    android:padding="@dimen/larger_margin">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/border_padding"
-        android:theme="@style/CardTheme"
         app:cardCornerRadius="@dimen/card_corner_radius"
         app:cardElevation="@dimen/card_elevation"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,34 +21,162 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tvName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/small_margin"
-                app:layout_constraintBottom_toTopOf="@+id/tvAverageGpa"
-                app:layout_constraintStart_toEndOf="@+id/ivThumbnail"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="North Carolina AT State University" />
-
             <ImageView
                 android:id="@+id/ivThumbnail"
                 android:layout_width="@dimen/frag_profile_image"
                 android:layout_height="@dimen/frag_profile_image"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/college_black_48" />
 
-            <TextView
-                android:id="@+id/tvAverageGpa"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/large_margin"
+                android:layout_marginTop="@dimen/larger_margin"
+                app:cardElevation="0dp"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ivThumbnail"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="2"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:flow_horizontalAlign="start"
+                        app:layout_constrainedWidth="true"
+                        tools:text="North Carolina AT State University" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tvLocation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/small_margin"
+                            android:textSize="10sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            tools:text="Greensboro, NC" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <include
+                android:id="@+id/divider"
+                layout="@layout/divider_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/small_margin"
-                android:text="TextView"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ivThumbnail" />
+
+            <TableLayout
+                android:id="@+id/collegeInfo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/medium_margin"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivThumbnail"
+                tools:layout_editor_absoluteX="20dp">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginVertical="@dimen/small_margin">
+
+                    <TextView
+                        android:id="@+id/tvCollegeTypeTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/medium_margin"
+                        android:layout_marginEnd="@dimen/extra_large_margin"
+                        android:text="@string/college_type"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvCollegeType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Public"
+                        tools:text="Public" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginVertical="@dimen/small_margin">
+
+                    <TextView
+                        android:id="@+id/tvAverageGpaTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/medium_margin"
+                        android:layout_marginEnd="@dimen/extra_large_margin"
+                        android:text="@string/average_gpa"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvAverageGpa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="4.0"
+                        tools:text="4.0" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginVertical="@dimen/small_margin">
+
+                    <TextView
+                        android:id="@+id/tvAverageCostTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/medium_margin"
+                        android:layout_marginEnd="@dimen/extra_large_margin"
+                        android:text="@string/average_cost"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvAverageCost"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$30,000"
+                        tools:text="$30,000" />
+                </TableRow>
+
+            </TableLayout>
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="@dimen/like_button_size"
+                android:layout_height="@dimen/like_button_size"
+                android:layout_gravity="end"
+                android:layout_marginEnd="@dimen/medium_margin"
+                android:layout_marginBottom="@dimen/small_margin"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toTopOf="@+id/divider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/favorite_border_black_48" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>

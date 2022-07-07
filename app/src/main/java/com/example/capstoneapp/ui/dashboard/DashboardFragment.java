@@ -32,7 +32,8 @@ public class DashboardFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
-        // TODO: Use the ViewModel
+
+        getActivity().setTitle(R.string.dashboard_title);
     }
 
 }

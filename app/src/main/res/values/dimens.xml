@@ -2,7 +2,8 @@
 <resources>
     <dimen name="small_margin">5dp</dimen>
     <dimen name="medium_margin">10dp</dimen>
-    <dimen name="large_margin">20dp</dimen>
+    <dimen name="large_margin">15dp</dimen>
+    <dimen name="larger_margin">20dp</dimen>
     <dimen name="extra_large_margin">50dp</dimen>
 
     <dimen name="border_padding">15dp</dimen>
@@ -19,5 +20,7 @@
 
     <dimen name="card_elevation">10dp</dimen>
     <dimen name="card_corner_radius">30dp</dimen>
+
+    <dimen name="like_button_size">20dp</dimen>
 
 </resources>

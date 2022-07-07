@@ -11,8 +11,21 @@
     <string name="RESULT_OK">24</string>
     <string name="RESULT_FAIL">-1</string>
 
+    // Fragment Titles
+    <string name="profile_title">My Profile</string>
+    <string name="dashboard_title">My Dashboard</string>
+    <string name="college_search_title">College Search</string>
+    <string name="colleges_title">My Colleges</string>
+    <string name="settings_title">Settings</string>
+
     // Profile Attributes
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
     <string name="degree_seeking">Degree Seeking</string>
+
+    //College Attributes
+    <string name="average_gpa">Average GPA</string>
+    <string name="college_type">College Type</string>
+    <string name="average_cost">Average Cost</string>
+
 </resources>

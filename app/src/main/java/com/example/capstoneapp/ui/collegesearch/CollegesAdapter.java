@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.capstoneapp.College;
 import com.example.capstoneapp.R;
-import com.parse.ParseFile;
 
 import java.util.List;
 
@@ -50,28 +49,31 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
 
         private ImageView ivThumbnail;
         private TextView tvName;
+        private TextView tvLocation;
         private TextView tvAverageGpa;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ivThumbnail = itemView.findViewById(R.id.ivThumbnail);
             tvName = itemView.findViewById(R.id.tvName);
-            tvAverageGpa = itemView.findViewById(R.id.tvAverageGpa);
+            tvLocation = itemView.findViewById(R.id.tvLocation);
+            tvAverageGpa = itemView.findViewById(R.id.tvAverageGpaTitle);
         }
 
         public void bind(College college) {
             //Set college thumbnail
-            ParseFile thumbnail = college.getThumbnail();
-            if (thumbnail != null) {
+            String thumbnailUrl = college.getThumbnail();
+            if (!thumbnailUrl.isEmpty()) {
                 Glide.with(context)
-                        .load(thumbnail.getUrl())
+                        .load(thumbnailUrl)
                         .into(ivThumbnail);
             } else {
                 ivThumbnail.setImageResource(R.drawable.college_black_48);
             }
 
+            // Set other college attributes
             tvName.setText(college.getCollegeName());
-            tvAverageGpa.setText("Other Info");
+            tvLocation.setText(college.getCity());
         }
     }
 }
