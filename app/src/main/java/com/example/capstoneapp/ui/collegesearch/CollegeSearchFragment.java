@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.Toolbar;
 
 import com.example.capstoneapp.College;
+import com.example.capstoneapp.EndlessRecyclerViewScrollListener;
 import com.example.capstoneapp.R;
 
 import java.util.ArrayList;
@@ -35,6 +36,9 @@ public class CollegeSearchFragment extends Fragment {
     protected CollegesAdapter collegesAdapter;
 
     private RecyclerView rvColleges;
+    private EndlessRecyclerViewScrollListener scrollListener;
+
+    protected Long maxId;
 
     public static CollegeSearchFragment newInstance() {
         return new CollegeSearchFragment();
@@ -55,12 +59,19 @@ public class CollegeSearchFragment extends Fragment {
         
         allColleges = new ArrayList<>();
         collegesAdapter = new CollegesAdapter(getContext(), allColleges);
-        
-        rvColleges = view.findViewById(R.id.rvColleges);
 
+        rvColleges = view.findViewById(R.id.rvColleges);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rvColleges.setAdapter(collegesAdapter);
         rvColleges.setLayoutManager(linearLayoutManager);
+
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                viewModel.loadNextDataFromParse(maxId);
+            }
+        };
+        rvColleges.addOnScrollListener(scrollListener);
 
         viewModel.getCollegesList();
 
@@ -78,5 +89,19 @@ public class CollegeSearchFragment extends Fragment {
             }
         };
         viewModel.allColleges.observe(getViewLifecycleOwner(), collegesObserver);
+
+        // Max ID observer
+        Observer<Long> maxIdObserver = new Observer<Long>() {
+            @Override
+            public void onChanged(Long newMaxId) {
+                if (newMaxId == null) {
+                    Log.e(TAG, "Max ID is null");
+                } else {
+                    Log.i(TAG, "Updated Max ID");
+                    maxId = newMaxId;
+                }
+            }
+        };
+        viewModel.maxId.observe(getViewLifecycleOwner(), maxIdObserver);
     }
 }

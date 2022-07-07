@@ -48,9 +48,10 @@ public class Utilities {
         });
     }
 
-    public static void getCollegesListFromParse(GetCollegeListListenerCallback callback) {
+    public static void getCollegesListFromParse(Long offset, GetCollegeListListenerCallback callback) {
         Log.i(TAG, "Querying colleges...");
         ParseQuery<College> query = ParseQuery.getQuery(College.class);
+        query.setSkip(Math.toIntExact(offset));
         query.setLimit(20);
         query.addAscendingOrder(College.KEY_NAME);
         query.findInBackground(new FindCallback<College>() {
