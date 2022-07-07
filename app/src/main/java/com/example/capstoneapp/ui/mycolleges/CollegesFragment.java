@@ -32,7 +32,8 @@ public class CollegesFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(CollegesViewModel.class);
-        // TODO: Use the ViewModel
+
+        getActivity().setTitle(R.string.colleges_title);
     }
 
 }

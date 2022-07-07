@@ -12,6 +12,7 @@ public class ParseApplication extends Application {
 
         // Register your parse models
         ParseObject.registerSubclass(ParseFirebaseUser.class);
+        ParseObject.registerSubclass(College.class);
 
         Parse.initialize(new Parse.Configuration.Builder(this)
                 .applicationId("v6IBsSIJoKwfmlreD5a3Hu4vAELTGbZTr62Pril2")

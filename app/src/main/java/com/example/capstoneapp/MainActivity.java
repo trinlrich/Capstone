@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 logoutUser();
             case R.id.nav_dashboard:
             default:
-                Log.i(TAG, "Settings Clicked");
+                Log.i(TAG, "Dashboard Clicked");
                 fragment = dashboardFragment;
                 break;
         }

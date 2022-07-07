@@ -57,9 +57,6 @@ public class AuthActivity extends AppCompatActivity {
             if (authState.equals(AuthViewModel.AuthenticationState.AUTHENTICATED)) {
                 Log.i(TAG, "Start Home Screen");
                 startHomeScreen();
-            } else if (authState.equals(AuthViewModel.AuthenticationState.AUTH_INCOMPLETE)) {
-                Log.i(TAG, "Incomplete Survey");
-                startSignInSurvey();
             } else if (authState.equals(AuthViewModel.AuthenticationState.UNAUTHENTICATED)) {
                 Log.e(TAG, "Not Authenticated");
                 createFirebaseSignInIntent();
@@ -101,7 +98,6 @@ public class AuthActivity extends AppCompatActivity {
         List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.EmailBuilder().build(),
                 new AuthUI.IdpConfig.GoogleBuilder().build());
-
 
         // Create and launch sign-in intent
         Intent signInIntent = AuthUI.getInstance()

@@ -32,6 +32,8 @@ public class SettingsFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
+
+        getActivity().setTitle(R.string.settings_title);
     }
 
 }
