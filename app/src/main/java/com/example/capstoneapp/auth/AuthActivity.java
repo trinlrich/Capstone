@@ -55,8 +55,8 @@ public class AuthActivity extends AppCompatActivity {
             Log.i(TAG, "Observer Triggered");
             contentHasLoaded = true;
             if (authState.equals(AuthViewModel.AuthenticationState.AUTHENTICATED)) {
-                Log.i(TAG, "Start Home Screen");
-                startHomeScreen();
+                Log.i(TAG, "Checking for User ID");
+                viewModel.checkForUserId(auth.getCurrentUser().getUid());
             } else if (authState.equals(AuthViewModel.AuthenticationState.UNAUTHENTICATED)) {
                 Log.e(TAG, "Not Authenticated");
                 createFirebaseSignInIntent();
@@ -70,8 +70,10 @@ public class AuthActivity extends AppCompatActivity {
             @Override
             public void onChanged(Boolean signInState) {
                 if (signInState == true) {
+                    Log.i(TAG, "Starting Home Screen");
                     startHomeScreen();
                 } else if (signInState == false) {
+                    Log.i(TAG, "Starting Survey Screen");
                     startSignInSurvey();
                 }
             }

@@ -22,23 +22,22 @@ public class AuthViewModel extends ViewModel {
         AUTHENTICATED, UNAUTHENTICATED;
     }
 
-    FirebaseUserLiveData firebaseUserLiveData = new FirebaseUserLiveData();
+    private FirebaseUserLiveData firebaseUserLiveData = new FirebaseUserLiveData();
     LiveData<AuthenticationState> authenticationState = Transformations.map(firebaseUserLiveData, authenticatedUser -> {
         if (authenticatedUser != null) {
             userId = authenticatedUser.getUid();
-            Log.i(TAG, "Checking for User ID");
-            checkForUserId(userId);
             return AuthenticationState.AUTHENTICATED;
         } else {
             return AuthenticationState.UNAUTHENTICATED;
         }
     });
 
-    private void checkForUserId(String userId) {
+
+
+    public void checkForUserId(String userId) {
         Utilities.getProfileFromParse(userId, new GetUserProfileListenerCallback() {
             @Override
             public void onCompleted(List<ParseFirebaseUser> users) {
-                Log.i(TAG, "in onComplete");
                 if (users == null) {
                     Log.i(TAG, "FirebaseUid not found");
                     isSignUpCompleted.setValue(false);
