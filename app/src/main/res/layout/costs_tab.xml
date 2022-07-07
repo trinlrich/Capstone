@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/averageCostCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/medium_margin"
+        android:padding="@dimen/small_margin"
+        app:cardCornerRadius="@dimen/card_corner_radius"
+        app:cardElevation="@dimen/card_elevation">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvAverageCostTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/average_cost" />
+
+            <include
+                android:id="@+id/divider"
+                layout="@layout/divider_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/small_margin" />
+
+            <TextView
+                android:id="@+id/tvAverageCost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="$30,000"
+                android:textStyle="bold"
+                tools:text="$30,000" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/tuitionTitleCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/medium_margin"
+        android:padding="@dimen/small_margin"
+        app:cardCornerRadius="@dimen/card_corner_radius"
+        app:cardElevation="@dimen/card_elevation">
+
+        <TextView
+            android:id="@+id/tvTuitionTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/tuition_fees" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <LinearLayout
+        android:id="@+id/tuitions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/inTuitionCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/medium_margin"
+            android:layout_weight="5"
+            android:padding="@dimen/small_margin"
+            android:theme="@style/CardTheme"
+            app:cardCornerRadius="@dimen/card_corner_radius"
+            app:cardElevation="@dimen/card_elevation">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvInTuitionTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/in_tuition" />
+
+                <include
+                    android:id="@+id/divider"
+                    layout="@layout/divider_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/small_margin" />
+
+                <TextView
+                    android:id="@+id/tvInTuition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="$5,000"
+                    android:textStyle="bold"
+                    tools:text="$5,000" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/outTuitionCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/medium_margin"
+            android:layout_weight="5"
+            android:padding="@dimen/small_margin"
+            app:cardCornerRadius="@dimen/card_corner_radius"
+            app:cardElevation="@dimen/card_elevation">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvOutTuitionTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/out_tuition" />
+
+                <include
+                    android:id="@+id/divider"
+                    layout="@layout/divider_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/small_margin" />
+
+                <TextView
+                    android:id="@+id/tvOutTuition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="$11,500"
+                    android:textStyle="bold"
+                    tools:text="$11,500" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+    <TableLayout
+        android:id="@+id/collegeCostInfo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="@dimen/larger_margin"
+        android:layout_marginTop="@dimen/medium_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/deadlines"
+        tools:layout_editor_absoluteX="20dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:theme="@style/TableRowStyle">
+
+            <TextView
+                android:id="@+id/tvGraduationRateTItle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/medium_margin"
+                android:layout_marginEnd="@dimen/extra_large_margin"
+                android:text="@string/federal_loans"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvGraduationRate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="73%"
+                tools:text="73%" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:theme="@style/TableRowStyle">
+
+            <TextView
+                android:id="@+id/tvAverageGpaTItle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/medium_margin"
+                android:layout_marginEnd="@dimen/extra_large_margin"
+                android:text="@string/pell_students"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvAverageGpa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="56%"
+                tools:text="56%" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:theme="@style/TableRowStyle">
+
+            <TextView
+                android:id="@+id/tvAverageSatTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/medium_margin"
+                android:layout_marginEnd="@dimen/extra_large_margin"
+                android:text="@string/student_debt"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvCollegeType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$16,000"
+                tools:text="$16,000" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:theme="@style/TableRowStyle">
+
+            <TextView
+                android:id="@+id/tvAverageActTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/medium_margin"
+                android:layout_marginEnd="@dimen/extra_large_margin"
+                android:text="@string/parent_debt"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvSpecialMission"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$8,000"
+                tools:text="$8,000" />
+        </TableRow>
+
+    </TableLayout>
+
+</LinearLayout>

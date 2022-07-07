@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TableLayout
+        android:id="@+id/collegeAcademicsInfo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/larger_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/deadlines"
+        tools:layout_editor_absoluteX="20dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:theme="@style/TableRowStyle">
+
+            <TextView
+                android:id="@+id/tvGraduationRateTItle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/medium_margin"
+                android:layout_marginEnd="@dimen/extra_large_margin"
+                android:text="@string/graduation_rate"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvGraduationRate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="55%"
+                tools:text="55%" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:theme="@style/TableRowStyle">
+
+            <TextView
+                android:id="@+id/tvAverageGpaTItle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/medium_margin"
+                android:layout_marginEnd="@dimen/extra_large_margin"
+                android:text="@string/average_gpa"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvAverageGpa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4.0"
+                tools:text="4.0" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:theme="@style/TableRowStyle">
+
+            <TextView
+                android:id="@+id/tvAverageSatTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/medium_margin"
+                android:layout_marginEnd="@dimen/extra_large_margin"
+                android:text="@string/average_sat"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvCollegeType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1320"
+                tools:text="1320" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:theme="@style/TableRowStyle">
+
+            <TextView
+                android:id="@+id/tvAverageActTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/medium_margin"
+                android:layout_marginEnd="@dimen/extra_large_margin"
+                android:text="@string/average_act"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvSpecialMission"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="30"
+                tools:text="30" />
+        </TableRow>
+
+    </TableLayout>
+
+</LinearLayout>

@@ -57,7 +57,7 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
             ivThumbnail = itemView.findViewById(R.id.ivThumbnail);
             tvName = itemView.findViewById(R.id.tvName);
             tvLocation = itemView.findViewById(R.id.tvLocation);
-            tvAverageGpa = itemView.findViewById(R.id.tvAverageGpaTitle);
+            tvAverageGpa = itemView.findViewById(R.id.tvAcceptanceRateTItle);
         }
 
         public void bind(College college) {
