@@ -15,21 +15,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TabHost;
 import android.widget.TextView;
 
-import com.example.capstoneapp.ParseFirebaseUser;
+import com.example.capstoneapp.College;
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.Utilities;
-import com.example.capstoneapp.ui.profile.ProfileViewModel;
 import com.google.android.material.tabs.TabLayout;
-import com.parse.ParseFile;
 
 public class CollegeDetailFragment extends Fragment {
 
     public static final String TAG = "CollegeDetailFragment";
 
     private CollegeDetailViewModel viewModel;
+
+    private College college;
 
     private ImageView ivThumbnail;
     private TextView tvName;
@@ -39,8 +38,12 @@ public class CollegeDetailFragment extends Fragment {
     private ViewPager viewPager;
     private FragmentPagerAdapter fragmentPagerAdapter;
 
-    public static CollegeDetailFragment newInstance() {
-        return new CollegeDetailFragment();
+    private CollegeDetailFragment(College college) {
+        this.college = college;
+    }
+
+    public static CollegeDetailFragment newInstance(College college) {
+        return new CollegeDetailFragment(college);
     }
 
     @Override
@@ -62,9 +65,13 @@ public class CollegeDetailFragment extends Fragment {
         viewPager = view.findViewById(R.id.viewpager);
         tabLayout = view.findViewById(R.id.tabs);
 
-        fragmentPagerAdapter = new FragmentPagerAdapter(((FragmentActivity) getContext()).getSupportFragmentManager());
+        fragmentPagerAdapter = new FragmentPagerAdapter(getChildFragmentManager());
         viewPager.setAdapter(fragmentPagerAdapter);
 
         tabLayout.setupWithViewPager(viewPager);
+
+        Utilities.setImage(getContext(), ivThumbnail, college.getThumbnail(), null, R.drawable.college_black_48);
+        tvName.setText(college.getName());
+        tvLocation.setText(college.getCity());
     }
 }

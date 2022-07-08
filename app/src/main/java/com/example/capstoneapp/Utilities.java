@@ -4,15 +4,10 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.ImageView;
 
-import androidx.lifecycle.Transformations;
-
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.Key;
 import com.bumptech.glide.load.Transformation;
-import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.parse.FindCallback;
 import com.parse.ParseException;
-import com.parse.ParseFile;
 import com.parse.ParseQuery;
 
 import java.util.List;
@@ -74,7 +69,7 @@ public class Utilities {
                     // Log all colleges
                     Log.i(TAG, "Colleges found:");
                     for (College college : colleges) {
-                        Log.i(TAG, "- " + college.getCollegeName());
+                        Log.i(TAG, "- " + college.getName());
                     }
                     callback.onCompleted(colleges);
                 }
@@ -82,14 +77,48 @@ public class Utilities {
         });
     }
 
-    public static void setImage(Context context, ImageView imageView, ParseFile image, Transformation transformation, int defaultImage) {
-        if (image != null) {
-            Glide.with(context)
-                    .load(image.getUrl())
-                    .transform(transformation)
-                    .into(imageView);
+    public static void getCollegeFromParse(GetCollegeListListenerCallback callback) {
+        Log.i(TAG, "Querying college...");
+        ParseQuery<College> query = ParseQuery.getQuery(College.class);
+        query.findInBackground(new FindCallback<College>() {
+            @Override
+            public void done(List<College> colleges, ParseException e) {
+                // check for errors. pass null values to indicate errors to callers
+                Log.i(TAG, "Query done");
+                if (e != null) {
+                    Log.e(TAG, "Issue with getting colleges", e);
+                    callback.onCompleted(null);
+                } else if (colleges.size() == 0) {
+                    Log.i(TAG, "No colleges found");
+                    callback.onCompleted(null);
+                    return;
+                } else {
+                    // Log all colleges
+                    Log.i(TAG, "Colleges found:");
+                    for (College college : colleges) {
+                        Log.i(TAG, "- " + college.getName());
+                    }
+                    callback.onCompleted(colleges);
+                }
+            }
+        });
+    }
+
+    public static void setImage(Context context, ImageView imageView, String imageUrl, Transformation transformation, int defaultImage) {
+        if (!imageUrl.isEmpty()) {
+            if (transformation == null) {
+                Glide.with(context)
+                        .load(imageUrl)
+                        .into(imageView);
+            } else {
+                Glide.with(context)
+                        .load(imageUrl)
+                        .transform(transformation)
+                        .into(imageView);
+            }
         } else {
             imageView.setImageResource(defaultImage);
+            imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
         }
     }
 }

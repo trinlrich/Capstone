@@ -1,10 +1,13 @@
 package com.example.capstoneapp.ui.collegesearch.collegedetail;
 
+import android.content.res.Resources;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.capstoneapp.R;
 import com.example.capstoneapp.ui.collegesearch.collegedetail.tabs.AcademicsFragment;
 import com.example.capstoneapp.ui.collegesearch.collegedetail.tabs.CostsFragment;
 import com.example.capstoneapp.ui.collegesearch.collegedetail.tabs.OverviewFragment;

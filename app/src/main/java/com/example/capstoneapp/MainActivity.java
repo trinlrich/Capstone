@@ -83,7 +83,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     Log.e(TAG, "No user found");
                 } else {
                     ParseFile profileImage = user.getProfileImage();
-                    Utilities.setImage(getApplicationContext(), ivNavProfileImage, profileImage, new CircleCrop(), R.drawable.profile_black_48);
+                    if (profileImage != null) {
+                        Utilities.setImage(getApplicationContext(), ivNavProfileImage, profileImage.getUrl(), new CircleCrop(), R.drawable.profile_black_48);
+                    }
                     tvNavUserName.setText(user.getFirstName() + " " + user.getLastName());
                 }
             }

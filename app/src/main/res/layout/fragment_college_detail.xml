@@ -12,6 +12,8 @@
         android:id="@+id/ivDetailThumbnail"
         android:layout_width="match_parent"
         android:layout_height="@dimen/college_detail_image_height"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
         android:src="@drawable/college_black_48"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +34,6 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/large_margin"
         android:layout_marginVertical="@dimen/medium_margin"
-        android:text="North Carolina AT State University"
         android:theme="@style/HeaderText"
         app:flow_horizontalAlign="start"
         app:layout_constrainedWidth="true"
@@ -40,7 +41,7 @@
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider"
-        tools:text="North Carolina AT State University" />
+        tools:text="College Name" />
 
     <TextView
         android:id="@+id/tvDetailLocation"
@@ -48,12 +49,11 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/large_margin"
         android:layout_marginBottom="@dimen/medium_margin"
-        android:text="Greensboro, NC"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvDetailName"
-        tools:text="Greensboro, NC" />
+        tools:text="City, State" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/main_content"

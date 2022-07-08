@@ -1,6 +1,7 @@
 package com.example.capstoneapp.ui.collegesearch;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,21 +10,26 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.capstoneapp.College;
 import com.example.capstoneapp.R;
+import com.example.capstoneapp.Utilities;
 import com.example.capstoneapp.ui.collegesearch.collegedetail.CollegeDetailFragment;
 
 import java.util.List;
+
+import okhttp3.internal.Util;
 
 public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHolder> {
     private static final String TAG = "PostsAdapter";
 
     private Context context;
     private List<College> colleges;
+    private Fragment fragment;
 
     public CollegesAdapter(Context context, List<College> colleges) {
         this.context = context;
@@ -64,18 +70,8 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
         }
 
         public void bind(College college) {
-            //Set college thumbnail
-            String thumbnailUrl = college.getThumbnail();
-            if (!thumbnailUrl.isEmpty()) {
-                Glide.with(context)
-                        .load(thumbnailUrl)
-                        .into(ivThumbnail);
-            } else {
-                ivThumbnail.setImageResource(R.drawable.college_black_48);
-            }
-
-            // Set other college attributes
-            tvName.setText(college.getCollegeName());
+            Utilities.setImage(context, ivThumbnail, college.getThumbnail(), null, R.drawable.college_black_48);
+            tvName.setText(college.getName());
             tvLocation.setText(college.getCity());
 
             itemView.setOnClickListener(this);
@@ -88,9 +84,16 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
             Log.i(TAG, "onClick " + position);
             if (position != RecyclerView.NO_POSITION) {
                 College college = colleges.get(position);
+
+                Fragment fragment = CollegeDetailFragment.newInstance(college);
+                Bundle args = new Bundle();
+                args.putString(College.KEY_ID, college.getCollegeId());
+                fragment.setArguments(args);
+
                 ((FragmentActivity) context).getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.flContainer, new CollegeDetailFragment())
+                        .replace(R.id.flContainer, fragment)
+                        .addToBackStack(null)
                         .commit();
             }
         }

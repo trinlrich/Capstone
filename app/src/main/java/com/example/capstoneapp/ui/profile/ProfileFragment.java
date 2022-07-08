@@ -74,7 +74,9 @@ public class ProfileFragment extends Fragment {
                     tvLastName.setText(user.getLastName());
                     tvDegreeSeeking.setText(user.getDegreeSeeking());
                     ParseFile profileImage = user.getProfileImage();
-                    Utilities.setImage(getContext(), ivFragProfileImage, profileImage, new CircleCrop(), R.drawable.profile_black_48);
+                    if (profileImage != null) {
+                        Utilities.setImage(getContext(), ivFragProfileImage, profileImage.getUrl(), new CircleCrop(), R.drawable.profile_black_48);
+                    }
                 }
             }
         };

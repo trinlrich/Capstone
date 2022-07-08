@@ -1,7 +1,6 @@
 package com.example.capstoneapp.ui.collegesearch;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -17,11 +16,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toolbar;
 
 import com.example.capstoneapp.College;
 import com.example.capstoneapp.EndlessRecyclerViewScrollListener;
 import com.example.capstoneapp.R;
+import com.example.capstoneapp.ui.collegesearch.collegedetail.CollegeDetailFragment;
 
 import java.util.ArrayList;
 import java.util.List;

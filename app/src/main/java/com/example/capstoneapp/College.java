@@ -7,14 +7,19 @@ import com.parse.ParseObject;
 @ParseClassName("Colleges")
 public class College extends ParseObject {
 
+    public static final String KEY_ID = "collegeId";
     public static final String KEY_NAME = "collegeName";
     public static final String KEY_THUMBNAIL = "collegeThumbnail";
     public static final String KEY_CITY = "collegeCity";
     public static final String KEY_AVERAGE_GPA = "averageGpa";
 
-    public String getCollegeName() { return getString(KEY_NAME); }
+    public String getCollegeId() { return getString(KEY_ID); }
 
-    public void setCollegeName(String name) { put(KEY_NAME, name); }
+    public void setCollegeId(String id) { put(KEY_ID, id); }
+
+    public String getName() { return getString(KEY_NAME); }
+
+    public void setName(String name) { put(KEY_NAME, name); }
 
     public String getThumbnail() { return getString(KEY_THUMBNAIL); }
 
