@@ -1,10 +1,14 @@
 package com.example.capstoneapp;
 
+import android.content.Context;
 import android.util.Log;
 import android.widget.ImageView;
 
+import androidx.lifecycle.Transformations;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.Key;
+import com.bumptech.glide.load.Transformation;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -76,5 +80,16 @@ public class Utilities {
                 }
             }
         });
+    }
+
+    public static void setImage(Context context, ImageView imageView, ParseFile image, Transformation transformation, int defaultImage) {
+        if (image != null) {
+            Glide.with(context)
+                    .load(image.getUrl())
+                    .transform(transformation)
+                    .into(imageView);
+        } else {
+            imageView.setImageResource(defaultImage);
+        }
     }
 }
