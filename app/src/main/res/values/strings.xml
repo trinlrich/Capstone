@@ -24,8 +24,39 @@
     <string name="degree_seeking">Degree Seeking</string>
 
     //College Attributes
-    <string name="average_gpa">Average GPA</string>
+
+    // Overview
+    <string name="ea_deadline">Early Action Application Deadline</string>
+    <string name="rd_deadline">Regular Decision Application Deadline</string>
     <string name="college_type">College Type</string>
-    <string name="average_cost">Average Cost</string>
+    <string name="degree_type">Degree Type</string>
+    <string name="special_mission">Special Mission</string>
+    <string name="acceptance_rate">Acceptance Rate</string>
+    <string name="undergrad_enrollment">Undergrad Enrollment</string>
+    <string name="website">Website</string>
+
+    // Academics
+    <string name="graduation_rate">Graduation Rate</string>
+    <string name="average_gpa">Average GPA</string>
+    <string name="average_sat">Average SAT</string>
+    <string name="average_act">Average ACT</string>
+
+    // Costs
+    <string name="average_cost">Average Cost of Attendance</string>
+    <string name="tuition_fees">Tuition and Fees</string>
+    <string name="in_tuition">In-State Tuition</string>
+    <string name="out_tuition">Out-of-State Tuition</string>
+    <string name="federal_loans">Receiving Federal Loans</string>
+    <string name="pell_students">Pell Students</string>
+    <string name="student_debt">Median Student Debt</string>
+    <string name="parent_debt">Median Parent PLUS Debt</string>
+
+
+    //College Detail Tabs
+    <string name="overview_tab">Overview</string>
+    <string name="academics_tab">Academics</string>
+    <string name="costs_tab">Costs</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

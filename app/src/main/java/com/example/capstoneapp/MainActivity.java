@@ -19,9 +19,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.capstoneapp.ui.profile.ProfileFragment;
 import com.example.capstoneapp.ui.dashboard.DashboardFragment;
@@ -85,7 +83,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     Log.e(TAG, "No user found");
                 } else {
                     ParseFile profileImage = user.getProfileImage();
-                    setImage(ivNavProfileImage, profileImage, R.drawable.profile_black_48);
+                    if (profileImage != null) {
+                        Utilities.setImage(getApplicationContext(), ivNavProfileImage, profileImage.getUrl(), new CircleCrop(), R.drawable.profile_black_48);
+                    }
                     tvNavUserName.setText(user.getFirstName() + " " + user.getLastName());
                 }
             }
@@ -137,18 +137,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    public void setImage(ImageView imageView, ParseFile image, int defaultImage) {
-        if (image != null) {
-            Glide.with(this)
-                    .load(image.getUrl())
-                    .transform(new CircleCrop())
-                    .into(imageView);
-        } else {
-            imageView.setImageResource(defaultImage);
-        }
-
     }
 
     public void onProfileClick(View view) {

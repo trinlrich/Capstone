@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/deadlines"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/small_margin"
+        android:weightSum="10">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/eaDeadlineCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/medium_margin"
+            android:layout_weight="5"
+            android:padding="@dimen/small_margin"
+            android:theme="@style/CardTheme"
+            app:cardCornerRadius="@dimen/card_corner_radius"
+            app:cardElevation="@dimen/card_elevation">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvEADeadlineTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/ea_deadline" />
+
+                <include
+                    android:id="@+id/divider"
+                    layout="@layout/divider_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/small_margin" />
+
+                <TextView
+                    android:id="@+id/tvEDDeadline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="12/12/2022"
+                    android:textStyle="bold"
+                    tools:text="12/12/2022" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/rdDeadlineCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/medium_margin"
+            android:layout_weight="5"
+            android:padding="@dimen/small_margin"
+            android:theme="@style/CardTheme"
+            app:cardCornerRadius="@dimen/card_corner_radius"
+            app:cardElevation="@dimen/card_elevation">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvRDDeadlineTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/rd_deadline" />
+
+                <include
+                    android:id="@+id/divider"
+                    layout="@layout/divider_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/small_margin" />
+
+                <TextView
+                    android:id="@+id/tvRDDeadline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="12/12/2022"
+                    android:textStyle="bold"
+                    tools:text="12/12/2022" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+    <TableLayout
+        android:id="@+id/collegeOverviewInfo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="@dimen/larger_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/deadlines"
+        tools:layout_editor_absoluteX="20dp">
+
+        <TableRow
+            android:id="@+id/collegeTypeRow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:theme="@style/TableRowStyle">
+
+            <TextView
+                android:id="@+id/tvAverageSatTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/medium_margin"
+                android:layout_marginEnd="@dimen/extra_large_margin"
+                android:text="@string/college_type"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvCollegeType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Public"
+                tools:text="Public" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/degreeTypeRow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:theme="@style/TableRowStyle">
+
+            <TextView
+                android:id="@+id/tvDegreeTypeTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/medium_margin"
+                android:layout_marginEnd="@dimen/extra_large_margin"
+                android:text="@string/degree_type"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvDegreeType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4-year"
+                tools:text="4-year" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/specialMissionRow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:theme="@style/TableRowStyle">
+
+            <TextView
+                android:id="@+id/tvAverageActTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/medium_margin"
+                android:layout_marginEnd="@dimen/extra_large_margin"
+                android:text="@string/special_mission"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvSpecialMission"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HBCU"
+                tools:text="HBCU" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/acceptanceRateRow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:theme="@style/TableRowStyle">
+
+            <TextView
+                android:id="@+id/tvAcceptanceRateTItle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/medium_margin"
+                android:layout_marginEnd="@dimen/extra_large_margin"
+                android:text="@string/acceptance_rate"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvAverageGpa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="56.7%"
+                tools:text="56.7%" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/undergradEnrollmentRow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:theme="@style/TableRowStyle">
+
+            <TextView
+                android:id="@+id/tvUndergradEnrollmentTItle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/medium_margin"
+                android:layout_marginEnd="@dimen/extra_large_margin"
+                android:text="@string/undergrad_enrollment"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvUndergradEnrollment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="11,000"
+                tools:text="11,000" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/websiteRow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:theme="@style/TableRowStyle">
+
+            <TextView
+                android:id="@+id/tvWebsiteTItle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/medium_margin"
+                android:layout_marginEnd="@dimen/extra_large_margin"
+                android:text="@string/website"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvWebsite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="www.ncat.edu"
+                tools:text="www.ncat.edu" />
+        </TableRow>
+
+    </TableLayout>
+
+</LinearLayout>
