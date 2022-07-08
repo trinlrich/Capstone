@@ -15,13 +15,16 @@
 
     <dimen name="nav_profile_image">35dp</dimen>
     <dimen name="frag_profile_image">100dp</dimen>
-    <dimen name="college_detail_image_height">200dp</dimen>
+    <dimen name="college_detail_image_height">150dp</dimen>
 
     <dimen name="border_stroke_width">1dp</dimen>
 
     <dimen name="card_elevation">10dp</dimen>
-    <dimen name="card_corner_radius">30dp</dimen>
+    <dimen name="corner_radius">30dp</dimen>
 
     <dimen name="like_button_size">20dp</dimen>
+
+    <dimen name="add_favorites_btn_height">30dp</dimen>
+    <dimen name="add_favorites_btn_text_size">8sp</dimen>
 
 </resources>

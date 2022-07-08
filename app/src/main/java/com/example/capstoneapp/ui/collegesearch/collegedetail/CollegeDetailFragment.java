@@ -5,12 +5,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +33,7 @@ public class CollegeDetailFragment extends Fragment {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private FragmentPagerAdapter fragmentPagerAdapter;
+    private CollegeDetailFragmentPagerAdapter fragmentPagerAdapter;
 
     private CollegeDetailFragment(College college) {
         this.college = college;
@@ -57,6 +54,8 @@ public class CollegeDetailFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(this).get(CollegeDetailViewModel.class);
 
+        getActivity().setTitle("");
+
         ivThumbnail = view.findViewById(R.id.ivDetailThumbnail);
         tvName = view.findViewById(R.id.tvDetailName);
         tvLocation = view.findViewById(R.id.tvDetailLocation);
@@ -65,7 +64,7 @@ public class CollegeDetailFragment extends Fragment {
         viewPager = view.findViewById(R.id.viewpager);
         tabLayout = view.findViewById(R.id.tabs);
 
-        fragmentPagerAdapter = new FragmentPagerAdapter(getChildFragmentManager());
+        fragmentPagerAdapter = new CollegeDetailFragmentPagerAdapter(getChildFragmentManager(), getContext());
         viewPager.setAdapter(fragmentPagerAdapter);
 
         tabLayout.setupWithViewPager(viewPager);

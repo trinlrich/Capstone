@@ -1,6 +1,6 @@
 package com.example.capstoneapp.ui.collegesearch.collegedetail;
 
-import android.content.res.Resources;
+import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,9 +12,13 @@ import com.example.capstoneapp.ui.collegesearch.collegedetail.tabs.AcademicsFrag
 import com.example.capstoneapp.ui.collegesearch.collegedetail.tabs.CostsFragment;
 import com.example.capstoneapp.ui.collegesearch.collegedetail.tabs.OverviewFragment;
 
-public class FragmentPagerAdapter extends androidx.fragment.app.FragmentPagerAdapter {
-    public FragmentPagerAdapter(@NonNull FragmentManager fm) {
+public class CollegeDetailFragmentPagerAdapter extends androidx.fragment.app.FragmentPagerAdapter {
+
+    Context context;
+
+    public CollegeDetailFragmentPagerAdapter(@NonNull FragmentManager fm, Context context) {
         super(fm);
+        this.context = context;
     }
 
     @NonNull
@@ -41,11 +45,11 @@ public class FragmentPagerAdapter extends androidx.fragment.app.FragmentPagerAda
     public CharSequence getPageTitle(int position) {
         String title = null;
         if (position == 0) {
-            title = "Overview";
+            title = context.getString(R.string.overview_tab);
         } else if (position == 1) {
-            title = "Academics";
+            title = context.getString(R.string.academics_tab);;
         } else if (position == 2) {
-            title = "Costs";
+            title = context.getString(R.string.costs_tab);;
         }
         return title;
     }

@@ -56,7 +56,7 @@
     <string name="overview_tab">Overview</string>
     <string name="academics_tab">Academics</string>
     <string name="costs_tab">Costs</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="add_favorites">Add to Favorites</string>
 
 </resources>

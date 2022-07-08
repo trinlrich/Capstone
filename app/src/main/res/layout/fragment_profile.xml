@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/medium_margin"
         android:theme="@style/CardTheme"
-        app:cardCornerRadius="@dimen/card_corner_radius"
+        app:cardCornerRadius="@dimen/corner_radius"
         app:cardElevation="@dimen/card_elevation"
         app:contentPadding="@dimen/larger_margin"
         app:layout_constraintEnd_toEndOf="parent"
