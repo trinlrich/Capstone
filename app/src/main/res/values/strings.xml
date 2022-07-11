@@ -42,10 +42,15 @@
     <string name="average_act">Average ACT</string>
 
     // Costs
+    <string name="breakdown_title">Breakdown</string>
     <string name="average_cost">Average Cost of Attendance</string>
     <string name="tuition_fees">Tuition and Fees</string>
     <string name="in_tuition">In-State Tuition</string>
     <string name="out_tuition">Out-of-State Tuition</string>
+    <string name="room_board">Room and Board</string>
+    <string name="books">Books and Supplies</string>
+    <string name="other_exp">Other Expenses</string>
+        
     <string name="federal_loans">Receiving Federal Loans</string>
     <string name="pell_students">Pell Students</string>
     <string name="student_debt">Median Student Debt</string>
@@ -56,7 +61,11 @@
     <string name="overview_tab">Overview</string>
     <string name="academics_tab">Academics</string>
     <string name="costs_tab">Costs</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="add_favorites">Add to Favorites</string>
+
+    <string name="na_text">Not Available</string>
+    <string name="thumbnail_description">College thumbnail</string>
+    <string name="favorite_button_descrption">Favorite button</string>
 
 </resources>

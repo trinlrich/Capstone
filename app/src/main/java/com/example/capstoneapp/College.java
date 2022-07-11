@@ -29,6 +29,11 @@ public class College extends ParseObject {
 
     public void setCity(String city) { put(KEY_CITY, city); }
 
-    // TODO:: Pull State and concat city and state (City, ST)
+    public String getLocation() {
+        // TODO:: Pull State and concat city and state (City, ST)
+        return getCity();
+    }
+
+
 
 }

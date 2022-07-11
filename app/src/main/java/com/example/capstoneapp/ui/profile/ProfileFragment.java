@@ -1,7 +1,6 @@
 package com.example.capstoneapp.ui.profile;
 
-import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
-
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -52,7 +51,10 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
 
-        getActivity().setTitle(R.string.profile_title);
+        FragmentActivity activity = getActivity();
+        if (activity != null) {
+            activity.setTitle(R.string.profile_title);
+        }
 
         ivFragProfileImage = view.findViewById(R.id.ivFragProfileImage);
         tvUserName = view.findViewById(R.id.tvFragUserName);
@@ -63,20 +65,17 @@ public class ProfileFragment extends Fragment {
         viewModel.getUserProfileInfo();
 
         // User observer
-        Observer<ParseFirebaseUser> userObserver = new Observer<ParseFirebaseUser>() {
-            @Override
-            public void onChanged(ParseFirebaseUser user) {
-                if (user == null) {
-                    Log.e(TAG, "No user found");
-                } else {
-                    tvUserName.setText(user.getFirstName() + " " + user.getLastName());
-                    tvFirstName.setText(user.getString("firstName"));
-                    tvLastName.setText(user.getLastName());
-                    tvDegreeSeeking.setText(user.getDegreeSeeking());
-                    ParseFile profileImage = user.getProfileImage();
-                    if (profileImage != null) {
-                        Utilities.setImage(getContext(), ivFragProfileImage, profileImage.getUrl(), new CircleCrop(), R.drawable.profile_black_48);
-                    }
+        Observer<ParseFirebaseUser> userObserver = user -> {
+            if (user == null) {
+                Log.e(TAG, "No user found");
+            } else {
+                Utilities.setViewText(getContext(), tvUserName, user.getFirstName() + " " + user.getLastName());
+                Utilities.setViewText(getContext(), tvFirstName, user.getFirstName());
+                Utilities.setViewText(getContext(), tvLastName, user.getLastName());
+                Utilities.setViewText(getContext(), tvDegreeSeeking, user.getDegreeSeeking());
+                ParseFile profileImage = user.getProfileImage();
+                if (profileImage != null) {
+                    Utilities.setViewImage(getContext(), ivFragProfileImage, profileImage.getUrl(), new CircleCrop(), R.drawable.profile_black_48);
                 }
             }
         };

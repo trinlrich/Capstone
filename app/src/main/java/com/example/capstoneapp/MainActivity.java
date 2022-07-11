@@ -1,6 +1,7 @@
 package com.example.capstoneapp;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -10,14 +11,13 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private androidx.appcompat.widget.Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
+    private ActionBar actionBar;
     private NavigationView sideNav;
     private View navHeader;
     private ImageView ivNavProfileImage;
@@ -76,18 +77,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         viewModel.getUserProfileInfo();
 
         // User observer
-        Observer<ParseFirebaseUser> userObserver = new Observer<ParseFirebaseUser>() {
-            @Override
-            public void onChanged(ParseFirebaseUser user) {
-                if (user == null) {
-                    Log.e(TAG, "No user found");
-                } else {
-                    ParseFile profileImage = user.getProfileImage();
-                    if (profileImage != null) {
-                        Utilities.setImage(getApplicationContext(), ivNavProfileImage, profileImage.getUrl(), new CircleCrop(), R.drawable.profile_black_48);
-                    }
-                    tvNavUserName.setText(user.getFirstName() + " " + user.getLastName());
+        Observer<ParseFirebaseUser> userObserver = user -> {
+            if (user == null) {
+                Log.e(TAG, "No user found");
+            } else {
+                ParseFile profileImage = user.getProfileImage();
+                if (profileImage != null) {
+                    Utilities.setViewImage(getApplicationContext(), ivNavProfileImage, profileImage.getUrl(), new CircleCrop(), R.drawable.profile_black_48);
                 }
+                Utilities.setViewText(getApplicationContext(), tvNavUserName, user.getFirstName() + " " + user.getLastName());
             }
         };
         viewModel.user.observe(this, userObserver);
@@ -98,7 +96,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
         sideNav.setNavigationItemSelectedListener(this);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     @Override
@@ -109,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment fragment;
