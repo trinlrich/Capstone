@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <com.google.android.material.card.MaterialCardView
@@ -168,7 +168,7 @@
                 android:theme="@style/TableRowStyle">
 
                 <TextView
-                    android:id="@+id/tvGraduationRateTItle"
+                    android:id="@+id/tvTuition"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/medium_margin"

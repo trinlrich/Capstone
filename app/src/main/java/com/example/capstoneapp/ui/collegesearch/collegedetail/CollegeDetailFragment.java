@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
@@ -54,7 +55,10 @@ public class CollegeDetailFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(this).get(CollegeDetailViewModel.class);
 
-        getActivity().setTitle("");
+        FragmentActivity activity = getActivity();
+        if (activity != null) {
+            activity.setTitle("");
+        }
 
         ivThumbnail = view.findViewById(R.id.ivDetailThumbnail);
         tvName = view.findViewById(R.id.tvDetailName);
@@ -69,8 +73,8 @@ public class CollegeDetailFragment extends Fragment {
 
         tabLayout.setupWithViewPager(viewPager);
 
-        Utilities.setImage(getContext(), ivThumbnail, college.getThumbnail(), null, R.drawable.college_black_48);
-        tvName.setText(college.getName());
-        tvLocation.setText(college.getCity());
+        Utilities.setViewImage(getContext(), ivThumbnail, college.getThumbnail(), null, R.drawable.college_black_48);
+        Utilities.setViewText(getContext(), tvName, college.getName());
+        Utilities.setViewText(getContext(), tvLocation, college.getLocation());
     }
 }

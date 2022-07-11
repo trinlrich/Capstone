@@ -6,23 +6,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.capstoneapp.College;
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.Utilities;
 import com.example.capstoneapp.ui.collegesearch.collegedetail.CollegeDetailFragment;
 
 import java.util.List;
-
-import okhttp3.internal.Util;
 
 public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHolder> {
     private static final String TAG = "PostsAdapter";
@@ -59,6 +58,7 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
         private ImageView ivThumbnail;
         private TextView tvName;
         private TextView tvLocation;
+        private ImageButton ibtnFavorite;
         private TextView tvAverageGpa;
 
         public ViewHolder(@NonNull View itemView) {
@@ -66,14 +66,17 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
             ivThumbnail = itemView.findViewById(R.id.ivThumbnail);
             tvName = itemView.findViewById(R.id.tvName);
             tvLocation = itemView.findViewById(R.id.tvLocation);
+            ibtnFavorite = itemView.findViewById(R.id.ibtnFavorite);
             tvAverageGpa = itemView.findViewById(R.id.tvAcceptanceRateTItle);
         }
 
         public void bind(College college) {
-            Utilities.setImage(context, ivThumbnail, college.getThumbnail(), null, R.drawable.college_black_48);
-            tvName.setText(college.getName());
-            tvLocation.setText(college.getCity());
+            Utilities.setViewImage(context, ivThumbnail, college.getThumbnail(), null, R.drawable.college_black_48);
+            Utilities.setViewText(context, tvName, college.getName());
+            Utilities.setViewText(context, tvLocation, college.getLocation());
 
+
+            ibtnFavorite.setOnClickListener(this::onFavoriteClick);
             itemView.setOnClickListener(this);
         }
 
@@ -96,6 +99,11 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
                         .addToBackStack(null)
                         .commit();
             }
+        }
+
+        public void onFavoriteClick(View v) {
+            Toast.makeText(context, "Favorite clicked", Toast.LENGTH_SHORT).show();
+            // TODO::Change image when button is clicked
         }
     }
 }
