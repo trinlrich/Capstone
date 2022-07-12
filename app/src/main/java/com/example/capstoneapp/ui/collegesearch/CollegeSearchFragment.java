@@ -1,6 +1,5 @@
 package com.example.capstoneapp.ui.collegesearch;
 
-import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -17,10 +16,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.capstoneapp.College;
+import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.EndlessRecyclerViewScrollListener;
 import com.example.capstoneapp.R;
-import com.example.capstoneapp.ui.collegesearch.collegedetail.CollegeDetailFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +70,7 @@ public class CollegeSearchFragment extends Fragment {
         };
         rvColleges.addOnScrollListener(scrollListener);
 
-        viewModel.getCollegesList();
+        viewModel.getCollegesListForUser();
 
         // Colleges observer
         Observer<List<College>> collegesObserver = new Observer<List<College>>() {

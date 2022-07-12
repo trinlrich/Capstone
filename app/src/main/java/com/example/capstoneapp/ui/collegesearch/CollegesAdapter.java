@@ -16,9 +16,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.capstoneapp.College;
+import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.R;
-import com.example.capstoneapp.Utilities;
+import com.example.capstoneapp.ui.UiUtils;
 import com.example.capstoneapp.ui.collegesearch.collegedetail.CollegeDetailFragment;
 
 import java.util.List;
@@ -71,9 +71,9 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
         }
 
         public void bind(College college) {
-            Utilities.setViewImage(context, ivThumbnail, college.getThumbnail(), null, R.drawable.college_black_48);
-            Utilities.setViewText(context, tvName, college.getName());
-            Utilities.setViewText(context, tvLocation, college.getLocation());
+            UiUtils.setViewImage(context, ivThumbnail, college.getThumbnail(), null, R.drawable.college_black_48);
+            UiUtils.setViewText(context, tvName, college.getName());
+            UiUtils.setViewText(context, tvLocation, college.getLocation());
 
 
             ibtnFavorite.setOnClickListener(this::onFavoriteClick);

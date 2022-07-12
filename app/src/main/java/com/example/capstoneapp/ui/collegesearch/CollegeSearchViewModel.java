@@ -5,17 +5,12 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.capstoneapp.College;
-import com.example.capstoneapp.GetCollegeListListenerCallback;
-import com.example.capstoneapp.GetUserProfileListenerCallback;
-import com.example.capstoneapp.MainViewModel;
-import com.example.capstoneapp.ParseFirebaseUser;
-import com.example.capstoneapp.Utilities;
+import com.example.capstoneapp.model.College;
+import com.example.capstoneapp.model.FavoriteCollege;
+import com.example.capstoneapp.parsedatasource.GetCollegeListListenerCallback;
+import com.example.capstoneapp.parsedatasource.GetFavCollegesCallback;
+import com.example.capstoneapp.parsedatasource.Utilities;
 import com.google.firebase.auth.FirebaseAuth;
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseQuery;
-
 import java.util.List;
 
 public class CollegeSearchViewModel extends ViewModel {
@@ -23,9 +18,18 @@ public class CollegeSearchViewModel extends ViewModel {
     public static final String TAG = "CollegeSearchViewModel";
     MutableLiveData<List<College>> allColleges = new MutableLiveData<>();
     MutableLiveData<Long> maxId = new MutableLiveData<>();
+    private String firebaseUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    private List<FavoriteCollege> favoriteColleges ;
 
-    public void getCollegesList() {
-        Utilities.getCollegesListFromParse(Long.valueOf(0), new GetCollegeListListenerCallback() {
+    public void getCollegesListForUser(){
+        Utilities.getFavCollegesForUser(firebaseUid, favColleges -> {
+            // what ever may be the value of fav colleges pass it to next stage
+            favoriteColleges = favColleges;
+            getCollegesList(favoriteColleges);
+        });
+    }
+    private void getCollegesList(List<FavoriteCollege> favoriteColleges) {
+        Utilities.getCollegesListFromParse(Long.valueOf(0), favoriteColleges, new GetCollegeListListenerCallback() {
             @Override
             public void onCompleted(List<College> colleges) {
                 if (colleges == null) {
@@ -41,7 +45,7 @@ public class CollegeSearchViewModel extends ViewModel {
     }
 
     public void loadNextDataFromParse(Long offset) {
-        Utilities.getCollegesListFromParse(offset, new GetCollegeListListenerCallback() {
+        Utilities.getCollegesListFromParse(offset, favoriteColleges, new GetCollegeListListenerCallback() {
             @Override
             public void onCompleted(List<College> colleges) {
                 if (colleges == null) {

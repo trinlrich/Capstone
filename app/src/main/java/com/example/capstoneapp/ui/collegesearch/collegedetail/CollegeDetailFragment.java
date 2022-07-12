@@ -15,9 +15,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.capstoneapp.College;
+import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.R;
-import com.example.capstoneapp.Utilities;
+import com.example.capstoneapp.ui.UiUtils;
 import com.google.android.material.tabs.TabLayout;
 
 public class CollegeDetailFragment extends Fragment {
@@ -73,8 +73,8 @@ public class CollegeDetailFragment extends Fragment {
 
         tabLayout.setupWithViewPager(viewPager);
 
-        Utilities.setViewImage(getContext(), ivThumbnail, college.getThumbnail(), null, R.drawable.college_black_48);
-        Utilities.setViewText(getContext(), tvName, college.getName());
-        Utilities.setViewText(getContext(), tvLocation, college.getLocation());
+        UiUtils.setViewImage(getContext(), ivThumbnail, college.getThumbnail(), null, R.drawable.college_black_48);
+        UiUtils.setViewText(getContext(), tvName, college.getName());
+        UiUtils.setViewText(getContext(), tvLocation, college.getLocation());
     }
 }

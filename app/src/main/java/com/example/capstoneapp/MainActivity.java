@@ -21,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.example.capstoneapp.model.ParseFirebaseUser;
+import com.example.capstoneapp.ui.UiUtils;
 import com.example.capstoneapp.ui.profile.ProfileFragment;
 import com.example.capstoneapp.ui.dashboard.DashboardFragment;
 import com.example.capstoneapp.ui.collegesearch.CollegeSearchFragment;
@@ -83,9 +85,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             } else {
                 ParseFile profileImage = user.getProfileImage();
                 if (profileImage != null) {
-                    Utilities.setViewImage(getApplicationContext(), ivNavProfileImage, profileImage.getUrl(), new CircleCrop(), R.drawable.profile_black_48);
+                    UiUtils.setViewImage(getApplicationContext(), ivNavProfileImage, profileImage.getUrl(), new CircleCrop(), R.drawable.profile_black_48);
                 }
-                Utilities.setViewText(getApplicationContext(), tvNavUserName, user.getFirstName() + " " + user.getLastName());
+                UiUtils.setViewText(getApplicationContext(), tvNavUserName, user.getFirstName() + " " + user.getLastName());
             }
         };
         viewModel.user.observe(this, userObserver);

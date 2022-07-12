@@ -2,15 +2,12 @@ package com.example.capstoneapp.ui.collegesearch.collegedetail;
 
 import android.util.Log;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.example.capstoneapp.College;
-import com.example.capstoneapp.GetCollegeListListenerCallback;
-import com.example.capstoneapp.ParseFirebaseUser;
-import com.example.capstoneapp.Utilities;
+import com.example.capstoneapp.model.College;
+import com.example.capstoneapp.parsedatasource.GetCollegeListListenerCallback;
+import com.example.capstoneapp.parsedatasource.Utilities;
 
 import java.util.List;
 

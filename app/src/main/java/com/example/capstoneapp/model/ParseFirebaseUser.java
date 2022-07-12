@@ -1,4 +1,4 @@
-package com.example.capstoneapp;
+package com.example.capstoneapp.model;
 
 import com.parse.ParseClassName;
 import com.parse.ParseFile;

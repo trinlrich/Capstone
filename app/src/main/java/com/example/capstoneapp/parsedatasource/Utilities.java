@@ -1,18 +1,15 @@
-package com.example.capstoneapp;
+package com.example.capstoneapp.parsedatasource;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.util.Log;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.Transformation;
+import com.example.capstoneapp.model.College;
+import com.example.capstoneapp.model.FavoriteCollege;
+import com.example.capstoneapp.model.ParseFirebaseUser;
+import com.example.capstoneapp.parsedatasource.GetCollegeListListenerCallback;
+import com.example.capstoneapp.parsedatasource.GetUserProfileListenerCallback;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -48,7 +45,7 @@ public class Utilities {
         });
     }
 
-    public static void getCollegesListFromParse(Long offset, GetCollegeListListenerCallback callback) {
+    public static void getCollegesListFromParse(Long offset,List<FavoriteCollege> favColleges,  GetCollegeListListenerCallback callback) {
         Log.i(TAG, "Querying colleges...");
         ParseQuery<College> query = ParseQuery.getQuery(College.class);
         query.setSkip(Math.toIntExact(offset));
@@ -97,29 +94,26 @@ public class Utilities {
         });
     }
 
-    public static void setViewText(Context context, TextView textView, String text) {
-        if (text.isEmpty()) {
-            textView.setText(context.getString(R.string.na_text));
-        } else {
-            textView.setText(text);
-        }
+    public static void getFavCollegesForUser(String userId, GetFavCollegesCallback callback){
+        Log.i(TAG, "Querying favorite college list...");
+        ParseQuery<FavoriteCollege> query = ParseQuery.getQuery(FavoriteCollege.class);
+        query.whereContains(FavoriteCollege.KEY_USER_UID, userId);
+        query.findInBackground((favColleges, e) -> {
+            // check for any error
+            if (e != null){
+                Log.e(TAG, "Issue with getting favourite colleges", e);
+                callback.onCompleted(null);
+                return ;
+            }
+            if ((favColleges == null) || (favColleges.size() == 0)){
+                Log.w(TAG, "No favourite colleges for user");
+                callback.onCompleted(favColleges);
+                return ;
+            }
+            // At this point there will be some fav colleges
+            callback.onCompleted(favColleges);
+            return ;
+        });
     }
 
-    public static void setViewImage(Context context, ImageView imageView, String imageUrl, Transformation transformation, int defaultImage) {
-        if (!imageUrl.isEmpty()) {
-            if (transformation != null) {
-                Glide.with(context)
-                        .load(imageUrl)
-                        .transform(transformation)
-                        .into(imageView);
-            } else {
-                Glide.with(context)
-                        .load(imageUrl)
-                        .into(imageView);
-            }
-        } else {
-            imageView.setImageResource(defaultImage);
-            imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        }
-    }
 }
