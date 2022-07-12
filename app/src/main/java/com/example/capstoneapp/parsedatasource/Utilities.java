@@ -10,8 +10,11 @@ import com.example.capstoneapp.parsedatasource.GetUserProfileListenerCallback;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.SaveCallback;
+import com.parse.DeleteCallback;
 
 import java.util.List;
+import java.util.Set;
 
 public class Utilities {
 
@@ -45,7 +48,7 @@ public class Utilities {
         });
     }
 
-    public static void getCollegesListFromParse(Long offset,List<FavoriteCollege> favColleges,  GetCollegeListListenerCallback callback) {
+    public static void getCollegesListFromParse(Long offset, Set<Integer> favCollegesSet, GetCollegeListListenerCallback callback) {
         Log.i(TAG, "Querying colleges...");
         ParseQuery<College> query = ParseQuery.getQuery(College.class);
         query.setSkip(Math.toIntExact(offset));
@@ -65,6 +68,8 @@ public class Utilities {
                 Log.i(TAG, "Colleges found:");
                 for (College college : colleges) {
                     Log.i(TAG, "- " + college.getName());
+                    if (favCollegesSet.contains(college.getCollegeId()))
+                        college.setFavorite(true);
                 }
                 callback.onCompleted(colleges);
             }
@@ -113,6 +118,63 @@ public class Utilities {
             // At this point there will be some fav colleges
             callback.onCompleted(favColleges);
             return ;
+        });
+    }
+    public static void addFavCollegeForUser(String userId, College college, GetFavCollegesCallback callback){
+        FavoriteCollege favoriteCollege = new FavoriteCollege();
+        favoriteCollege.setFirebaseUid(userId);
+        int collegeId = college.getCollegeId();
+        favoriteCollege.setCollegeId(collegeId);
+        favoriteCollege.saveInBackground( new SaveCallback(){
+            @Override
+            public void done(ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Error while saving Fav College", e);
+                }
+                Log.i(TAG, "Fav College add was successful");
+                // Get again the list of fav colleges
+                getFavCollegesForUser(userId, new GetFavCollegesCallback() {
+                    @Override
+                    public void onCompleted(List<FavoriteCollege> favoriteColleges) {
+                        callback.onCompleted(favoriteColleges);
+                    }
+                });
+
+            }
+        });
+    }
+
+    public static void removeFavCollegeForUser(String userId, College college, GetFavCollegesCallback callback){
+
+        ParseQuery<FavoriteCollege> query = ParseQuery.getQuery(FavoriteCollege.class);
+        query.whereEqualTo(FavoriteCollege.KEY_USER_UID, userId);
+        query.whereEqualTo(FavoriteCollege.KEY_COLLEGE_ID, college.getCollegeId());
+
+
+        query.findInBackground((favColleges, e) -> {
+            // check for errors. pass null values to indicate errors to callers
+            if (e != null) {
+                Log.e(TAG, "Issue with getting fav college", e);
+            }
+            if (favColleges.size() == 0) {
+                Log.e(TAG, "No fav college found");
+            }
+            if (favColleges.size() > 1) {
+                Log.e(TAG, "Multiple records are fetched for fav collefe");
+            }
+            // success case
+            Log.i(TAG, "Fav College found Delete");
+            favColleges.get(0).deleteInBackground (e2 -> {
+                if (e2 != null)
+                    Log.e(TAG, "Error while deleting Fav College", e2);
+                // Get again the list of fav colleges
+                getFavCollegesForUser(userId, new GetFavCollegesCallback() {
+                    @Override
+                    public void onCompleted(List<FavoriteCollege> favoriteColleges) {
+                        callback.onCompleted(favoriteColleges);
+                    }
+                });
+            });
         });
     }
 

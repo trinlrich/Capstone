@@ -20,7 +20,6 @@ import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.EndlessRecyclerViewScrollListener;
 import com.example.capstoneapp.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CollegeSearchFragment extends Fragment {
@@ -28,8 +27,6 @@ public class CollegeSearchFragment extends Fragment {
     public static final String TAG = "CollegeSearchFragment";
 
     private CollegeSearchViewModel viewModel;
-
-    protected List<College> allColleges;
     protected CollegesAdapter collegesAdapter;
 
     private RecyclerView rvColleges;
@@ -53,9 +50,14 @@ public class CollegeSearchFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(CollegeSearchViewModel.class);
 
         getActivity().setTitle(R.string.college_search_title);
-        
-        allColleges = new ArrayList<>();
-        collegesAdapter = new CollegesAdapter(getContext(), allColleges);
+
+        collegesAdapter = new CollegesAdapter(getContext(), new CollegesAdapter.FavoriteButtonClickedCallback() {
+            @Override
+            public void onFavButtonClicked(College college) {
+                // Update the state to Parse through View Model
+                viewModel.updateFavCollege(college);
+            }
+        });
 
         rvColleges = view.findViewById(R.id.rvColleges);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -76,16 +78,15 @@ public class CollegeSearchFragment extends Fragment {
         Observer<List<College>> collegesObserver = new Observer<List<College>>() {
             @Override
             public void onChanged(List<College> colleges) {
-                if (colleges == null) {
+                if ((colleges == null) || (colleges.size() == 0)){
                     Log.e(TAG, "No colleges found");
                 } else {
                     Log.i(TAG, "Colleges found");
-                    allColleges.addAll(colleges);
-                    collegesAdapter.notifyDataSetChanged();
+                    collegesAdapter.setColleges(colleges);
                 }
             }
         };
-        viewModel.allColleges.observe(getViewLifecycleOwner(), collegesObserver);
+        viewModel.allCollegesLiveData.observe(getViewLifecycleOwner(), collegesObserver);
 
         // Max ID observer
         Observer<Long> maxIdObserver = new Observer<Long>() {
@@ -100,5 +101,14 @@ public class CollegeSearchFragment extends Fragment {
             }
         };
         viewModel.maxId.observe(getViewLifecycleOwner(), maxIdObserver);
+
+        // favCollegeUpdatedIndex  observer
+        Observer<Integer> favCollegeUpdatedIndexObserver = new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer newIndex) {
+                collegesAdapter.notifyItemChanged(newIndex);
+            }
+        };
+        viewModel.favCollegeUpdatedIndex.observe(getViewLifecycleOwner(), favCollegeUpdatedIndexObserver);
     }
 }

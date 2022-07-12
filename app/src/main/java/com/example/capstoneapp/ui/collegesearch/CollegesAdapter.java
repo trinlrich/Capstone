@@ -1,6 +1,7 @@
 package com.example.capstoneapp.ui.collegesearch;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,25 +22,37 @@ import com.example.capstoneapp.R;
 import com.example.capstoneapp.ui.UiUtils;
 import com.example.capstoneapp.ui.collegesearch.collegedetail.CollegeDetailFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHolder> {
-    private static final String TAG = "PostsAdapter";
+
+    interface FavoriteButtonClickedCallback {
+        void onFavButtonClicked(College college);
+
+    }
+    private static final String TAG = "CollegesAdapter";
 
     private Context context;
-    private List<College> colleges;
-    private Fragment fragment;
 
-    public CollegesAdapter(Context context, List<College> colleges) {
-        this.context = context;
+    public void setColleges(List<College> colleges) {
         this.colleges = colleges;
+        notifyDataSetChanged();
+    }
+
+    private List<College> colleges = new ArrayList<>();
+    private FavoriteButtonClickedCallback favButtonClickedCallback;
+
+    public CollegesAdapter(Context context, FavoriteButtonClickedCallback favButtonClickedCallback) {
+        this.context = context;
+        this.favButtonClickedCallback = favButtonClickedCallback;
     }
 
     @NonNull
     @Override
     public CollegesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_college, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view,favButtonClickedCallback);
     }
 
     @Override
@@ -60,14 +73,16 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
         private TextView tvLocation;
         private ImageButton ibtnFavorite;
         private TextView tvAverageGpa;
+        private FavoriteButtonClickedCallback favButtonClickedCallback;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, FavoriteButtonClickedCallback favBtnClickedCallback) {
             super(itemView);
             ivThumbnail = itemView.findViewById(R.id.ivThumbnail);
             tvName = itemView.findViewById(R.id.tvName);
             tvLocation = itemView.findViewById(R.id.tvLocation);
             ibtnFavorite = itemView.findViewById(R.id.ibtnFavorite);
             tvAverageGpa = itemView.findViewById(R.id.tvAcceptanceRateTItle);
+            favButtonClickedCallback= favBtnClickedCallback;
         }
 
         public void bind(College college) {
@@ -75,6 +90,10 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
             UiUtils.setViewText(context, tvName, college.getName());
             UiUtils.setViewText(context, tvLocation, college.getLocation());
 
+            if (college.isFavorite())
+                ibtnFavorite.setBackground(context.getDrawable(R.drawable.favorite_black_48));
+            else
+                ibtnFavorite.setBackground(context.getDrawable(R.drawable.favorite_border_black_48));
 
             ibtnFavorite.setOnClickListener(this::onFavoriteClick);
             itemView.setOnClickListener(this);
@@ -90,7 +109,6 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
 
                 Fragment fragment = CollegeDetailFragment.newInstance(college);
                 Bundle args = new Bundle();
-                args.putString(College.KEY_ID, college.getCollegeId());
                 fragment.setArguments(args);
 
                 ((FragmentActivity) context).getSupportFragmentManager()
@@ -102,8 +120,8 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
         }
 
         public void onFavoriteClick(View v) {
-            Toast.makeText(context, "Favorite clicked", Toast.LENGTH_SHORT).show();
-            // TODO::Change image when button is clicked
+            Log.i(TAG, "Favorite clicked");
+            favButtonClickedCallback.onFavButtonClicked(colleges.get(getAdapterPosition()));
         }
     }
 }

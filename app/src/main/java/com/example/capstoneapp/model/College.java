@@ -23,9 +23,9 @@ public class College extends ParseObject {
 
 
 
-    public String getCollegeId() { return getString(KEY_ID); }
+    public int getCollegeId() { return getInt(KEY_ID); }
 
-    public void setCollegeId(String id) { put(KEY_ID, id); }
+    public void setCollegeId(int id) { put(KEY_ID, id); }
 
     public String getName() { return getString(KEY_NAME); }
 
