@@ -1,6 +1,7 @@
 package com.example.capstoneapp.ui.collegesearch;
 
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -16,11 +17,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Spinner;
 
 import com.example.capstoneapp.College;
 import com.example.capstoneapp.EndlessRecyclerViewScrollListener;
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.ui.collegesearch.collegedetail.CollegeDetailFragment;
+import com.example.capstoneapp.ui.collegesearch.filter.FilterFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,11 +38,17 @@ public class CollegeSearchFragment extends Fragment {
 
     private CollegeSearchViewModel viewModel;
 
+    private Spinner spinner;
+    private ArrayAdapter<College> arrayAdapter;
+    private String[] cities;
+
     protected List<College> allColleges;
     protected CollegesAdapter collegesAdapter;
 
+    private Button btnFilter;
     private RecyclerView rvColleges;
     private EndlessRecyclerViewScrollListener scrollListener;
+
 
     protected Long maxId;
 
@@ -54,10 +67,18 @@ public class CollegeSearchFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(this).get(CollegeSearchViewModel.class);
 
-        getActivity().setTitle(R.string.college_search_title);
-        
+        FragmentActivity activity = getActivity();
+
+        if (activity != null) {
+            activity.setTitle(R.string.college_search_title);
+        }
+
+        // Recycler View
         allColleges = new ArrayList<>();
         collegesAdapter = new CollegesAdapter(getContext(), allColleges);
+
+        btnFilter = view.findViewById(R.id.btnFilter);
+        btnFilter.setOnClickListener(this::onFilterClick);
 
         rvColleges = view.findViewById(R.id.rvColleges);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -75,32 +96,38 @@ public class CollegeSearchFragment extends Fragment {
         viewModel.getCollegesList();
 
         // Colleges observer
-        Observer<List<College>> collegesObserver = new Observer<List<College>>() {
-            @Override
-            public void onChanged(List<College> colleges) {
-                if (colleges == null) {
-                    Log.e(TAG, "No colleges found");
-                } else {
-                    Log.i(TAG, "Colleges found");
-                    allColleges.addAll(colleges);
-                    collegesAdapter.notifyDataSetChanged();
-                }
+        Observer<List<College>> collegesObserver = colleges -> {
+            if (colleges == null) {
+                Log.e(TAG, "No colleges found");
+            } else {
+                Log.i(TAG, "Colleges found");
+                allColleges.addAll(colleges);
+                collegesAdapter.notifyDataSetChanged();
             }
         };
         viewModel.allColleges.observe(getViewLifecycleOwner(), collegesObserver);
 
         // Max ID observer
-        Observer<Long> maxIdObserver = new Observer<Long>() {
-            @Override
-            public void onChanged(Long newMaxId) {
-                if (newMaxId == null) {
-                    Log.e(TAG, "Max ID is null");
-                } else {
-                    Log.i(TAG, "Updated Max ID");
-                    maxId = newMaxId;
-                }
+        Observer<Long> maxIdObserver = newMaxId -> {
+            if (newMaxId == null) {
+                Log.e(TAG, "Max ID is null");
+            } else {
+                Log.i(TAG, "Updated Max ID");
+                maxId = newMaxId;
             }
         };
         viewModel.maxId.observe(getViewLifecycleOwner(), maxIdObserver);
+    }
+
+    public void onFilterClick(View view) {
+        FragmentManager fragmentManager = ((FragmentActivity) getContext()).getSupportFragmentManager();
+
+        if (fragmentManager != null) {
+            fragmentManager
+                    .beginTransaction()
+                    .replace(R.id.flContainer, FilterFragment.newInstance())
+                    .addToBackStack(null)
+                    .commit();
+        }
     }
 }

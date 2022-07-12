@@ -17,6 +17,7 @@
     <string name="college_search_title">College Search</string>
     <string name="colleges_title">My Colleges</string>
     <string name="settings_title">Settings</string>
+    <string name="filter_title">Filter</string>
 
     // Profile Attributes
     <string name="first_name">First Name</string>
@@ -50,20 +51,25 @@
     <string name="room_board">Room and Board</string>
     <string name="books">Books and Supplies</string>
     <string name="other_exp">Other Expenses</string>
-        
+
     <string name="federal_loans">Receiving Federal Loans</string>
     <string name="pell_students">Pell Students</string>
     <string name="student_debt">Median Student Debt</string>
     <string name="parent_debt">Median Parent PLUS Debt</string>
 
-
-    //College Detail Tabs
+    // College Detail Tabs
     <string name="overview_tab">Overview</string>
     <string name="academics_tab">Academics</string>
     <string name="costs_tab">Costs</string>
 
     <string name="add_favorites">Add to Favorites</string>
 
+    // Filter Tabs
+    <string name="state_tab">State</string>
+    <string name="type_tab">Type</string>
+    <string name="mission_tab">Mission</string>
+
+    // Misc
     <string name="na_text">Not Available</string>
     <string name="thumbnail_description">College thumbnail</string>
     <string name="favorite_button_descrption">Favorite button</string>

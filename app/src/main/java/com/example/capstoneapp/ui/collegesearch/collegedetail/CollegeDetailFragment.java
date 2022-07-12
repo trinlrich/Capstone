@@ -73,6 +73,7 @@ public class CollegeDetailFragment extends Fragment {
 
         tabLayout.setupWithViewPager(viewPager);
 
+        // Populate layout views
         Utilities.setViewImage(getContext(), ivThumbnail, college.getThumbnail(), null, R.drawable.college_black_48);
         Utilities.setViewText(getContext(), tvName, college.getName());
         Utilities.setViewText(getContext(), tvLocation, college.getLocation());

@@ -89,9 +89,6 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
                 College college = colleges.get(position);
 
                 Fragment fragment = CollegeDetailFragment.newInstance(college);
-                Bundle args = new Bundle();
-                args.putString(College.KEY_ID, college.getCollegeId());
-                fragment.setArguments(args);
 
                 ((FragmentActivity) context).getSupportFragmentManager()
                         .beginTransaction()
