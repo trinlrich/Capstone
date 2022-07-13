@@ -6,9 +6,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.capstoneapp.GetUserProfileListenerCallback;
-import com.example.capstoneapp.Utilities;
-import com.example.capstoneapp.ParseFirebaseUser;
+import com.example.capstoneapp.parsedatasource.GetUserProfileListenerCallback;
+import com.example.capstoneapp.parsedatasource.Utilities;
+import com.example.capstoneapp.model.ParseFirebaseUser;
 import com.google.firebase.auth.FirebaseAuth;
 import com.parse.ParseException;
 import com.parse.SaveCallback;

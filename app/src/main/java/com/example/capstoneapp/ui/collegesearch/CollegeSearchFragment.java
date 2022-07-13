@@ -1,6 +1,6 @@
 package com.example.capstoneapp.ui.collegesearch;
 
-import androidx.fragment.app.FragmentActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -17,12 +17,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.capstoneapp.College;
+import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.EndlessRecyclerViewScrollListener;
 import com.example.capstoneapp.R;
-import com.example.capstoneapp.ui.collegesearch.collegedetail.CollegeDetailFragment;
+import com.google.android.material.snackbar.Snackbar;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CollegeSearchFragment extends Fragment {
@@ -30,12 +29,11 @@ public class CollegeSearchFragment extends Fragment {
     public static final String TAG = "CollegeSearchFragment";
 
     private CollegeSearchViewModel viewModel;
-
-    protected List<College> allColleges;
     protected CollegesAdapter collegesAdapter;
 
     private RecyclerView rvColleges;
     private EndlessRecyclerViewScrollListener scrollListener;
+    private ConstraintLayout rootLayout;
 
     protected Long maxId;
 
@@ -52,42 +50,44 @@ public class CollegeSearchFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewModel = new ViewModelProvider(this).get(CollegeSearchViewModel.class);
+
+        // this is a shared vm , so created based on Activity
+        viewModel = new ViewModelProvider(requireActivity()).get(CollegeSearchViewModel.class);
 
         getActivity().setTitle(R.string.college_search_title);
-        
-        allColleges = new ArrayList<>();
-        collegesAdapter = new CollegesAdapter(getContext(), allColleges);
 
+        // Pass the callback for Fav button click
+        collegesAdapter = new CollegesAdapter(getContext(), new CollegesAdapter.FavoriteButtonClickedCallback() {
+            @Override
+            public void onFavButtonClicked(College college) {
+                // Update the state to Parse through View Model
+                viewModel.updateFavCollege(college);
+            }
+        });
+        rootLayout = view.findViewById(R.id.topLayout);
         rvColleges = view.findViewById(R.id.rvColleges);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rvColleges.setAdapter(collegesAdapter);
         rvColleges.setLayoutManager(linearLayoutManager);
 
+/*      This code is not needed as you want to get all data at once.
         scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                viewModel.loadNextDataFromParse(maxId);
             }
         };
-        rvColleges.addOnScrollListener(scrollListener);
+        rvColleges.addOnScrollListener(scrollListener);*/
 
-        viewModel.getCollegesList();
-
-        // Colleges observer
-        Observer<List<College>> collegesObserver = new Observer<List<College>>() {
-            @Override
-            public void onChanged(List<College> colleges) {
-                if (colleges == null) {
-                    Log.e(TAG, "No colleges found");
-                } else {
-                    Log.i(TAG, "Colleges found");
-                    allColleges.addAll(colleges);
-                    collegesAdapter.notifyDataSetChanged();
-                }
+         // Colleges observer
+        Observer<List<College>> collegesObserver = colleges -> {
+            if ((colleges == null) || (colleges.size() == 0)){
+                Log.e(TAG, "No colleges found");
+            } else {
+                Log.i(TAG, "Colleges found");
+                collegesAdapter.setColleges(colleges);
             }
         };
-        viewModel.allColleges.observe(getViewLifecycleOwner(), collegesObserver);
+        viewModel.getAllCollegesLiveData().observe(getViewLifecycleOwner(), collegesObserver);
 
         // Max ID observer
         Observer<Long> maxIdObserver = new Observer<Long>() {
@@ -102,5 +102,23 @@ public class CollegeSearchFragment extends Fragment {
             }
         };
         viewModel.maxId.observe(getViewLifecycleOwner(), maxIdObserver);
+
+        // favCollegeUpdatedIndex  observer
+        Observer<Integer> favCollegeUpdatedIndexObserver = new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer newIndex) {
+                collegesAdapter.notifyItemChanged(newIndex);
+            }
+        };
+        viewModel.favCollegeUpdatedIndex.observe(getViewLifecycleOwner(), favCollegeUpdatedIndexObserver);
+
+        // favCollegeProcessError  observer
+        Observer<Boolean> favCollegeErrorObserver = new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean newIndex) {
+                Snackbar.make(rootLayout,"Error in Updating Fav", Snackbar.LENGTH_LONG).show();
+            }
+        };
+        viewModel.favCollegeProcessError.observe(getViewLifecycleOwner(), favCollegeErrorObserver);
     }
 }

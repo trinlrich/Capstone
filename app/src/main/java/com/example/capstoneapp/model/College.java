@@ -1,4 +1,4 @@
-package com.example.capstoneapp;
+package com.example.capstoneapp.model;
 
 import com.parse.ParseClassName;
 import com.parse.ParseFile;
@@ -13,9 +13,19 @@ public class College extends ParseObject {
     public static final String KEY_CITY = "collegeCity";
     public static final String KEY_AVERAGE_GPA = "averageGpa";
 
-    public String getCollegeId() { return getString(KEY_ID); }
+    private boolean isFavorite;
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
 
-    public void setCollegeId(String id) { put(KEY_ID, id); }
+
+
+    public int getCollegeId() { return getInt(KEY_ID); }
+
+    public void setCollegeId(int id) { put(KEY_ID, id); }
 
     public String getName() { return getString(KEY_NAME); }
 

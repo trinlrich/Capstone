@@ -7,7 +7,9 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
-import com.example.capstoneapp.*;
+import com.example.capstoneapp.model.ParseFirebaseUser;
+import com.example.capstoneapp.parsedatasource.GetUserProfileListenerCallback;
+import com.example.capstoneapp.parsedatasource.Utilities;
 
 import java.util.List;
 

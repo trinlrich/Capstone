@@ -18,9 +18,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
-import com.example.capstoneapp.ParseFirebaseUser;
+import com.example.capstoneapp.model.ParseFirebaseUser;
 import com.example.capstoneapp.R;
-import com.example.capstoneapp.Utilities;
+import com.example.capstoneapp.ui.UiUtils;
 import com.parse.ParseFile;
 
 public class ProfileFragment extends Fragment {
@@ -69,13 +69,13 @@ public class ProfileFragment extends Fragment {
             if (user == null) {
                 Log.e(TAG, "No user found");
             } else {
-                Utilities.setViewText(getContext(), tvUserName, user.getFirstName() + " " + user.getLastName());
-                Utilities.setViewText(getContext(), tvFirstName, user.getFirstName());
-                Utilities.setViewText(getContext(), tvLastName, user.getLastName());
-                Utilities.setViewText(getContext(), tvDegreeSeeking, user.getDegreeSeeking());
+                UiUtils.setViewText(getContext(), tvUserName, user.getFirstName() + " " + user.getLastName());
+                UiUtils.setViewText(getContext(), tvFirstName, user.getFirstName());
+                UiUtils.setViewText(getContext(), tvLastName, user.getLastName());
+                UiUtils.setViewText(getContext(), tvDegreeSeeking, user.getDegreeSeeking());
                 ParseFile profileImage = user.getProfileImage();
                 if (profileImage != null) {
-                    Utilities.setViewImage(getContext(), ivFragProfileImage, profileImage.getUrl(), new CircleCrop(), R.drawable.profile_black_48);
+                    UiUtils.setViewImage(getContext(), ivFragProfileImage, profileImage.getUrl(), new CircleCrop(), R.drawable.profile_black_48);
                 }
             }
         };
