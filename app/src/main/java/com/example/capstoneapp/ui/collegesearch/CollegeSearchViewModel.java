@@ -95,6 +95,18 @@ public class CollegeSearchViewModel extends ViewModel {
         allFavCollegesLiveData.setValue(allFavColleges);
     }
 
+    private void updateFavCollegesDataSet(List<College> colleges) {
+        // Get the list of all Fav Colleges
+        List<College> favColleges = new ArrayList<>();
+        for (College college: colleges) {
+            if (college.isFavorite())
+                favColleges.add(college);
+        }
+        allFavColleges.clear();
+        allFavColleges.addAll(favColleges);
+        allFavCollegesLiveData.setValue(allFavColleges);
+    }
+
     public void updateFavCollege(College selectedCollege) {
         // if college id is in fav set then remove from parse db else add it to parse db
         if (favoriteCollegesSet.contains(selectedCollege.getCollegeId())) {
@@ -102,7 +114,7 @@ public class CollegeSearchViewModel extends ViewModel {
                 Log.d(TAG, "Get Fav Colleges after Deleting....");
                 if (error)
                     showErrorMessage();
-                else 
+                else
                     updateFavCollegeSet(favoriteColleges, selectedCollege, false);
             });
         } else {
@@ -135,6 +147,7 @@ public class CollegeSearchViewModel extends ViewModel {
             favoriteCollegesSet.add(college.getCollegeId());
 
         updateDataSetAndUI(selectedCollege, added);
+        updateFavCollegesDataSet(allColleges);
     }
 
     private void updateDataSetAndUI(College selectedCollege, boolean added) {

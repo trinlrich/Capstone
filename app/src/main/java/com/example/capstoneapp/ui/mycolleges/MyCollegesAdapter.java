@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.model.College;
+import com.example.capstoneapp.ui.UiUtils;
 import com.example.capstoneapp.ui.collegesearch.CollegesAdapter;
 
 import java.util.ArrayList;
@@ -49,14 +51,18 @@ public class MyCollegesAdapter extends RecyclerView.Adapter<MyCollegesAdapter.Vi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        private final TextView textView;
+        private final TextView itemNameTV;
+        private final ImageView itemThumbnailIV;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textView = (TextView) itemView.findViewById(R.id.textView);
+            itemNameTV = itemView.findViewById(R.id.itemNameTV);
+            itemThumbnailIV = itemView.findViewById(R.id.itemThumbnailIV);
         }
 
         public void bind(College favCollege) {
-            textView.setText(favCollege.getName());
+            UiUtils.setViewImage(context, itemThumbnailIV, favCollege.getThumbnail(), null, R.drawable.college_black_48);
+            UiUtils.setViewText(context, itemNameTV, favCollege.getName());
         }
     }
 }

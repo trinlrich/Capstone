@@ -44,10 +44,9 @@ public class Utilities {
     }
 
     public static void getCollegesListFromParse(Long offset, Set<Integer> favCollegesSet, GetCollegeListListenerCallback callback) {
-        Log.i(TAG, "Querying colleges...");
+        Log.i(TAG, "Querying for All Colleges...");
         ParseQuery<College> query = ParseQuery.getQuery(College.class);
-        query.setSkip(Math.toIntExact(offset));
-        query.setLimit(20);
+        query.setLimit(10000);
         query.addAscendingOrder(College.KEY_NAME);
         query.findInBackground((colleges, e) -> {
             // check for errors. pass null values to indicate errors to callers
@@ -60,7 +59,7 @@ public class Utilities {
                 callback.onCompleted(null);
             } else {
                 // Log all colleges
-                Log.i(TAG, "Colleges found:");
+                Log.i(TAG, "Colleges found: " + colleges.size());
                 for (College college : colleges) {
                     Log.i(TAG, "- " + college.getName());
                     if (favCollegesSet.contains(college.getCollegeId()))

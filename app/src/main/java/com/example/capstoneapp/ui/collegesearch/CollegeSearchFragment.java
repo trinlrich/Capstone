@@ -69,13 +69,13 @@ public class CollegeSearchFragment extends Fragment {
         rvColleges.setAdapter(collegesAdapter);
         rvColleges.setLayoutManager(linearLayoutManager);
 
+/*      This code is not needed as you want to get all data at once.
         scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                viewModel.loadNextDataFromParse(maxId);
             }
         };
-        rvColleges.addOnScrollListener(scrollListener);
+        rvColleges.addOnScrollListener(scrollListener);*/
 
          // Colleges observer
         Observer<List<College>> collegesObserver = colleges -> {
