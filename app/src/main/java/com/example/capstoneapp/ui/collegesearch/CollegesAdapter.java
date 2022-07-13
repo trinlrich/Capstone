@@ -75,7 +75,6 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
             Utilities.setViewText(context, tvName, college.getName());
             Utilities.setViewText(context, tvLocation, college.getLocation());
 
-
             ibtnFavorite.setOnClickListener(this::onFavoriteClick);
             itemView.setOnClickListener(this);
         }

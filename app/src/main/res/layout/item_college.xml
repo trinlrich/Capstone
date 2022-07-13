@@ -173,7 +173,7 @@
                 android:layout_marginBottom="@dimen/small_margin"
                 android:adjustViewBounds="true"
                 android:background="@drawable/selector_favorite"
-                android:contentDescription="@string/favorite_button_descrption"
+                android:contentDescription="@string/favorite_descrption"
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toTopOf="@+id/divider"
                 app:layout_constraintEnd_toEndOf="parent"

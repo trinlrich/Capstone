@@ -64,14 +64,33 @@
 
     <string name="add_favorites">Add to Favorites</string>
 
-    // Filter Tabs
+    // State Filter Tabs
     <string name="state_tab">State</string>
+
+    // Type Filter Tabs
     <string name="type_tab">Type</string>
+    <string name="public_type">Public</string>
+    <string name="private_np_type">Private Nonprofit</string>
+    <string name="private_fp_type">Private For-Profit</string>
+
+    // Mission Filter Tabs
     <string name="mission_tab">Mission</string>
+
+    // Shared Preferences Keys (Filtering)
+    <string name="filter_key">FILTERS</string>
+    <string name="state_key">STATE</string>
+    <string name="type_key">TYPE</string>
+    <string name="mission_key">MISSION</string>
+    <string name="all_filters">All</string>
+
+    // Content Descriptions
+    <string name="favorite_descrption">Favorite icon to represent favoring a college</string>
+    <string name="filter_description">Filter icon</string>
 
     // Misc
     <string name="na_text">Not Available</string>
     <string name="thumbnail_description">College thumbnail</string>
-    <string name="favorite_button_descrption">Favorite button</string>
+
+    <string name="apply">Apply</string>
 
 </resources>

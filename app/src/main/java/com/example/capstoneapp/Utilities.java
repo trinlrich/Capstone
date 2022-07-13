@@ -14,6 +14,7 @@ import com.parse.ParseQuery;
 
 import org.w3c.dom.Text;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 public class Utilities {
@@ -48,9 +49,8 @@ public class Utilities {
         });
     }
 
-    public static void getCollegesListFromParse(Long offset, GetCollegeListListenerCallback callback) {
+    public static void getCollegesListFromParse(ParseQuery<College> query, Long offset, GetCollegeListListenerCallback callback) {
         Log.i(TAG, "Querying colleges...");
-        ParseQuery<College> query = ParseQuery.getQuery(College.class);
         query.setSkip(Math.toIntExact(offset));
         query.setLimit(20);
         query.addAscendingOrder(College.KEY_NAME);

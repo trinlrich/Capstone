@@ -5,6 +5,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -28,6 +30,8 @@ import com.example.capstoneapp.EndlessRecyclerViewScrollListener;
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.ui.collegesearch.collegedetail.CollegeDetailFragment;
 import com.example.capstoneapp.ui.collegesearch.filter.FilterFragment;
+import com.example.capstoneapp.ui.collegesearch.filter.FilterFragmentPagerAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,19 +40,14 @@ public class CollegeSearchFragment extends Fragment {
 
     public static final String TAG = "CollegeSearchFragment";
 
-    private CollegeSearchViewModel viewModel;
-
-    private Spinner spinner;
-    private ArrayAdapter<College> arrayAdapter;
-    private String[] cities;
+    public CollegeSearchViewModel viewModel;
 
     protected List<College> allColleges;
     protected CollegesAdapter collegesAdapter;
 
-    private Button btnFilter;
+    private FloatingActionButton btnFilter;
     private RecyclerView rvColleges;
     private EndlessRecyclerViewScrollListener scrollListener;
-
 
     protected Long maxId;
 
@@ -112,7 +111,7 @@ public class CollegeSearchFragment extends Fragment {
             if (newMaxId == null) {
                 Log.e(TAG, "Max ID is null");
             } else {
-                Log.i(TAG, "Updated Max ID");
+                Log.i(TAG, "Updated Max ID: " + newMaxId);
                 maxId = newMaxId;
             }
         };

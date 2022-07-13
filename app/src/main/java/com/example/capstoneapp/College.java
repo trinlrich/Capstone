@@ -1,5 +1,8 @@
 package com.example.capstoneapp;
 
+import android.content.Context;
+import android.util.Log;
+
 import com.parse.ParseClassName;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
@@ -7,11 +10,13 @@ import com.parse.ParseObject;
 @ParseClassName("Colleges")
 public class College extends ParseObject {
 
-    public static final String KEY_ID = "collegeId";
-    public static final String KEY_NAME = "collegeName";
-    public static final String KEY_THUMBNAIL = "collegeThumbnail";
-    public static final String KEY_CITY = "collegeCity";
-    public static final String KEY_AVERAGE_GPA = "averageGpa";
+    public static final String KEY_ID = "schoolId";
+    public static final String KEY_NAME = "schoolName";
+    public static final String KEY_THUMBNAIL = "schoolThumbnail";
+    public static final String KEY_CITY = "schoolCity";
+    public static final String KEY_STATE = "schoolStateCode";
+    public static final String KEY_CONTROL = "schoolControl";
+    public static final String KEY_MISSION = "schoolSpecialMission";
 
     public String getCollegeId() { return getString(KEY_ID); }
 
@@ -29,11 +34,20 @@ public class College extends ParseObject {
 
     public void setCity(String city) { put(KEY_CITY, city); }
 
+    public String getCollegeState() { return getString(KEY_STATE); }
+
+    public void setCollegeState(String state) { put(KEY_STATE, state); }
+
+    public int getControl() { return getInt(KEY_CONTROL); }
+
+    public void setControl(int control) { put(KEY_CONTROL, control); }
+
+    public String getMission() { return getString(KEY_MISSION); }
+
+    public void setMission(String mission) { put(KEY_MISSION, mission); }
+
     public String getLocation() {
         // TODO:: Pull State and concat city and state (City, ST)
-        return getCity();
+        return getCity() + ", " + getCollegeState();
     }
-
-
-
 }

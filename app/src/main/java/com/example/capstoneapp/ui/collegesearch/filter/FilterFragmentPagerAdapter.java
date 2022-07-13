@@ -8,9 +8,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.capstoneapp.R;
-import com.example.capstoneapp.ui.collegesearch.collegedetail.tabs.AcademicsFragment;
-import com.example.capstoneapp.ui.collegesearch.collegedetail.tabs.CostsFragment;
-import com.example.capstoneapp.ui.collegesearch.collegedetail.tabs.OverviewFragment;
 import com.example.capstoneapp.ui.collegesearch.filter.tabs.MissionFragment;
 import com.example.capstoneapp.ui.collegesearch.filter.tabs.StateFragment;
 import com.example.capstoneapp.ui.collegesearch.filter.tabs.TypeFragment;
