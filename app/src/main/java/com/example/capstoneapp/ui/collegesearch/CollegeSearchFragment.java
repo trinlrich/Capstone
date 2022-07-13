@@ -50,7 +50,9 @@ public class CollegeSearchFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewModel = new ViewModelProvider(this).get(CollegeSearchViewModel.class);
+
+        // this is a shared vm , so created based on Activity
+        viewModel = new ViewModelProvider(requireActivity()).get(CollegeSearchViewModel.class);
 
         getActivity().setTitle(R.string.college_search_title);
 
@@ -75,21 +77,16 @@ public class CollegeSearchFragment extends Fragment {
         };
         rvColleges.addOnScrollListener(scrollListener);
 
-        viewModel.getCollegesListForUser();
-
-        // Colleges observer
-        Observer<List<College>> collegesObserver = new Observer<List<College>>() {
-            @Override
-            public void onChanged(List<College> colleges) {
-                if ((colleges == null) || (colleges.size() == 0)){
-                    Log.e(TAG, "No colleges found");
-                } else {
-                    Log.i(TAG, "Colleges found");
-                    collegesAdapter.setColleges(colleges);
-                }
+         // Colleges observer
+        Observer<List<College>> collegesObserver = colleges -> {
+            if ((colleges == null) || (colleges.size() == 0)){
+                Log.e(TAG, "No colleges found");
+            } else {
+                Log.i(TAG, "Colleges found");
+                collegesAdapter.setColleges(colleges);
             }
         };
-        viewModel.allCollegesLiveData.observe(getViewLifecycleOwner(), collegesObserver);
+        viewModel.getAllCollegesLiveData().observe(getViewLifecycleOwner(), collegesObserver);
 
         // Max ID observer
         Observer<Long> maxIdObserver = new Observer<Long>() {

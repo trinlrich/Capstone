@@ -2,6 +2,7 @@ package com.example.capstoneapp.ui.collegesearch;
 
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -18,21 +19,40 @@ import java.util.Set;
 public class CollegeSearchViewModel extends ViewModel {
 
     public static final String TAG = "CollegeSearchViewModel";
-    MutableLiveData<List<College>> allCollegesLiveData = new MutableLiveData<>();
+    // This section is for All College List
+    private MutableLiveData<List<College>> allCollegesLiveData = new MutableLiveData<>();
+    private List<College> allColleges = new ArrayList<>();
+    public LiveData<List<College>> getAllCollegesLiveData() {
+        return allCollegesLiveData;
+    }
+
     MutableLiveData<Long> maxId = new MutableLiveData<>();
+
+    private Set<Integer> favoriteCollegesSet = new HashSet<>();
     MutableLiveData<Integer> favCollegeUpdatedIndex = new MutableLiveData<>();
     MutableLiveData<Boolean> favCollegeProcessError = new MutableLiveData<>();
 
     private String firebaseUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    private Set<Integer> favoriteCollegesSet = new HashSet<>();
-    private List<College> allColleges = new ArrayList<>();
 
-    public void getCollegesListForUser() {
+    // This section is for Fav College List
+    public LiveData<List<College>> getAllFavCollegesLiveData() {
+        return allFavCollegesLiveData;
+    }
+    private MutableLiveData<List<College>> allFavCollegesLiveData = new MutableLiveData<>();
+    private List<College> allFavColleges = new ArrayList<>();
+
+    public CollegeSearchViewModel() {
+        // on viewmodel create initaiate fetch of all data
+        getCollegesListForUser();
+    }
+
+
+    private void getCollegesListForUser() {
         Utilities.getFavCollegesForUser(firebaseUid, (favColleges,error) -> {
-            // what ever may be the value of fav colleges pass it to next stage
+            // create the Set of Fav Colleges
             for (FavoriteCollege college : favColleges)
                 favoriteCollegesSet.add(college.getCollegeId());
-
+            // Get the final list of Colleges which would include the fav colleges
             getCollegesList(favoriteCollegesSet);
         });
     }
@@ -44,23 +64,35 @@ public class CollegeSearchViewModel extends ViewModel {
                 allCollegesLiveData.setValue(null);
             } else {
                 Log.i(TAG, "Colleges found");
-                allColleges.addAll(colleges);
-                allCollegesLiveData.setValue(allColleges);
+                updateCollegeDataSet(colleges);
                 maxId.setValue(Long.valueOf(colleges.size()));
             }
         });
     }
-
     public void loadNextDataFromParse(Long offset) {
         Utilities.getCollegesListFromParse(offset, favoriteCollegesSet, colleges -> {
             if (colleges == null) {
                 Log.i(TAG, "No colleges found");
             } else {
-                allColleges.addAll(colleges);
-                allCollegesLiveData.setValue(allColleges);
+                updateCollegeDataSet(colleges);
                 maxId.setValue(maxId.getValue() + offset);
             }
         });
+    }
+
+
+    private void updateCollegeDataSet(List<College> colleges) {
+        allColleges.addAll(colleges);
+        allCollegesLiveData.setValue(allColleges);
+
+        // Get the list of all Fav Colleges
+        List<College> favColleges = new ArrayList<>();
+        for (College college: colleges) {
+            if (college.isFavorite())
+                favColleges.add(college);
+        }
+        allFavColleges.addAll(favColleges);
+        allFavCollegesLiveData.setValue(allFavColleges);
     }
 
     public void updateFavCollege(College selectedCollege) {
