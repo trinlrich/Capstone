@@ -84,15 +84,7 @@ public class CollegeSearchViewModel extends ViewModel {
     private void updateCollegeDataSet(List<College> colleges) {
         allColleges.addAll(colleges);
         allCollegesLiveData.setValue(allColleges);
-
-        // Get the list of all Fav Colleges
-        List<College> favColleges = new ArrayList<>();
-        for (College college: colleges) {
-            if (college.isFavorite())
-                favColleges.add(college);
-        }
-        allFavColleges.addAll(favColleges);
-        allFavCollegesLiveData.setValue(allFavColleges);
+        updateFavCollegesDataSet(colleges);
     }
 
     private void updateFavCollegesDataSet(List<College> colleges) {
