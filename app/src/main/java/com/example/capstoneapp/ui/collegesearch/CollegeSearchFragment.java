@@ -56,6 +56,7 @@ public class CollegeSearchFragment extends Fragment {
 
         getActivity().setTitle(R.string.college_search_title);
 
+        // Pass the callback for Fav button click
         collegesAdapter = new CollegesAdapter(getContext(), new CollegesAdapter.FavoriteButtonClickedCallback() {
             @Override
             public void onFavButtonClicked(College college) {
