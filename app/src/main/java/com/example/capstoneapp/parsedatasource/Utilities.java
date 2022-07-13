@@ -1,17 +1,12 @@
 package com.example.capstoneapp.parsedatasource;
 
-import android.content.Context;
 import android.util.Log;
 import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.model.FavoriteCollege;
 import com.example.capstoneapp.model.ParseFirebaseUser;
-import com.example.capstoneapp.parsedatasource.GetCollegeListListenerCallback;
-import com.example.capstoneapp.parsedatasource.GetUserProfileListenerCallback;
-import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.SaveCallback;
-import com.parse.DeleteCallback;
 
 import java.util.List;
 import java.util.Set;
@@ -107,16 +102,16 @@ public class Utilities {
             // check for any error
             if (e != null){
                 Log.e(TAG, "Issue with getting favourite colleges", e);
-                callback.onCompleted(null);
+                callback.onCompleted(null, true);
                 return ;
             }
             if ((favColleges == null) || (favColleges.size() == 0)){
                 Log.w(TAG, "No favourite colleges for user");
-                callback.onCompleted(favColleges);
+                callback.onCompleted(favColleges, false);
                 return ;
             }
             // At this point there will be some fav colleges
-            callback.onCompleted(favColleges);
+            callback.onCompleted(favColleges, false);
             return ;
         });
     }
@@ -125,22 +120,16 @@ public class Utilities {
         favoriteCollege.setFirebaseUid(userId);
         int collegeId = college.getCollegeId();
         favoriteCollege.setCollegeId(collegeId);
-        favoriteCollege.saveInBackground( new SaveCallback(){
-            @Override
-            public void done(ParseException e) {
-                if (e != null) {
-                    Log.e(TAG, "Error while saving Fav College", e);
-                }
+        favoriteCollege.saveInBackground(exsave -> {
+            if (exsave != null) {
+                Log.e(TAG, "Error while saving Fav College", exsave);
+                callback.onCompleted(null, true);
+            } else {
                 Log.i(TAG, "Fav College add was successful");
                 // Get again the list of fav colleges
-                getFavCollegesForUser(userId, new GetFavCollegesCallback() {
-                    @Override
-                    public void onCompleted(List<FavoriteCollege> favoriteColleges) {
-                        callback.onCompleted(favoriteColleges);
-                    }
-                });
-
+                getFavCollegesForUser(userId, callback);
             }
+
         });
     }
 
@@ -168,12 +157,7 @@ public class Utilities {
                 if (e2 != null)
                     Log.e(TAG, "Error while deleting Fav College", e2);
                 // Get again the list of fav colleges
-                getFavCollegesForUser(userId, new GetFavCollegesCallback() {
-                    @Override
-                    public void onCompleted(List<FavoriteCollege> favoriteColleges) {
-                        callback.onCompleted(favoriteColleges);
-                    }
-                });
+                getFavCollegesForUser(userId, callback);
             });
         });
     }

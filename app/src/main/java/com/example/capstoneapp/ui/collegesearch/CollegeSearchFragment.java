@@ -1,5 +1,6 @@
 package com.example.capstoneapp.ui.collegesearch;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -19,6 +20,7 @@ import android.view.ViewGroup;
 import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.EndlessRecyclerViewScrollListener;
 import com.example.capstoneapp.R;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -31,6 +33,7 @@ public class CollegeSearchFragment extends Fragment {
 
     private RecyclerView rvColleges;
     private EndlessRecyclerViewScrollListener scrollListener;
+    private ConstraintLayout rootLayout;
 
     protected Long maxId;
 
@@ -58,7 +61,7 @@ public class CollegeSearchFragment extends Fragment {
                 viewModel.updateFavCollege(college);
             }
         });
-
+        rootLayout = view.findViewById(R.id.topLayout);
         rvColleges = view.findViewById(R.id.rvColleges);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rvColleges.setAdapter(collegesAdapter);
@@ -110,5 +113,14 @@ public class CollegeSearchFragment extends Fragment {
             }
         };
         viewModel.favCollegeUpdatedIndex.observe(getViewLifecycleOwner(), favCollegeUpdatedIndexObserver);
+
+        // favCollegeProcessError  observer
+        Observer<Boolean> favCollegeErrorObserver = new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean newIndex) {
+                Snackbar.make(rootLayout,"Error in Updating Fav", Snackbar.LENGTH_LONG).show();
+            }
+        };
+        viewModel.favCollegeProcessError.observe(getViewLifecycleOwner(), favCollegeErrorObserver);
     }
 }
