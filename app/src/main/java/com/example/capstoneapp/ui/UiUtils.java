@@ -11,6 +11,7 @@ import com.example.capstoneapp.R;
 public class UiUtils {
     public static void setViewImage(Context context, ImageView imageView, String imageUrl, Transformation transformation, int defaultImage) {
         if (!imageUrl.isEmpty()) {
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             if (transformation != null) {
                 Glide.with(context)
                         .load(imageUrl)

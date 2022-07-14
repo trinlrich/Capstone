@@ -56,14 +56,12 @@
     <string name="student_debt">Median Student Debt</string>
     <string name="parent_debt">Median Parent PLUS Debt</string>
 
-
     //College Detail Tabs
     <string name="overview_tab">Overview</string>
     <string name="academics_tab">Academics</string>
     <string name="costs_tab">Costs</string>
 
     <string name="add_favorites">Add to Favorites</string>
-
 
     // State Filter Tabs
     <string name="state_tab">State</string>
@@ -93,5 +91,7 @@
     <string name="thumbnail_description">College thumbnail</string>
     <string name="filter_title">Filter</string>
     <string name="apply">Apply</string>
+    <string name="search_hint_text">Search by college name</string>
+    <string name="no_colleges_text">No Colleges Found</string>
 
 </resources>
