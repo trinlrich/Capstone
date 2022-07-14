@@ -40,13 +40,12 @@ public class CollegeSearchViewModel extends AndroidViewModel {
     private List<College> allColleges = new ArrayList<>();
     public LiveData<List<College>> getAllCollegesLiveData() {return allCollegesLiveData;}
     private List<College> allCollegesAfterFilter = new ArrayList<>();
+    private Boolean isFiltered = false;
     private MutableLiveData<Boolean> showProgress = new MutableLiveData<>();
     public LiveData<Boolean> getShowProgress() {
         return showProgress;
     }
 
-
-    MutableLiveData<Long> maxId = new MutableLiveData<>();
     private String firebaseUid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
     // This section is for Fav College List
@@ -91,7 +90,6 @@ public class CollegeSearchViewModel extends AndroidViewModel {
             } else {
                 Log.i(TAG, "Colleges found");
                 updateCollegeDataSet(colleges);
-                maxId.setValue((long) colleges.size());
             }
         });
     }
@@ -196,7 +194,8 @@ public class CollegeSearchViewModel extends AndroidViewModel {
 
     private boolean isFilteringNeeded(String value) {
         // False if filter is set to "All"
-        return !value.equals(allString);
+        isFiltered = !value.equals(allString);
+        return isFiltered;
     }
 
     private void startProgress() {
@@ -208,23 +207,27 @@ public class CollegeSearchViewModel extends AndroidViewModel {
 
     public void searchFilterCollegeList(String newText) {
         List<College> filteredColleges = new ArrayList<>();
-
-        // Compare colleges in loop; add matching
-        for (College college : allColleges) {
-            if (college.getName().length() >= newText.length()) {
-                String nameSubstring = college.getName().substring(0, newText.length()).toLowerCase();
-                if (nameSubstring.equals(newText.toLowerCase())) {
-                    filteredColleges.add(college);
+        if (!isFiltered) {
+            // Compare colleges in loop; add matching
+            for (College college : allColleges) {
+                if (college.getName().length() >= newText.length()) {
+                    String nameSubstring = college.getName().substring(0, newText.length()).toLowerCase();
+                    if (nameSubstring.equals(newText.toLowerCase())) {
+                        filteredColleges.add(college);
+                    }
+                }
+            }
+        } else {
+            // Compare colleges in loop; add matching
+            for (College college : allCollegesAfterFilter) {
+                if (college.getName().length() >= newText.length()) {
+                    String nameSubstring = college.getName().substring(0, newText.length()).toLowerCase();
+                    if (nameSubstring.equals(newText.toLowerCase())) {
+                        filteredColleges.add(college);
+                    }
                 }
             }
         }
-        if (filteredColleges.isEmpty()) {
-            // No colleges found
-            // TODO::Remove recycler view and show text view when there's no data
-            Toast.makeText(context, "No Data Found..", Toast.LENGTH_SHORT).show();
-        } else {
-            // Set filtered list
-            allCollegesLiveData.setValue(filteredColleges);
-        }
+        allCollegesLiveData.setValue(filteredColleges);
     }
 }

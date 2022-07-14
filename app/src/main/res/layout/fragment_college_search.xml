@@ -30,8 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/svCollegeSearch"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@+id/svCollegeSearch" >
 
     </androidx.recyclerview.widget.RecyclerView>
 
@@ -62,5 +61,19 @@
         app:layout_constraintEnd_toEndOf="@+id/rvColleges"
         app:layout_constraintStart_toStartOf="@+id/rvColleges"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvNoColleges"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/extra_large_margin"
+        android:gravity="center_horizontal"
+        android:text="@string/no_colleges_text"
+        android:visibility="gone"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/svCollegeSearch" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

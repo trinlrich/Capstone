@@ -14,7 +14,7 @@ public class College extends ParseObject {
     public static final String KEY_CONTROL = "schoolControl";
     public static final String KEY_MISSION = "schoolSpecialMission";
 
-    public static final String PUBLIC = "Private";
+    public static final String PUBLIC = "Public";
     public static final String PRIVATE_NP = "Private Nonprofit";
     public static final String PRIVATE_FP = "Private For-Profit";
 

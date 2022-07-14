@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -35,12 +36,12 @@ public class CollegeSearchFragment extends Fragment {
 
     public static final String TAG = "CollegeSearchFragment";
     protected CollegesAdapter collegesAdapter;
-    protected Long maxId;
     private CollegeSearchViewModel viewModel;
     private RecyclerView rvColleges;
     private ConstraintLayout rootLayout;
     private SearchView svCollegeSearch;
     private ImageButton btnFilter;
+    private TextView tvNoColleges;
     private ProgressBar loadingProgressBar;
 
     public static CollegeSearchFragment newInstance() {
@@ -87,6 +88,7 @@ public class CollegeSearchFragment extends Fragment {
         });
         btnFilter = view.findViewById(R.id.btnFilter);
         btnFilter.setOnClickListener(this::onFilterClick);
+        tvNoColleges = view.findViewById(R.id.tvNoColleges);
         loadingProgressBar = view.findViewById(R.id.progressBar);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -97,23 +99,14 @@ public class CollegeSearchFragment extends Fragment {
         Observer<List<College>> collegesObserver = colleges -> {
             if ((colleges == null) || (colleges.size() == 0)) {
                 Log.e(TAG, "No colleges found");
+                showNoColleges();
             } else {
                 Log.i(TAG, "Colleges found");
                 collegesAdapter.setColleges(colleges);
+                showColleges();
             }
         };
         viewModel.getAllCollegesLiveData().observe(getViewLifecycleOwner(), collegesObserver);
-
-        // Max ID observer
-        Observer<Long> maxIdObserver = newMaxId -> {
-            if (newMaxId == null) {
-                Log.e(TAG, "Max ID is null");
-            } else {
-                Log.i(TAG, "Updated Max ID");
-                maxId = newMaxId;
-            }
-        };
-        viewModel.maxId.observe(getViewLifecycleOwner(), maxIdObserver);
 
         // favCollegeUpdatedIndex  observer
         Observer<Integer> favCollegeUpdatedIndexObserver = newIndex -> collegesAdapter.notifyItemChanged(newIndex);
@@ -125,13 +118,26 @@ public class CollegeSearchFragment extends Fragment {
 
         // Progress update observer
         Observer<Boolean> progressUpdateObserver = visible -> {
-            if (visible)
+            if (visible) {
                 loadingProgressBar.setVisibility(View.VISIBLE);
-            else
+                tvNoColleges.setVisibility(View.GONE);
+            } else
                 loadingProgressBar.setVisibility(View.GONE);
         };
         viewModel.getShowProgress().observe(getViewLifecycleOwner(), progressUpdateObserver);
 
+    }
+
+    private void showNoColleges() {
+        if (loadingProgressBar.getVisibility() != View.VISIBLE) {
+            rvColleges.setVisibility(View.INVISIBLE);
+            tvNoColleges.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void showColleges() {
+        rvColleges.setVisibility(View.VISIBLE);
+        tvNoColleges.setVisibility(View.GONE);
     }
 
     public void onFilterClick(View view) {
