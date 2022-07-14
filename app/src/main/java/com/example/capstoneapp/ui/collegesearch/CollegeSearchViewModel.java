@@ -15,6 +15,7 @@ import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.model.FavoriteCollege;
 import com.example.capstoneapp.parsedatasource.Utilities;
 import com.example.capstoneapp.ui.collegesearch.filter.CollegeFilter;
+import com.example.capstoneapp.ui.collegesearch.filter.FilterUtils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
 
@@ -28,7 +29,6 @@ public class CollegeSearchViewModel extends AndroidViewModel {
     public static final String TAG = "CollegeSearchViewModel";
 
     // Processing the filter
-    public final String filterString;
     public final String stateString;
     public final String typeString;
     public final String missionString;
@@ -39,9 +39,7 @@ public class CollegeSearchViewModel extends AndroidViewModel {
     // This section is for All College List
     private MutableLiveData<List<College>> allCollegesLiveData = new MutableLiveData<>();
     private List<College> allColleges = new ArrayList<>();
-    public LiveData<List<College>> getAllCollegesLiveData() {
-        return allCollegesLiveData;
-    }
+    public LiveData<List<College>> getAllCollegesLiveData() {return allCollegesLiveData;}
     private List<College> allCollegesAfterFilter = new ArrayList<>();
 
     MutableLiveData<Long> maxId = new MutableLiveData<>();
@@ -60,20 +58,17 @@ public class CollegeSearchViewModel extends AndroidViewModel {
     private List<College> allFavColleges = new ArrayList<>();
 
     public CollegeSearchViewModel(@NonNull Application application) {
-        // on viewmodel create initaiate fetch of all data
+        // on viewmodel create initiate fetch of all data
         super(application);
         context =  application.getApplicationContext();
 
-        filterString = context.getString(R.string.filter_key);
         stateString = context.getString(R.string.state_key);
         typeString = context.getString(R.string.type_key);
         missionString = context.getString(R.string.mission_key);
         allString = context.getString(R.string.all_filters);
 
-        preferences = context.getSharedPreferences(filterString, Context.MODE_PRIVATE);
         getCollegesListForUser();
     }
-
 
     private void getCollegesListForUser() {
         Utilities.getFavCollegesForUser(firebaseUid, (favColleges,error) -> {
@@ -97,17 +92,6 @@ public class CollegeSearchViewModel extends AndroidViewModel {
             }
         });
     }
-    public void loadNextDataFromParse(Long offset) {
-        Utilities.getCollegesListFromParse(offset, favoriteCollegesSet, colleges -> {
-            if (colleges == null) {
-                Log.i(TAG, "No colleges found");
-            } else {
-                updateCollegeDataSet(colleges);
-                maxId.setValue(maxId.getValue() + offset);
-            }
-        });
-    }
-
 
     private void updateCollegeDataSet(List<College> colleges) {
         allColleges.clear();
@@ -182,56 +166,32 @@ public class CollegeSearchViewModel extends AndroidViewModel {
     }
 
     public void filterCollegesList() {
-        // Retrieve json string from preferences
-        String stateJson = preferences.getString(stateString, null);
-        String typeJson = preferences.getString(typeString, null);
-        String missionJson = preferences.getString(missionString, null);
-
-        // Convert json string in preferences back to CollegeFilter object
-        CollegeFilter state = new Gson().fromJson(stateJson, CollegeFilter.class);
-        CollegeFilter type = new Gson().fromJson(typeJson, CollegeFilter.class);
-        CollegeFilter mission = new Gson().fromJson(missionJson, CollegeFilter.class);
-
-        // Extract value of filter
-        String stateValue = state.getValue();
-        String typeValue = type.getValue();
-        String missionValue = mission.getValue();
+        // Get filter values
+        String stateValue = FilterUtils.getFilterValue(context, stateString);
+        String typeValue = FilterUtils.getFilterValue(context, typeString);
+        String missionValue = FilterUtils.getFilterValue(context, missionString);
 
         Log.i(TAG, "State Filter: " + stateValue);
         Log.i(TAG, "Type Filter: " + typeValue);
-        Log.i(TAG, "Mission Filter: " + typeValue);
+        Log.i(TAG, "Mission Filter: " + missionValue);
 
-        // Check if filter is set to "All" else add query constraint
-        // TODO Do the filtering logic on allcolleges
-        if (isFilteringNeeded(stateValue,typeValue,missionValue)){
-            allCollegesAfterFilter.clear();
-            for (College college: allColleges) {
-                if (college.getCollegeState().equals(stateValue)){
-                    allCollegesAfterFilter.add(college);
-                }
-            }
-            allCollegesLiveData.setValue(allCollegesAfterFilter);
+        // Remove college that do not fit criteria
+        allCollegesAfterFilter.clear();
+        allCollegesAfterFilter.addAll(allColleges);
+        if (isFilteringNeeded(stateValue)) {
+            allCollegesAfterFilter.removeIf(college -> !college.getCollegeState().equals(stateValue));
         }
-        else
-            allCollegesLiveData.setValue(allColleges);
-    }
-    private boolean isFilteringNeeded(String stateValue, String typeValue, String missionValue){
-        if (stateValue.equals(allString) && typeValue.equals(allString) && missionValue.equals(allString))
-            return false;
-        else
-            return true;
-    }
-
-    private int getTypeControlNum(String value) {
-        if (value.equals(context.getString(R.string.public_type))) {
-            return 1;
-        } else if (value.equals(context.getString(R.string.public_type))) {
-            return 2;
-        } else if (value.equals(context.getString(R.string.public_type))) {
-            return 3;
-        } else {
-            return 0;
+        if (isFilteringNeeded(typeValue)) {
+            allCollegesAfterFilter.removeIf(college -> !college.getControl().equals(typeValue));
         }
+        if (isFilteringNeeded(missionValue)) {
+            allCollegesAfterFilter.removeIf(college -> !college.getMission().contains(missionValue));
+        }
+        allCollegesLiveData.setValue(allCollegesAfterFilter);
     }
 
+    private boolean isFilteringNeeded(String value) {
+        // False if filter is set to "All"
+        return !value.equals(allString);
+    }
 }

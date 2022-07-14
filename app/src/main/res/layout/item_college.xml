@@ -172,7 +172,6 @@
                 android:layout_marginEnd="@dimen/large_margin"
                 android:layout_marginBottom="@dimen/small_margin"
                 android:adjustViewBounds="true"
-                android:background="@drawable/selector_favorite"
                 android:contentDescription="@string/favorite_descrption"
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toTopOf="@+id/divider"

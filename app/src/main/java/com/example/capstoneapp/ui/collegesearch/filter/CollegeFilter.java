@@ -22,7 +22,6 @@ public class CollegeFilter {
     public String getKey() {
         return key;
     }
-
     public void setKey(String key) {
         this.key = key;
     }
@@ -30,7 +29,6 @@ public class CollegeFilter {
     public String getValue() {
         return value;
     }
-
     public void setValue(String value) {
         this.value = value;
     }
@@ -38,7 +36,6 @@ public class CollegeFilter {
     public int getPosition() {
         return position;
     }
-
     public void setPosition(int position) {
         this.position = position;
     }

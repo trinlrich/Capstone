@@ -17,15 +17,17 @@ import androidx.fragment.app.Fragment;
 
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.ui.collegesearch.filter.CollegeFilter;
+import com.example.capstoneapp.ui.collegesearch.filter.FilterUtils;
 import com.google.gson.Gson;
 
 public class MissionFragment extends Fragment {
 
     public static final String TAG = "MissionFragment";
 
-    SharedPreferences preferences;
-    CollegeFilter mission;
-    ListView listView;
+    private SharedPreferences preferences;
+    private CollegeFilter mission;
+    private ListView listView;
+    private String missionString;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,9 +42,10 @@ public class MissionFragment extends Fragment {
 
         preferences = getContext().getSharedPreferences(getString(R.string.filter_key), Context.MODE_PRIVATE);
 
+        missionString = getString(R.string.mission_key);
+
         // Create state CollegeFilter
-        mission = new CollegeFilter();
-        mission.setKey(getString(R.string.mission_key));
+        mission = new CollegeFilter(missionString);
 
         listView = view.findViewById(R.id.mission_list_view);
         listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
@@ -59,21 +62,13 @@ public class MissionFragment extends Fragment {
     }
 
     private void setFilters() {
-        String missionJson = preferences.getString(mission.getKey(), null);
-        CollegeFilter existingFilter = new Gson().fromJson(missionJson, CollegeFilter.class);
+        CollegeFilter existingFilter = FilterUtils.getFilter(getContext(), missionString);
         listView.setItemChecked(existingFilter.getPosition(), true);
     }
 
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Log.i(TAG, "onItemClick: " +position);
-        mission.setValue(listView.getItemAtPosition(position).toString());
-        mission.setPosition(position);
-
-        SharedPreferences.Editor editor = preferences.edit();
-        // Convert object to JSON string to put in preferences
-        String stateJson = new Gson().toJson(mission);
-        editor.putString(mission.getKey(), stateJson);
-        editor.commit();
+        FilterUtils.putFilter(getContext(), mission, listView.getItemAtPosition(position).toString(), position);
     }
 
     private String[] getMissions() {
