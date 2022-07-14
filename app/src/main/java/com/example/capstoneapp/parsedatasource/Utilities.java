@@ -4,11 +4,8 @@ import android.util.Log;
 import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.model.FavoriteCollege;
 import com.example.capstoneapp.model.ParseFirebaseUser;
-import com.parse.ParseException;
 import com.parse.ParseQuery;
-import com.parse.SaveCallback;
 
-import java.util.List;
 import java.util.Set;
 
 public class Utilities {
@@ -43,7 +40,7 @@ public class Utilities {
         });
     }
 
-    public static void getCollegesListFromParse(Long offset, Set<Integer> favCollegesSet, GetCollegeListListenerCallback callback) {
+    public static void getCollegesListFromParse(Set<Integer> favCollegesSet, GetCollegeListListenerCallback callback) {
         Log.i(TAG, "Querying for All Colleges...");
         ParseQuery<College> query = ParseQuery.getQuery(College.class);
         query.setLimit(10000);
@@ -102,16 +99,15 @@ public class Utilities {
             if (e != null){
                 Log.e(TAG, "Issue with getting favourite colleges", e);
                 callback.onCompleted(null, true);
-                return ;
+                return;
             }
             if ((favColleges == null) || (favColleges.size() == 0)){
                 Log.w(TAG, "No favourite colleges for user");
                 callback.onCompleted(favColleges, false);
-                return ;
+                return;
             }
             // At this point there will be some fav colleges
             callback.onCompleted(favColleges, false);
-            return ;
         });
     }
     public static void addFavCollegeForUser(String userId, College college, GetFavCollegesCallback callback){
@@ -148,7 +144,7 @@ public class Utilities {
                 Log.e(TAG, "No fav college found");
             }
             if (favColleges.size() > 1) {
-                Log.e(TAG, "Multiple records are fetched for fav collefe");
+                Log.e(TAG, "Multiple records are fetched for fav college");
             }
             // success case
             Log.i(TAG, "Fav College found Delete");

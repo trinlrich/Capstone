@@ -47,9 +47,9 @@ public class CollegeDetailFragmentPagerAdapter extends androidx.fragment.app.Fra
         if (position == 0) {
             title = context.getString(R.string.overview_tab);
         } else if (position == 1) {
-            title = context.getString(R.string.academics_tab);;
+            title = context.getString(R.string.academics_tab);
         } else if (position == 2) {
-            title = context.getString(R.string.costs_tab);;
+            title = context.getString(R.string.costs_tab);
         }
         return title;
     }

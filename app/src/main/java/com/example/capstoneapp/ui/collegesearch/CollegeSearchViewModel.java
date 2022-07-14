@@ -78,7 +78,7 @@ public class CollegeSearchViewModel extends AndroidViewModel {
     }
 
     private void getCollegesList(Set<Integer> favoriteColleges) {
-        Utilities.getCollegesListFromParse(0L, favoriteColleges, colleges -> {
+        Utilities.getCollegesListFromParse(favoriteColleges, colleges -> {
             if (colleges == null) {
                 Log.i(TAG, "No colleges found");
                 allCollegesLiveData.setValue(null);

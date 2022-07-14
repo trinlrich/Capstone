@@ -2,9 +2,7 @@ package com.example.capstoneapp.auth;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.splashscreen.SplashScreen;
 import androidx.lifecycle.Observer;
@@ -13,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
 import com.example.capstoneapp.MainActivity;
 import com.example.capstoneapp.R;
@@ -21,9 +18,6 @@ import com.example.capstoneapp.ui.survey.SurveyActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract;
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult;
-//import com.google.firebase.FirebaseApp;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -35,7 +29,6 @@ public class AuthActivity extends AppCompatActivity {
     private SplashScreen splashScreen;
 
     private FirebaseAuth auth;
-    private Boolean contentHasLoaded = false;
     private AuthViewModel viewModel;
 
     @Override
@@ -53,7 +46,6 @@ public class AuthActivity extends AppCompatActivity {
         // Create an observer for authentication state
         Observer<AuthViewModel.AuthenticationState> authObserver = authState -> {
             Log.i(TAG, "Observer Triggered");
-            contentHasLoaded = true;
             if (authState.equals(AuthViewModel.AuthenticationState.AUTHENTICATED)) {
                 Log.i(TAG, "Checking for User ID");
                 viewModel.checkForUserId(auth.getCurrentUser().getUid());
@@ -66,16 +58,13 @@ public class AuthActivity extends AppCompatActivity {
         };
         viewModel.authenticationState.observe(this, authObserver);
 
-        final Observer<Boolean> signInStateObserver = new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean signInState) {
-                if (signInState == true) {
-                    Log.i(TAG, "Starting Home Screen");
-                    startHomeScreen();
-                } else if (signInState == false) {
-                    Log.i(TAG, "Starting Survey Screen");
-                    startSignInSurvey();
-                }
+        final Observer<Boolean> signInStateObserver = signInState -> {
+            if (signInState) {
+                Log.i(TAG, "Starting Home Screen");
+                startHomeScreen();
+            } else if (!signInState) {
+                Log.i(TAG, "Starting Survey Screen");
+                startSignInSurvey();
             }
         };
         viewModel.isSignUpCompleted.observe(this, signInStateObserver);

@@ -1,8 +1,6 @@
 package com.example.capstoneapp.model;
 
-import com.example.capstoneapp.R;
 import com.parse.ParseClassName;
-import com.parse.ParseFile;
 import com.parse.ParseObject;
 
 @ParseClassName("Colleges")

@@ -33,15 +33,12 @@ public class SurveyViewModel extends ViewModel {
         user.setDegreeSeeking(userInfo.get(DictionaryKeys.DEGREE_SEEKING).toString());
         Log.d(TAG,String.format("Saving Firebase UID:%s , F Name: %s, L Name: %s" ,firebaseUid,user.getFirstName(),user.getLastName()));
         user.setFirebaseUid(firebaseUid);
-        user.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e != null) {
-                    Log.e(TAG, "Error while saving", e);
-                } else {
-                    Log.i(TAG, "Post save was successful");
-                    checkForUserId(firebaseUid);
-                }
+        user.saveInBackground(e -> {
+            if (e != null) {
+                Log.e(TAG, "Error while saving", e);
+            } else {
+                Log.i(TAG, "Post save was successful");
+                checkForUserId(firebaseUid);
             }
         });
         return isUserSaved;
@@ -49,19 +46,16 @@ public class SurveyViewModel extends ViewModel {
 
     private void checkForUserId(String userId) {
         Log.d(TAG,String.format("Checkin if Firebase UID: %s exists after save" ,firebaseUid));
-        Utilities.getProfileFromParse(userId, new GetUserProfileListenerCallback() {
-            @Override
-            public void onCompleted(List<ParseFirebaseUser> users) {
-                Log.i(TAG, "in onComplete");
+        Utilities.getProfileFromParse(userId, users -> {
+            Log.i(TAG, "in onComplete");
 
-                // Only two values are possbile null or actual single record for the user
-                if (users == null) {
-                    Log.i(TAG, "Error -> FirebaseUid not found");
-                    isUserSaved.setValue(false);
-                } else {
-                    Log.i(TAG, "Success -> FirebaseUid found");
-                    isUserSaved.setValue(true);
-                }
+            // Only two values are possible null or actual single record for the user
+            if (users == null) {
+                Log.i(TAG, "Error -> FirebaseUid not found");
+                isUserSaved.setValue(false);
+            } else {
+                Log.i(TAG, "Success -> FirebaseUid found");
+                isUserSaved.setValue(true);
             }
         });
     }

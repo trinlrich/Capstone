@@ -12,9 +12,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -52,9 +50,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     // ViewModel
     private MainViewModel viewModel;
-
-    // Shared Preferences
-    private SharedPreferences preferences;
 
     // Navigation fragments
     final FragmentManager fragmentManager = getSupportFragmentManager();
@@ -109,8 +104,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (actionBar != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-
-        preferences = getSharedPreferences(getString(R.string.filter_key), Context.MODE_PRIVATE);
     }
 
     @Override

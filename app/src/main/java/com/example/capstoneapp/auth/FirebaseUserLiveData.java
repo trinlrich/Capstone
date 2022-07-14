@@ -1,20 +1,16 @@
 package com.example.capstoneapp.auth;
 
-import androidx.annotation.NonNull;
-
 import androidx.lifecycle.LiveData;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class FirebaseUserLiveData extends LiveData<FirebaseUser> {
+
     private FirebaseUser user;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    private FirebaseAuth.AuthStateListener authStateListener = new FirebaseAuth.AuthStateListener() {
-        @Override
-        public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+    private FirebaseAuth.AuthStateListener authStateListener = firebaseAuth -> {
 //            user = firebaseAuth.getCurrentUser();
-            setValue(firebaseAuth.getCurrentUser());
-        }
+        setValue(firebaseAuth.getCurrentUser());
     };
 
     public FirebaseUser getUser() {

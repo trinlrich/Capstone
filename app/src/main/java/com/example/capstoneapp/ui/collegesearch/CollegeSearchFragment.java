@@ -20,7 +20,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.capstoneapp.model.College;
-import com.example.capstoneapp.EndlessRecyclerViewScrollListener;
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.ui.collegesearch.filter.FilterFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -36,7 +35,6 @@ public class CollegeSearchFragment extends Fragment {
     protected CollegesAdapter collegesAdapter;
 
     private RecyclerView rvColleges;
-    private EndlessRecyclerViewScrollListener scrollListener;
     private ConstraintLayout rootLayout;
 
     protected Long maxId;
@@ -64,12 +62,9 @@ public class CollegeSearchFragment extends Fragment {
             getActivity().setTitle(R.string.college_search_title);
         }
         // Pass the callback for Fav button click
-        collegesAdapter = new CollegesAdapter(getContext(), new CollegesAdapter.FavoriteButtonClickedCallback() {
-            @Override
-            public void onFavButtonClicked(College college) {
-                // Update the state to Parse through View Model
-                viewModel.updateFavCollege(college);
-            }
+        collegesAdapter = new CollegesAdapter(getContext(), college -> {
+            // Update the state to Parse through View Model
+            viewModel.updateFavCollege(college);
         });
         rootLayout = view.findViewById(R.id.topLayout);
         rvColleges = view.findViewById(R.id.rvColleges);
@@ -103,21 +98,11 @@ public class CollegeSearchFragment extends Fragment {
         viewModel.maxId.observe(getViewLifecycleOwner(), maxIdObserver);
 
         // favCollegeUpdatedIndex  observer
-        Observer<Integer> favCollegeUpdatedIndexObserver = new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer newIndex) {
-                collegesAdapter.notifyItemChanged(newIndex);
-            }
-        };
+        Observer<Integer> favCollegeUpdatedIndexObserver = newIndex -> collegesAdapter.notifyItemChanged(newIndex);
         viewModel.favCollegeUpdatedIndex.observe(getViewLifecycleOwner(), favCollegeUpdatedIndexObserver);
 
         // favCollegeProcessError  observer
-        Observer<Boolean> favCollegeErrorObserver = new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean newIndex) {
-                Snackbar.make(rootLayout,"Error in Updating Fav", Snackbar.LENGTH_LONG).show();
-            }
-        };
+        Observer<Boolean> favCollegeErrorObserver = newIndex -> Snackbar.make(rootLayout,"Error in Updating Fav", Snackbar.LENGTH_LONG).show();
         viewModel.favCollegeProcessError.observe(getViewLifecycleOwner(), favCollegeErrorObserver);
     }
 

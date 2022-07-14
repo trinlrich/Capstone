@@ -18,7 +18,6 @@ import android.view.ViewGroup;
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.ui.collegesearch.CollegeSearchViewModel;
-import com.example.capstoneapp.ui.collegesearch.CollegesAdapter;
 
 import java.util.List;
 
@@ -47,6 +46,10 @@ public class CollegesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(requireActivity()).get(CollegeSearchViewModel.class);
 
+        if (getActivity() != null) {
+            getActivity().setTitle(R.string.colleges_title);
+        }
+
         // Set up recycler view
         favCollegesRV = view.findViewById(R.id.favCollegesRV);
         favCollegesAdapter = new MyCollegesAdapter(getContext());
@@ -55,15 +58,12 @@ public class CollegesFragment extends Fragment {
         favCollegesRV.setAdapter(favCollegesAdapter);
 
         // Colleges observer
-        Observer<List<College>> favCollegesObserver = new Observer<List<College>>() {
-            @Override
-            public void onChanged(List<College> colleges) {
-                if ((colleges == null) || (colleges.size() == 0)){
-                    Log.e(TAG, "No Fav colleges found");
-                } else {
-                    Log.i(TAG, "Fav Colleges found");
-                    favCollegesAdapter.setFavColleges(colleges);
-                }
+        Observer<List<College>> favCollegesObserver = colleges -> {
+            if ((colleges == null) || (colleges.size() == 0)){
+                Log.e(TAG, "No Fav colleges found");
+            } else {
+                Log.i(TAG, "Fav Colleges found");
+                favCollegesAdapter.setFavColleges(colleges);
             }
         };
         viewModel.getAllFavCollegesLiveData().observe(getViewLifecycleOwner(), favCollegesObserver);

@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.ui.UiUtils;
-import com.example.capstoneapp.ui.collegesearch.CollegesAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,7 @@ import java.util.List;
 public class MyCollegesAdapter extends RecyclerView.Adapter<MyCollegesAdapter.ViewHolder> {
 
     private static final String TAG = "MyCollegesAdapter";
-    private Context context;
+    private final Context context;
     private List<College> favColleges = new ArrayList<>();
 
     public void setFavColleges(List<College> favColleges) {

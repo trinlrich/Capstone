@@ -13,15 +13,12 @@ import android.widget.Toast;
 
 import com.example.capstoneapp.MainActivity;
 import com.example.capstoneapp.R;
-import com.parse.ParseUser;
 
 import java.util.HashMap;
 
 public class SurveyActivity extends AppCompatActivity {
 
     public static final String TAG = "SurveyActivity";
-
-    protected ParseUser currentUser;
 
     private SurveyViewModel viewModel;
 
@@ -41,16 +38,13 @@ public class SurveyActivity extends AppCompatActivity {
         lastNameText = findViewById(R.id.lastNameText);
         degreeSeekingText = findViewById(R.id.degreeSeekingText);
 
-        saveUserStateObserver = new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean saveUserState) {
-                if (saveUserState.equals(false)) {
-                    makeToast();
-                } else if (saveUserState.equals(true)) {
-                    startHomeScreen();;
-                } else {
-                    Log.e(TAG, "New $signInState state that doesn't require any UI change");
-                }
+        saveUserStateObserver = saveUserState -> {
+            if (saveUserState.equals(false)) {
+                makeToast();
+            } else if (saveUserState.equals(true)) {
+                startHomeScreen();
+            } else {
+                Log.e(TAG, "New $signInState state that doesn't require any UI change");
             }
         };
     }

@@ -1,7 +1,5 @@
 package com.example.capstoneapp.ui.dashboard;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,7 +14,7 @@ import com.example.capstoneapp.R;
 
 public class DashboardFragment extends Fragment {
 
-    private DashboardViewModel mViewModel;
+    private DashboardViewModel viewModel;
 
     public static DashboardFragment newInstance() {
         return new DashboardFragment();
@@ -29,11 +27,7 @@ public class DashboardFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
-
-        getActivity().setTitle(R.string.dashboard_title);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
-
 }

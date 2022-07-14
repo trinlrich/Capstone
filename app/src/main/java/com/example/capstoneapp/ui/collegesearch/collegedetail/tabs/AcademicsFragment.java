@@ -16,7 +16,7 @@ import com.example.capstoneapp.R;
 
 public class AcademicsFragment extends Fragment {
 
-    private AcademicsViewModel mViewModel;
+    private AcademicsViewModel viewModel;
 
     public static AcademicsFragment newInstance() {
         return new AcademicsFragment();
@@ -31,7 +31,7 @@ public class AcademicsFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(AcademicsViewModel.class);
+        viewModel = new ViewModelProvider(this).get(AcademicsViewModel.class);
         // TODO: Use the ViewModel
     }
 

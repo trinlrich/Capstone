@@ -38,7 +38,7 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
     }
 
     private List<College> colleges = new ArrayList<>();
-    private FavoriteButtonClickedCallback favButtonClickedCallback;
+    private final FavoriteButtonClickedCallback favButtonClickedCallback;
 
     public CollegesAdapter(Context context, FavoriteButtonClickedCallback favButtonClickedCallback) {
         this.context = context;
@@ -65,11 +65,11 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private ImageView ivThumbnail;
-        private TextView tvName;
-        private TextView tvLocation;
-        private ImageButton ibtnFavorite;
-        private FavoriteButtonClickedCallback favButtonClickedCallback;
+        private final ImageView ivThumbnail;
+        private final TextView tvName;
+        private final TextView tvLocation;
+        private final ImageButton ibtnFavorite;
+        private final FavoriteButtonClickedCallback favButtonClickedCallback;
 
         public ViewHolder(@NonNull View itemView, FavoriteButtonClickedCallback favBtnClickedCallback) {
             super(itemView);

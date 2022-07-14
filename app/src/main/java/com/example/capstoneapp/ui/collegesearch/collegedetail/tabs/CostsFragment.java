@@ -16,7 +16,7 @@ import com.example.capstoneapp.R;
 
 public class CostsFragment extends Fragment {
 
-    private CostsViewModel mViewModel;
+    private CostsViewModel viewModel;
 
     public static CostsFragment newInstance() {
         return new CostsFragment();
@@ -31,7 +31,7 @@ public class CostsFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(CostsViewModel.class);
+        viewModel = new ViewModelProvider(this).get(CostsViewModel.class);
         // TODO: Use the ViewModel
     }
 
