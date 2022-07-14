@@ -3,6 +3,7 @@ package com.example.capstoneapp.ui.collegesearch;
 import android.app.Application;
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -19,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 
@@ -202,5 +204,27 @@ public class CollegeSearchViewModel extends AndroidViewModel {
     }
     private void stopProgress() {
         showProgress.setValue(false);
+    }
+
+    public void searchFilterCollegeList(String newText) {
+        List<College> filteredColleges = new ArrayList<>();
+
+        // Compare colleges in loop; add matching
+        for (College college : allColleges) {
+            if (college.getName().length() >= newText.length()) {
+                String nameSubstring = college.getName().substring(0, newText.length()).toLowerCase();
+                if (nameSubstring.equals(newText.toLowerCase())) {
+                    filteredColleges.add(college);
+                }
+            }
+        }
+        if (filteredColleges.isEmpty()) {
+            // No colleges found
+            // TODO::Remove recycler view and show text view when there's no data
+            Toast.makeText(context, "No Data Found..", Toast.LENGTH_SHORT).show();
+        } else {
+            // Set filtered list
+            allCollegesLiveData.setValue(filteredColleges);
+        }
     }
 }

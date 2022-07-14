@@ -65,8 +65,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
-        Log.i(TAG, "main activity started");
-
         // Side Navigation Bar
         toolbar = findViewById(R.id.nav_action);
         drawerLayout = findViewById(R.id.drawerLayout);

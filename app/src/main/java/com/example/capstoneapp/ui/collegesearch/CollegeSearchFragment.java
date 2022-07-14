@@ -5,7 +5,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
+import android.widget.Toast;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,6 +28,7 @@ import com.example.capstoneapp.ui.collegesearch.filter.FilterFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CollegeSearchFragment extends Fragment {
@@ -34,7 +39,8 @@ public class CollegeSearchFragment extends Fragment {
     private CollegeSearchViewModel viewModel;
     private RecyclerView rvColleges;
     private ConstraintLayout rootLayout;
-    private FloatingActionButton btnFilter;
+    private SearchView svCollegeSearch;
+    private ImageButton btnFilter;
     private ProgressBar loadingProgressBar;
 
     public static CollegeSearchFragment newInstance() {
@@ -58,6 +64,7 @@ public class CollegeSearchFragment extends Fragment {
         if (getActivity() != null) {
             getActivity().setTitle(R.string.college_search_title);
         }
+
         // Pass the callback for Fav button click
         collegesAdapter = new CollegesAdapter(getContext(), college -> {
             // Update the state to Parse through View Model
@@ -65,6 +72,19 @@ public class CollegeSearchFragment extends Fragment {
         });
         rootLayout = view.findViewById(R.id.topLayout);
         rvColleges = view.findViewById(R.id.rvColleges);
+        svCollegeSearch = view.findViewById(R.id.svCollegeSearch);
+        svCollegeSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                viewModel.searchFilterCollegeList(newText);
+                return false;
+            }
+        });
         btnFilter = view.findViewById(R.id.btnFilter);
         btnFilter.setOnClickListener(this::onFilterClick);
         loadingProgressBar = view.findViewById(R.id.progressBar);
@@ -125,6 +145,4 @@ public class CollegeSearchFragment extends Fragment {
                     .commit();
         }
     }
-
-
 }

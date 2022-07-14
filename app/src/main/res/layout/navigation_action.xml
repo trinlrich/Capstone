@@ -3,6 +3,6 @@
     android:id="@+id/nav_action"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:theme="@style/Theme.CapstoneApp">
-
-</androidx.appcompat.widget.Toolbar>
+    android:background="@android:color/transparent"
+    android:padding="@dimen/small_margin"
+    android:theme="@style/Theme.CapstoneApp" />
