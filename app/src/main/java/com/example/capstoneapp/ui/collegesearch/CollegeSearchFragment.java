@@ -1,6 +1,8 @@
 package com.example.capstoneapp.ui.collegesearch;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -20,6 +22,8 @@ import android.view.ViewGroup;
 import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.EndlessRecyclerViewScrollListener;
 import com.example.capstoneapp.R;
+import com.example.capstoneapp.ui.collegesearch.filter.FilterFragment;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
@@ -36,6 +40,7 @@ public class CollegeSearchFragment extends Fragment {
     private ConstraintLayout rootLayout;
 
     protected Long maxId;
+    private FloatingActionButton btnFilter;
 
     public static CollegeSearchFragment newInstance() {
         return new CollegeSearchFragment();
@@ -53,9 +58,11 @@ public class CollegeSearchFragment extends Fragment {
 
         // this is a shared vm , so created based on Activity
         viewModel = new ViewModelProvider(requireActivity()).get(CollegeSearchViewModel.class);
+        viewModel.filterCollegesList();
 
-        getActivity().setTitle(R.string.college_search_title);
-
+        if (getActivity() != null) {
+            getActivity().setTitle(R.string.college_search_title);
+        }
         // Pass the callback for Fav button click
         collegesAdapter = new CollegesAdapter(getContext(), new CollegesAdapter.FavoriteButtonClickedCallback() {
             @Override
@@ -66,9 +73,13 @@ public class CollegeSearchFragment extends Fragment {
         });
         rootLayout = view.findViewById(R.id.topLayout);
         rvColleges = view.findViewById(R.id.rvColleges);
+        btnFilter = view.findViewById(R.id.btnFilter);
+        btnFilter.setOnClickListener(this::onFilterClick);
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rvColleges.setAdapter(collegesAdapter);
         rvColleges.setLayoutManager(linearLayoutManager);
+
 
 /*      This code is not needed as you want to get all data at once.
         scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
@@ -90,15 +101,12 @@ public class CollegeSearchFragment extends Fragment {
         viewModel.getAllCollegesLiveData().observe(getViewLifecycleOwner(), collegesObserver);
 
         // Max ID observer
-        Observer<Long> maxIdObserver = new Observer<Long>() {
-            @Override
-            public void onChanged(Long newMaxId) {
-                if (newMaxId == null) {
-                    Log.e(TAG, "Max ID is null");
-                } else {
-                    Log.i(TAG, "Updated Max ID");
-                    maxId = newMaxId;
-                }
+        Observer<Long> maxIdObserver = newMaxId -> {
+            if (newMaxId == null) {
+                Log.e(TAG, "Max ID is null");
+            } else {
+                Log.i(TAG, "Updated Max ID");
+                maxId = newMaxId;
             }
         };
         viewModel.maxId.observe(getViewLifecycleOwner(), maxIdObserver);
@@ -121,4 +129,18 @@ public class CollegeSearchFragment extends Fragment {
         };
         viewModel.favCollegeProcessError.observe(getViewLifecycleOwner(), favCollegeErrorObserver);
     }
+
+    public void onFilterClick(View view) {
+        FragmentManager fragmentManager = ((FragmentActivity) getContext()).getSupportFragmentManager();
+
+        if (fragmentManager != null) {
+            fragmentManager
+                    .beginTransaction()
+                    .replace(R.id.flContainer, FilterFragment.newInstance())
+                    .addToBackStack(null)
+                    .commit();
+        }
+    }
+
+
 }
