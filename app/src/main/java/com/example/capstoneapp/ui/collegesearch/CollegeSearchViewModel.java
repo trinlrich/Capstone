@@ -2,7 +2,6 @@ package com.example.capstoneapp.ui.collegesearch;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -14,14 +13,13 @@ import com.example.capstoneapp.R;
 import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.model.FavoriteCollege;
 import com.example.capstoneapp.parsedatasource.Utilities;
-import com.example.capstoneapp.ui.collegesearch.filter.CollegeFilter;
 import com.example.capstoneapp.ui.collegesearch.filter.FilterUtils;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 public class CollegeSearchViewModel extends AndroidViewModel {
@@ -33,8 +31,7 @@ public class CollegeSearchViewModel extends AndroidViewModel {
     public final String typeString;
     public final String missionString;
     public final String allString;
-    Context context;
-    SharedPreferences preferences;
+    private final Context context;
 
     // This section is for All College List
     private MutableLiveData<List<College>> allCollegesLiveData = new MutableLiveData<>();
@@ -48,7 +45,7 @@ public class CollegeSearchViewModel extends AndroidViewModel {
     MutableLiveData<Integer> favCollegeUpdatedIndex = new MutableLiveData<>();
     MutableLiveData<Boolean> favCollegeProcessError = new MutableLiveData<>();
 
-    private String firebaseUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    private String firebaseUid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
     // This section is for Fav College List
     public LiveData<List<College>> getAllFavCollegesLiveData() {
@@ -81,14 +78,14 @@ public class CollegeSearchViewModel extends AndroidViewModel {
     }
 
     private void getCollegesList(Set<Integer> favoriteColleges) {
-        Utilities.getCollegesListFromParse(Long.valueOf(0), favoriteColleges, colleges -> {
+        Utilities.getCollegesListFromParse(0L, favoriteColleges, colleges -> {
             if (colleges == null) {
                 Log.i(TAG, "No colleges found");
                 allCollegesLiveData.setValue(null);
             } else {
                 Log.i(TAG, "Colleges found");
                 updateCollegeDataSet(colleges);
-                maxId.setValue(Long.valueOf(colleges.size()));
+                maxId.setValue((long) colleges.size());
             }
         });
     }

@@ -16,14 +16,23 @@ public class FilterUtils {
         SharedPreferences preferences = context.getSharedPreferences(context.getString(R.string.filter_key), Context.MODE_PRIVATE);
         // Retrieve json string from preferences
         String filterJson = preferences.getString(filterString, null);
-        // Convert json string in preferences back to CollegeFilter object
-        CollegeFilter filter = new Gson().fromJson(filterJson, CollegeFilter.class);
-        // Return filter value
-        return filter;
+        // Convert json string in preferences back to CollegeFilter object and return
+        return new Gson().fromJson(filterJson, CollegeFilter.class);
     }
 
     public static String getFilterValue(Context context, String filterString) {
         return getFilter(context, filterString).getValue();
+    }
+
+    public static void putDefaultFilter(Context context, CollegeFilter filter) {
+        // Retrieve filter preferences
+        SharedPreferences preferences = context.getSharedPreferences(context.getString(R.string.filter_key), Context.MODE_PRIVATE);
+        // Convert filter object to json string
+        String filterJson = new Gson().toJson(filter);
+        // Add to preferences
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(filter.getKey(), filterJson);
+        editor.apply();
     }
 
     public static void putFilter(Context context, CollegeFilter filter, String filterValue, int position) {
