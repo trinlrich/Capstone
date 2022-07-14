@@ -1,8 +1,6 @@
 package com.example.capstoneapp.ui.collegesearch;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -72,7 +69,6 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
         private TextView tvName;
         private TextView tvLocation;
         private ImageButton ibtnFavorite;
-        private TextView tvAverageGpa;
         private FavoriteButtonClickedCallback favButtonClickedCallback;
 
         public ViewHolder(@NonNull View itemView, FavoriteButtonClickedCallback favBtnClickedCallback) {
@@ -81,7 +77,6 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
             tvName = itemView.findViewById(R.id.tvName);
             tvLocation = itemView.findViewById(R.id.tvLocation);
             ibtnFavorite = itemView.findViewById(R.id.ibtnFavorite);
-            tvAverageGpa = itemView.findViewById(R.id.tvAcceptanceRateTItle);
             favButtonClickedCallback= favBtnClickedCallback;
         }
 

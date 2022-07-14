@@ -1,5 +1,6 @@
 package com.example.capstoneapp.model;
 
+import com.example.capstoneapp.R;
 import com.parse.ParseClassName;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
@@ -14,6 +15,10 @@ public class College extends ParseObject {
     public static final String KEY_STATE = "schoolStateCode";
     public static final String KEY_CONTROL = "schoolControl";
     public static final String KEY_MISSION = "schoolSpecialMission";
+
+    public static final String PUBLIC = "Private";
+    public static final String PRIVATE_NP = "Private Nonprofit";
+    public static final String PRIVATE_FP = "Private For-Profit";
 
     private boolean isFavorite;
     public boolean isFavorite() {
@@ -38,7 +43,7 @@ public class College extends ParseObject {
     public String getCollegeState() { return getString(KEY_STATE); }
     public void setCollegeState(String state) { put(KEY_STATE, state); }
 
-    public int getControl() { return getInt(KEY_CONTROL); }
+    public String getControl() { return convertControlToString(); }
     public void setControl(int control) { put(KEY_CONTROL, control); }
 
     public String getMission() { return getString(KEY_MISSION); }
@@ -47,6 +52,19 @@ public class College extends ParseObject {
     public String getLocation() {
         // TODO:: Pull State and concat city and state (City, ST)
         return getCity() + ", " + getCollegeState();
+    }
+
+    private String convertControlToString() {
+        int control = getInt(KEY_CONTROL);
+        if (control == 1) {
+            return PUBLIC;
+        } else if (control == 2) {
+            return PRIVATE_NP;
+        } else if (control == 3) {
+            return PRIVATE_FP;
+        } else {
+            return "Data Not Available";
+        }
     }
 
 

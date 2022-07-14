@@ -26,6 +26,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.capstoneapp.model.ParseFirebaseUser;
 import com.example.capstoneapp.ui.UiUtils;
 import com.example.capstoneapp.ui.collegesearch.filter.CollegeFilter;
+import com.example.capstoneapp.ui.collegesearch.filter.FilterUtils;
 import com.example.capstoneapp.ui.profile.ProfileFragment;
 import com.example.capstoneapp.ui.dashboard.DashboardFragment;
 import com.example.capstoneapp.ui.collegesearch.CollegeSearchFragment;
@@ -34,7 +35,6 @@ import com.example.capstoneapp.auth.AuthActivity;
 import com.example.capstoneapp.ui.settings.SettingsFragment;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.navigation.NavigationView;
-import com.google.gson.Gson;
 import com.parse.ParseFile;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -169,20 +169,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void setDefaultFilters() {
         // Create filters with default "All" value
-        CollegeFilter state = new CollegeFilter(getString(R.string.state_key));
-        CollegeFilter type = new CollegeFilter(getString(R.string.type_key));
-        CollegeFilter mission = new CollegeFilter(getString(R.string.mission_key));
-
-        // Convert filter object to json string
-        String stateJson = new Gson().toJson(state);
-        String typeJson = new Gson().toJson(type);
-        String missionJson = new Gson().toJson(mission);
-
-        // Add to preferences
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(getString(R.string.state_key), stateJson);
-        editor.putString(getString(R.string.type_key), typeJson);
-        editor.putString(getString(R.string.mission_key), missionJson);
-        editor.commit();
+        FilterUtils.putDefaultFilter(this, new CollegeFilter(getString(R.string.state_key)));
+        FilterUtils.putDefaultFilter(this, new CollegeFilter(getString(R.string.type_key)));
+        FilterUtils.putDefaultFilter(this, new CollegeFilter(getString(R.string.mission_key)));
     }
 }

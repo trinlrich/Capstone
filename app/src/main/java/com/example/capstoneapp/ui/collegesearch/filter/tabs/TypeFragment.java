@@ -18,15 +18,17 @@ import androidx.fragment.app.Fragment;
 
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.ui.collegesearch.filter.CollegeFilter;
+import com.example.capstoneapp.ui.collegesearch.filter.FilterUtils;
 import com.google.gson.Gson;
 
 public class TypeFragment extends Fragment {
 
     public static final String TAG = "TypeFragment";
 
-    SharedPreferences preferences;
-    CollegeFilter type;
-    ListView listView;
+    private SharedPreferences preferences;
+    private CollegeFilter type;
+    private ListView listView;
+    private String typeString;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,10 +42,10 @@ public class TypeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         preferences = getContext().getSharedPreferences(getString(R.string.filter_key), Context.MODE_PRIVATE);
+        typeString = getString(R.string.type_key);
 
         // Create state CollegeFilter
-        type = new CollegeFilter();
-        type.setKey(getString(R.string.type_key));
+        type = new CollegeFilter(typeString);
 
         listView = view.findViewById(R.id.type_list_view);
         listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
@@ -60,21 +62,12 @@ public class TypeFragment extends Fragment {
     }
 
     private void setFilters() {
-        String existingTypeJson = preferences.getString(type.getKey(), null);
-        CollegeFilter existingFilter = new Gson().fromJson(existingTypeJson, CollegeFilter.class);
+        CollegeFilter existingFilter = FilterUtils.getFilter(getContext(), typeString);
         listView.setItemChecked(existingFilter.getPosition(), true);
     }
 
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Log.i(TAG, "onItemClick: " +position);
-        type.setValue(listView.getItemAtPosition(position).toString());
-        type.setPosition(position);
-
-        SharedPreferences.Editor editor = preferences.edit();
-        // Convert object to JSON string to put in preferences
-        String typeJson = new Gson().toJson(type);
-        editor.putString(type.getKey(), typeJson);
-        editor.commit();
+        FilterUtils.putFilter(getContext(), type, listView.getItemAtPosition(position).toString(), position);
     }
 
     private String[] getTypes() {

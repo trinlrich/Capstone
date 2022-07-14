@@ -18,15 +18,17 @@ import android.widget.ListView;
 
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.ui.collegesearch.filter.CollegeFilter;
+import com.example.capstoneapp.ui.collegesearch.filter.FilterUtils;
 import com.google.gson.Gson;
 
 public class StateFragment extends Fragment {
 
     public static final String TAG = "StateFragment";
 
-    SharedPreferences preferences;
-    CollegeFilter state;
-    ListView listView;
+    private SharedPreferences preferences;
+    private CollegeFilter state;
+    private ListView listView;
+    private String stateString;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,10 +42,10 @@ public class StateFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         preferences = getContext().getSharedPreferences(getString(R.string.filter_key), Context.MODE_PRIVATE);
+        stateString = getString(R.string.state_key);
 
         // Create state CollegeFilter
-        state = new CollegeFilter();
-        state.setKey(getString(R.string.state_key));
+        state = new CollegeFilter(stateString);
 
         listView = view.findViewById(R.id.state_list_view);
         listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
@@ -56,25 +58,17 @@ public class StateFragment extends Fragment {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_checked, getStates());
         listView.setAdapter(arrayAdapter);
         //Set existing filters and default if no existing filters
-        setFilters();
+        setExistingFilters();
     }
 
-    private void setFilters() {
-        String existingStateJson = preferences.getString(state.getKey(), null);
-        CollegeFilter existingFilter = new Gson().fromJson(existingStateJson, CollegeFilter.class);
+    private void setExistingFilters() {
+        CollegeFilter existingFilter = FilterUtils.getFilter(getContext(), stateString);
         listView.setItemChecked(existingFilter.getPosition(), true);
     }
 
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Log.i(TAG, "onItemClick: " +position);
-        state.setValue(listView.getItemAtPosition(position).toString());
-        state.setPosition(position);
-
-        SharedPreferences.Editor editor = preferences.edit();
-        // Convert object to JSON string to put in preferences
-        String stateJson = new Gson().toJson(state);
-        editor.putString(state.getKey(), stateJson);
-        editor.commit();
+        FilterUtils.putFilter(getContext(), state, listView.getItemAtPosition(position).toString(), position);
     }
 
     private String[] getStates() {
