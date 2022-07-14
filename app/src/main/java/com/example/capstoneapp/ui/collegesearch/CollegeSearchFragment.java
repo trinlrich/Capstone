@@ -1,26 +1,25 @@
 package com.example.capstoneapp.ui.collegesearch;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
-import com.example.capstoneapp.model.College;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.capstoneapp.R;
+import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.ui.collegesearch.filter.FilterFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -30,15 +29,13 @@ import java.util.List;
 public class CollegeSearchFragment extends Fragment {
 
     public static final String TAG = "CollegeSearchFragment";
-
-    private CollegeSearchViewModel viewModel;
     protected CollegesAdapter collegesAdapter;
-
+    protected Long maxId;
+    private CollegeSearchViewModel viewModel;
     private RecyclerView rvColleges;
     private ConstraintLayout rootLayout;
-
-    protected Long maxId;
     private FloatingActionButton btnFilter;
+    private ProgressBar loadingProgressBar;
 
     public static CollegeSearchFragment newInstance() {
         return new CollegeSearchFragment();
@@ -70,14 +67,15 @@ public class CollegeSearchFragment extends Fragment {
         rvColleges = view.findViewById(R.id.rvColleges);
         btnFilter = view.findViewById(R.id.btnFilter);
         btnFilter.setOnClickListener(this::onFilterClick);
+        loadingProgressBar = view.findViewById(R.id.progressBar);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rvColleges.setAdapter(collegesAdapter);
         rvColleges.setLayoutManager(linearLayoutManager);
 
-         // Colleges observer
+        // Colleges observer
         Observer<List<College>> collegesObserver = colleges -> {
-            if ((colleges == null) || (colleges.size() == 0)){
+            if ((colleges == null) || (colleges.size() == 0)) {
                 Log.e(TAG, "No colleges found");
             } else {
                 Log.i(TAG, "Colleges found");
@@ -102,8 +100,18 @@ public class CollegeSearchFragment extends Fragment {
         viewModel.favCollegeUpdatedIndex.observe(getViewLifecycleOwner(), favCollegeUpdatedIndexObserver);
 
         // favCollegeProcessError  observer
-        Observer<Boolean> favCollegeErrorObserver = newIndex -> Snackbar.make(rootLayout,"Error in Updating Fav", Snackbar.LENGTH_LONG).show();
+        Observer<Boolean> favCollegeErrorObserver = newIndex -> Snackbar.make(rootLayout, "Error in Updating Fav", Snackbar.LENGTH_LONG).show();
         viewModel.favCollegeProcessError.observe(getViewLifecycleOwner(), favCollegeErrorObserver);
+
+        // Progress update observer
+        Observer<Boolean> progressUpdateObserver = visible -> {
+            if (visible)
+                loadingProgressBar.setVisibility(View.VISIBLE);
+            else
+                loadingProgressBar.setVisibility(View.GONE);
+        };
+        viewModel.getShowProgress().observe(getViewLifecycleOwner(), progressUpdateObserver);
+
     }
 
     public void onFilterClick(View view) {

@@ -38,16 +38,19 @@ public class CollegeSearchViewModel extends AndroidViewModel {
     private List<College> allColleges = new ArrayList<>();
     public LiveData<List<College>> getAllCollegesLiveData() {return allCollegesLiveData;}
     private List<College> allCollegesAfterFilter = new ArrayList<>();
+    private MutableLiveData<Boolean> showProgress = new MutableLiveData<>();
+    public LiveData<Boolean> getShowProgress() {
+        return showProgress;
+    }
+
 
     MutableLiveData<Long> maxId = new MutableLiveData<>();
-
-    private Set<Integer> favoriteCollegesSet = new HashSet<>();
-    MutableLiveData<Integer> favCollegeUpdatedIndex = new MutableLiveData<>();
-    MutableLiveData<Boolean> favCollegeProcessError = new MutableLiveData<>();
-
     private String firebaseUid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
     // This section is for Fav College List
+    private Set<Integer> favoriteCollegesSet = new HashSet<>();
+    MutableLiveData<Integer> favCollegeUpdatedIndex = new MutableLiveData<>();
+    MutableLiveData<Boolean> favCollegeProcessError = new MutableLiveData<>();
     public LiveData<List<College>> getAllFavCollegesLiveData() {
         return allFavCollegesLiveData;
     }
@@ -68,6 +71,7 @@ public class CollegeSearchViewModel extends AndroidViewModel {
     }
 
     private void getCollegesListForUser() {
+        startProgress();
         Utilities.getFavCollegesForUser(firebaseUid, (favColleges,error) -> {
             // create the Set of Fav Colleges
             for (FavoriteCollege college : favColleges)
@@ -107,6 +111,7 @@ public class CollegeSearchViewModel extends AndroidViewModel {
         allFavColleges.clear();
         allFavColleges.addAll(favColleges);
         allFavCollegesLiveData.setValue(allFavColleges);
+        stopProgress();
     }
 
     public void updateFavCollege(College selectedCollege) {
@@ -190,5 +195,12 @@ public class CollegeSearchViewModel extends AndroidViewModel {
     private boolean isFilteringNeeded(String value) {
         // False if filter is set to "All"
         return !value.equals(allString);
+    }
+
+    private void startProgress() {
+        showProgress.setValue(true);
+    }
+    private void stopProgress() {
+        showProgress.setValue(false);
     }
 }
