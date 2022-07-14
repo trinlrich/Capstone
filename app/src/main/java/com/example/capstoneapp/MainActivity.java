@@ -12,7 +12,9 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -23,6 +25,7 @@ import android.widget.TextView;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.capstoneapp.model.ParseFirebaseUser;
 import com.example.capstoneapp.ui.UiUtils;
+import com.example.capstoneapp.ui.collegesearch.filter.CollegeFilter;
 import com.example.capstoneapp.ui.profile.ProfileFragment;
 import com.example.capstoneapp.ui.dashboard.DashboardFragment;
 import com.example.capstoneapp.ui.collegesearch.CollegeSearchFragment;
@@ -31,6 +34,7 @@ import com.example.capstoneapp.auth.AuthActivity;
 import com.example.capstoneapp.ui.settings.SettingsFragment;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.navigation.NavigationView;
+import com.google.gson.Gson;
 import com.parse.ParseFile;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -48,6 +52,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     // ViewModel
     private MainViewModel viewModel;
+
+    // Shared Preferences
+    private SharedPreferences preferences;
 
     // Navigation fragments
     final FragmentManager fragmentManager = getSupportFragmentManager();
@@ -102,6 +109,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (actionBar != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        preferences = getSharedPreferences(getString(R.string.filter_key), Context.MODE_PRIVATE);
     }
 
     @Override
@@ -119,6 +128,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (item.getItemId()) {
             case R.id.nav_college_search:
                 Log.i(TAG, "College Search Clicked");
+                setDefaultFilters();
                 fragment = collegeSearchFragment;
                 break;
             case R.id.nav_colleges:
@@ -155,5 +165,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .addOnCompleteListener(task ->
                         startActivity(new Intent(this, AuthActivity.class)));
         finish();
+    }
+
+    private void setDefaultFilters() {
+        // Create filters with default "All" value
+        CollegeFilter state = new CollegeFilter(getString(R.string.state_key));
+        CollegeFilter type = new CollegeFilter(getString(R.string.type_key));
+        CollegeFilter mission = new CollegeFilter(getString(R.string.mission_key));
+
+        // Convert filter object to json string
+        String stateJson = new Gson().toJson(state);
+        String typeJson = new Gson().toJson(type);
+        String missionJson = new Gson().toJson(mission);
+
+        // Add to preferences
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(getString(R.string.state_key), stateJson);
+        editor.putString(getString(R.string.type_key), typeJson);
+        editor.putString(getString(R.string.mission_key), missionJson);
+        editor.commit();
     }
 }
