@@ -100,6 +100,7 @@ public class CollegeSearchFragment extends Fragment {
                 Log.i(TAG, "Colleges found");
                 collegesAdapter.setColleges(colleges);
                 showColleges();
+                rvColleges.smoothScrollToPosition(0);
             }
         };
         viewModel.getAllCollegesLiveData().observe(getViewLifecycleOwner(), collegesObserver);

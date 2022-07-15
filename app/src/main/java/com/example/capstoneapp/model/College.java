@@ -23,7 +23,7 @@ public class College extends ParseObject {
     public static final String KEY_ACCEPT_RATE = "schoolAcceptanceRate";
     public static final String KEY_UNDERGRAD_ENROLL = "schoolUndergradEnrollment";
     public static final String KEY_WEBPAGE = "schoolWebPage";
-    public static final String KEY_COMP_RATE = "schoolCompletionRate100";
+    public static final String KEY_GRAD_RATE = "schoolCompletionRate100";
     public static final String KEY_AVG_SAT = "schoolAverageSATScore";
     public static final String KEY_ACT_75 = "schoolAct75Percentile";
     public static final String KEY_ACT_25 = "schoolAct25Percentile";
@@ -98,9 +98,9 @@ public class College extends ParseObject {
     public String getWebpage() { return getString(KEY_WEBPAGE); }
     public void setWebpage(String webpage) { put(KEY_WEBPAGE, webpage); }
 
-    public String getRawCompRateData() { return getString(KEY_COMP_RATE); }
-    public String getCompRateAsText() { return processCompRate(getRawCompRateData()); }
-    public void setCompRate(String compRate) { put(KEY_COMP_RATE, compRate); }
+    public String getRawGradRateData() { return getString(KEY_GRAD_RATE); }
+    public String getGradRateAsText() { return processGradRate(getRawGradRateData()); }
+    public void setGradRate(String gradRate) { put(KEY_GRAD_RATE, gradRate); }
 
     public String getAvgSat() { return getString(KEY_AVG_SAT); }
     public void setAvgSat(String avgSat) { put(KEY_AVG_SAT, avgSat); }
@@ -127,8 +127,8 @@ public class College extends ParseObject {
     public String getTuitionOutAsText() { return processTuition(getRawTuitionOutData()); }
     public void setTuitionOut(int tuitionOut) { put(KEY_TUITION_OUT, tuitionOut); }
 
-    public int getRawFedLoadPercentData() { return getInt(KEY_FED_LOAN_PERCENT); }
-    public String getFedLoanPercentAsText() { return processFinAidPercent(getRawFedLoadPercentData()); }
+    public int getRawFedLoanPercentData() { return getInt(KEY_FED_LOAN_PERCENT); }
+    public String getFedLoanPercentAsText() { return processFinAidPercent(getRawFedLoanPercentData()); }
     public void setFedLoanPercent(int fedLoanPercent) { put(KEY_FED_LOAN_PERCENT, fedLoanPercent); }
 
     public int getRawPellPercentData() { return getInt(KEY_PELL_PERCENT); }
@@ -155,7 +155,7 @@ public class College extends ParseObject {
      * KEY_STATE - schoolStateCode
      */
     private String processStateCode(String code) {
-        // TODO :: Process state code CA -> California (for list view in filtering)
+        // TODO :: Process state code | CA -> California (for list view in filtering)
         return code;
     }
 
@@ -170,7 +170,7 @@ public class College extends ParseObject {
         } else if (control == 3) {
             return PRIVATE_FP;
         } else {
-            return "Data Not Available";
+            return DATA_NOT_AVAILABLE;
         }
     }
 
@@ -178,11 +178,16 @@ public class College extends ParseObject {
      * KEY_DEGREE_TYPE - schoolDegreeType
      */
     private String processDegreeType(String degreeType) {
-        if (degreeType.equals("Not Applicable")) {
-            return "Not Available";
+        if (degreeType.equals(NOT_APPLICABLE)) {
+            return DATA_NOT_AVAILABLE;
         } else {
             return degreeType;
         }
+    }
+
+    private String processMission(String missions) {
+        //TODO :: Process Missions | HBCU -> Historically Black College or University
+        return missions;
     }
 
     /*
@@ -190,15 +195,15 @@ public class College extends ParseObject {
      */
     private String processAcceptRate(int acceptRate) {
         if (acceptRate == NO_DATA_ZERO) {
-            return "Not Available";
+            return DATA_NOT_AVAILABLE;
         } else {
             return String.valueOf(acceptRate * 100);
         }
     }
 
-    private String processCompRate(String compRate) {
-        if (compRate.equals("Data Not Available")) {
-            return "Data Not Available";
+    private String processGradRate(String compRate) {
+        if (compRate.equals(DATA_NOT_AVAILABLE)) {
+            return compRate;
         } else {
             return String.valueOf(Float.valueOf(compRate) * 100) + '%';
         }
@@ -210,7 +215,7 @@ public class College extends ParseObject {
      */
     private String processAvgCost(int cost) {
         if (cost == NO_DATA_ZERO) {
-            return "Data Not Available";
+            return DATA_NOT_AVAILABLE;
         } else {
             return String.valueOf(convertToDollar(cost));
         }
@@ -222,7 +227,7 @@ public class College extends ParseObject {
      */
     private String processTuition(int tuition) {
         if (tuition == NO_DATA_NOT_ZERO) {
-            return "Data Not Available";
+            return DATA_NOT_AVAILABLE;
         } else {
             return String.valueOf(convertToDollar(tuition));
         }
@@ -234,7 +239,7 @@ public class College extends ParseObject {
      */
     private String processFinAidPercent(int percent) {
         if (percent == NO_DATA_ZERO) {
-            return "Data Not Available";
+            return DATA_NOT_AVAILABLE;
         } else {
             return String.valueOf(percent * 100);
         }
@@ -246,7 +251,7 @@ public class College extends ParseObject {
      */
     private String processMedianDebt(int debt) {
         if (debt == NO_DATA_NOT_ZERO) {
-            return "Data Not Available";
+            return DATA_NOT_AVAILABLE;
         } else {
             return String.valueOf(convertToDollar(debt));
         }

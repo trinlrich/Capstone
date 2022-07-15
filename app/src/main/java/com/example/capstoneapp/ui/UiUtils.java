@@ -30,7 +30,7 @@ public class UiUtils {
 
     public static void setViewText(Context context, TextView textView, String text) {
         if (text.isEmpty()) {
-            textView.setText(context.getString(R.string.na_text));
+//            textView.setText(context.getString(R.string.data_not_available));
         } else {
             textView.setText(text);
         }

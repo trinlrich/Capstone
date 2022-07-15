@@ -20,7 +20,7 @@
             android:theme="@style/TableRowStyle">
 
             <TextView
-                android:id="@+id/tvTuition"
+                android:id="@+id/tvGradRateTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/medium_margin"
@@ -29,10 +29,9 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvGraduationRate"
+                android:id="@+id/tvGradRate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="55%"
                 tools:text="55%" />
         </TableRow>
 
@@ -42,7 +41,7 @@
             android:theme="@style/TableRowStyle">
 
             <TextView
-                android:id="@+id/tvAverageGpaTItle"
+                android:id="@+id/tvAvgGpaTItle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/medium_margin"
@@ -51,10 +50,9 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvAvgAcceptRate"
+                android:id="@+id/tvAvgGpa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="4.0"
                 tools:text="4.0" />
         </TableRow>
 
@@ -64,7 +62,7 @@
             android:theme="@style/TableRowStyle">
 
             <TextView
-                android:id="@+id/tvCollegeTypeTitle"
+                android:id="@+id/tvAvgSatTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/medium_margin"
@@ -73,10 +71,9 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvCollegeType"
+                android:id="@+id/tvAvgSat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1320"
                 tools:text="1320" />
         </TableRow>
 
@@ -86,7 +83,7 @@
             android:theme="@style/TableRowStyle">
 
             <TextView
-                android:id="@+id/tvMissionTitle"
+                android:id="@+id/tvAvgActTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/medium_margin"
@@ -95,10 +92,9 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvMission"
+                android:id="@+id/tvAvgAct"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="30"
                 tools:text="30" />
         </TableRow>
 

@@ -94,8 +94,6 @@
     <string name="no_colleges_text">No Colleges Found</string>
 
     // Null Strings
-    <string name="na_text">Not Available</string>
-    <string name="not_applicable">Not Applicable</string>
     <string name="data_not_available">Data Not Available</string>
 
 </resources>
