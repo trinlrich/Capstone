@@ -68,7 +68,7 @@ public class CollegeDetailFragment extends Fragment {
         viewPager = view.findViewById(R.id.viewpager);
         tabLayout = view.findViewById(R.id.tabs);
 
-        fragmentPagerAdapter = new CollegeDetailFragmentPagerAdapter(getChildFragmentManager(), getContext());
+        fragmentPagerAdapter = new CollegeDetailFragmentPagerAdapter(getChildFragmentManager(), getContext(), college);
         viewPager.setAdapter(fragmentPagerAdapter);
 
         tabLayout.setupWithViewPager(viewPager);

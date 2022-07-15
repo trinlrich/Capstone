@@ -13,13 +13,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.capstoneapp.R;
+import com.example.capstoneapp.model.College;
 
 public class AcademicsFragment extends Fragment {
 
     private AcademicsViewModel viewModel;
+    private College college;
 
-    public static AcademicsFragment newInstance() {
-        return new AcademicsFragment();
+    public AcademicsFragment(College college) {
+        this.college = college;
     }
 
     @Override

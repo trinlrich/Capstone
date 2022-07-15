@@ -87,11 +87,15 @@
     <string name="filter_description">Filter icon</string>
 
     // Misc
-    <string name="na_text">Not Available</string>
     <string name="thumbnail_description">College thumbnail</string>
     <string name="filter_title">Filter</string>
     <string name="apply">Apply</string>
     <string name="search_hint_text">Search by college name</string>
     <string name="no_colleges_text">No Colleges Found</string>
+
+    // Null Strings
+    <string name="na_text">Not Available</string>
+    <string name="not_applicable">Not Applicable</string>
+    <string name="data_not_available">Data Not Available</string>
 
 </resources>

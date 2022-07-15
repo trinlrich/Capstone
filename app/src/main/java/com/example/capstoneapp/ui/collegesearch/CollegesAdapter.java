@@ -68,6 +68,7 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
         private final ImageView ivThumbnail;
         private final TextView tvName;
         private final TextView tvLocation;
+        private final TextView tvCollegeType;
         private final ImageButton ibtnFavorite;
         private final FavoriteButtonClickedCallback favButtonClickedCallback;
 
@@ -76,6 +77,7 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
             ivThumbnail = itemView.findViewById(R.id.ivThumbnail);
             tvName = itemView.findViewById(R.id.tvName);
             tvLocation = itemView.findViewById(R.id.tvLocation);
+            tvCollegeType = itemView.findViewById(R.id.tvCollegeType);
             ibtnFavorite = itemView.findViewById(R.id.ibtnFavorite);
             favButtonClickedCallback= favBtnClickedCallback;
         }
@@ -84,6 +86,7 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
             UiUtils.setViewImage(context, ivThumbnail, college.getThumbnail(), null, R.drawable.college_black_48);
             UiUtils.setViewText(context, tvName, college.getName());
             UiUtils.setViewText(context, tvLocation, college.getLocation());
+            UiUtils.setViewText(context, tvCollegeType, college.getCollegeTypeAsText());
 
             if (college.isFavorite())
                 ibtnFavorite.setBackground(context.getDrawable(R.drawable.favorite_black_48));

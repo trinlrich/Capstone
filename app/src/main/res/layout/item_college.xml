@@ -102,11 +102,11 @@
                     android:layout_marginVertical="@dimen/small_margin">
 
                     <TextView
-                        android:id="@+id/tvAverageSatTitle"
+                        android:id="@+id/tvCollegeTypeTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/medium_margin"
-                        android:layout_marginEnd="@dimen/extra_large_margin"
+                        android:layout_marginEnd="@dimen/larger_margin"
                         android:text="@string/college_type"
                         android:textStyle="bold" />
 
@@ -124,16 +124,16 @@
                     android:layout_marginVertical="@dimen/small_margin">
 
                     <TextView
-                        android:id="@+id/tvAcceptanceRateTItle"
+                        android:id="@+id/tvAvgAcceptRateTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/medium_margin"
-                        android:layout_marginEnd="@dimen/extra_large_margin"
+                        android:layout_marginEnd="@dimen/larger_margin"
                         android:text="@string/average_gpa"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvAverageGpa"
+                        android:id="@+id/tvAvgAcceptRate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="4.0"
@@ -146,16 +146,16 @@
                     android:layout_marginVertical="@dimen/small_margin">
 
                     <TextView
-                        android:id="@+id/tvAverageActTitle"
+                        android:id="@+id/tvMissionTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/medium_margin"
-                        android:layout_marginEnd="@dimen/extra_large_margin"
+                        android:layout_marginEnd="@dimen/larger_margin"
                         android:text="@string/average_cost"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvSpecialMission"
+                        android:id="@+id/tvMission"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="$30,000"

@@ -179,10 +179,10 @@ public class CollegeSearchViewModel extends AndroidViewModel {
         allCollegesAfterFilter.clear();
         allCollegesAfterFilter.addAll(allColleges);
         if (isFilteringNeeded(stateValue)) {
-            allCollegesAfterFilter.removeIf(college -> !college.getCollegeState().equals(stateValue));
+            allCollegesAfterFilter.removeIf(college -> !college.getCollegeStateCode().equals(stateValue));
         }
         if (isFilteringNeeded(typeValue)) {
-            allCollegesAfterFilter.removeIf(college -> !college.getControl().equals(typeValue));
+            allCollegesAfterFilter.removeIf(college -> !college.getCollegeTypeAsText().equals(typeValue));
         }
         if (isFilteringNeeded(missionValue)) {
             allCollegesAfterFilter.removeIf(college -> !college.getMission().contains(missionValue));
