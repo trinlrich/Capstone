@@ -1,16 +1,35 @@
 package com.example.capstoneapp.parsedatasource;
 
+import static com.example.capstoneapp.model.ApplicationStep.KEY_STEP_DESCRIPTION;
+import static com.example.capstoneapp.model.ApplicationStep.KEY_STEP_END_DATE;
+import static com.example.capstoneapp.model.ApplicationStep.KEY_STEP_PRIORITY;
+import static com.example.capstoneapp.model.ApplicationStep.KEY_STEP_START_DATE;
+import static com.example.capstoneapp.model.ApplicationStep.KEY_STEP_STATE;
+import static com.example.capstoneapp.model.ApplicationStep.KEY_STEP_TITLE;
+import static com.example.capstoneapp.model.ApplicationStep.STEP_KEY_FAVCOLLEGE_ID;
+import static com.example.capstoneapp.model.ApplicationStep.STEP_KEY_USER_UID;
+
 import android.util.Log;
+
+import com.example.capstoneapp.model.ApplicationStep;
 import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.model.FavoriteCollege;
 import com.example.capstoneapp.model.ParseFirebaseUser;
+import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.SaveCallback;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 public class Utilities {
 
     private static final String TAG = "Utilities";
+    private static String[] stepTitles = {"Complete Essay", "Apply Scholarships", "Get Recommendation Letters", "Complete FAFSA", "Understand Tution Costs"};
 
     public static void getProfileFromParse(String userId, GetUserProfileListenerCallback callback) {
         ParseQuery<ParseFirebaseUser> query = ParseQuery.getQuery(ParseFirebaseUser.class);
@@ -90,18 +109,18 @@ public class Utilities {
         });
     }
 
-    public static void getFavCollegesForUser(String userId, GetFavCollegesCallback callback){
+    public static void getFavCollegesForUser(String userId, GetFavCollegesCallback callback) {
         Log.i(TAG, "Querying favorite college list...");
         ParseQuery<FavoriteCollege> query = ParseQuery.getQuery(FavoriteCollege.class);
         query.whereContains(FavoriteCollege.KEY_USER_UID, userId);
         query.findInBackground((favColleges, e) -> {
             // check for any error
-            if (e != null){
+            if (e != null) {
                 Log.e(TAG, "Issue with getting favourite colleges", e);
                 callback.onCompleted(null, true);
                 return;
             }
-            if ((favColleges == null) || (favColleges.size() == 0)){
+            if ((favColleges == null) || (favColleges.size() == 0)) {
                 Log.w(TAG, "No favourite colleges for user");
                 callback.onCompleted(favColleges, false);
                 return;
@@ -110,7 +129,8 @@ public class Utilities {
             callback.onCompleted(favColleges, false);
         });
     }
-    public static void addFavCollegeForUser(String userId, College college, GetFavCollegesCallback callback){
+
+    public static void addFavCollegeForUser(String userId, College college, GetFavCollegesCallback callback) {
         FavoriteCollege favoriteCollege = new FavoriteCollege();
         favoriteCollege.setFirebaseUid(userId);
         int collegeId = college.getCollegeId();
@@ -121,14 +141,14 @@ public class Utilities {
                 callback.onCompleted(null, true);
             } else {
                 Log.i(TAG, "Fav College add was successful");
-                // Get again the list of fav colleges
-                getFavCollegesForUser(userId, callback);
+                // Add the mandatory steps
+                addMandatorySteps(userId, college, callback);
             }
 
         });
     }
 
-    public static void removeFavCollegeForUser(String userId, College college, GetFavCollegesCallback callback){
+    public static void removeFavCollegeForUser(String userId, College college, GetFavCollegesCallback callback) {
 
         ParseQuery<FavoriteCollege> query = ParseQuery.getQuery(FavoriteCollege.class);
         query.whereEqualTo(FavoriteCollege.KEY_USER_UID, userId);
@@ -148,13 +168,52 @@ public class Utilities {
             }
             // success case
             Log.i(TAG, "Fav College found Delete");
-            favColleges.get(0).deleteInBackground (e2 -> {
+            favColleges.get(0).deleteInBackground(e2 -> {
                 if (e2 != null)
                     Log.e(TAG, "Error while deleting Fav College", e2);
                 // Get again the list of fav colleges
                 getFavCollegesForUser(userId, callback);
             });
         });
+    }
+
+    private static void addMandatorySteps(String userId, College college, GetFavCollegesCallback callback) {
+        List<ParseObject> applicationSteps = new ArrayList<>();
+        for (int indx = 0; indx < 5; indx++) {
+            ParseObject step = new ParseObject("ApplicationStep");
+            step.put(STEP_KEY_USER_UID, userId);
+            step.put(STEP_KEY_FAVCOLLEGE_ID, college.getCollegeId());
+            step.put(KEY_STEP_TITLE, stepTitles[indx]);
+            step.put(KEY_STEP_DESCRIPTION, stepTitles[indx]);
+            step.put(KEY_STEP_STATE, 0);
+            step.put(KEY_STEP_PRIORITY, 0);
+            step.put(KEY_STEP_START_DATE, new Date().getTime());
+            step.put(KEY_STEP_END_DATE, getCalculatedDate(30));
+
+            applicationSteps.add(step);
+        }
+        ApplicationStep.saveAllInBackground(applicationSteps, new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Error while creating mandatory tasks for Fav College", e);
+                    callback.onCompleted(null, true);
+                } else {
+                    Log.i(TAG, "Created Mandatory taks for Fav College");
+                    // Get again the list of fav colleges
+                    getFavCollegesForUser(userId, callback);
+                }
+
+            }
+        });
+
+
+    }
+
+    private static Long getCalculatedDate(int days) {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_YEAR, days);
+        return cal.getTimeInMillis();
     }
 
 }
