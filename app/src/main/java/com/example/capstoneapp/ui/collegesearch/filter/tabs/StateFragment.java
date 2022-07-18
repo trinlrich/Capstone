@@ -17,9 +17,17 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.capstoneapp.R;
+import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.ui.collegesearch.filter.CollegeFilter;
 import com.example.capstoneapp.ui.collegesearch.filter.FilterUtils;
 import com.google.gson.Gson;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 public class StateFragment extends Fragment {
 
@@ -71,17 +79,11 @@ public class StateFragment extends Fragment {
         FilterUtils.putFilter(getContext(), state, listView.getItemAtPosition(position).toString(), position);
     }
 
-    private String[] getStates() {
-        String allStates = getString(R.string.all_filters);
-        // TODO::Improve state collection
-        String georgia = "GA";
-        String northCarolina = "NC";
-        String california = "CA";
-        String alabama = "AL";
-        String kansas = "KS";
-
-        String[] states = new String[]{allStates, georgia, northCarolina, california, alabama, kansas};
-
+    private List<String> getStates() {
+        List<String> states = new ArrayList<>();
+        states.addAll(College.getStates().values());
+        Collections.sort(states);
+        states.add(0, "All");
         return states;
     }
 }

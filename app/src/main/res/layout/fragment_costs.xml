@@ -27,7 +27,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tvAverageCostTitle"
+                    android:id="@+id/tvAvgCostTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -42,7 +42,7 @@
                     android:layout_marginVertical="@dimen/small_margin" />
 
                 <TextView
-                    android:id="@+id/tvAverageCost"
+                    android:id="@+id/tvAvgCost"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -80,7 +80,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tvInTuitionTitle"
+                        android:id="@+id/tvTuitionInTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -95,7 +95,7 @@
                         android:layout_marginVertical="@dimen/small_margin" />
 
                     <TextView
-                        android:id="@+id/tvInTuition"
+                        android:id="@+id/tvTuitionIn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -124,7 +124,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tvOutTuitionTitle"
+                        android:id="@+id/tvTuitionOutTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -139,7 +139,7 @@
                         android:layout_marginVertical="@dimen/small_margin" />
 
                     <TextView
-                        android:id="@+id/tvOutTuition"
+                        android:id="@+id/tvTuitionOut"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -168,7 +168,7 @@
                 android:theme="@style/TableRowStyle">
 
                 <TextView
-                    android:id="@+id/tvTuition"
+                    android:id="@+id/tvFedLoanPercentTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/medium_margin"
@@ -177,7 +177,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tvGraduationRate"
+                    android:id="@+id/tvFedLoanPercent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="73%"
@@ -190,7 +190,7 @@
                 android:theme="@style/TableRowStyle">
 
                 <TextView
-                    android:id="@+id/tvAverageGpaTItle"
+                    android:id="@+id/tvPellPercentTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/medium_margin"
@@ -199,7 +199,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tvAverageGpa"
+                    android:id="@+id/tvPellPercent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="56%"
@@ -212,7 +212,7 @@
                 android:theme="@style/TableRowStyle">
 
                 <TextView
-                    android:id="@+id/tvAverageSatTitle"
+                    android:id="@+id/tvMedStudentDebtTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/medium_margin"
@@ -221,7 +221,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tvCollegeType"
+                    android:id="@+id/tvMedStudentDebt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="$16,000"
@@ -234,7 +234,7 @@
                 android:theme="@style/TableRowStyle">
 
                 <TextView
-                    android:id="@+id/tvAverageActTitle"
+                    android:id="@+id/tvMedParentDebtTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/medium_margin"
@@ -243,7 +243,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tvSpecialMission"
+                    android:id="@+id/tvMedParentDebt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="$8,000"

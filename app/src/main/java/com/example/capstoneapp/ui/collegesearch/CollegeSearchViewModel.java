@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 
@@ -39,6 +40,8 @@ public class CollegeSearchViewModel extends AndroidViewModel {
     public LiveData<List<College>> getAllCollegesLiveData() {return allCollegesLiveData;}
     private List<College> allCollegesAfterFilter = new ArrayList<>();
     private Boolean isFiltered = false;
+    private List<College> allCollegesAfterSearch = new ArrayList<>();
+    private Boolean isSearched = false;
     private MutableLiveData<Boolean> showProgress = new MutableLiveData<>();
     public LiveData<Boolean> getShowProgress() {
         return showProgress;
@@ -153,6 +156,7 @@ public class CollegeSearchViewModel extends AndroidViewModel {
 
         updateDataSetAndUI(selectedCollege, added);
         updateFavCollegesDataSet(allColleges);
+
     }
 
     private void updateDataSetAndUI(College selectedCollege, boolean added) {
@@ -179,21 +183,26 @@ public class CollegeSearchViewModel extends AndroidViewModel {
         allCollegesAfterFilter.clear();
         allCollegesAfterFilter.addAll(allColleges);
         if (isFilteringNeeded(stateValue)) {
-            allCollegesAfterFilter.removeIf(college -> !college.getCollegeState().equals(stateValue));
+            allCollegesAfterFilter.removeIf(college -> !college.getFullCollegeState().equals(stateValue));
+            isFiltered = true;
         }
         if (isFilteringNeeded(typeValue)) {
-            allCollegesAfterFilter.removeIf(college -> !college.getControl().equals(typeValue));
+            allCollegesAfterFilter.removeIf(college -> !college.getCollegeTypeAsText().equals(typeValue));
+            isFiltered = true;
         }
         if (isFilteringNeeded(missionValue)) {
-            allCollegesAfterFilter.removeIf(college -> !college.getMission().contains(missionValue));
+            allCollegesAfterFilter.removeIf(college -> !college.getFullMission().contains(missionValue));
+            isFiltered = true;
+        }
+        if (allCollegesAfterFilter.size() == allColleges.size()) {
+            isFiltered = false;
         }
         allCollegesLiveData.setValue(allCollegesAfterFilter);
     }
 
     private boolean isFilteringNeeded(String value) {
         // False if filter is set to "All"
-        isFiltered = !value.equals(allString);
-        return isFiltered;
+        return !value.equals(allString);
     }
 
     private void startProgress() {
@@ -204,28 +213,23 @@ public class CollegeSearchViewModel extends AndroidViewModel {
     }
 
     public void searchFilterCollegeList(String newText) {
-        List<College> filteredColleges = new ArrayList<>();
-        if (!isFiltered) {
-            // Compare colleges in loop; add matching
-            for (College college : allColleges) {
-                if (college.getName().length() >= newText.length()) {
-                    String nameSubstring = college.getName().substring(0, newText.length()).toLowerCase();
-                    if (nameSubstring.equals(newText.toLowerCase())) {
-                        filteredColleges.add(college);
-                    }
-                }
-            }
-        } else {
-            // Compare colleges in loop; add matching
-            for (College college : allCollegesAfterFilter) {
-                if (college.getName().length() >= newText.length()) {
-                    String nameSubstring = college.getName().substring(0, newText.length()).toLowerCase();
-                    if (nameSubstring.equals(newText.toLowerCase())) {
-                        filteredColleges.add(college);
-                    }
-                }
+        allCollegesAfterSearch.clear();
+        List<College> collegesListToFilter = new ArrayList<>();
+        if (!newText.isEmpty())
+            isSearched = true;
+        else
+            isSearched = false;
+
+        if (isFiltered)
+            collegesListToFilter.addAll(allCollegesAfterFilter);
+        else
+            collegesListToFilter.addAll(allColleges);
+
+        for (College college : collegesListToFilter) {
+            if (college.getName().toLowerCase().contains(newText.toLowerCase())) {
+                allCollegesAfterSearch.add(college);
             }
         }
-        allCollegesLiveData.setValue(filteredColleges);
+        allCollegesLiveData.setValue(allCollegesAfterSearch);
     }
 }

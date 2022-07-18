@@ -16,9 +16,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.capstoneapp.R;
+import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.ui.collegesearch.filter.CollegeFilter;
 import com.example.capstoneapp.ui.collegesearch.filter.FilterUtils;
 import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class MissionFragment extends Fragment {
 
@@ -71,20 +76,12 @@ public class MissionFragment extends Fragment {
         FilterUtils.putFilter(getContext(), mission, listView.getItemAtPosition(position).toString(), position);
     }
 
-    private String[] getMissions() {
-        String allMissions = "All";
-        String hbcu = "HBCU";
-        String pbi = "PBI";
-        String annhi = "ANNHI";
-        String tribal = "TRIBAL";
-        String aanapii = "AANAPII";
-        String hsi = "HSI";
-        String nanti = "NANTI";
-        String menOnly = "MENONLY";
-        String womenOnly = "WOMENONLY";
-
-        String[] missions = new String[]{allMissions, hbcu, pbi, aanapii, annhi, tribal, hsi, nanti, menOnly, womenOnly};
-
+    private List<String> getMissions() {
+        List<String> missions = new ArrayList<>();
+        missions.add("All");
+        for (String mission : College.getMissions().values()) {
+            missions.add(mission.substring(0, mission.length() - 2));
+        }
         return missions;
     }
 }

@@ -50,7 +50,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tvName"
+                        android:id="@+id/tvNameItem"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="2"
@@ -66,7 +66,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/tvLocation"
+                            android:id="@+id/tvLocationItem"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/small_margin"
@@ -92,6 +92,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/medium_margin"
+                android:shrinkColumns="1, 1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ivThumbnail"
                 tools:layout_editor_absoluteX="20dp">
@@ -102,16 +103,16 @@
                     android:layout_marginVertical="@dimen/small_margin">
 
                     <TextView
-                        android:id="@+id/tvAverageSatTitle"
+                        android:id="@+id/tvCollegeTypeItemTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/medium_margin"
-                        android:layout_marginEnd="@dimen/extra_large_margin"
+                        android:layout_marginEnd="@dimen/larger_margin"
                         android:text="@string/college_type"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvCollegeType"
+                        android:id="@+id/tvCollegeTypeItem"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Public"
@@ -124,16 +125,16 @@
                     android:layout_marginVertical="@dimen/small_margin">
 
                     <TextView
-                        android:id="@+id/tvAcceptanceRateTItle"
+                        android:id="@+id/tvAvgGpaItemTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/medium_margin"
-                        android:layout_marginEnd="@dimen/extra_large_margin"
+                        android:layout_marginEnd="@dimen/larger_margin"
                         android:text="@string/average_gpa"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvAverageGpa"
+                        android:id="@+id/tvAvgGpaItem"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="4.0"
@@ -146,16 +147,16 @@
                     android:layout_marginVertical="@dimen/small_margin">
 
                     <TextView
-                        android:id="@+id/tvAverageActTitle"
+                        android:id="@+id/tvAvgCostItemTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/medium_margin"
-                        android:layout_marginEnd="@dimen/extra_large_margin"
+                        android:layout_marginEnd="@dimen/larger_margin"
                         android:text="@string/average_cost"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvSpecialMission"
+                        android:id="@+id/tvAvgCostItem"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="$30,000"
