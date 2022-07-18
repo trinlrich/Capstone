@@ -99,7 +99,7 @@ public class MyCollegesAdapter extends RecyclerView.Adapter<MyCollegesAdapter.Vi
             if (position != RecyclerView.NO_POSITION) {
                 College college = favColleges.get(position);
 
-                Fragment fragment = CollegeDetailFragment.newInstance(college);
+                Fragment fragment = MyCollegeDetailFragment.newInstance(college);
                 ((FragmentActivity) context).getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.flContainer, fragment)
