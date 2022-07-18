@@ -1,4 +1,4 @@
-package com.example.capstoneapp.ui.mycolleges;
+package com.example.capstoneapp.ui.mycolleges.mycollegesdetail;
 
 import androidx.lifecycle.ViewModel;
 

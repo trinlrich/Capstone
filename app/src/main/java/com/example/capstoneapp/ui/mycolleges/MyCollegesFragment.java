@@ -72,8 +72,10 @@ public class MyCollegesFragment extends Fragment {
         Observer<List<College>> favCollegesObserver = colleges -> {
             if ((colleges == null) || (colleges.size() == 0)){
                 Log.e(TAG, "No Fav colleges found");
+                tvNoFavColleges.setVisibility(View.VISIBLE);
             } else {
                 Log.i(TAG, "Fav Colleges found");
+                tvNoFavColleges.setVisibility(View.GONE);
                 favCollegesAdapter.setFavColleges(colleges);
             }
         };

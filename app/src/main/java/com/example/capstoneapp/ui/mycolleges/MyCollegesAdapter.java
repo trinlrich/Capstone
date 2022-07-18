@@ -17,8 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.ui.UiUtils;
-import com.example.capstoneapp.ui.collegesearch.CollegesAdapter;
-import com.example.capstoneapp.ui.collegesearch.collegedetail.CollegeDetailFragment;
+import com.example.capstoneapp.ui.mycolleges.mycollegesdetail.MyCollegeDetailFragment;
 
 import java.util.ArrayList;
 import java.util.List;

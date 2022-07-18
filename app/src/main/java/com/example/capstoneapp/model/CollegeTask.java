@@ -5,8 +5,8 @@ import com.parse.ParseObject;
 
 import java.util.Date;
 
-@ParseClassName("Task")
-public class Task extends ParseObject {
+@ParseClassName("CollegeTask")
+public class CollegeTask extends ParseObject {
 
     public static final String KEY_TASK_ID = "objectId";
     public static final String KEY_NAME = "taskName";

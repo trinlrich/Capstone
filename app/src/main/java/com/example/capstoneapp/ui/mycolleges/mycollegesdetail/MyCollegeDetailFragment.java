@@ -1,12 +1,12 @@
-package com.example.capstoneapp.ui.mycolleges;
-
-import androidx.lifecycle.ViewModelProvider;
+package com.example.capstoneapp.ui.mycolleges.mycollegesdetail;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +19,10 @@ public class MyCollegeDetailFragment extends Fragment {
 
     private MyCollegeDetailViewModel viewModel;
     College college;
+
+    private TasksAdapter tasksAdapter;
+    private RecyclerView rvTasks;
+    private RecyclerView.LayoutManager layoutManager;
 
     public MyCollegeDetailFragment(College college) {
         this.college = college;
@@ -37,5 +41,12 @@ public class MyCollegeDetailFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        // Set up recycler view
+        rvTasks = view.findViewById(R.id.rvToDo);
+        tasksAdapter = new TasksAdapter(getContext());
+        layoutManager = new LinearLayoutManager(getContext());
+        rvTasks.setLayoutManager(layoutManager);
+        rvTasks.setAdapter(tasksAdapter);
     }
 }
