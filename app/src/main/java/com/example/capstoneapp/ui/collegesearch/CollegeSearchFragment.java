@@ -71,7 +71,8 @@ public class CollegeSearchFragment extends Fragment {
             // show dialog and get user cofirmation
             if (viewModel.isCollegeFavorited(college)) {
                 createAndShowDialog(college);
-            }
+            } else
+                viewModel.updateFavCollege(college);
 
         });
         rootLayout = view.findViewById(R.id.topLayout);
