@@ -15,24 +15,29 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.ui.collegesearch.CollegeSearchViewModel;
 
 import java.util.List;
 
-public class CollegesFragment extends Fragment {
+public class MyCollegesFragment extends Fragment {
 
-    public static final String TAG = "CollegesFragment";
+    public static final String TAG = "MyCollegesFragment";
     // This is a shared viewmodel
     private CollegeSearchViewModel viewModel;
 
     private MyCollegesAdapter favCollegesAdapter;
     private RecyclerView favCollegesRV;
     private RecyclerView.LayoutManager layoutManager;
+    private ProgressBar loadingProgressBar;
+    private TextView tvNoFavColleges;
 
-    public static CollegesFragment newInstance() {
-        return new CollegesFragment();
+    public static MyCollegesFragment newInstance() {
+        return new MyCollegesFragment();
     }
 
     @Override
@@ -50,9 +55,15 @@ public class CollegesFragment extends Fragment {
             getActivity().setTitle(R.string.colleges_title);
         }
 
+        loadingProgressBar = view.findViewById(R.id.favLoadingProgessBar);
+        tvNoFavColleges = view.findViewById(R.id.tvNoFavColleges);
+
         // Set up recycler view
         favCollegesRV = view.findViewById(R.id.favCollegesRV);
-        favCollegesAdapter = new MyCollegesAdapter(getContext());
+        favCollegesAdapter = new MyCollegesAdapter(getContext(), college -> {
+            // Update the state to Parse through View Model
+            viewModel.updateFavCollege(college);
+        });
         layoutManager = new LinearLayoutManager(getContext());
         favCollegesRV.setLayoutManager(layoutManager);
         favCollegesRV.setAdapter(favCollegesAdapter);
@@ -67,5 +78,16 @@ public class CollegesFragment extends Fragment {
             }
         };
         viewModel.getAllFavCollegesLiveData().observe(getViewLifecycleOwner(), favCollegesObserver);
+
+        // Progress update observer
+        Observer<Boolean> progressUpdateObserver = visible -> {
+            if (visible) {
+                loadingProgressBar.setVisibility(View.VISIBLE);
+                tvNoFavColleges.setVisibility(View.GONE);
+            } else {
+                loadingProgressBar.setVisibility(View.GONE);
+            }
+        };
+        viewModel.getShowProgress().observe(getViewLifecycleOwner(), progressUpdateObserver);
     }
 }

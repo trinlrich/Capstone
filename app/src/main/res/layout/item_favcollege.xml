@@ -33,7 +33,7 @@
         cardView:cardElevation="0dp"
         cardView:layout_constrainedWidth="true"
         cardView:layout_constraintEnd_toEndOf="parent"
-        cardView:layout_constraintStart_toEndOf="@id/ivThumbnail"
+        cardView:layout_constraintStart_toEndOf="@id/ivFavCollegeThumbnail"
         cardView:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
