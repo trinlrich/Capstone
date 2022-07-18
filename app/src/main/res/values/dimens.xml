@@ -29,8 +29,4 @@
     <dimen name="add_favorites_btn_text_size">8sp</dimen>
     <dimen name="add_favorites_btn_heart_size">15dp</dimen>
 
-    <dimen name="fav_college_card_view_radius">8dp</dimen>
-    <dimen name="fav_college_card_view_elevation">8dp</dimen>
-    <dimen name="fav_college_card_view_margin">8dp</dimen>
-
 </resources>

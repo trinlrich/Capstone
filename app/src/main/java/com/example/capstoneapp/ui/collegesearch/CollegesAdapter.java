@@ -47,7 +47,7 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
     @NonNull
     @Override
     public CollegesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_college, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_college_search, parent, false);
         return new ViewHolder(view,favButtonClickedCallback);
     }
 
@@ -69,7 +69,7 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
         private final TextView tvLocation;
         private final TextView tvCollegeType;
         private final TextView tvAvgCost;
-        private final ImageButton ibtnFavorite;
+        private final ImageButton ibtnFavoriteSearch;
         private final FavoriteButtonClickedCallback favButtonClickedCallback;
 
         public ViewHolder(@NonNull View itemView, FavoriteButtonClickedCallback favBtnClickedCallback) {
@@ -79,7 +79,7 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
             tvLocation = itemView.findViewById(R.id.tvLocationItem);
             tvCollegeType = itemView.findViewById(R.id.tvCollegeTypeItem);
             tvAvgCost = itemView.findViewById(R.id.tvAvgCostItem);
-            ibtnFavorite = itemView.findViewById(R.id.ibtnFavorite);
+            ibtnFavoriteSearch = itemView.findViewById(R.id.ibtnFavoriteSearch);
             favButtonClickedCallback = favBtnClickedCallback;
         }
 
@@ -91,11 +91,11 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
             UiUtils.setViewText(context, tvAvgCost, college.getAvgCostAsText());
 
             if (college.isFavorite())
-                ibtnFavorite.setBackground(context.getDrawable(R.drawable.favorite_black_48));
+                ibtnFavoriteSearch.setBackground(context.getDrawable(R.drawable.favorite_black_48));
             else
-                ibtnFavorite.setBackground(context.getDrawable(R.drawable.favorite_border_black_48));
+                ibtnFavoriteSearch.setBackground(context.getDrawable(R.drawable.favorite_border_black_48));
 
-            ibtnFavorite.setOnClickListener(this::onFavoriteClick);
+            ibtnFavoriteSearch.setOnClickListener(this::onFavoriteClick);
             itemView.setOnClickListener(this);
         }
 

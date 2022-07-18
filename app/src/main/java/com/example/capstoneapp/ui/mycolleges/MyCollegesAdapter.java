@@ -50,18 +50,21 @@ public class MyCollegesAdapter extends RecyclerView.Adapter<MyCollegesAdapter.Vi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        private final TextView itemNameTV;
-        private final ImageView itemThumbnailIV;
+        private final ImageView ivFavCollegeThumbnail;
+        private final TextView tvFavCollegeName;
+        private final TextView tvFavCollegeLocation;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            itemNameTV = itemView.findViewById(R.id.itemNameTV);
-            itemThumbnailIV = itemView.findViewById(R.id.itemThumbnailIV);
+            ivFavCollegeThumbnail = itemView.findViewById(R.id.ivFavCollegeThumbnail);
+            tvFavCollegeName = itemView.findViewById(R.id.tvFavCollegeName);
+            tvFavCollegeLocation = itemView.findViewById(R.id.tvFavCollegeLocation);
         }
 
         public void bind(College favCollege) {
-            UiUtils.setViewImage(context, itemThumbnailIV, favCollege.getThumbnail(), null, R.drawable.college_black_48);
-            UiUtils.setViewText(context, itemNameTV, favCollege.getName());
+            UiUtils.setViewImage(context, ivFavCollegeThumbnail, favCollege.getThumbnail(), null, R.drawable.college_black_48);
+            UiUtils.setViewText(context, tvFavCollegeName, favCollege.getName());
+            UiUtils.setViewText(context, tvFavCollegeLocation, favCollege.getLocation());
         }
     }
 }

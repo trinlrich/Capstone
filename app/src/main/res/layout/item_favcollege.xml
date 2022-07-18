@@ -5,39 +5,105 @@
     xmlns:cardView="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    cardView:cardCornerRadius="@dimen/fav_college_card_view_radius"
-    cardView:cardElevation="@dimen/fav_college_card_view_elevation"
-    android:layout_margin="@dimen/fav_college_card_view_margin">
+    cardView:cardCornerRadius="@dimen/corner_radius"
+    cardView:cardElevation="@dimen/card_elevation"
+    android:layout_margin="@dimen/larger_margin">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/itemRootLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/itemThumbnailIV"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            cardView:layout_constraintBottom_toBottomOf="parent"
-            cardView:layout_constraintStart_toStartOf="parent"
-            cardView:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars" />
+    <ImageView
+        android:id="@+id/ivFavCollegeThumbnail"
+        android:layout_width="@dimen/frag_profile_image"
+        android:layout_height="@dimen/frag_profile_image"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/thumbnail_description"
+        android:scaleType="centerCrop"
+        cardView:layout_constraintStart_toStartOf="parent"
+        cardView:layout_constraintTop_toTopOf="parent"
+        cardView:srcCompat="@drawable/college_black_48" />
 
-        <TextView
-            android:id="@+id/itemNameTV"
-            android:layout_width="0dp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/large_margin"
+        android:layout_marginTop="@dimen/larger_margin"
+        cardView:cardElevation="0dp"
+        cardView:layout_constrainedWidth="true"
+        cardView:layout_constraintEnd_toEndOf="parent"
+        cardView:layout_constraintStart_toEndOf="@id/ivThumbnail"
+        cardView:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvFavCollegeName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                cardView:flow_horizontalAlign="start"
+                cardView:layout_constrainedWidth="true"
+                tools:text="North Carolina AT State University" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvFavCollegeLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/small_margin"
+                    android:textSize="11sp"
+                    cardView:layout_constraintEnd_toEndOf="parent"
+                    cardView:layout_constraintStart_toStartOf="parent"
+                    tools:text="Greensboro, NC" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+        <ImageButton
+            android:id="@+id/ibtnFavorite"
+            android:layout_width="@dimen/like_button_size"
+            android:layout_height="@dimen/like_button_size"
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/large_margin"
+            android:layout_marginBottom="@dimen/small_margin"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/favorite_descrption"
+            android:scaleType="centerCrop"
+            cardView:layout_constraintBottom_toTopOf="@+id/divider"
+            cardView:layout_constraintEnd_toEndOf="parent"
+            cardView:srcCompat="@drawable/favorite_border_black_48" />
+
+        <include
+            android:id="@+id/divider"
+            layout="@layout/divider_view"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            cardView:layout_constraintTop_toBottomOf="@id/ivFavCollegeThumbnail" />
+
+        <ProgressBar
+            android:id="@+id/favCollegeProgressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/larger_margin"
+            android:progress="50"
             cardView:layout_constraintBottom_toBottomOf="parent"
             cardView:layout_constraintEnd_toEndOf="parent"
-            cardView:layout_constraintStart_toEndOf="@+id/itemThumbnailIV"
-            cardView:layout_constraintTop_toTopOf="parent"
-            tools:text="College Name" />
-
+            cardView:layout_constraintStart_toStartOf="parent"
+            cardView:layout_constraintTop_toBottomOf="@id/divider" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>
