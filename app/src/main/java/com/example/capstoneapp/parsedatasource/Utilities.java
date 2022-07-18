@@ -15,6 +15,7 @@ import com.example.capstoneapp.model.ApplicationStep;
 import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.model.FavoriteCollege;
 import com.example.capstoneapp.model.ParseFirebaseUser;
+import com.parse.DeleteCallback;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -236,7 +237,31 @@ public class Utilities {
         });
     }
 
-    public static void updateApplicationStep(ParseObject applicationStep){
+    public static void deleteAllApplicationSteps(String userId, Integer collegeId){
+        getAllApplicationSteps(userId, collegeId, new ApplicationStepsCallback() {
+            @Override
+            public void onCompleted(List<ApplicationStep> applicationSteps, Boolean error) {
+                if (error){
+                    Log.e(TAG, "Issue with getting application steps for deletion");
+                }
+                else {
+                    ApplicationStep.deleteAllInBackground(applicationSteps, new DeleteCallback() {
+                        @Override
+                        public void done(ParseException ex) {
+                            // check for any error
+                            if (ex != null) {
+                                Log.e(TAG, "Issue with deleting application steps", ex);
+                            }else {
+                                Log.d(TAG,"Successfully deleted the Application Steps");
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    public static void updateApplicationStep(ParseObject applicationStep, UpdateAppStepsCallback callback){
         Log.i(TAG, "Updating Application step for fav college ...");
         ParseQuery<ParseObject> query = ParseQuery.getQuery("ApplicationStep");
 
@@ -249,7 +274,19 @@ public class Utilities {
                     // Update the fields we want to
                     object.put(KEY_STEP_STATE, applicationStep.getInt(KEY_STEP_STATE));
                     //All other fields will remain the same
-                    object.saveInBackground();
+                    object.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException ex) {
+                            if (ex != null){
+                                Log.e(TAG, "App Step Save Failed...", ex);
+                                callback.onCompleted(true);
+                            }else {
+                                Log.d(TAG, "App Step Save Success...");
+                                callback.onCompleted(false);
+                            }
+
+                        }
+                    });
                 }
             }
         });

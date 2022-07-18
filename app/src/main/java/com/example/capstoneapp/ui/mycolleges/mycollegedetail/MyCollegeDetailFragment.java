@@ -64,8 +64,8 @@ public class MyCollegeDetailFragment extends Fragment {
 
         myCollegeDetailViewModel.getApplicationStepsLD().observe(getActivity(), new Observer<List<ApplicationStep>>() {
             @Override
-            public void onChanged(List<ApplicationStep> applicationSteps) {
-                applicationStepsList = applicationSteps;
+            public void onChanged(List<ApplicationStep> appSteps) {
+                applicationStepsList = appSteps;
             }
         });
 

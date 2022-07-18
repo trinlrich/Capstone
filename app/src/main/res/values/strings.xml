@@ -99,5 +99,8 @@
     <string name="todoTaskHeader">To-Do</string>
     <string name="ipTaskHeader">In-Progress</string>
     <string name="completeTaskHeader">Completed</string>
-
+    <string name="dialog_message">Are you sure you want to unfavorite this ? This will delete the applications steps as well</string>
+    <string name="dialog_title">Un-favorite College</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_ok">Delete</string>
 </resources>

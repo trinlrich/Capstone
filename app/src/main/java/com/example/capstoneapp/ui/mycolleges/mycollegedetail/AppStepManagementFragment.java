@@ -1,10 +1,20 @@
 package com.example.capstoneapp.ui.mycolleges.mycollegedetail;
 
+import static com.example.capstoneapp.model.ApplicationStep.KEY_STEP_STATE;
 import static com.example.capstoneapp.model.ApplicationStep.KEY_STEP_TITLE;
 
 import android.content.ClipData;
 import android.content.ClipDescription;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.DragEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,16 +26,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.transition.AutoTransition;
 import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
-
-import android.util.Log;
-import android.view.DragEvent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.model.ApplicationStep;
@@ -43,10 +43,9 @@ import java.util.Map;
  */
 public class AppStepManagementFragment extends Fragment {
 
-    Map<CardView, LinearLayout> tasksToTaskLayoutMap = new HashMap<>();
-    Map<Button,LinearLayout> dropAreaToLayoutMap = new HashMap<>();
-
     private static String TAG = "AppStepManagementFragment";
+    Map<CardView, LinearLayout> tasksToTaskLayoutMap = new HashMap<>();
+    Map<Button, LinearLayout> dropAreaToLayoutMap = new HashMap<>();
     private Button createButton;
     private LinearLayout masterToDoLayout;
 
@@ -107,12 +106,12 @@ public class AppStepManagementFragment extends Fragment {
 
         // In-progress layout Setup And Initialization
         masterInProgressLayout = view.findViewById(R.id.masterIPLayout);
-        dropButtonIP =  view.findViewById(R.id.dropIPAreaButton);
+        dropButtonIP = view.findViewById(R.id.dropIPAreaButton);
         attachDragListener(dropButtonIP);
 
         // Completed layout Setup And Initialization
         masterCompletedLayout = view.findViewById(R.id.masterCompletedLayout);
-        dropButtonCompleted =  view.findViewById(R.id.dropCompletedAreaButton);
+        dropButtonCompleted = view.findViewById(R.id.dropCompletedAreaButton);
         initStates();
         attachDragListener(dropButtonCompleted);
         // viewmodel creation
@@ -127,10 +126,11 @@ public class AppStepManagementFragment extends Fragment {
 
 
     }
-    private void initStates(){
+
+    private void initStates() {
         // Initialize the states drop area to LayoutMapping
-        dropAreaToLayoutMap.put(dropButtonIP,masterInProgressLayout);
-        dropAreaToLayoutMap.put(dropButtonCompleted,masterCompletedLayout);
+        dropAreaToLayoutMap.put(dropButtonIP, masterInProgressLayout);
+        dropAreaToLayoutMap.put(dropButtonCompleted, masterCompletedLayout);
 
         // Initalize the Task->Layout Mapping
     }
@@ -139,15 +139,15 @@ public class AppStepManagementFragment extends Fragment {
         dropButton.setOnDragListener((v, e) -> {
             View draggableItem = (View) e.getLocalState();
             // Handles each of the expected events.
-            switch(e.getAction()) {
+            switch (e.getAction()) {
                 case DragEvent.ACTION_DRAG_STARTED:
-                    Log.d(TAG,"DragEvent.ACTION_DRAG_STARTED");
+                    Log.d(TAG, "DragEvent.ACTION_DRAG_STARTED");
                     dropButton.setAlpha(0.7f);
                     // Invalidate the view to force a redraw
                     v.invalidate();
                     return true;
                 case DragEvent.ACTION_DRAG_ENTERED:
-                    Log.d(TAG,"DragEvent.ACTION_DRAG_ENTERED");
+                    Log.d(TAG, "DragEvent.ACTION_DRAG_ENTERED");
                     dropButton.setAlpha(0.3f);
                     // When every drop area is entered we need to update the target layout
                     targetLayout = dropAreaToLayoutMap.get(dropButton);
@@ -155,22 +155,22 @@ public class AppStepManagementFragment extends Fragment {
                     return true;
                 case DragEvent.ACTION_DRAG_LOCATION:
                     // Ignore the event.
-                    Log.d(TAG,"DragEvent.ACTION_DRAG_LOCATION ->IGNORE");
+                    Log.d(TAG, "DragEvent.ACTION_DRAG_LOCATION ->IGNORE");
                     return true;
                 case DragEvent.ACTION_DRAG_EXITED:
-                    Log.d(TAG,"DragEvent.ACTION_DRAG_EXITED");
+                    Log.d(TAG, "DragEvent.ACTION_DRAG_EXITED");
                     dropButton.setAlpha(1.0f);
                     draggableItem.setVisibility(View.VISIBLE);
                     v.invalidate();
                     return true;
                 case DragEvent.ACTION_DROP:
-                    Log.d(TAG,"DragEvent.ACTION_DROP");
+                    Log.d(TAG, "DragEvent.ACTION_DROP");
                     dropButton.setAlpha(1.0f);
-                    updateAppStep(sourceLayout,targetLayout,draggableItem );
+                    updateAppStep(sourceLayout, targetLayout, draggableItem);
                     v.invalidate();
                     return true;
                 case DragEvent.ACTION_DRAG_ENDED:
-                    Log.d(TAG,"DragEvent.ACTION_DRAG_ENDED");
+                    Log.d(TAG, "DragEvent.ACTION_DRAG_ENDED");
                     dropButton.setAlpha(1.0f);
                     // Does a getResult(), and displays what happened.
                     if (e.getResult()) {
@@ -182,7 +182,7 @@ public class AppStepManagementFragment extends Fragment {
                     return true;
                 default:
                     // An unknown action type was received.
-                    Log.e(TAG,"Unknown action type received by View.OnDragListener.");
+                    Log.e(TAG, "Unknown action type received by View.OnDragListener.");
                     break;
             }
 
@@ -203,18 +203,19 @@ public class AppStepManagementFragment extends Fragment {
         srcLayout.removeView(draggableItem);
         tgtLayout.addView(draggableItem);
         // Change the state of the tasks
-        tasksToTaskLayoutMap.put((CardView) draggableItem,tgtLayout);
+        tasksToTaskLayoutMap.put((CardView) draggableItem, tgtLayout);
     }
 
     private void loadApplicationsTasks() {
 
-        for (int indx =0 ; indx < applicationStepsList.size() ; indx++ ) {
+        for (int indx = 0; indx < applicationStepsList.size(); indx++) {
             ParseObject step = applicationStepsList.get(indx);
             CardView newCard = createCardView(step.getString(KEY_STEP_TITLE), indx);
             // For this example the newly created card is always in TODO Layout
             // For other apps this table should be initialized after loading data from repository
             // And drawing to UI
-            tasksToTaskLayoutMap.put(newCard,masterToDoLayout);
+            LinearLayout initalLayout = getInitialLayoutForTasks(step);
+            tasksToTaskLayoutMap.put(newCard, initalLayout);
 
             newCard.setOnLongClickListener(v -> {
                 // Create a new ClipData.Item from the CardView object's tag.
@@ -244,7 +245,24 @@ public class AppStepManagementFragment extends Fragment {
                 return true;
 
             });
-            masterToDoLayout.addView(newCard);
+            initalLayout.addView(newCard);
+        }
+    }
+
+    private LinearLayout getInitialLayoutForTasks(ParseObject step) {
+
+        Integer state = step.getInt(KEY_STEP_STATE);
+        switch (state) {
+            case 0:
+                return masterToDoLayout;
+            case 1:
+                return masterInProgressLayout;
+            case 2:
+                return masterCompletedLayout;
+            default: {
+                Log.e(TAG, "INVALID STATE FOR App Step");
+                return null;
+            }
         }
     }
 

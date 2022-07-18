@@ -11,7 +11,9 @@ public class ApplicationStep extends ParseObject {
     public static final String STEP_KEY_FAVCOLLEGE_ID = "favcollegeId";
     public static final String KEY_STEP_TITLE = "stepTitle";
     public static final String KEY_STEP_DESCRIPTION = "stepDescription";
+    // STATE = To-Do or In-Progress or Completed
     public static final String KEY_STEP_STATE = "stepState";
+    // STATE = Mandatory / Optional
     public static final String KEY_STEP_PRIORITY = "stepPriority";
     public static final String KEY_STEP_START_DATE = "stepStartDate";
     public static final String KEY_STEP_END_DATE = "stepEndDate";
