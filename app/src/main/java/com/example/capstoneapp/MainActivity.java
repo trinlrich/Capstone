@@ -23,7 +23,7 @@ import android.widget.TextView;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.capstoneapp.model.ParseFirebaseUser;
 import com.example.capstoneapp.ui.UiUtils;
-import com.example.capstoneapp.ui.collegesearch.filter.CollegeFilter;
+import com.example.capstoneapp.model.CollegeFilter;
 import com.example.capstoneapp.ui.collegesearch.filter.FilterUtils;
 import com.example.capstoneapp.ui.mycolleges.MyCollegesFragment;
 import com.example.capstoneapp.ui.profile.ProfileFragment;

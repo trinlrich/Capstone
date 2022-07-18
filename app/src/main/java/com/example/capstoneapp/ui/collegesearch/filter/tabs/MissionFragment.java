@@ -17,12 +17,10 @@ import androidx.fragment.app.Fragment;
 
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.model.College;
-import com.example.capstoneapp.ui.collegesearch.filter.CollegeFilter;
+import com.example.capstoneapp.model.CollegeFilter;
 import com.example.capstoneapp.ui.collegesearch.filter.FilterUtils;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class MissionFragment extends Fragment {
