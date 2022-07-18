@@ -15,6 +15,7 @@ import com.example.capstoneapp.model.ApplicationStep;
 import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.model.FavoriteCollege;
 import com.example.capstoneapp.model.ParseFirebaseUser;
+import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -206,8 +207,32 @@ public class Utilities {
 
             }
         });
+    }
 
+    public static void getAllApplicationSteps(String userId, Integer collegeId,ApplicationStepsCallback callback){
+        Log.i(TAG, "Querying Application steps for fav college ...");
+        ParseQuery<ApplicationStep> query = ParseQuery.getQuery(ApplicationStep.class);
+        query.whereEqualTo(STEP_KEY_USER_UID, userId);
+        query.whereEqualTo(STEP_KEY_FAVCOLLEGE_ID, collegeId);
 
+        query.findInBackground(new FindCallback<ApplicationStep>() {
+            @Override
+            public void done(List<ApplicationStep> applicationSteps, ParseException e) {
+                // check for any error
+                if (e != null) {
+                    Log.e(TAG, "Issue with getting application steps", e);
+                    callback.onCompleted(new ArrayList<>(), true);
+                    return;
+                }
+                if ((applicationSteps == null) || (applicationSteps.size() == 0)) {
+                    Log.w(TAG, "No application steps available ");
+                    callback.onCompleted(new ArrayList<>(), false);
+                    return;
+                }
+                // At this point there will application steps for that user - college combination
+                callback.onCompleted(applicationSteps, false);
+            }
+        });
     }
 
     private static Long getCalculatedDate(int days) {
