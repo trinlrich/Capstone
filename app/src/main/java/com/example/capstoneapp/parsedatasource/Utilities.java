@@ -16,6 +16,7 @@ import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.model.FavoriteCollege;
 import com.example.capstoneapp.model.ParseFirebaseUser;
 import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -233,6 +234,26 @@ public class Utilities {
                 callback.onCompleted(applicationSteps, false);
             }
         });
+    }
+
+    public static void updateApplicationStep(ParseObject applicationStep){
+        Log.i(TAG, "Updating Application step for fav college ...");
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("ApplicationStep");
+
+        query.getInBackground(applicationStep.getObjectId(), new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject object, ParseException e) {
+                if (e != null){
+                    Log.e(TAG, "Issue with getting application step for updating", e);
+                }else {
+                    // Update the fields we want to
+                    object.put(KEY_STEP_STATE, applicationStep.getInt(KEY_STEP_STATE));
+                    //All other fields will remain the same
+                    object.saveInBackground();
+                }
+            }
+        });
+
     }
 
     private static Long getCalculatedDate(int days) {

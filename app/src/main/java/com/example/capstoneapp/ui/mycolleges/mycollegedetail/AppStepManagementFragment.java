@@ -166,15 +166,7 @@ public class AppStepManagementFragment extends Fragment {
                 case DragEvent.ACTION_DROP:
                     Log.d(TAG,"DragEvent.ACTION_DROP");
                     dropButton.setAlpha(1.0f);
-                    // Animation and adjust the view
-                    Transition move = new AutoTransition()
-                            .addTarget(draggableItem)
-                            .setDuration(1000);
-                    TransitionManager.beginDelayedTransition(sourceLayout, move);
-                    sourceLayout.removeView(draggableItem);
-                    targetLayout.addView(draggableItem);
-                    // Change the state of the tasks
-                    tasksToTaskLayoutMap.put((CardView) draggableItem,targetLayout);
+                    updateAppStep(sourceLayout,targetLayout,draggableItem );
                     v.invalidate();
                     return true;
                 case DragEvent.ACTION_DRAG_ENDED:
@@ -197,11 +189,28 @@ public class AppStepManagementFragment extends Fragment {
             return false;
         });
     }
+
+    private void updateAppStep(LinearLayout srcLayout, LinearLayout tgtLayout, View draggableItem) {
+        // update parse database via viewmodel
+        Integer state = Integer.parseInt((String) tgtLayout.getTag());
+        Integer stepIndex = Integer.parseInt((String) draggableItem.getTag());
+        myCollegeDetailViewModel.updateApplicationStepState(applicationStepsList.get(stepIndex), state);
+        // Animation and adjust the view
+        Transition move = new AutoTransition()
+                .addTarget(draggableItem)
+                .setDuration(1000);
+        TransitionManager.beginDelayedTransition(srcLayout, move);
+        srcLayout.removeView(draggableItem);
+        tgtLayout.addView(draggableItem);
+        // Change the state of the tasks
+        tasksToTaskLayoutMap.put((CardView) draggableItem,tgtLayout);
+    }
+
     private void loadApplicationsTasks() {
-        for (ParseObject step:applicationStepsList ) {
 
-            CardView newCard = createCardView(step.getString(KEY_STEP_TITLE));
-
+        for (int indx =0 ; indx < applicationStepsList.size() ; indx++ ) {
+            ParseObject step = applicationStepsList.get(indx);
+            CardView newCard = createCardView(step.getString(KEY_STEP_TITLE), indx);
             // For this example the newly created card is always in TODO Layout
             // For other apps this table should be initialized after loading data from repository
             // And drawing to UI
@@ -239,14 +248,13 @@ public class AppStepManagementFragment extends Fragment {
         }
     }
 
-    private CardView createCardView(String taskName) {
+    private CardView createCardView(String taskName, Integer appStepIndex) {
         ContextThemeWrapper newCardContext = new ContextThemeWrapper(getContext(), R.style.taskCardStyle);
         CardView cardview = new CardView(newCardContext);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(newCardContext.getResources().getDimensionPixelSize(R.dimen.task_card_width), newCardContext.getResources().getDimensionPixelSize(R.dimen.task_card_height));
         layoutParams.setMargins(5, 5, 5, 5);
         cardview.setLayoutParams(layoutParams);
-        cardview.setTag(taskName);
-
+        cardview.setTag(appStepIndex.toString());
 
         ContextThemeWrapper newCardTextContext = new ContextThemeWrapper(getContext(), R.style.taskCardTextStyle);
         TextView textview = new TextView(newCardTextContext);

@@ -1,16 +1,17 @@
 package com.example.capstoneapp.ui.mycolleges.mycollegedetail;
 
+import static com.example.capstoneapp.model.ApplicationStep.KEY_STEP_STATE;
+
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.capstoneapp.model.ApplicationStep;
 import com.example.capstoneapp.parsedatasource.ApplicationStepsCallback;
 import com.example.capstoneapp.parsedatasource.Utilities;
+import com.parse.ParseObject;
 
 import java.util.List;
 
@@ -31,6 +32,10 @@ public class MyCollegeDetailViewModel extends ViewModel {
                 applicationStepsLD.setValue(applicationSteps);
             }
         });
+    }
 
+    public void updateApplicationStepState(ParseObject step, Integer state){
+        step.put(KEY_STEP_STATE,state);
+        Utilities.updateApplicationStep(step);
     }
 }
