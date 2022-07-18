@@ -1,10 +1,12 @@
 package com.example.capstoneapp.ui.collegesearch;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
@@ -118,8 +120,13 @@ public class CollegeSearchFragment extends Fragment {
             if (visible) {
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 tvNoColleges.setVisibility(View.GONE);
-            } else
+                svCollegeSearch.setVisibility(View.GONE);
+                btnFilter.setVisibility(View.GONE);
+            } else {
                 loadingProgressBar.setVisibility(View.GONE);
+                svCollegeSearch.setVisibility(View.VISIBLE);
+                btnFilter.setVisibility(View.VISIBLE);
+            }
         };
         viewModel.getShowProgress().observe(getViewLifecycleOwner(), progressUpdateObserver);
 
@@ -141,6 +148,9 @@ public class CollegeSearchFragment extends Fragment {
         FragmentManager fragmentManager = ((FragmentActivity) getContext()).getSupportFragmentManager();
 
         if (fragmentManager != null) {
+            // TODO :: Trying to collapse keyboard
+//            InputMethodManager inputMethodManager = InputMethodManager.getSystemService(Context.INPUT_METHOD_SERVICE);
+
             fragmentManager
                     .beginTransaction()
                     .replace(R.id.flContainer, FilterFragment.newInstance())

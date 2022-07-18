@@ -4,6 +4,9 @@ import com.parse.ParseClassName;
 import com.parse.ParseObject;
 
 import java.text.NumberFormat;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 @ParseClassName("Colleges")
@@ -36,14 +39,20 @@ public class College extends ParseObject {
     public static final String KEY_MED_STUDENT_DEBT = "schoolDebtMedian";
     public static final String KEY_MED_PARENT_DEBT = "schoolMedianParentPlusDebt";
 
-    public static final String PUBLIC = "Public";
-    public static final String PRIVATE_NP = "Private Nonprofit";
-    public static final String PRIVATE_FP = "Private For-Profit";
+    public static final HashMap<String, String> STATES = new HashMap<>();
+    public static final HashMap<Integer, String> COLLEGE_TYPES = new HashMap<>();
+    public static final HashMap<String, String> MISSIONS = new HashMap<>();
 
     public static final String NOT_APPLICABLE = "Not Applicable";
     public static final String DATA_NOT_AVAILABLE = "Data Not Available";
     public static final int NO_DATA_NOT_ZERO = -9999;
     public static final int NO_DATA_ZERO = 0;
+
+    public College() {
+        createStatesMap();
+        createCollegeTypesMap();
+        createMissionsMap();
+    }
 
     private boolean isFavorite;
     public boolean isFavorite() {
@@ -68,6 +77,7 @@ public class College extends ParseObject {
     public String getCollegeStateCode() { return getString(KEY_STATE); }
     public String getFullCollegeState() { return processStateCode(getCollegeStateCode()); }
     public void setCollegeState(String state) { put(KEY_STATE, state); }
+    public static HashMap<String, String> getStates() { return STATES; }
 
     public String getZipCode() { return getString(KEY_ZIP_CODE); }
     public void setZipCode(String zipCode) { put(KEY_ZIP_CODE, zipCode); }
@@ -81,18 +91,22 @@ public class College extends ParseObject {
     public int getRawCollegeTypeData() { return getInt(KEY_COLLEGE_TYPE); }
     public String getCollegeTypeAsText() { return processCollegeTypeCode(getRawCollegeTypeData()); }
     public void setCollegeType(int collegeType) { put(KEY_COLLEGE_TYPE, collegeType); }
+    public static HashMap<Integer, String> getCollegeTypes() { return COLLEGE_TYPES; }
 
     public String getDegreeType() { return processDegreeType(getString(KEY_DEGREE_TYPE)); }
     public void setDegreeType(String degreeType) { put(KEY_DEGREE_TYPE, degreeType); }
 
-    public String getMission() { return getString(KEY_MISSION); }
+    public String getRawMissionData() { return getString(KEY_MISSION); }
+    public String getFullMission() { return processMission(getRawMissionData()); }
     public void setMission(String mission) { put(KEY_MISSION, mission); }
+    public static HashMap<String, String> getMissions() { return MISSIONS; }
 
     public int getRawAcceptRateData() { return getInt(KEY_ACCEPT_RATE); }
     public String getAcceptRateAsText() { return processAcceptRate(getRawAcceptRateData()); }
     public void setAcceptRate(int acceptRate) { put(KEY_ACCEPT_RATE, acceptRate); }
 
-    public String getUndergradEnroll() { return getString(KEY_UNDERGRAD_ENROLL); }
+    public String getRawUndergradEnrollData() { return getString(KEY_UNDERGRAD_ENROLL); }
+    public String getUndergradEnrollAsText() { return processUndergradEnroll(getRawUndergradEnrollData()); }
     public void setUndergradEnroll(String undergradEnroll) { put(KEY_UNDERGRAD_ENROLL, undergradEnroll); }
 
     public String getWebpage() { return getString(KEY_WEBPAGE); }
@@ -115,7 +129,7 @@ public class College extends ParseObject {
     public String getAvgCostPublicAsText() { return processAvgCost(getRawAvgCostPublicData()); }
     public void setAvgCostPublic(int avgCostPublic) { put(KEY_AVG_COST_PUBLIC, avgCostPublic); }
 
-    public int getRawAvgCostPrivateData() { return getInt(KEY_AVG_COST_PUBLIC); }
+    public int getRawAvgCostPrivateData() { return getInt(KEY_AVG_COST_PRIVATE); }
     public String getAvgCostPrivateAsText() { return processAvgCost(getRawAvgCostPrivateData()); }
     public void setAvgCostPrivate(int avgCostPrivate) { put(KEY_AVG_COST_PRIVATE, avgCostPrivate); }
 
@@ -145,33 +159,106 @@ public class College extends ParseObject {
 
     public String getLocation() { return getCity() + ", " + getCollegeStateCode(); }
 
+    public String getAvgCostAsText() {
+        if (getRawAvgCostPublicData() != NO_DATA_ZERO) {
+            return getAvgCostPublicAsText();
+        }
+        if (getRawAvgCostPrivateData() != NO_DATA_ZERO) {
+            return getAvgCostPrivateAsText();
+        }
+        return DATA_NOT_AVAILABLE;
+    }
+
     public String convertToDollar(int amount) {
         Locale usa = new Locale("en", "US");
         NumberFormat dollarFormat = NumberFormat.getCurrencyInstance(usa);
         return dollarFormat.format(amount);
     }
 
+    public void createStatesMap() {
+        STATES.put("AL", "Alabama");
+        STATES.put("AK", "Alaska");
+        STATES.put("AZ", "Arizona");
+        STATES.put("AR", "Arkansas");
+        STATES.put("CA", "California");
+        STATES.put("CO", "Colorado");
+        STATES.put("CT", "Connecticut");
+        STATES.put("DE", "Delaware");
+        STATES.put("DC", "District Of Columbia");
+        STATES.put("FL", "Florida");
+        STATES.put("GA", "Georgia");
+        STATES.put("HI", "Hawaii");
+        STATES.put("ID", "Idaho");
+        STATES.put("IL", "Illinois");
+        STATES.put("IN", "Indiana");
+        STATES.put("IA", "Iowa");
+        STATES.put("KS", "Kansas");
+        STATES.put("KY", "Kentucky");
+        STATES.put("LA", "Louisiana");
+        STATES.put("ME", "Maine");
+        STATES.put("MD", "Maryland");
+        STATES.put("MA", "Massachusetts");
+        STATES.put("MI", "Michigan");
+        STATES.put("MN", "Minnesota");
+        STATES.put("MS", "Mississippi");
+        STATES.put("MO", "Missouri");
+        STATES.put("MT", "Montana");
+        STATES.put("NE", "Nebraska");
+        STATES.put("NV", "Nevada");
+        STATES.put("NH", "New Hampshire");
+        STATES.put("NJ", "New Jersey");
+        STATES.put("NM", "New Mexico");
+        STATES.put("NY", "New York");
+        STATES.put("NC", "North Carolina");
+        STATES.put("ND", "North Dakota");
+        STATES.put("OH", "Ohio");
+        STATES.put("OK", "Oklahoma");
+        STATES.put("OR", "Oregon");
+        STATES.put("PA", "Pennsylvania");
+        STATES.put("RI", "Rhode Island");
+        STATES.put("SC", "South Carolina");
+        STATES.put("SD", "South Dakota");
+        STATES.put("TN", "Tennessee");
+        STATES.put("TX", "Texas");
+        STATES.put("UT", "Utah");
+        STATES.put("VT", "Vermont");
+        STATES.put("VA", "Virginia");
+        STATES.put("WA", "Washington");
+        STATES.put("WV", "West Virginia");
+        STATES.put("WI", "Wisconsin");
+        STATES.put("WY", "Wyoming");
+    }
+
+    public void createCollegeTypesMap() {
+        COLLEGE_TYPES.put(1, "Public");
+        COLLEGE_TYPES.put(2, "Private Nonprofit");
+        COLLEGE_TYPES.put(3, "Private For-Profit");
+    }
+
+    public void createMissionsMap() {
+        MISSIONS.put("HBCU", "Historically Black Colleges and Universities, ");
+        MISSIONS.put("PBI", "Predominantly Black Institution, ");
+        MISSIONS.put("ANNHI", "Alaska Native / Native Hawaiian-serving Institutions, ");
+        MISSIONS.put("TRIABL", "Tribal Colleges and Universities, ");
+        MISSIONS.put("AANAPII", "Asian American / Native American-Pacific Islander-serving Institutions, ");
+        MISSIONS.put("HSI", "Hispanic-serving institution, ");
+        MISSIONS.put("NANTI", "Native American Non-Tribal Institutions, ");
+        MISSIONS.put("MENONLY", "Men's Colleges and Universities, ");
+        MISSIONS.put("WOMENONLY", "Women's Colleges and Universities, ");
+    }
+
     /*
      * KEY_STATE - schoolStateCode
      */
     private String processStateCode(String code) {
-        // TODO :: Process state code | CA -> California (for list view in filtering)
-        return code;
+        return STATES.getOrDefault(code, DATA_NOT_AVAILABLE);
     }
 
     /*
      * KEY_CONTROL - schoolControl
      */
     private String processCollegeTypeCode(int control) {
-        if (control == 1) {
-            return PUBLIC;
-        } else if (control == 2) {
-            return PRIVATE_NP;
-        } else if (control == 3) {
-            return PRIVATE_FP;
-        } else {
-            return DATA_NOT_AVAILABLE;
-        }
+        return COLLEGE_TYPES.getOrDefault(control, DATA_NOT_AVAILABLE);
     }
 
     /*
@@ -186,8 +273,15 @@ public class College extends ParseObject {
     }
 
     private String processMission(String missions) {
-        //TODO :: Process Missions | HBCU -> Historically Black College or University
-        return missions;
+        List<String> missionsList = Arrays.asList(missions.split(","));
+        StringBuilder fullMissions = new StringBuilder();
+        for (String mission : missionsList) {
+            if (mission.equals(DATA_NOT_AVAILABLE))
+                return DATA_NOT_AVAILABLE;
+            else
+                fullMissions.append(MISSIONS.get(mission) + ", ");
+        }
+        return fullMissions.substring(0, fullMissions.length() - 2);
     }
 
     /*
@@ -198,6 +292,14 @@ public class College extends ParseObject {
             return DATA_NOT_AVAILABLE;
         } else {
             return String.valueOf(acceptRate * 100);
+        }
+    }
+
+    private String processUndergradEnroll(String enrollment) {
+        if (enrollment.equals(DATA_NOT_AVAILABLE)) {
+            return DATA_NOT_AVAILABLE;
+        } else {
+            return NumberFormat.getNumberInstance(Locale.US).format(Integer.valueOf(enrollment));
         }
     }
 
@@ -256,5 +358,4 @@ public class College extends ParseObject {
             return String.valueOf(convertToDollar(debt));
         }
     }
-
 }

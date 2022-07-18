@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.model.College;
-import com.example.capstoneapp.parsedatasource.Utilities;
 import com.example.capstoneapp.ui.UiUtils;
 
 public class CostsFragment extends Fragment {
@@ -50,7 +49,7 @@ public class CostsFragment extends Fragment {
         tvMedStudentDebt = view.findViewById(R.id.tvMedStudentDebt);
         tvMedParentDebt = view.findViewById(R.id.tvMedParentDebt);
 
-//        UiUtils.setViewText(getContext(), tvAvgCost,);
+        UiUtils.setViewText(getContext(), tvAvgCost,college.getAvgCostAsText());
         UiUtils.setViewText(getContext(), tvTuitionIn, college.getTuitionInAsText());
         UiUtils.setViewText(getContext(), tvTuitionOut, college.getTuitionOutAsText());
         UiUtils.setViewText(getContext(), tvFedLoanPercent, college.getFedLoanPercentAsText());
