@@ -39,6 +39,8 @@ public class CollegeSearchViewModel extends AndroidViewModel {
     public LiveData<List<College>> getAllCollegesLiveData() {return allCollegesLiveData;}
     private List<College> allCollegesAfterFilter = new ArrayList<>();
     private Boolean isFiltered = false;
+    private List<College> allCollegesAfterSearch = new ArrayList<>();
+    private Boolean isSearched = false;
     private MutableLiveData<Boolean> showProgress = new MutableLiveData<>();
     public LiveData<Boolean> getShowProgress() {
         return showProgress;
@@ -55,7 +57,6 @@ public class CollegeSearchViewModel extends AndroidViewModel {
     }
     private MutableLiveData<List<College>> allFavCollegesLiveData = new MutableLiveData<>();
     private List<College> allFavColleges = new ArrayList<>();
-    private List<College> currentCollegeListOnDisplay;
 
     public CollegeSearchViewModel(@NonNull Application application) {
         // on viewmodel create initiate fetch of all data
@@ -165,9 +166,9 @@ public class CollegeSearchViewModel extends AndroidViewModel {
     }
 
     private void updateDataSetAndUI(College selectedCollege, boolean added) {
-        for (int indx = 0; indx < currentCollegeListOnDisplay.size(); indx++) {
-            if (currentCollegeListOnDisplay.get(indx).getCollegeId() == selectedCollege.getCollegeId()) {
-                currentCollegeListOnDisplay.get(indx).setFavorite(added);
+        for (int indx = 0; indx < allCollegesAfterSearch.size(); indx++) {
+            if (allCollegesAfterSearch.get(indx).getCollegeId() == selectedCollege.getCollegeId()) {
+                allCollegesAfterSearch.get(indx).setFavorite(added);
                 favCollegeUpdatedIndex.setValue(indx);
                 break;
             }
@@ -213,28 +214,23 @@ public class CollegeSearchViewModel extends AndroidViewModel {
     }
 
     public void searchFilterCollegeList(String newText) {
-        currentCollegeListOnDisplay = new ArrayList<>();
-        if (!isFiltered) {
-            // Compare colleges in loop; add matching
-            for (College college : allColleges) {
-                if (college.getName().length() >= newText.length()) {
-                    String nameSubstring = college.getName().substring(0, newText.length()).toLowerCase();
-                    if (nameSubstring.equals(newText.toLowerCase())) {
-                        currentCollegeListOnDisplay.add(college);
-                    }
-                }
-            }
-        } else {
-            // Compare colleges in loop; add matching
-            for (College college : allCollegesAfterFilter) {
-                if (college.getName().length() >= newText.length()) {
-                    String nameSubstring = college.getName().substring(0, newText.length()).toLowerCase();
-                    if (nameSubstring.equals(newText.toLowerCase())) {
-                        currentCollegeListOnDisplay.add(college);
-                    }
-                }
+        allCollegesAfterSearch.clear();
+        List<College> collegesListToFilter = new ArrayList<>();
+        if (!newText.isEmpty())
+            isSearched = true;
+        else
+            isSearched = false;
+
+        if (isFiltered)
+            collegesListToFilter.addAll(allCollegesAfterFilter);
+        else
+            collegesListToFilter.addAll(allColleges);
+
+        for (College college : collegesListToFilter) {
+            if (college.getName().toLowerCase().contains(newText.toLowerCase())) {
+                allCollegesAfterSearch.add(college);
             }
         }
-        allCollegesLiveData.setValue(currentCollegeListOnDisplay);
+        allCollegesLiveData.setValue(allCollegesAfterSearch);
     }
 }

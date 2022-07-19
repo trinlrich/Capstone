@@ -103,4 +103,7 @@
     <string name="dialog_title">Un-favorite College</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="dialog_ok">Delete</string>
+
+    // Null Strings
+    <string name="data_not_available">Data Not Available</string>
 </resources>
