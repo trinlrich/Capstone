@@ -4,6 +4,7 @@ import com.parse.ParseClassName;
 import com.parse.ParseObject;
 
 import java.util.Date;
+import java.util.HashMap;
 
 @ParseClassName("CollegeTask")
 public class CollegeTask extends ParseObject {
@@ -15,13 +16,20 @@ public class CollegeTask extends ParseObject {
     public static final String KEY_DEADLINE = "taskDeadline";
     public static final String KEY_NOTES = "taskNotes";
 
+    public static final HashMap<Integer, String> STATUSES = new HashMap<>();
+
+    public CollegeTask() {
+        createStatusMap();
+    }
+
     public String getTaskId() { return getString(KEY_TASK_ID); }
     public void setTaskId(String id) { put(KEY_TASK_ID, id); }
 
     public String getTaskName() { return getString(KEY_NAME); }
     public void setTaskName(String name) { put(KEY_NAME, name); }
 
-    public String getStatus() { return getString(KEY_STATUS); }
+    public int getStatusCode() { return getInt(KEY_STATUS); }
+    public String getStatusAsText() { return processTaskStatus(getStatusCode()); }
     public void setStatus(String status) { put(KEY_STATUS, status); }
 
     public Boolean isRequired() { return getBoolean(KEY_IS_REQUIRED); }
@@ -32,4 +40,14 @@ public class CollegeTask extends ParseObject {
 
     public String getNotes() { return getString(KEY_NOTES); }
     public void setNotes(String notes) { put(KEY_NOTES, notes); }
+
+    public void createStatusMap() {
+        STATUSES.put(1, "To Do");
+        STATUSES.put(2, "In Progress");
+        STATUSES.put(3, "Complete");
+    }
+
+    public String processTaskStatus(int statusCode) {
+        return STATUSES.getOrDefault(statusCode, "NoStatus");
+    }
 }

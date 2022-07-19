@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -43,6 +44,11 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
         return tasks.size();
     }
 
+    public void setTasks(List<CollegeTask> tasks) {
+        this.tasks = tasks;
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tvTaskItemName;
         private TextView tvTaskItemStatus;
@@ -56,7 +62,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
 
         public void bind(CollegeTask task) {
             UiUtils.setViewText(context, tvTaskItemName, task.getTaskName());
-            UiUtils.setViewText(context, tvTaskItemStatus, task.getStatus());
+            UiUtils.setViewText(context, tvTaskItemStatus, task.getStatusAsText());
         }
     }
 }

@@ -2,10 +2,14 @@ package com.example.capstoneapp.parsedatasource;
 
 import android.util.Log;
 import com.example.capstoneapp.model.College;
+import com.example.capstoneapp.model.CollegeTask;
 import com.example.capstoneapp.model.FavoriteCollege;
 import com.example.capstoneapp.model.ParseFirebaseUser;
+import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.parse.ParseQuery;
 
+import java.util.List;
 import java.util.Set;
 
 public class Utilities {
@@ -157,4 +161,21 @@ public class Utilities {
         });
     }
 
+    public static void getTaskListFromParse(GetTasksListListenerCallback callback) {
+        ParseQuery<CollegeTask> query = ParseQuery.getQuery(CollegeTask.class);
+        query.findInBackground((tasks, e) -> {
+            if (e != null) {
+                Log.e(TAG, "Issue with getting tasks", e);
+            }
+            if (tasks.size() == 0) {
+                Log.e(TAG, "No tasks found");
+            }
+            Log.i(TAG, "Tasks found: " + tasks.size());
+            for (CollegeTask task : tasks) {
+                Log.i(TAG, "- " + task.getTaskName());
+            }
+            callback.onCompleted(tasks);
+        });
+
+    }
 }
