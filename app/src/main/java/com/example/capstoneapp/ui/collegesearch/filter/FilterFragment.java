@@ -28,9 +28,6 @@ public class FilterFragment extends Fragment {
     private FilterFragmentPagerAdapter fragmentPagerAdapter;
     private Button btnApply;
 
-    private FilterFragment() {
-    }
-
     public static FilterFragment newInstance() {
         return new FilterFragment();
     }

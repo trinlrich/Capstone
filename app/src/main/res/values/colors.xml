@@ -10,4 +10,9 @@
     <color name="grey">#888888</color>
     <color name="light_grey">#C5C5C5</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="to_do_red">#FF9590</color>
+    <color name="in_progress_yellow">#FFD966</color>
+    <color name="complete_green">#92CC59</color>
+
 </resources>

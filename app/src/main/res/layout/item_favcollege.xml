@@ -82,12 +82,12 @@
             android:adjustViewBounds="true"
             android:contentDescription="@string/favorite_descrption"
             android:scaleType="centerCrop"
-            cardView:layout_constraintBottom_toTopOf="@+id/divider"
+            cardView:layout_constraintBottom_toTopOf="@+id/divider1"
             cardView:layout_constraintEnd_toEndOf="parent"
             cardView:srcCompat="@drawable/favorite_border_black_48" />
 
         <include
-            android:id="@+id/divider"
+            android:id="@+id/divider1"
             layout="@layout/divider_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -100,10 +100,11 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/larger_margin"
             android:progress="50"
+            android:progressTint="@color/primary_blue"
             cardView:layout_constraintBottom_toBottomOf="parent"
             cardView:layout_constraintEnd_toEndOf="parent"
             cardView:layout_constraintStart_toStartOf="parent"
-            cardView:layout_constraintTop_toBottomOf="@id/divider" />
+            cardView:layout_constraintTop_toBottomOf="@id/divider1" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

@@ -50,7 +50,7 @@
     <string name="room_board">Room and Board</string>
     <string name="books">Books and Supplies</string>
     <string name="other_exp">Other Expenses</string>
-        
+
     <string name="federal_loans">Receiving Federal Loans</string>
     <string name="pell_students">Pell Students</string>
     <string name="student_debt">Median Student Debt</string>
@@ -81,6 +81,11 @@
     <string name="type_key">TYPE</string>
     <string name="mission_key">MISSION</string>
     <string name="all_filters">All</string>
+
+    // Statuses
+    <string name="to_do">To Do</string>
+    <string name="in_progress">In Progress</string>
+    <string name="complete">Complete</string>
 
     // Content Descriptions
     <string name="favorite_descrption">Favorite icon to represent favoring a college</string>

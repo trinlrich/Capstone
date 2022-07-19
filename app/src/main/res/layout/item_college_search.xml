@@ -81,12 +81,12 @@
             android:adjustViewBounds="true"
             android:contentDescription="@string/favorite_descrption"
             android:scaleType="centerCrop"
-            app:layout_constraintBottom_toTopOf="@+id/divider"
+            app:layout_constraintBottom_toTopOf="@+id/divider1"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/favorite_black_48" />
 
         <include
-            android:id="@+id/divider"
+            android:id="@+id/divider1"
             layout="@layout/divider_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

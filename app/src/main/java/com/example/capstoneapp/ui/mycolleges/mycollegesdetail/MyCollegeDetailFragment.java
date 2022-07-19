@@ -49,6 +49,7 @@ public class MyCollegeDetailFragment extends Fragment {
         return new MyCollegeDetailFragment(college);
     }
 
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {

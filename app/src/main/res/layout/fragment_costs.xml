@@ -35,7 +35,7 @@
                     android:text="@string/average_cost" />
 
                 <include
-                    android:id="@+id/divider"
+                    android:id="@+id/divider1"
                     layout="@layout/divider_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
                         android:text="@string/in_tuition" />
 
                     <include
-                        android:id="@+id/divider"
+                        android:id="@+id/divider1"
                         layout="@layout/divider_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -132,7 +132,7 @@
                         android:text="@string/out_tuition" />
 
                     <include
-                        android:id="@+id/divider"
+                        android:id="@+id/divider1"
                         layout="@layout/divider_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

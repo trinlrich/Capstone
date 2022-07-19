@@ -43,7 +43,7 @@
                         android:text="@string/ea_deadline" />
 
                     <include
-                        android:id="@+id/divider"
+                        android:id="@+id/divider1"
                         layout="@layout/divider_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -87,7 +87,7 @@
                         android:text="@string/rd_deadline" />
 
                     <include
-                        android:id="@+id/divider"
+                        android:id="@+id/divider1"
                         layout="@layout/divider_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
