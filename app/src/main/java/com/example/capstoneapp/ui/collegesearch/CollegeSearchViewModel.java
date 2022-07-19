@@ -55,6 +55,7 @@ public class CollegeSearchViewModel extends AndroidViewModel {
     }
     private MutableLiveData<List<College>> allFavCollegesLiveData = new MutableLiveData<>();
     private List<College> allFavColleges = new ArrayList<>();
+    private List<College> currentCollegeListOnDisplay;
 
     public CollegeSearchViewModel(@NonNull Application application) {
         // on viewmodel create initiate fetch of all data
@@ -164,9 +165,9 @@ public class CollegeSearchViewModel extends AndroidViewModel {
     }
 
     private void updateDataSetAndUI(College selectedCollege, boolean added) {
-        for (int indx = 0; indx < allColleges.size(); indx++) {
-            if (allColleges.get(indx).getCollegeId() == selectedCollege.getCollegeId()) {
-                allColleges.get(indx).setFavorite(added);
+        for (int indx = 0; indx < currentCollegeListOnDisplay.size(); indx++) {
+            if (currentCollegeListOnDisplay.get(indx).getCollegeId() == selectedCollege.getCollegeId()) {
+                currentCollegeListOnDisplay.get(indx).setFavorite(added);
                 favCollegeUpdatedIndex.setValue(indx);
                 break;
             }
@@ -212,14 +213,14 @@ public class CollegeSearchViewModel extends AndroidViewModel {
     }
 
     public void searchFilterCollegeList(String newText) {
-        List<College> filteredColleges = new ArrayList<>();
+        currentCollegeListOnDisplay = new ArrayList<>();
         if (!isFiltered) {
             // Compare colleges in loop; add matching
             for (College college : allColleges) {
                 if (college.getName().length() >= newText.length()) {
                     String nameSubstring = college.getName().substring(0, newText.length()).toLowerCase();
                     if (nameSubstring.equals(newText.toLowerCase())) {
-                        filteredColleges.add(college);
+                        currentCollegeListOnDisplay.add(college);
                     }
                 }
             }
@@ -229,11 +230,11 @@ public class CollegeSearchViewModel extends AndroidViewModel {
                 if (college.getName().length() >= newText.length()) {
                     String nameSubstring = college.getName().substring(0, newText.length()).toLowerCase();
                     if (nameSubstring.equals(newText.toLowerCase())) {
-                        filteredColleges.add(college);
+                        currentCollegeListOnDisplay.add(college);
                     }
                 }
             }
         }
-        allCollegesLiveData.setValue(filteredColleges);
+        allCollegesLiveData.setValue(currentCollegeListOnDisplay);
     }
 }
