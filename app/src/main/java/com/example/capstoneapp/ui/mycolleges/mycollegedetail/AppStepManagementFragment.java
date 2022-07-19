@@ -41,6 +41,9 @@ import java.util.Map;
 public class AppStepManagementFragment extends Fragment {
 
     private static final String TAG = "AppStepManagementFragment";
+    private static final String USERID = "userid";
+    private static final String COLLEGEID = "collegeid";
+
     Map<CardView, LinearLayout> tasksToTaskLayoutMap = new HashMap<>();
     Map<Button, LinearLayout> dropAreaToLayoutMap = new HashMap<>();
     private Button createButton;
@@ -57,7 +60,15 @@ public class AppStepManagementFragment extends Fragment {
 
     private List<CollegeApplicationTask> applicationTasks = new ArrayList<>();
 
-    private MyCollegeDetailViewModel myCollegeDetailViewModel;
+    private TaskManagementViewModel collegeTaskViewModel;
+    private String userId ;
+
+    public AppStepManagementFragment(String userId, Integer collegeId) {
+        this.userId = userId;
+        this.collegeId = collegeId;
+    }
+
+    private Integer collegeId;
 
     public AppStepManagementFragment() {
         // Required empty public constructor
@@ -70,8 +81,13 @@ public class AppStepManagementFragment extends Fragment {
      * @return A new instance of fragment AppStepManagementFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AppStepManagementFragment newInstance() {
-        return new AppStepManagementFragment();
+    public static AppStepManagementFragment newInstance(String userId, Integer collegeId) {
+        AppStepManagementFragment f = new AppStepManagementFragment();
+        Bundle args = new Bundle();
+        args.putString(USERID, userId);
+        args.putInt(COLLEGEID, collegeId);
+        f.setArguments(args);
+        return f;
     }
 
     @Override
@@ -89,6 +105,12 @@ public class AppStepManagementFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (getArguments().containsKey(USERID)){
+            userId = getArguments().getString(USERID);
+        }
+        if (getArguments().containsKey(COLLEGEID)){
+            collegeId = getArguments().getInt(COLLEGEID);
+        }
 
         // To Do layout Setup And Initialization
         masterToDoLayout = view.findViewById(R.id.masterToDoLayout);
@@ -108,8 +130,9 @@ public class AppStepManagementFragment extends Fragment {
         initStates();
         attachDragListener(dropButtonCompleted);
         // viewmodel creation
-        myCollegeDetailViewModel = new ViewModelProvider(getActivity()).get(MyCollegeDetailViewModel.class);
-        myCollegeDetailViewModel.getCollegeTasksLiveData().observe(getActivity(), tasks -> {
+        TaskManagementViewModelFactory  factory = new TaskManagementViewModelFactory(userId,collegeId);
+        collegeTaskViewModel = new ViewModelProvider( this, factory).get(TaskManagementViewModel.class);
+        collegeTaskViewModel.getCollegeTasksLiveData().observe(getActivity(), tasks -> {
             applicationTasks = tasks;
             loadApplicationsTasks();
         });
@@ -184,7 +207,7 @@ public class AppStepManagementFragment extends Fragment {
         // update parse database via viewmodel
         int state = Integer.parseInt((String) tgtLayout.getTag());
         int stepIndex = Integer.parseInt((String) draggableItem.getTag());
-        myCollegeDetailViewModel.updateApplicationStepState(applicationTasks.get(stepIndex), state);
+        collegeTaskViewModel.updateApplicationStepState(applicationTasks.get(stepIndex), state);
         // Animation and adjust the view
         Transition move = new AutoTransition()
                 .addTarget(draggableItem)

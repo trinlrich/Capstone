@@ -1,7 +1,7 @@
 package com.example.capstoneapp.ui.mycolleges.mycollegedetail;
 
-
 import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -14,24 +14,17 @@ import com.parse.ParseObject;
 
 import java.util.List;
 
-
-public class MyCollegeDetailViewModel extends ViewModel {
-    public static final String TAG = "MyCollegeDetailViewModel";
+public class TaskManagementViewModel extends ViewModel  {
+    public static final String TAG = "TaskManagementViewModel";
     private MutableLiveData<List<CollegeApplicationTask>> collegeTasksLiveData = new MutableLiveData<>();
-
-
     private final String userId;
     private final Integer collegeId;
 
-    public MyCollegeDetailViewModel(String userId, Integer collegeId) {
-        Log.d(TAG, "UserId " + userId );
-        Log.d(TAG, "CollegeId " + collegeId );
-        // Load all application steps from Repository
+    public TaskManagementViewModel(String userId, Integer collegeId) {
         this.userId = userId;
         this.collegeId = collegeId;
-
+        getAllApplicationSteps(userId, collegeId);
     }
-
     public LiveData<List<CollegeApplicationTask>> getCollegeTasksLiveData() {
         return collegeTasksLiveData;
     }
@@ -44,4 +37,18 @@ public class MyCollegeDetailViewModel extends ViewModel {
         });
     }
 
+    public void updateApplicationStepState(ParseObject task, Integer state){
+        task.put(CollegeApplicationTask.TASK_KEY_STATE,state);
+        Utilities.updateApplicationTask(task, new UpdateApplicationTaskCallback() {
+            @Override
+            public void onCompleted(Boolean error) {
+                if (error){
+                    Log.w(TAG,"Error in updateApplicationStepState..");
+                }else{
+                    Log.d(TAG,"Success Saving State for Task...");
+                }
+
+            }
+        });
+    }
 }

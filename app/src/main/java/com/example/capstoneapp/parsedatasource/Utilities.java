@@ -216,8 +216,7 @@ public class Utilities {
 
     public static void updateApplicationTask(ParseObject applicationTask, UpdateApplicationTaskCallback callback){
         Log.i(TAG, "Updating Application task for fav college ...");
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("CollegeApplicationTask");
-
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("CollegeApplicationTasks");
         query.getInBackground(applicationTask.getObjectId(), new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject object, ParseException e) {

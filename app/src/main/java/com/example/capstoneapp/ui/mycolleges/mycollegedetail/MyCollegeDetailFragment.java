@@ -9,6 +9,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelStore;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,7 +62,7 @@ public class MyCollegeDetailFragment extends Fragment {
         }
 
         MyCollegeDetailViewModelFactory  factory = new MyCollegeDetailViewModelFactory(userId,collegeId);
-        myCollegeDetailViewModel = new ViewModelProvider(getActivity(), (ViewModelProvider.Factory) factory).get(MyCollegeDetailViewModel.class);
+        myCollegeDetailViewModel = new ViewModelProvider( this, factory).get(MyCollegeDetailViewModel.class);
 
         myCollegeDetailViewModel.getCollegeTasksLiveData().observe(getActivity(), new Observer<List<CollegeApplicationTask>>() {
             @Override
@@ -71,7 +73,7 @@ public class MyCollegeDetailFragment extends Fragment {
 
         manageTaskButton = view.findViewById(R.id.manageTaskBtn);
         manageTaskButton.setOnClickListener(v -> {
-            Fragment fragment = AppStepManagementFragment.newInstance();
+            Fragment fragment = AppStepManagementFragment.newInstance(userId,collegeId);
             ((FragmentActivity) getActivity()).getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.flContainer, fragment)
@@ -79,6 +81,7 @@ public class MyCollegeDetailFragment extends Fragment {
                     .commit();
         });
         // TODO: Use the ViewModel
+        myCollegeDetailViewModel.getAllApplicationSteps(userId,collegeId);
     }
 
 }
