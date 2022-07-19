@@ -1,26 +1,25 @@
 package com.example.capstoneapp.ui.mycolleges.mycollegedetail;
 
-import static com.example.capstoneapp.model.ApplicationStep.KEY_STEP_STATE;
 
 import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.capstoneapp.model.ApplicationStep;
-import com.example.capstoneapp.parsedatasource.ApplicationStepsCallback;
-import com.example.capstoneapp.parsedatasource.UpdateAppStepsCallback;
+import com.example.capstoneapp.model.CollegeApplicationTask;
+import com.example.capstoneapp.parsedatasource.ApplicationTaskCallback;
+import com.example.capstoneapp.parsedatasource.UpdateApplicationTaskCallback;
 import com.example.capstoneapp.parsedatasource.Utilities;
 import com.parse.ParseObject;
 
 import java.util.List;
 
+
 public class MyCollegeDetailViewModel extends ViewModel {
     public static final String TAG = "MyCollegeDetailViewModel";
-    private MutableLiveData<List<ApplicationStep>> applicationStepsLD = new MutableLiveData<>();
-    public LiveData<List<ApplicationStep>> getApplicationStepsLD() {
-        return applicationStepsLD;
+    private MutableLiveData<List<CollegeApplicationTask>> collegeTasksLiveData = new MutableLiveData<>();
+    public LiveData<List<CollegeApplicationTask>> getCollegeTasksLiveData() {
+        return collegeTasksLiveData;
     }
 
     private final String userId;
@@ -36,17 +35,17 @@ public class MyCollegeDetailViewModel extends ViewModel {
     }
 
     public void getAllApplicationSteps(String userId, Integer collegeId) {
-        Utilities.getAllApplicationSteps(userId, collegeId, new ApplicationStepsCallback() {
+        Utilities.getAllApplicationTasks(userId, collegeId, new ApplicationTaskCallback() {
             @Override
-            public void onCompleted(List<ApplicationStep> applicationSteps, Boolean error) {
-                applicationStepsLD.setValue(applicationSteps);
+            public void onCompleted(List<CollegeApplicationTask> applicationSteps, Boolean error) {
+                collegeTasksLiveData.setValue(applicationSteps);
             }
         });
     }
 
-    public void updateApplicationStepState(ParseObject step, Integer state){
-        step.put(KEY_STEP_STATE,state);
-        Utilities.updateApplicationStep(step, new UpdateAppStepsCallback() {
+    public void updateApplicationStepState(ParseObject task, Integer state){
+        task.put(CollegeApplicationTask.TASK_KEY_STATE,state);
+        Utilities.updateApplicationTask(task, new UpdateApplicationTaskCallback() {
             @Override
             public void onCompleted(Boolean error) {
                 if (error){

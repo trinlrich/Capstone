@@ -1,7 +1,5 @@
 package com.example.capstoneapp.ui.mycolleges.mycollegedetail;
 
-import static com.example.capstoneapp.model.ApplicationStep.KEY_STEP_STATE;
-import static com.example.capstoneapp.model.ApplicationStep.KEY_STEP_TITLE;
 
 import android.content.ClipData;
 import android.content.ClipDescription;
@@ -28,8 +26,7 @@ import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
 
 import com.example.capstoneapp.R;
-import com.example.capstoneapp.model.ApplicationStep;
-import com.parse.ParseObject;
+import com.example.capstoneapp.model.CollegeApplicationTask;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,7 +40,7 @@ import java.util.Map;
  */
 public class AppStepManagementFragment extends Fragment {
 
-    private static String TAG = "AppStepManagementFragment";
+    private static final String TAG = "AppStepManagementFragment";
     Map<CardView, LinearLayout> tasksToTaskLayoutMap = new HashMap<>();
     Map<Button, LinearLayout> dropAreaToLayoutMap = new HashMap<>();
     private Button createButton;
@@ -58,7 +55,7 @@ public class AppStepManagementFragment extends Fragment {
     private LinearLayout sourceLayout;
     private LinearLayout targetLayout;
 
-    private List<ApplicationStep> applicationStepsList = new ArrayList<>();
+    private List<CollegeApplicationTask> applicationTasks = new ArrayList<>();
 
     private MyCollegeDetailViewModel myCollegeDetailViewModel;
 
@@ -74,8 +71,7 @@ public class AppStepManagementFragment extends Fragment {
      */
     // TODO: Rename and change types and number of parameters
     public static AppStepManagementFragment newInstance() {
-        AppStepManagementFragment fragment = new AppStepManagementFragment();
-        return fragment;
+        return new AppStepManagementFragment();
     }
 
     @Override
@@ -97,11 +93,8 @@ public class AppStepManagementFragment extends Fragment {
         // To Do layout Setup And Initialization
         masterToDoLayout = view.findViewById(R.id.masterToDoLayout);
         createButton = view.findViewById(R.id.createTaskBtn);
-        createButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO: Add functionality for creating new task
-            }
+        createButton.setOnClickListener(v -> {
+            // TODO: Add functionality for creating new task
         });
 
         // In-progress layout Setup And Initialization
@@ -116,12 +109,9 @@ public class AppStepManagementFragment extends Fragment {
         attachDragListener(dropButtonCompleted);
         // viewmodel creation
         myCollegeDetailViewModel = new ViewModelProvider(getActivity()).get(MyCollegeDetailViewModel.class);
-        myCollegeDetailViewModel.getApplicationStepsLD().observe(getActivity(), new Observer<List<ApplicationStep>>() {
-            @Override
-            public void onChanged(List<ApplicationStep> applicationSteps) {
-                applicationStepsList = applicationSteps;
-                loadApplicationsTasks();
-            }
+        myCollegeDetailViewModel.getCollegeTasksLiveData().observe(getActivity(), tasks -> {
+            applicationTasks = tasks;
+            loadApplicationsTasks();
         });
 
 
@@ -192,9 +182,9 @@ public class AppStepManagementFragment extends Fragment {
 
     private void updateAppStep(LinearLayout srcLayout, LinearLayout tgtLayout, View draggableItem) {
         // update parse database via viewmodel
-        Integer state = Integer.parseInt((String) tgtLayout.getTag());
-        Integer stepIndex = Integer.parseInt((String) draggableItem.getTag());
-        myCollegeDetailViewModel.updateApplicationStepState(applicationStepsList.get(stepIndex), state);
+        int state = Integer.parseInt((String) tgtLayout.getTag());
+        int stepIndex = Integer.parseInt((String) draggableItem.getTag());
+        myCollegeDetailViewModel.updateApplicationStepState(applicationTasks.get(stepIndex), state);
         // Animation and adjust the view
         Transition move = new AutoTransition()
                 .addTarget(draggableItem)
@@ -208,13 +198,13 @@ public class AppStepManagementFragment extends Fragment {
 
     private void loadApplicationsTasks() {
 
-        for (int indx = 0; indx < applicationStepsList.size(); indx++) {
-            ParseObject step = applicationStepsList.get(indx);
-            CardView newCard = createCardView(step.getString(KEY_STEP_TITLE), indx);
+        for (int indx = 0; indx < applicationTasks.size(); indx++) {
+            CollegeApplicationTask task = applicationTasks.get(indx);
+            CardView newCard = createCardView(task.getTaskTitle(), indx);
             // For this example the newly created card is always in TODO Layout
             // For other apps this table should be initialized after loading data from repository
             // And drawing to UI
-            LinearLayout initalLayout = getInitialLayoutForTasks(step);
+            LinearLayout initalLayout = getInitialLayoutForTasks(task);
             tasksToTaskLayoutMap.put(newCard, initalLayout);
 
             newCard.setOnLongClickListener(v -> {
@@ -249,9 +239,9 @@ public class AppStepManagementFragment extends Fragment {
         }
     }
 
-    private LinearLayout getInitialLayoutForTasks(ParseObject step) {
+    private LinearLayout getInitialLayoutForTasks(CollegeApplicationTask task) {
 
-        Integer state = step.getInt(KEY_STEP_STATE);
+        Integer state = task.getTaskState();
         switch (state) {
             case 0:
                 return masterToDoLayout;

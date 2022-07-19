@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.capstoneapp.R;
-import com.example.capstoneapp.model.ApplicationStep;
+import com.example.capstoneapp.model.CollegeApplicationTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,7 @@ public class MyCollegeDetailFragment extends Fragment {
     private String userId = "";
     private Integer collegeId = 0;
 
-    private List<ApplicationStep> applicationStepsList = new ArrayList<>();
+    private List<CollegeApplicationTask> applicationStepsList = new ArrayList<>();
     private Button manageTaskButton;
 
 
@@ -62,10 +62,10 @@ public class MyCollegeDetailFragment extends Fragment {
         MyCollegeDetailViewModelFactory  factory = new MyCollegeDetailViewModelFactory(userId,collegeId);
         myCollegeDetailViewModel = new ViewModelProvider(getActivity(), (ViewModelProvider.Factory) factory).get(MyCollegeDetailViewModel.class);
 
-        myCollegeDetailViewModel.getApplicationStepsLD().observe(getActivity(), new Observer<List<ApplicationStep>>() {
+        myCollegeDetailViewModel.getCollegeTasksLiveData().observe(getActivity(), new Observer<List<CollegeApplicationTask>>() {
             @Override
-            public void onChanged(List<ApplicationStep> appSteps) {
-                applicationStepsList = appSteps;
+            public void onChanged(List<CollegeApplicationTask> tasks) {
+                applicationStepsList = tasks;
             }
         });
 

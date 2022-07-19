@@ -124,7 +124,7 @@ public class CollegeSearchViewModel extends AndroidViewModel {
         if (isCollegeFavorited(selectedCollege)) {
             Utilities.removeFavCollegeForUser(firebaseUid, selectedCollege, (favoriteColleges, error) -> {
                 Log.d(TAG, "Get Fav Colleges after Deleting....");
-                Utilities.deleteAllApplicationSteps(firebaseUid,selectedCollege.getCollegeId());
+                Utilities.deleteAllApplicationTasks(firebaseUid,selectedCollege.getCollegeId());
                 if (error)
                     showErrorMessage();
                 else

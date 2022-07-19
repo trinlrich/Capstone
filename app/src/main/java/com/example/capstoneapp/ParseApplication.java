@@ -3,6 +3,7 @@ package com.example.capstoneapp;
 import android.app.Application;
 
 import com.example.capstoneapp.model.College;
+import com.example.capstoneapp.model.CollegeApplicationTask;
 import com.example.capstoneapp.model.FavoriteCollege;
 import com.example.capstoneapp.model.ParseFirebaseUser;
 import com.parse.Parse;
@@ -17,6 +18,7 @@ public class ParseApplication extends Application {
         ParseObject.registerSubclass(ParseFirebaseUser.class);
         ParseObject.registerSubclass(College.class);
         ParseObject.registerSubclass(FavoriteCollege.class);
+        ParseObject.registerSubclass(CollegeApplicationTask.class);
 
         Parse.initialize(new Parse.Configuration.Builder(this)
                 .applicationId("SZyMtZYjJoUVYVuplJZRp5D8o3qyppfkXuzYvhz9")
