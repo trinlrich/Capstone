@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.mycolleges.mycollegesdetail.MyCollegeDetailFragment">
+    tools:context=".ui.mycolleges.mycollegedetail.MyCollegeDetailFragment">
 
     <ImageView
         android:id="@+id/ivFavDetailThumbnail"

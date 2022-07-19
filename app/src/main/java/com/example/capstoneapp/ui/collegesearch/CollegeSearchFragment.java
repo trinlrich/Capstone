@@ -1,6 +1,6 @@
 package com.example.capstoneapp.ui.collegesearch;
 
-import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -66,8 +67,14 @@ public class CollegeSearchFragment extends Fragment {
 
         // Pass the callback for Fav button click
         collegesAdapter = new CollegesAdapter(getContext(), college -> {
-            // Update the state to Parse through View Model
-            viewModel.updateFavCollege(college);
+
+            // if it already favorite then user wants to un-favorite it.
+            // show dialog and get user cofirmation
+            if (viewModel.isCollegeFavorited(college)) {
+                createAndShowDialog(college);
+            } else
+                viewModel.updateFavCollege(college);
+
         });
         rootLayout = view.findViewById(R.id.topLayout);
         rvColleges = view.findViewById(R.id.rvColleges);
@@ -157,5 +164,27 @@ public class CollegeSearchFragment extends Fragment {
                     .addToBackStack(null)
                     .commit();
         }
+    }
+
+    public void createAndShowDialog(College college) {
+        // Use the Builder class for convenient dialog construction
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(R.string.dialog_title)
+                .setMessage(R.string.dialog_message)
+                .setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Un favorite the College and delete tasks!
+                        // Update the state to Parse through View Model
+                        viewModel.updateFavCollege(college);
+                    }
+                })
+                .setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog. do nothing
+
+                    }
+                });
+        // Create the AlertDialog object and show it
+        builder.create().show();
     }
 }

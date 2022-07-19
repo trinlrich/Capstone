@@ -29,4 +29,12 @@
     <dimen name="add_favorites_btn_text_size">8sp</dimen>
     <dimen name="add_favorites_btn_heart_size">15dp</dimen>
 
+    <dimen name="fav_college_card_view_radius">8dp</dimen>
+    <dimen name="fav_college_card_view_elevation">8dp</dimen>
+    <dimen name="fav_college_card_view_margin">8dp</dimen>
+    <dimen name="task_button_height">115dp</dimen>
+    <dimen name="task_button_margin">5dp</dimen>
+    <dimen name="task_card_height">115dp</dimen>
+    <dimen name="task_card_width">115dp</dimen>
+
 </resources>

@@ -17,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.ui.collegesearch.CollegeSearchViewModel;
@@ -35,7 +34,6 @@ public class MyCollegesFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private ProgressBar loadingProgressBar;
     private TextView tvNoFavColleges;
-
     public static MyCollegesFragment newInstance() {
         return new MyCollegesFragment();
     }
@@ -67,6 +65,7 @@ public class MyCollegesFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getContext());
         favCollegesRV.setLayoutManager(layoutManager);
         favCollegesRV.setAdapter(favCollegesAdapter);
+
 
         // Colleges observer
         Observer<List<College>> favCollegesObserver = colleges -> {

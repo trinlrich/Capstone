@@ -17,10 +17,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.ui.UiUtils;
-import com.example.capstoneapp.ui.mycolleges.mycollegesdetail.MyCollegeDetailFragment;
+import com.example.capstoneapp.ui.mycolleges.mycollegedetail.MyCollegeDetailFragment;
+import com.google.firebase.auth.FirebaseAuth;
+
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MyCollegesAdapter extends RecyclerView.Adapter<MyCollegesAdapter.ViewHolder> {
 
@@ -90,26 +93,25 @@ public class MyCollegesAdapter extends RecyclerView.Adapter<MyCollegesAdapter.Vi
             itemView.setOnClickListener(this::onClick);
         }
 
+        public void onFavoriteClick(View v) {
+            Log.i(TAG, "Favorite clicked");
+            favButtonClickedCallback.onFavButtonClicked(favColleges.get(getAdapterPosition()));
+        }
+
         @Override
         public void onClick(View v) {
-            Log.i(TAG, "ViewHolder clicked!");
+            Log.i(TAG, "MyCollege ViewHolder clicked!");
             int position = getAdapterPosition();
-            Log.i(TAG, "onClick " + position);
             if (position != RecyclerView.NO_POSITION) {
                 College college = favColleges.get(position);
-
-                Fragment fragment = MyCollegeDetailFragment.newInstance(college);
+                String firebaseUid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+                Fragment fragment = MyCollegeDetailFragment.newInstance(firebaseUid,college.getCollegeId());
                 ((FragmentActivity) context).getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.flContainer, fragment)
                         .addToBackStack(null)
                         .commit();
             }
-        }
-
-        public void onFavoriteClick(View v) {
-            Log.i(TAG, "Favorite clicked");
-            favButtonClickedCallback.onFavButtonClicked(favColleges.get(getAdapterPosition()));
         }
     }
 }
