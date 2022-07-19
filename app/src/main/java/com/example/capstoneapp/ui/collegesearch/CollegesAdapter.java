@@ -26,7 +26,6 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
 
     interface FavoriteButtonClickedCallback {
         void onFavButtonClicked(College college);
-
     }
     private static final String TAG = "CollegesAdapter";
 
@@ -68,22 +67,28 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
         private final ImageView ivThumbnail;
         private final TextView tvName;
         private final TextView tvLocation;
+        private final TextView tvCollegeType;
+        private final TextView tvAvgCost;
         private final ImageButton ibtnFavorite;
         private final FavoriteButtonClickedCallback favButtonClickedCallback;
 
         public ViewHolder(@NonNull View itemView, FavoriteButtonClickedCallback favBtnClickedCallback) {
             super(itemView);
             ivThumbnail = itemView.findViewById(R.id.ivThumbnail);
-            tvName = itemView.findViewById(R.id.tvName);
-            tvLocation = itemView.findViewById(R.id.tvLocation);
+            tvName = itemView.findViewById(R.id.tvNameItem);
+            tvLocation = itemView.findViewById(R.id.tvLocationItem);
+            tvCollegeType = itemView.findViewById(R.id.tvCollegeTypeItem);
+            tvAvgCost = itemView.findViewById(R.id.tvAvgCostItem);
             ibtnFavorite = itemView.findViewById(R.id.ibtnFavorite);
-            favButtonClickedCallback= favBtnClickedCallback;
+            favButtonClickedCallback = favBtnClickedCallback;
         }
 
         public void bind(College college) {
             UiUtils.setViewImage(context, ivThumbnail, college.getThumbnail(), null, R.drawable.college_black_48);
             UiUtils.setViewText(context, tvName, college.getName());
             UiUtils.setViewText(context, tvLocation, college.getLocation());
+            UiUtils.setViewText(context, tvCollegeType, college.getCollegeTypeAsText());
+            UiUtils.setViewText(context, tvAvgCost, college.getAvgCostAsText());
 
             if (college.isFavorite())
                 ibtnFavorite.setBackground(context.getDrawable(R.drawable.favorite_black_48));

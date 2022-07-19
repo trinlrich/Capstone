@@ -87,7 +87,6 @@
     <string name="filter_description">Filter icon</string>
 
     // Misc
-    <string name="na_text">Not Available</string>
     <string name="thumbnail_description">College thumbnail</string>
     <string name="filter_title">Filter</string>
     <string name="apply">Apply</string>
@@ -106,4 +105,5 @@
 
     // Null Strings
     <string name="data_not_available">Data Not Available</string>
+
 </resources>

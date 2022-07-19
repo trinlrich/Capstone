@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.capstoneapp.R;
+import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.ui.collegesearch.collegedetail.tabs.AcademicsFragment;
 import com.example.capstoneapp.ui.collegesearch.collegedetail.tabs.CostsFragment;
 import com.example.capstoneapp.ui.collegesearch.collegedetail.tabs.OverviewFragment;
@@ -15,10 +16,12 @@ import com.example.capstoneapp.ui.collegesearch.collegedetail.tabs.OverviewFragm
 public class CollegeDetailFragmentPagerAdapter extends androidx.fragment.app.FragmentPagerAdapter {
 
     Context context;
+    College college;
 
-    public CollegeDetailFragmentPagerAdapter(@NonNull FragmentManager fm, Context context) {
+    public CollegeDetailFragmentPagerAdapter(@NonNull FragmentManager fm, Context context, College college) {
         super(fm);
         this.context = context;
+        this.college = college;
     }
 
     @NonNull
@@ -26,11 +29,11 @@ public class CollegeDetailFragmentPagerAdapter extends androidx.fragment.app.Fra
     public Fragment getItem(int position) {
         Fragment fragment = null;
         if (position == 0)
-            fragment = new OverviewFragment();
+            fragment = new OverviewFragment(college);
         else if (position == 1)
-            fragment = new AcademicsFragment();
+            fragment = new AcademicsFragment(college);
         else if (position == 2)
-            fragment = new CostsFragment();
+            fragment = new CostsFragment(college);
 
         return fragment;
     }

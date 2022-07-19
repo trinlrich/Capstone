@@ -17,9 +17,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.capstoneapp.R;
+import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.ui.collegesearch.filter.CollegeFilter;
 import com.example.capstoneapp.ui.collegesearch.filter.FilterUtils;
 import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TypeFragment extends Fragment {
 
@@ -67,17 +71,14 @@ public class TypeFragment extends Fragment {
     }
 
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Log.i(TAG, "onItemClick: " +position);
         FilterUtils.putFilter(getContext(), type, listView.getItemAtPosition(position).toString(), position);
     }
 
-    private String[] getTypes() {
-        String allTypes = getString(R.string.all_filters);
-        String publicType = getString(R.string.public_type);
-        String privateNPType = getString(R.string.private_np_type);
-        String privateFPType = getString(R.string.private_fp_type);
-
-        String[] types = new String[]{allTypes, publicType, privateNPType, privateFPType};
-
+    private List<String> getTypes() {
+        List<String> types = new ArrayList<>();
+        types.add("All");
+        types.addAll(College.getCollegeTypes().values());
         return types;
     }
 }

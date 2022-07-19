@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 
@@ -163,6 +164,7 @@ public class CollegeSearchViewModel extends AndroidViewModel {
 
         updateDataSetAndUI(selectedCollege, added);
         updateFavCollegesDataSet(allColleges);
+
     }
 
     private void updateDataSetAndUI(College selectedCollege, boolean added) {
@@ -189,21 +191,26 @@ public class CollegeSearchViewModel extends AndroidViewModel {
         allCollegesAfterFilter.clear();
         allCollegesAfterFilter.addAll(allColleges);
         if (isFilteringNeeded(stateValue)) {
-            allCollegesAfterFilter.removeIf(college -> !college.getCollegeState().equals(stateValue));
+            allCollegesAfterFilter.removeIf(college -> !college.getFullCollegeState().equals(stateValue));
+            isFiltered = true;
         }
         if (isFilteringNeeded(typeValue)) {
-            allCollegesAfterFilter.removeIf(college -> !college.getControl().equals(typeValue));
+            allCollegesAfterFilter.removeIf(college -> !college.getCollegeTypeAsText().equals(typeValue));
+            isFiltered = true;
         }
         if (isFilteringNeeded(missionValue)) {
-            allCollegesAfterFilter.removeIf(college -> !college.getMission().contains(missionValue));
+            allCollegesAfterFilter.removeIf(college -> !college.getFullMission().contains(missionValue));
+            isFiltered = true;
+        }
+        if (allCollegesAfterFilter.size() == allColleges.size()) {
+            isFiltered = false;
         }
         allCollegesLiveData.setValue(allCollegesAfterFilter);
     }
 
     private boolean isFilteringNeeded(String value) {
         // False if filter is set to "All"
-        isFiltered = !value.equals(allString);
-        return isFiltered;
+        return !value.equals(allString);
     }
 
     private void startProgress() {
