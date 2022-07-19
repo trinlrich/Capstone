@@ -34,4 +34,23 @@
         <item name="android:layout_marginVertical">@dimen/medium_margin</item>
     </style>
 
+    <style name="buttonStyle1" parent="Theme.CapstoneApp">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/task_button_height</item>
+        <item name="android:layout_margin">@dimen/task_button_margin</item>
+        <item name="backgroundTint">@android:color/darker_gray</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="taskCardStyle">
+        <item name="backgroundTint">@android:color/darker_gray</item>
+        <item name="cardCornerRadius">5dp</item>
+        <item name="cardElevation">5dp</item>
+    </style>
+    <style name="taskCardTextStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">#93D2DA</item>
+        <item name="android:gravity">center</item>
+    </style>
+
 </resources>
