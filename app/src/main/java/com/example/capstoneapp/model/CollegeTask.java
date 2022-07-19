@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @ParseClassName("CollegeApplicationTasks")
-public class CollegeTask extends ParseObject {
+class CollegeTaskBackUp extends ParseObject {
 
     public static final String KEY_TASK_ID = "objectId";
     public static final String KEY_NAME = "taskTitle";
@@ -24,7 +24,7 @@ public class CollegeTask extends ParseObject {
     public static final HashMap<Integer, String> STATUSES = new HashMap<>();
     private static final HashMap<Integer, String> STATUS_COLORS = new HashMap<>();
 
-    public CollegeTask() {
+    public CollegeTaskBackUp() {
         createStatusMap();
         createStatusColorsMap();
     }

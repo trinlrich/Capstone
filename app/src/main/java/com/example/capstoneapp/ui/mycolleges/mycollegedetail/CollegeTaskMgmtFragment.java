@@ -19,7 +19,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.transition.AutoTransition;
 import androidx.transition.Transition;
@@ -35,10 +34,10 @@ import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link AppStepManagementFragment#newInstance} factory method to
+ * Use the {@link CollegeTaskMgmtFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AppStepManagementFragment extends Fragment {
+public class CollegeTaskMgmtFragment extends Fragment {
 
     private static final String TAG = "AppStepManagementFragment";
     private static final String USERID = "userid";
@@ -63,14 +62,14 @@ public class AppStepManagementFragment extends Fragment {
     private TaskManagementViewModel collegeTaskViewModel;
     private String userId ;
 
-    public AppStepManagementFragment(String userId, Integer collegeId) {
+    public CollegeTaskMgmtFragment(String userId, Integer collegeId) {
         this.userId = userId;
         this.collegeId = collegeId;
     }
 
     private Integer collegeId;
 
-    public AppStepManagementFragment() {
+    public CollegeTaskMgmtFragment() {
         // Required empty public constructor
     }
 
@@ -81,8 +80,8 @@ public class AppStepManagementFragment extends Fragment {
      * @return A new instance of fragment AppStepManagementFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AppStepManagementFragment newInstance(String userId, Integer collegeId) {
-        AppStepManagementFragment f = new AppStepManagementFragment();
+    public static CollegeTaskMgmtFragment newInstance(String userId, Integer collegeId) {
+        CollegeTaskMgmtFragment f = new CollegeTaskMgmtFragment();
         Bundle args = new Bundle();
         args.putString(USERID, userId);
         args.putInt(COLLEGEID, collegeId);

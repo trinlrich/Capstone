@@ -9,12 +9,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.lifecycle.ViewModelStore;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,10 +22,8 @@ import android.widget.TextView;
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.model.CollegeApplicationTask;
-import com.example.capstoneapp.model.CollegeTask;
 import com.example.capstoneapp.ui.UiUtils;
 import com.example.capstoneapp.ui.collegesearch.collegedetail.CollegeDetailFragment;
-import com.example.capstoneapp.ui.mycolleges.mycollegesdetail.TasksAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +34,9 @@ public class MyCollegeDetailFragment extends Fragment {
     private static final String USERID = "userid";
     private static final String COLLEGEID = "collegeid";
 
-    private MyCollegeDetailViewModel viewModel;
+    private MyCollegeDetailViewModel myCollegeDetailViewModel;
+    private List<CollegeApplicationTask> applicationStepsList = new ArrayList<>();
+
     College college;
 
     private TasksAdapter tasksAdapter;
@@ -53,9 +50,15 @@ public class MyCollegeDetailFragment extends Fragment {
     private String userId = "";
     private Integer collegeId = 0;
 
+    private Button manageTaskButton;
 
-    public static MyCollegeDetailFragment newInstance(String userId, Integer collegeId) {
-        MyCollegeDetailFragment f = new MyCollegeDetailFragment();
+    public MyCollegeDetailFragment(College selectedCollege) {
+        college = selectedCollege;
+    }
+
+
+    public static MyCollegeDetailFragment newInstance(String userId, Integer collegeId, College selectedCollege) {
+        MyCollegeDetailFragment f = new MyCollegeDetailFragment(selectedCollege);
         Bundle args = new Bundle();
         args.putString(USERID, userId);
         args.putInt(COLLEGEID, collegeId);
@@ -79,8 +82,16 @@ public class MyCollegeDetailFragment extends Fragment {
         if (getArguments().containsKey(COLLEGEID)){
             collegeId = getArguments().getInt(COLLEGEID);
         }
-
-        viewModel = new ViewModelProvider(requireActivity()).get(MyCollegeDetailViewModel.class);
+        // set up view model
+        MyCollegeDetailViewModelFactory  factory = new MyCollegeDetailViewModelFactory(userId,collegeId);
+        myCollegeDetailViewModel = new ViewModelProvider( this, factory).get(MyCollegeDetailViewModel.class);
+        myCollegeDetailViewModel.getCollegeTasksLiveData().observe(getActivity(), new Observer<List<CollegeApplicationTask>>() {
+            @Override
+            public void onChanged(List<CollegeApplicationTask> tasks) {
+                applicationStepsList = tasks;
+                tasksAdapter.setTasks(applicationStepsList);
+            }
+        });
 
         // Set up recycler view
         rvTasks = view.findViewById(R.id.rvToDo);
@@ -93,24 +104,22 @@ public class MyCollegeDetailFragment extends Fragment {
         tvFavDetailName = view.findViewById(R.id.tvFavDetailName);
         tvFavDetailLocation = view.findViewById(R.id.tvFavDetailLocation);
         tvViewDetails = view.findViewById(R.id.tvViewDetails);
+        manageTaskButton = view.findViewById(R.id.manageTaskBtn);
+        manageTaskButton.setOnClickListener(v -> {
+            Fragment fragment = CollegeTaskMgmtFragment.newInstance(userId,collegeId);
+            ((FragmentActivity) getActivity()).getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.flContainer, fragment)
+                    .addToBackStack(null)
+                    .commit();
+        });
 
         UiUtils.setViewImage(getContext(), ivFavDetailThumbnail, college.getThumbnail(), null, R.drawable.college_black_48);
         UiUtils.setViewText(getContext(), tvFavDetailName, college.getName());
         UiUtils.setViewText(getContext(), tvFavDetailLocation, college.getLocation());
         tvViewDetails.setOnClickListener(this::onViewDetailsClick);
+        myCollegeDetailViewModel.getAllApplicationSteps(userId,collegeId);
 
-        // Observe Tasks List
-        Observer<List<CollegeTask>> tasksObserver = tasks -> {
-            if ((tasks == null) || (tasks.size() == 0)){
-                Log.e(TAG, "No tasks found");
-//                tvNoTasks.setVisibility(View.VISIBLE);
-            } else {
-                Log.i(TAG, "Tasks found");
-//                tvNoTasks.setVisibility(View.GONE);
-                tasksAdapter.setTasks(tasks);
-            }
-        };
-       // viewModel.getAllTasksLiveData().observe(getViewLifecycleOwner(), tasksObserver);
     }
 
     private void onViewDetailsClick(View view) {

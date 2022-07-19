@@ -1,12 +1,10 @@
-package com.example.capstoneapp.ui.mycolleges.mycollegesdetail;
+package com.example.capstoneapp.ui.mycolleges.mycollegedetail;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,19 +14,18 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstoneapp.R;
-import com.example.capstoneapp.model.CollegeTask;
+import com.example.capstoneapp.model.CollegeApplicationTask;
 import com.example.capstoneapp.ui.UiUtils;
-import com.example.capstoneapp.ui.collegesearch.collegedetail.CollegeDetailFragment;
+import com.example.capstoneapp.ui.mycolleges.mycollegesdetail.TaskDetailFragment;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> {
 
     private static final String TAG = "TasksAdapter";
     private final Context context;
-    private List<CollegeTask> tasks = new ArrayList<>();
+    private List<CollegeApplicationTask> tasks = new ArrayList<>();
 
     public TasksAdapter(Context context) {
         this.context = context;
@@ -43,7 +40,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        CollegeTask task = tasks.get(position);
+        CollegeApplicationTask task = tasks.get(position);
         holder.bind(task);
     }
 
@@ -52,7 +49,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
         return tasks.size();
     }
 
-    public void setTasks(List<CollegeTask> tasks) {
+    public void setTasks(List<CollegeApplicationTask> tasks) {
         this.tasks = tasks;
         notifyDataSetChanged();
     }
@@ -70,17 +67,17 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
             tvTaskItemStatus = itemView.findViewById(R.id.tvTaskItemStatus);
         }
 
-        public void bind(CollegeTask task) {
-            taskItemCard.setCardBackgroundColor(CollegeTask.getStatusColor(task.getStatusAsText()));
-            UiUtils.setViewText(context, tvTaskItemName, task.getTaskName());
+        public void bind(CollegeApplicationTask task) {
+            taskItemCard.setCardBackgroundColor(CollegeApplicationTask.getStatusColor(task.getStatusAsText()));
+            UiUtils.setViewText(context, tvTaskItemName, task.getTaskTitle());
             UiUtils.setViewText(context, tvTaskItemStatus, task.getStatusAsText());
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            CollegeTask task = tasks.get(getAdapterPosition());
-            Log.i(TAG, "Task clicked: " + task.getTaskName());
+            CollegeApplicationTask task = tasks.get(getAdapterPosition());
+            Log.i(TAG, "Task clicked: " + task.getTaskTitle());
             Fragment fragment = TaskDetailFragment.newInstance(task);
             ((FragmentActivity) context).getSupportFragmentManager()
                     .beginTransaction()

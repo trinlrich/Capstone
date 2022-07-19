@@ -105,7 +105,7 @@ public class MyCollegesAdapter extends RecyclerView.Adapter<MyCollegesAdapter.Vi
             if (position != RecyclerView.NO_POSITION) {
                 College college = favColleges.get(position);
                 String firebaseUid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
-                Fragment fragment = MyCollegeDetailFragment.newInstance(firebaseUid,college.getCollegeId());
+                Fragment fragment = MyCollegeDetailFragment.newInstance(firebaseUid,college.getCollegeId(), college);
                 ((FragmentActivity) context).getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.flContainer, fragment)

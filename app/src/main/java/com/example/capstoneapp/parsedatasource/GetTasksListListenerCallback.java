@@ -1,9 +1,10 @@
 package com.example.capstoneapp.parsedatasource;
 
-import com.example.capstoneapp.model.CollegeTask;
+import com.example.capstoneapp.model.CollegeApplicationTask;
+
 
 import java.util.List;
 
 public interface GetTasksListListenerCallback {
-    void onCompleted(List<CollegeTask> tasks);
+    void onCompleted(List<CollegeApplicationTask> tasks);
 }
