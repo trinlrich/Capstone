@@ -3,12 +3,15 @@ package com.example.capstoneapp.model;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 
+import org.parceler.Parcel;
+
 import java.text.NumberFormat;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+@Parcel
 @ParseClassName("Colleges")
 public class College extends ParseObject {
 

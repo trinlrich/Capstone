@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.model.CollegeApplicationTask;
 import com.example.capstoneapp.ui.UiUtils;
-import com.example.capstoneapp.ui.mycolleges.mycollegesdetail.TaskDetailFragment;
+import com.example.capstoneapp.ui.mycolleges.mycollegedetail.taskmgmt.TaskDetailFragment;
 
 import java.util.ArrayList;
 import java.util.List;

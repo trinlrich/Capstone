@@ -1,6 +1,7 @@
 package com.example.capstoneapp.ui.mycolleges;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,9 @@ import com.example.capstoneapp.ui.UiUtils;
 import com.example.capstoneapp.ui.mycolleges.mycollegedetail.MyCollegeDetailFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
+
+import org.parceler.Parcel;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;

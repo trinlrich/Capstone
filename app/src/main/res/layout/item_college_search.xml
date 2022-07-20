@@ -83,7 +83,7 @@
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toTopOf="@+id/divider1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/favorite_black_48" />
+            app:srcCompat="@drawable/favorite_border_black_48" />
 
         <include
             android:id="@+id/divider1"

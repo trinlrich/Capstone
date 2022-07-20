@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,10 @@ import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.model.CollegeApplicationTask;
 import com.example.capstoneapp.ui.UiUtils;
 import com.example.capstoneapp.ui.collegesearch.collegedetail.CollegeDetailFragment;
+import com.example.capstoneapp.ui.mycolleges.mycollegedetail.taskmgmt.CollegeTaskMgmtFragment;
+
+import org.parceler.Parcel;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,12 +37,11 @@ public class MyCollegeDetailFragment extends Fragment {
 
     private static final String TAG = "MyCollegeDetailFragment";
     private static final String USERID = "userid";
-    private static final String COLLEGEID = "collegeid";
+    private static final String COLLEGE_ID = "collegeid";
+    private static final String COLLEGE = "college";
 
     private MyCollegeDetailViewModel myCollegeDetailViewModel;
     private List<CollegeApplicationTask> applicationStepsList = new ArrayList<>();
-
-    College college;
 
     private TasksAdapter tasksAdapter;
     private RecyclerView rvTasks;
@@ -49,19 +53,16 @@ public class MyCollegeDetailFragment extends Fragment {
 
     private String userId = "";
     private Integer collegeId = 0;
+    private College college;
 
     private Button manageTaskButton;
 
-    public MyCollegeDetailFragment(College selectedCollege) {
-        college = selectedCollege;
-    }
-
-
-    public static MyCollegeDetailFragment newInstance(String userId, Integer collegeId, College selectedCollege) {
-        MyCollegeDetailFragment f = new MyCollegeDetailFragment(selectedCollege);
+    public static MyCollegeDetailFragment newInstance(String userId, Integer collegeId, College college) {
+        MyCollegeDetailFragment f = new MyCollegeDetailFragment();
         Bundle args = new Bundle();
         args.putString(USERID, userId);
-        args.putInt(COLLEGEID, collegeId);
+        args.putInt(COLLEGE_ID, collegeId);
+        args.putParcelable(COLLEGE, Parcels.wrap(college));
         f.setArguments(args);
         return f;
     }
@@ -79,11 +80,15 @@ public class MyCollegeDetailFragment extends Fragment {
         if (getArguments().containsKey(USERID)){
             userId = getArguments().getString(USERID);
         }
-        if (getArguments().containsKey(COLLEGEID)){
-            collegeId = getArguments().getInt(COLLEGEID);
+        Log.i(TAG, String.valueOf(getArguments().containsKey(COLLEGE_ID)));
+        if (getArguments().containsKey(COLLEGE_ID)){
+            collegeId = getArguments().getInt(COLLEGE_ID);
+        }
+        if (getArguments().containsKey(COLLEGE)){
+            college = Parcels.unwrap(getArguments().getParcelable(COLLEGE));
         }
         // set up view model
-        MyCollegeDetailViewModelFactory  factory = new MyCollegeDetailViewModelFactory(userId,collegeId);
+        MyCollegeDetailViewModelFactory factory = new MyCollegeDetailViewModelFactory(userId, collegeId);
         myCollegeDetailViewModel = new ViewModelProvider( this, factory).get(MyCollegeDetailViewModel.class);
         myCollegeDetailViewModel.getCollegeTasksLiveData().observe(getActivity(), new Observer<List<CollegeApplicationTask>>() {
             @Override
@@ -119,7 +124,6 @@ public class MyCollegeDetailFragment extends Fragment {
         UiUtils.setViewText(getContext(), tvFavDetailLocation, college.getLocation());
         tvViewDetails.setOnClickListener(this::onViewDetailsClick);
         myCollegeDetailViewModel.getAllApplicationSteps(userId,collegeId);
-
     }
 
     private void onViewDetailsClick(View view) {

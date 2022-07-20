@@ -127,7 +127,7 @@ public class CollegeSearchViewModel extends AndroidViewModel {
         if (isCollegeFavorited(selectedCollege)) {
             Utilities.removeFavCollegeForUser(firebaseUid, selectedCollege, (favoriteColleges, error) -> {
                 Log.d(TAG, "Get Fav Colleges after Deleting....");
-                Utilities.deleteAllApplicationTasks(firebaseUid,selectedCollege.getCollegeId());
+                Utilities.deleteAllApplicationTasks(firebaseUid, selectedCollege.getCollegeId());
                 if (error)
                     showErrorMessage();
                 else
@@ -168,9 +168,16 @@ public class CollegeSearchViewModel extends AndroidViewModel {
     }
 
     private void updateDataSetAndUI(College selectedCollege, boolean added) {
-        for (int indx = 0; indx < allCollegesAfterSearch.size(); indx++) {
-            if (allCollegesAfterSearch.get(indx).getCollegeId() == selectedCollege.getCollegeId()) {
-                allCollegesAfterSearch.get(indx).setFavorite(added);
+        List<College> collegesToIterate = new ArrayList<>();
+
+        if (allCollegesAfterSearch.size() > 0)
+            collegesToIterate.addAll(allCollegesAfterSearch);
+        else
+            collegesToIterate.addAll(allColleges);
+
+        for (int indx = 0; indx < collegesToIterate.size(); indx++) {
+            if (collegesToIterate.get(indx).getCollegeId() == selectedCollege.getCollegeId()) {
+                collegesToIterate.get(indx).setFavorite(added);
                 favCollegeUpdatedIndex.setValue(indx);
                 break;
             }

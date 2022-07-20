@@ -1,4 +1,4 @@
-package com.example.capstoneapp.ui.mycolleges.mycollegedetail;
+package com.example.capstoneapp.ui.mycolleges.mycollegedetail.taskmgmt;
 
 
 import android.content.ClipData;
@@ -26,6 +26,7 @@ import androidx.transition.TransitionManager;
 
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.model.CollegeApplicationTask;
+import com.example.capstoneapp.ui.mycolleges.mycollegedetail.CustomCardDragShadowBuilder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -59,7 +60,7 @@ public class CollegeTaskMgmtFragment extends Fragment {
 
     private List<CollegeApplicationTask> applicationTasks = new ArrayList<>();
 
-    private TaskManagementViewModel collegeTaskViewModel;
+    private TaskMgmtViewModel collegeTaskViewModel;
     private String userId ;
 
     public CollegeTaskMgmtFragment(String userId, Integer collegeId) {
@@ -79,7 +80,6 @@ public class CollegeTaskMgmtFragment extends Fragment {
      *
      * @return A new instance of fragment AppStepManagementFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static CollegeTaskMgmtFragment newInstance(String userId, Integer collegeId) {
         CollegeTaskMgmtFragment f = new CollegeTaskMgmtFragment();
         Bundle args = new Bundle();
@@ -129,14 +129,12 @@ public class CollegeTaskMgmtFragment extends Fragment {
         initStates();
         attachDragListener(dropButtonCompleted);
         // viewmodel creation
-        TaskManagementViewModelFactory  factory = new TaskManagementViewModelFactory(userId,collegeId);
-        collegeTaskViewModel = new ViewModelProvider( this, factory).get(TaskManagementViewModel.class);
+        TaskMgmtViewModelFactory factory = new TaskMgmtViewModelFactory(userId,collegeId);
+        collegeTaskViewModel = new ViewModelProvider( this, factory).get(TaskMgmtViewModel.class);
         collegeTaskViewModel.getCollegeTasksLiveData().observe(getActivity(), tasks -> {
             applicationTasks = tasks;
             loadApplicationsTasks();
         });
-
-
     }
 
     private void initStates() {
@@ -203,7 +201,7 @@ public class CollegeTaskMgmtFragment extends Fragment {
     }
 
     private void updateAppStep(LinearLayout srcLayout, LinearLayout tgtLayout, View draggableItem) {
-        // update parse database via viewmodel
+        // update parse database via view model
         int state = Integer.parseInt((String) tgtLayout.getTag());
         int stepIndex = Integer.parseInt((String) draggableItem.getTag());
         collegeTaskViewModel.updateApplicationStepState(applicationTasks.get(stepIndex), state);

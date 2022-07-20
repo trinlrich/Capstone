@@ -1,4 +1,4 @@
-package com.example.capstoneapp.ui.mycolleges.mycollegesdetail;
+package com.example.capstoneapp.ui.mycolleges.mycollegedetail.taskmgmt;
 
 import android.os.Bundle;
 
@@ -60,8 +60,8 @@ public class TaskDetailFragment extends Fragment {
         tvRelativeTimeUntil = view.findViewById(R.id.tvRelativeTimeUntil);
 
         UiUtils.setViewText(getContext(), tvTaskDetailName, task.getTaskTitle());
-//        Log.i(TAG, task.calculateTimeUntil());
-//        UiUtils.setViewText(getContext(), tvRelativeTimeUntil, task.calculateTimeUntil());
+        Log.i(TAG, task.calculateTimeUntil());
+        UiUtils.setViewText(getContext(), tvRelativeTimeUntil, task.calculateTimeUntil());
 
         spinnerLayout.setOnClickListener(new View.OnClickListener() {
             @Override
