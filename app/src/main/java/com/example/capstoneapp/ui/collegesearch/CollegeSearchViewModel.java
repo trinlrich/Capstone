@@ -168,9 +168,16 @@ public class CollegeSearchViewModel extends AndroidViewModel {
     }
 
     private void updateDataSetAndUI(College selectedCollege, boolean added) {
-        for (int indx = 0; indx < allCollegesAfterSearch.size(); indx++) {
-            if (allCollegesAfterSearch.get(indx).getCollegeId() == selectedCollege.getCollegeId()) {
-                allCollegesAfterSearch.get(indx).setFavorite(added);
+        List<College> currentCollege = new ArrayList<>();
+        if (isSearched || isFiltered)
+            currentCollege = allCollegesAfterSearch;
+        else
+            currentCollege = allColleges;
+
+
+        for (int indx = 0; indx < currentCollege.size(); indx++) {
+            if (currentCollege.get(indx).getCollegeId() == selectedCollege.getCollegeId()) {
+                currentCollege.get(indx).setFavorite(added);
                 favCollegeUpdatedIndex.setValue(indx);
                 break;
             }
