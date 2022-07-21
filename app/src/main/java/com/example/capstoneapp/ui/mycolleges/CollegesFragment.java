@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.devhoony.lottieproegressdialog.LottieProgressDialog;
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.ui.collegesearch.CollegeSearchViewModel;
@@ -32,7 +33,7 @@ public class CollegesFragment extends Fragment {
     private MyCollegesAdapter favCollegesAdapter;
     private RecyclerView favCollegesRV;
     private RecyclerView.LayoutManager layoutManager;
-    private ProgressBar progressBar;
+    private LottieProgressDialog progressBar;
 
     public static CollegesFragment newInstance() {
         return new CollegesFragment();
@@ -59,8 +60,7 @@ public class CollegesFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getContext());
         favCollegesRV.setLayoutManager(layoutManager);
         favCollegesRV.setAdapter(favCollegesAdapter);
-
-        progressBar = view.findViewById(R.id.progressMyColleges);
+        setupProgress();
 
         // Colleges observer
         Observer<List<College>> favCollegesObserver = colleges -> {
@@ -68,10 +68,26 @@ public class CollegesFragment extends Fragment {
                 Log.e(TAG, "No Fav colleges found");
             } else {
                 Log.i(TAG, "Fav Colleges found");
-                progressBar.setVisibility(View.GONE);
+                stopProgress();
                 favCollegesAdapter.setFavColleges(colleges);
             }
         };
+        showProgress();
         viewModel.getAllFavCollegesLiveData().observe(getViewLifecycleOwner(), favCollegesObserver);
+    }
+
+    private void showProgress(){
+        progressBar.show();
+    }
+
+    private void stopProgress(){
+        if (progressBar.isShowing())
+            progressBar.cancel();
+    }
+
+    private void setupProgress(){
+        String title = getString(R.string.progress_title);
+        progressBar = new LottieProgressDialog(getActivity(),true,null,null,null,null,LottieProgressDialog.SAMPLE_5, title, null);
+
     }
 }

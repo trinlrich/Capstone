@@ -106,4 +106,6 @@
     // Null Strings
     <string name="data_not_available">Data Not Available</string>
 
+    <string name="progress_title">Getting Colleges Information</string>
+
 </resources>
