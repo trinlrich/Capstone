@@ -70,13 +70,13 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/lastNameCard"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/extra_large_margin"
         app:cardBackgroundColor="@android:color/transparent"
         app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/firstNameCard"
         app:layout_constraintTop_toBottomOf="@+id/firstNameCard">
 
         <LinearLayout
@@ -107,15 +107,54 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/degreeSeekingCard"
-        android:layout_width="wrap_content"
+        android:id="@+id/emailCard"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/extra_large_margin"
         app:cardBackgroundColor="@android:color/transparent"
         app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/firstNameCard"
         app:layout_constraintTop_toBottomOf="@+id/lastNameCard">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/emailHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/medium_margin"
+                android:text="@string/survey_email_header" />
+
+            <EditText
+                android:id="@+id/emailText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_background"
+                android:ems="10"
+                android:hint="@string/survey_email_hint"
+                android:inputType="textPersonName"
+                android:padding="@dimen/medium_margin"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/degreeSeekingCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/extra_large_margin"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardElevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/firstNameCard"
+        app:layout_constraintTop_toBottomOf="@+id/emailCard">
+        app:layout_constraintTop_toBottomOf="@+id/emailCard">
 
         <LinearLayout
             android:layout_width="match_parent"
