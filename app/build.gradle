@@ -75,4 +75,5 @@ dependencies {
 
     // Custom Progress
     implementation 'com.github.welcome2c:LottieProgressDialog:1.0.1'
+    implementation 'com.airbnb.android:lottie:5.2.0'
 }
