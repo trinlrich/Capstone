@@ -23,12 +23,12 @@ import android.widget.TextView;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.capstoneapp.model.ParseFirebaseUser;
 import com.example.capstoneapp.ui.UiUtils;
-import com.example.capstoneapp.ui.collegesearch.filter.CollegeFilter;
+import com.example.capstoneapp.model.CollegeFilter;
 import com.example.capstoneapp.ui.collegesearch.filter.FilterUtils;
+import com.example.capstoneapp.ui.mycolleges.MyCollegesFragment;
 import com.example.capstoneapp.ui.profile.ProfileFragment;
 import com.example.capstoneapp.ui.dashboard.DashboardFragment;
 import com.example.capstoneapp.ui.collegesearch.CollegeSearchFragment;
-import com.example.capstoneapp.ui.mycolleges.CollegesFragment;
 import com.example.capstoneapp.auth.AuthActivity;
 import com.example.capstoneapp.ui.settings.SettingsFragment;
 import com.firebase.ui.auth.AuthUI;
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     final Fragment profileFragment = new ProfileFragment();
     final Fragment dashboardFragment = new DashboardFragment();
     final Fragment collegeSearchFragment = new CollegeSearchFragment();
-    final Fragment collegesFragment = new CollegesFragment();
+    final Fragment collegesFragment = new MyCollegesFragment();
     final Fragment settingsFragment = new SettingsFragment();
 
     @Override

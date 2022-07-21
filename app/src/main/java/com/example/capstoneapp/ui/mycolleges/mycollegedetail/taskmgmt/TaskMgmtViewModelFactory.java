@@ -1,14 +1,14 @@
-package com.example.capstoneapp.ui.mycolleges.mycollegedetail;
+package com.example.capstoneapp.ui.mycolleges.mycollegedetail.taskmgmt;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-public class TaskManagementViewModelFactory implements ViewModelProvider.Factory {
+public class TaskMgmtViewModelFactory implements ViewModelProvider.Factory {
     String userId;
     Integer collegeId;
 
-    public TaskManagementViewModelFactory(String userId, Integer collegeId) {
+    public TaskMgmtViewModelFactory(String userId, Integer collegeId) {
         this.userId = userId;
         this.collegeId = collegeId;
     }
@@ -16,8 +16,8 @@ public class TaskManagementViewModelFactory implements ViewModelProvider.Factory
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        if (modelClass == TaskManagementViewModel.class) {
-            return (T) new TaskManagementViewModel(userId, collegeId);
+        if (modelClass == TaskMgmtViewModel.class) {
+            return (T) new TaskMgmtViewModel(userId, collegeId);
         }
         return null;
     }

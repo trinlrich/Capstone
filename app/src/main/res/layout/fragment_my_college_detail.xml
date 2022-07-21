@@ -1,21 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/masterLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.mycolleges.mycollegedetail.MyCollegeDetailFragment">
+
+    <ImageView
+        android:id="@+id/ivFavDetailThumbnail"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/college_detail_image_height"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/college_black_48"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/divider1"
+        layout="@layout/divider_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivFavDetailThumbnail" />
+
+    <TextView
+        android:id="@+id/tvFavDetailName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/large_margin"
+        android:theme="@style/HeaderText"
+        app:flow_horizontalAlign="start"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toStartOf="@+id/tvViewDetails"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivFavDetailThumbnail"
+        tools:text="College Name" />
+
+    <TextView
+        android:id="@+id/tvViewDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/large_margin"
+        android:text="View Details"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="@+id/tvFavDetailLocation"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tvFavDetailLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/large_margin"
+        android:layout_marginTop="@dimen/small_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvFavDetailName"
+        tools:text="City, State" />
+
+    <include
+        android:id="@+id/divider2"
+        layout="@layout/divider_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/medium_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvFavDetailLocation" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvToDo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginVertical="@dimen/medium_margin"
+        android:orientation="horizontal"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintBottom_toTopOf="@+id/manageTaskBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider2"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/manageTaskBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginHorizontal="@dimen/medium_margin"
+        android:layout_marginVertical="@dimen/medium_margin"
         android:text="@string/manage_tasks"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

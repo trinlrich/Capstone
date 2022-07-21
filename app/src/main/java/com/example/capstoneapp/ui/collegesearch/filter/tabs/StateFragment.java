@@ -18,14 +18,10 @@ import android.widget.ListView;
 
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.model.College;
-import com.example.capstoneapp.ui.collegesearch.filter.CollegeFilter;
+import com.example.capstoneapp.model.CollegeFilter;
 import com.example.capstoneapp.ui.collegesearch.filter.FilterUtils;
-import com.google.gson.Gson;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 

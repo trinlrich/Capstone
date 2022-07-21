@@ -11,7 +11,6 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.SaveCallback;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -119,7 +118,6 @@ public class Utilities {
     }
 
     public static void removeFavCollegeForUser(String userId, College college, GetFavCollegesCallback callback) {
-
         ParseQuery<FavoriteCollege> query = ParseQuery.getQuery(FavoriteCollege.class);
         query.whereEqualTo(FavoriteCollege.KEY_USER_UID, userId);
         query.whereEqualTo(FavoriteCollege.KEY_COLLEGE_ID, college.getCollegeId());

@@ -18,11 +18,15 @@ import android.widget.TextView;
 import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.ui.UiUtils;
+import com.example.capstoneapp.ui.mycolleges.mycollegedetail.MyCollegeDetailFragment;
 import com.google.android.material.tabs.TabLayout;
+
+import org.parceler.Parcels;
 
 public class CollegeDetailFragment extends Fragment {
 
     public static final String TAG = "CollegeDetailFragment";
+    private static final String COLLEGE = "college";
 
     private CollegeDetailViewModel viewModel;
 
@@ -36,12 +40,12 @@ public class CollegeDetailFragment extends Fragment {
     private ViewPager viewPager;
     private CollegeDetailFragmentPagerAdapter fragmentPagerAdapter;
 
-    private CollegeDetailFragment(College college) {
-        this.college = college;
-    }
-
     public static CollegeDetailFragment newInstance(College college) {
-        return new CollegeDetailFragment(college);
+        CollegeDetailFragment f = new CollegeDetailFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(COLLEGE, Parcels.wrap(college));
+        f.setArguments(args);
+        return f;
     }
 
     @Override
@@ -53,6 +57,10 @@ public class CollegeDetailFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (getArguments().containsKey(COLLEGE)){
+            college = Parcels.unwrap(getArguments().getParcelable(COLLEGE));
+        }
+
         viewModel = new ViewModelProvider(this).get(CollegeDetailViewModel.class);
 
         FragmentActivity activity = getActivity();

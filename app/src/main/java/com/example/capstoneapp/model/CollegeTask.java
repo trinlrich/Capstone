@@ -11,59 +11,41 @@ import java.util.HashMap;
 import java.util.Map;
 
 @ParseClassName("CollegeApplicationTasks")
-public class CollegeApplicationTask  extends ParseObject {
-    public static final String TASK_KEY_USER_UID = "firebaseUid";
-    public static final String TASK_KEY_FAVCOLLEGE_ID = "favcollegeId";
-    public static final String TASK_KEY_TITLE = "taskTitle";
-    public static final String TASK_KEY_DESCRIPTION = "taskDescription";
-    // STATE = To-Do or In-Progress or Completed
-    public static final String TASK_KEY_STATE = "taskState";
-    // STATE = Mandatory / Optional
-    public static final String TASK_KEY_PRIORITY = "taskPriority";
-    public static final String TASK_KEY_START_DATE = "taskStartDate";
-    public static final String TASK_KEY_END_DATE = "taskEndDate";
+class CollegeTaskBackUp extends ParseObject {
+
+    public static final String KEY_TASK_ID = "objectId";
+    public static final String KEY_NAME = "taskTitle";
+    public static final String KEY_STATUS = "taskState";
+    public static final String KEY_IS_REQUIRED = "taskPriority";
+    public static final String KEY_DEADLINE = "taskEndDate";
+    public static final String KEY_NOTES = "taskDescription";
 
     public static final HashMap<Integer, String> STATUSES = new HashMap<>();
     private static final HashMap<Integer, String> STATUS_COLORS = new HashMap<>();
 
-    public CollegeApplicationTask() {
+    public CollegeTaskBackUp() {
         createStatusMap();
         createStatusColorsMap();
     }
 
-    public String getFirebaseUid() {
-        return getString(TASK_KEY_USER_UID);
-    }
-    public void setFirebaseUid(String firebaseUid) {
-        put(TASK_KEY_USER_UID, firebaseUid);
-    }
+    public String getTaskId() { return getString(KEY_TASK_ID); }
+    public void setTaskId(String id) { put(KEY_TASK_ID, id); }
 
-    public int getCollegeId() { return getInt(TASK_KEY_FAVCOLLEGE_ID); }
-    public void setCollegeId(int id) { put(TASK_KEY_FAVCOLLEGE_ID, id); }
+    public String getTaskName() { return getString(KEY_NAME); }
+    public void setTaskName(String name) { put(KEY_NAME, name); }
 
-    public String getTaskTitle() {
-        return getString(TASK_KEY_TITLE);
-    }
-    public void setTaskTitle(String stepTitle) {
-        put(TASK_KEY_TITLE, stepTitle);
-    }
+    public int getStatusCode() { return getInt(KEY_STATUS); }
+    public String getStatusAsText() { return processTaskStatus(getStatusCode()); }
+    public void setStatus(String status) { put(KEY_STATUS, status); }
 
-    public String getTaskDescription()  { return getString(TASK_KEY_DESCRIPTION);}
-    public void setTaskDescription(String stepDescription) {
-        put(TASK_KEY_DESCRIPTION, stepDescription);
-    }
+    public int isRequired() { return getInt(KEY_IS_REQUIRED); }
+    public void setIsRequired(int isRequired) { put(KEY_IS_REQUIRED, isRequired); }
 
-    public int getTaskState(){ return getInt(TASK_KEY_STATE); }
-    public void setTaskState(int stepState){put(TASK_KEY_STATE,stepState);}
+    public Date getDeadline() { return getDate(KEY_DEADLINE); }
+    public void setDeadline(Date deadline) { put(KEY_DEADLINE, deadline); }
 
-    public int getTaskPriority(){return getInt(TASK_KEY_PRIORITY);}
-    public void setTaskPriority(int stepPriority){put(TASK_KEY_PRIORITY,stepPriority);}
-
-    public Long getTaskStartDate(){return getLong(TASK_KEY_START_DATE);}
-    public void setTaskStartDate(Long startDate){put(TASK_KEY_START_DATE,startDate);}
-
-    public Long getTaskEndDate(){return getLong(TASK_KEY_END_DATE);}
-    public void setTaskEndDate(Long endDateDate){put(TASK_KEY_END_DATE,endDateDate);}
+    public String getNotes() { return getString(KEY_NOTES); }
+    public void setNotes(String notes) { put(KEY_NOTES, notes); }
 
     private void createStatusMap() {
         STATUSES.put(0, "To Do");
@@ -93,7 +75,7 @@ public class CollegeApplicationTask  extends ParseObject {
     }
 
     public String calculateTimeUntil() {
-        Date date = new Date(getTaskEndDate());
+        Date date = getDeadline();
 
         int SECOND_MILLIS = 1000;
         int MINUTE_MILLIS = 60 * SECOND_MILLIS;
@@ -128,6 +110,4 @@ public class CollegeApplicationTask  extends ParseObject {
 
         return "";
     }
-
-    public String getStatusAsText() { return processTaskStatus(getTaskState()); }
 }
