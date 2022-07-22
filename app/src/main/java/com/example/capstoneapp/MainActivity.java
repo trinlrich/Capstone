@@ -27,10 +27,8 @@ import com.example.capstoneapp.model.CollegeFilter;
 import com.example.capstoneapp.ui.collegesearch.filter.FilterUtils;
 import com.example.capstoneapp.ui.mycolleges.MyCollegesFragment;
 import com.example.capstoneapp.ui.profile.ProfileFragment;
-import com.example.capstoneapp.ui.dashboard.DashboardFragment;
 import com.example.capstoneapp.ui.collegesearch.CollegeSearchFragment;
 import com.example.capstoneapp.auth.AuthActivity;
-import com.example.capstoneapp.ui.settings.SettingsFragment;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.navigation.NavigationView;
 import com.parse.ParseFile;
@@ -54,10 +52,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // Navigation fragments
     final FragmentManager fragmentManager = getSupportFragmentManager();
     final Fragment profileFragment = new ProfileFragment();
-    final Fragment dashboardFragment = new DashboardFragment();
     final Fragment collegeSearchFragment = new CollegeSearchFragment();
     final Fragment collegesFragment = new MyCollegesFragment();
-    final Fragment settingsFragment = new SettingsFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,21 +118,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 setDefaultFilters();
                 fragment = collegeSearchFragment;
                 break;
-            case R.id.nav_colleges:
-                Log.i(TAG, "My Colleges Clicked");
-                fragment = collegesFragment;
-                break;
-            case R.id.nav_settings:
-                Log.i(TAG, "Settings Clicked");
-                fragment = settingsFragment;
-                break;
             case R.id.nav_logout:
                 Log.i(TAG, "Logout Clicked");
                 logoutUser();
-            case R.id.nav_dashboard:
+            case R.id.nav_colleges:
             default:
-                Log.i(TAG, "Dashboard Clicked");
-                fragment = dashboardFragment;
+                Log.i(TAG, "My Colleges Clicked");
+                fragment = collegesFragment;
                 break;
         }
         fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();

@@ -15,7 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
+
 import com.devhoony.lottieproegressdialog.LottieProgressDialog;
 import android.widget.TextView;
 import com.example.capstoneapp.R;
@@ -52,7 +52,7 @@ public class MyCollegesFragment extends Fragment {
         viewModel = new ViewModelProvider(requireActivity()).get(CollegeSearchViewModel.class);
 
         if (getActivity() != null) {
-            getActivity().setTitle(R.string.colleges_title);
+            getActivity().setTitle(R.string.my_colleges_title);
         }
 
         tvNoFavColleges = view.findViewById(R.id.tvNoFavColleges);

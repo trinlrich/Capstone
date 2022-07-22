@@ -19,7 +19,7 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/flContainer"
-            android:name="com.example.capstoneapp.ui.dashboard.DashboardFragment"
+            android:name="com.example.capstoneapp.ui.mycolleges.MyCollegesFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
