@@ -12,29 +12,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <ProgressBar
-        android:id="@+id/favLoadingProgessBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/favCollegesRV"
-        app:layout_constraintEnd_toEndOf="@+id/favCollegesRV"
-        app:layout_constraintStart_toStartOf="@+id/favCollegesRV"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/tvNoFavColleges"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/extra_large_margin"
         android:gravity="center_horizontal"
         android:text="@string/no_fav_colleges_text"
         android:visibility="gone"
         app:layout_constrainedHeight="true"
+        app:layout_constraintBottom_toBottomOf="@+id/favCollegesRV"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/svCollegeSearch" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.35000002" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

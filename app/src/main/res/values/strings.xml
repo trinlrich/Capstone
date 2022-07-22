@@ -108,7 +108,11 @@
     <string name="dialog_title">Un-favorite College</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="dialog_ok">Delete</string>
+    <string name="progress_title">Getting Colleges Information</string>
     // Null Strings
     <string name="data_not_available">Data Not Available</string>
 
+    // Survey Details
+    <string name="survey_email_header">E-Mail</string>
+    <string name="survey_email_hint">E-Mail</string>
 </resources>

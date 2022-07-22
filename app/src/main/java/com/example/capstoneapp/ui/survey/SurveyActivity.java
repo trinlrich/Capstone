@@ -37,6 +37,11 @@ public class SurveyActivity extends AppCompatActivity {
         firstNameText = findViewById(R.id.firstNameText);
         lastNameText = findViewById(R.id.lastNameText);
         degreeSeekingText = findViewById(R.id.degreeSeekingText);
+        EditText emailText = findViewById(R.id.emailText);
+
+        firstNameText.setText(viewModel.getUserFirstName());
+        lastNameText.setText(viewModel.getUserLastName());
+        emailText.setText(viewModel.getUserEmail());
 
         saveUserStateObserver = saveUserState -> {
             if (saveUserState.equals(false)) {

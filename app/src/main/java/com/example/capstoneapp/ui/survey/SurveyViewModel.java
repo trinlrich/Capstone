@@ -10,6 +10,7 @@ import com.example.capstoneapp.parsedatasource.GetUserProfileListenerCallback;
 import com.example.capstoneapp.parsedatasource.Utilities;
 import com.example.capstoneapp.model.ParseFirebaseUser;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.parse.ParseException;
 import com.parse.SaveCallback;
 
@@ -21,6 +22,8 @@ public class SurveyViewModel extends ViewModel {
     public static final String TAG = "SurveyViewModel";
     private String firebaseUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private MutableLiveData<Boolean> isUserSaved = new MutableLiveData<>();
+
+    private FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
     public enum DictionaryKeys{
         FIRST_NAME, LAST_NAME, DEGREE_SEEKING
@@ -58,5 +61,16 @@ public class SurveyViewModel extends ViewModel {
                 isUserSaved.setValue(true);
             }
         });
+    }
+    public String getUserFirstName() {
+        String[] result = firebaseUser.getDisplayName().split(" ",2);
+        return result[0];
+    }
+    public String getUserLastName() {
+        String[] result = firebaseUser.getDisplayName().split(" ",2);
+        return result[1];
+    }
+    public String getUserEmail() {
+        return firebaseUser.getEmail();
     }
 }
