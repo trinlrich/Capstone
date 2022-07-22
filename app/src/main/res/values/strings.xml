@@ -98,16 +98,18 @@
     <string name="search_hint_text">Search by college name</string>
     <string name="no_colleges_text">No Colleges Found</string>
     <string name="no_fav_colleges_text">You have not added any colleges to your favorites.</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="manage_tasks">Manage Application Tasks</string>
     <string name="todoTaskHeader">To-Do</string>
     <string name="ipTaskHeader">In-Progress</string>
     <string name="completeTaskHeader">Completed</string>
-    <string name="dialog_message">Are you sure you want to unfavorite this ? This will delete the applications steps as well</string>
-    <string name="dialog_title">Un-favorite College</string>
-    <string name="dialog_cancel">Cancel</string>
-    <string name="dialog_ok">Delete</string>
+    <string name="unfavorite_dialog_message">Are you sure you want to unfavorite this? This will delete the applications steps as well</string>
+    <string name="unfavorite_dialog_title">Un-favorite College</string>
+    <string name="unfavorite_dialog_cancel">Cancel</string>
+    <string name="unfavorite_dialog_ok">Delete</string>
+    <string name="close_task_dialog_message">Are you sure you want to close this task? All unsaved changes will be lost.</string>
+    <string name="close_task_dialog_title">Close Task</string>
+    <string name="close_task_dialog_cancel">Continue Editing</string>
+    <string name="close_task_dialog_ok">Close Task</string>
     // Null Strings
     <string name="data_not_available">Data Not Available</string>
 

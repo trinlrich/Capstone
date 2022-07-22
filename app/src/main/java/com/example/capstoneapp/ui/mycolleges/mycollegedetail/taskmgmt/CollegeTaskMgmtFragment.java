@@ -19,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.transition.AutoTransition;
 import androidx.transition.Transition;
@@ -254,6 +255,19 @@ public class CollegeTaskMgmtFragment extends Fragment {
                 // Indicate that the long-click was handled.
                 return true;
 
+            });
+
+            newCard.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.i(TAG, "Task clicked: " + task.getTaskTitle());
+                    Fragment fragment = TaskDetailFragment.newInstance(task);
+                    ((FragmentActivity) getContext()).getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.flContainer, fragment)
+                            .addToBackStack(null)
+                            .commit();
+                }
             });
             initalLayout.addView(newCard);
         }
