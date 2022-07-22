@@ -27,7 +27,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="John Doe" />
 
-    <com.google.android.material.card.MaterialCardView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/medium_margin"
@@ -108,5 +108,5 @@
             </TableRow>
 
         </TableLayout>
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

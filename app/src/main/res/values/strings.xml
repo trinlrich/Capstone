@@ -82,6 +82,11 @@
     <string name="mission_key">MISSION</string>
     <string name="all_filters">All</string>
 
+    // Statuses
+    <string name="to_do">To Do</string>
+    <string name="in_progress">In Progress</string>
+    <string name="complete">Complete</string>
+
     // Content Descriptions
     <string name="favorite_descrption">Favorite icon to represent favoring a college</string>
     <string name="filter_description">Filter icon</string>
@@ -92,6 +97,7 @@
     <string name="apply">Apply</string>
     <string name="search_hint_text">Search by college name</string>
     <string name="no_colleges_text">No Colleges Found</string>
+    <string name="no_fav_colleges_text">You have not added any colleges to your favorites.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="manage_tasks">Manage Application Tasks</string>
@@ -103,14 +109,10 @@
     <string name="dialog_cancel">Cancel</string>
     <string name="dialog_ok">Delete</string>
     <string name="progress_title">Getting Colleges Information</string>
-
     // Null Strings
     <string name="data_not_available">Data Not Available</string>
 
     // Survey Details
     <string name="survey_email_header">E-Mail</string>
     <string name="survey_email_hint">E-Mail</string>
-
-
-
 </resources>

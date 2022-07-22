@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.example.capstoneapp.R;
+import com.example.capstoneapp.model.CollegeFilter;
 import com.google.gson.Gson;
 
 public class FilterUtils {

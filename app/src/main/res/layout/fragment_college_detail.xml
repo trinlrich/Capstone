@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <include
-        android:id="@+id/divider"
+        android:id="@+id/divider1"
         layout="@layout/divider_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

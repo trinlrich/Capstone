@@ -1,4 +1,4 @@
-package com.example.capstoneapp.ui.mycolleges.mycollegedetail;
+package com.example.capstoneapp.ui.mycolleges.mycollegedetail.taskmgmt;
 
 import android.util.Log;
 
@@ -14,13 +14,13 @@ import com.parse.ParseObject;
 
 import java.util.List;
 
-public class TaskManagementViewModel extends ViewModel  {
-    public static final String TAG = "TaskManagementViewModel";
+public class TaskMgmtViewModel extends ViewModel  {
+    public static final String TAG = "TaskMgmtViewModel";
     private MutableLiveData<List<CollegeApplicationTask>> collegeTasksLiveData = new MutableLiveData<>();
     private final String userId;
     private final Integer collegeId;
 
-    public TaskManagementViewModel(String userId, Integer collegeId) {
+    public TaskMgmtViewModel(String userId, Integer collegeId) {
         this.userId = userId;
         this.collegeId = collegeId;
         getAllApplicationSteps(userId, collegeId);
@@ -28,6 +28,7 @@ public class TaskManagementViewModel extends ViewModel  {
     public LiveData<List<CollegeApplicationTask>> getCollegeTasksLiveData() {
         return collegeTasksLiveData;
     }
+
     public void getAllApplicationSteps(String userId, Integer collegeId) {
         Utilities.getAllApplicationTasks(userId, collegeId, new ApplicationTaskCallback() {
             @Override

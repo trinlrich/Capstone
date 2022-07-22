@@ -1,4 +1,4 @@
-package com.example.capstoneapp.ui.collegesearch.filter;
+package com.example.capstoneapp.model;
 
 import android.content.res.Resources;
 

@@ -35,4 +35,5 @@ public class UiUtils {
             textView.setText(text);
         }
     }
+
 }
