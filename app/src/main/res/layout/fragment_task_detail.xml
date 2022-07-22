@@ -11,7 +11,7 @@
         style="@style/HeaderText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/extra_large_margin"
+        android:layout_marginTop="@dimen/large_margin"
         app:layout_constraintStart_toStartOf="@+id/btnCloseTaskDetail"
         app:layout_constraintTop_toBottomOf="@+id/btnCloseTaskDetail"
         tools:text="Task Name" />
@@ -50,6 +50,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="false"
             android:layout_centerVertical="true"
             android:layout_gravity="center"
             android:layout_marginEnd="@dimen/small_margin"
@@ -96,22 +97,13 @@
                 app:srcCompat="@drawable/clock_white_outline_24" />
 
             <TextView
-                android:id="@+id/dueText"
+                android:id="@+id/tvDeadlineTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="@dimen/small_margin"
-                android:text="Due"
+                android:text="Due December 12, 2022"
                 android:textColor="#FFFFFF" />
-
-            <TextView
-                android:id="@+id/tvTaskDeadline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="3dp"
-                android:textColor="#FFFFFF"
-                tools:text="December 12, 2022" />
 
         </LinearLayout>
 
@@ -139,17 +131,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/deadlineCard" />
 
-    <TextView
-        android:id="@+id/tvNotesTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/large_margin"
-        android:text="Notes"
-        app:layout_constraintStart_toStartOf="@+id/deadlineCard"
-        app:layout_constraintTop_toBottomOf="@+id/divider2" />
-
-    <EditText
-            android:id="@+id/etTaskNotes"
+        <EditText
+            android:id="@+id/editTextTextPersonName"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginVertical="@dimen/large_margin"
@@ -163,7 +146,16 @@
             app:layout_constraintStart_toStartOf="@+id/tvNotesTitle"
             app:layout_constraintTop_toBottomOf="@+id/tvNotesTitle" />
 
-    <Button
+        <TextView
+            android:id="@+id/tvNotesTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/large_margin"
+            android:text="Notes"
+            app:layout_constraintStart_toStartOf="@+id/deadlineCard"
+            app:layout_constraintTop_toBottomOf="@+id/divider2" />
+
+        <Button
             android:id="@+id/btnSaveTask"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
