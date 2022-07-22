@@ -80,5 +80,9 @@ dependencies {
     // Parceler
     implementation 'org.parceler:parceler-api:1.1.12'
 
+    // LottieAnimation
+    def lottieVersion = "5.2.0"
+    implementation "com.airbnb.android:lottie:$lottieVersion"
+
 
 }
