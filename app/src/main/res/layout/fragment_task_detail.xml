@@ -10,7 +10,7 @@
         android:id="@+id/tvTaskDetailName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/large_margin"
+        android:layout_marginTop="@dimen/extra_large_margin"
         android:background="@android:color/transparent"
         android:ems="10"
         android:inputType="textPersonName"
@@ -90,13 +90,22 @@
                 app:srcCompat="@drawable/clock_white_outline_24" />
 
             <TextView
-                android:id="@+id/tvDeadlineTitle"
+                android:id="@+id/dueText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="@dimen/small_margin"
-                android:text="Due December 12, 2022"
+                android:text="Due"
                 android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/tvTaskDeadline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="3dp"
+                android:textColor="#FFFFFF"
+                tools:text="December 12, 2022" />
 
         </LinearLayout>
 
@@ -113,60 +122,60 @@
         app:layout_constraintTop_toTopOf="@+id/deadlineCard"
         tools:text="in 3 days" />
 
-        <include
-            android:id="@+id/divider2"
-            layout="@layout/divider_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/larger_margin"
-            android:layout_marginVertical="@dimen/large_margin"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/deadlineCard" />
+    <include
+        android:id="@+id/divider2"
+        layout="@layout/divider_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/larger_margin"
+        android:layout_marginVertical="@dimen/large_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/deadlineCard" />
 
-        <EditText
-            android:id="@+id/editTextTextPersonName"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginVertical="@dimen/large_margin"
-            android:background="@android:color/transparent"
-            android:gravity="start|top"
-            android:hint="Add Notes"
-            android:inputType="textLongMessage|textMultiLine"
-            app:layout_constraintBottom_toTopOf="@+id/btnSaveTask"
-            app:layout_constraintEnd_toEndOf="@+id/divider2"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/tvNotesTitle"
-            app:layout_constraintTop_toBottomOf="@+id/tvNotesTitle" />
+    <TextView
+        android:id="@+id/tvNotesTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/large_margin"
+        android:text="Notes"
+        app:layout_constraintStart_toStartOf="@+id/deadlineCard"
+        app:layout_constraintTop_toBottomOf="@+id/divider2" />
 
-        <TextView
-            android:id="@+id/tvNotesTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/large_margin"
-            android:text="Notes"
-            app:layout_constraintStart_toStartOf="@+id/deadlineCard"
-            app:layout_constraintTop_toBottomOf="@+id/divider2" />
+    <EditText
+        android:id="@+id/etTaskNotes"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginVertical="@dimen/large_margin"
+        android:background="@android:color/transparent"
+        android:gravity="start|top"
+        android:hint="Add Notes"
+        android:inputType="textLongMessage|textMultiLine"
+        app:layout_constraintBottom_toTopOf="@+id/btnSaveTask"
+        app:layout_constraintEnd_toEndOf="@+id/divider2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tvNotesTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tvNotesTitle" />
 
-        <Button
-            android:id="@+id/btnSaveTask"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/larger_margin"
-            android:background="@drawable/round_button"
-            android:text="Save"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+    <Button
+        android:id="@+id/btnSaveTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/larger_margin"
+        android:background="@drawable/round_button"
+        android:text="Save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        <ImageButton
-            android:id="@+id/btnCloseTaskDetail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/larger_margin"
-            android:layout_marginTop="@dimen/large_margin"
-            android:background="@android:color/transparent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/close_black_24" />
+    <ImageButton
+        android:id="@+id/btnCloseTaskDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/larger_margin"
+        android:layout_marginTop="@dimen/large_margin"
+        android:background="@android:color/transparent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/close_black_24" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

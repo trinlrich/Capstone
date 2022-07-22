@@ -65,11 +65,6 @@ public class CollegeTaskMgmtFragment extends Fragment {
     private TaskMgmtViewModel collegeTaskViewModel;
     private String userId ;
 
-    public CollegeTaskMgmtFragment(String userId, Integer collegeId) {
-        this.userId = userId;
-        this.collegeId = collegeId;
-    }
-
     private Integer collegeId;
 
     public CollegeTaskMgmtFragment() {
@@ -253,8 +248,22 @@ public class CollegeTaskMgmtFragment extends Fragment {
 
                 // Indicate that the long-click was handled.
                 return true;
-
             });
+
+            // Set on click listener for card to go to detail view
+            newCard.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.i(TAG, "Task clicked: " + task.getTaskTitle());
+                    Fragment fragment = TaskDetailFragment.newInstance(task);
+                    ((FragmentActivity) getContext()).getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.flContainer, fragment)
+                            .addToBackStack(null)
+                            .commit();
+                }
+            });
+
             initalLayout.addView(newCard);
         }
     }
@@ -292,20 +301,11 @@ public class CollegeTaskMgmtFragment extends Fragment {
     }
 
     private void onCreateTaskClick(View view) {
-        Fragment fragment = TaskDetailFragment.newInstance(createDefaultTask());
+        Fragment fragment = TaskDetailFragment.newInstance(collegeTaskViewModel.createDefaultTask());
         ((FragmentActivity) getContext()).getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.flContainer, fragment)
                 .addToBackStack(null)
                 .commit();
-    }
-
-    private CollegeApplicationTask createDefaultTask() {
-        CollegeApplicationTask task = new CollegeApplicationTask();
-        task.setTaskTitle("New Task");
-        task.setTaskState(0);
-        task.setTaskEndDate(System.currentTimeMillis());
-        task.setTaskDescription("");
-        return task;
     }
 }
