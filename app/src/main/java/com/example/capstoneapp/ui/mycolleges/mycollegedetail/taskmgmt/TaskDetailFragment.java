@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.model.CollegeApplicationTask;
 import com.example.capstoneapp.ui.UiUtils;
+import com.example.capstoneapp.ui.collegesearch.collegedetail.CollegeDetailFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +31,7 @@ public class TaskDetailFragment extends Fragment {
     private static final String TAG = "TaskDetailFragment";
     private CollegeApplicationTask task;
     private List<String> statusList;
-    private TextView tvTaskDetailName;
+    private EditText tvTaskDetailName;
     private RelativeLayout spinnerLayout;
     private Spinner statusSpinner;
     private TextView tvRelativeTimeUntil;

@@ -6,25 +6,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <EditText
         android:id="@+id/tvTaskDetailName"
-        style="@style/HeaderText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/large_margin"
+        android:background="@android:color/transparent"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/btnCloseTaskDetail"
         app:layout_constraintTop_toBottomOf="@+id/btnCloseTaskDetail"
         tools:text="Task Name" />
-
-<!--    <Spinner-->
-<!--        android:id="@+id/statusSpinner"-->
-<!--        style="@style/Widget.AppCompat.Spinner.DropDown"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="@dimen/medium_margin"-->
-<!--        android:spinnerMode="dropdown"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/tvTaskDetailName"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/tvTaskDetailName" />-->
 
     <RelativeLayout
         android:id="@+id/spinnerLayout"

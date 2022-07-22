@@ -19,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.transition.AutoTransition;
 import androidx.transition.Transition;
@@ -26,6 +27,7 @@ import androidx.transition.TransitionManager;
 
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.model.CollegeApplicationTask;
+import com.example.capstoneapp.ui.collegesearch.collegedetail.CollegeDetailFragment;
 import com.example.capstoneapp.ui.mycolleges.mycollegedetail.CustomCardDragShadowBuilder;
 
 import java.util.ArrayList;
@@ -114,9 +116,7 @@ public class CollegeTaskMgmtFragment extends Fragment {
         // To Do layout Setup And Initialization
         masterToDoLayout = view.findViewById(R.id.masterToDoLayout);
         createButton = view.findViewById(R.id.createTaskBtn);
-        createButton.setOnClickListener(v -> {
-            // TODO: Add functionality for creating new task
-        });
+        createButton.setOnClickListener(this::onCreateTaskClick);
 
         // In-progress layout Setup And Initialization
         masterInProgressLayout = view.findViewById(R.id.masterIPLayout);
@@ -289,5 +289,23 @@ public class CollegeTaskMgmtFragment extends Fragment {
         textview.setText(taskName);
         cardview.addView(textview);
         return cardview;
+    }
+
+    private void onCreateTaskClick(View view) {
+        Fragment fragment = TaskDetailFragment.newInstance(createDefaultTask());
+        ((FragmentActivity) getContext()).getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.flContainer, fragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    private CollegeApplicationTask createDefaultTask() {
+        CollegeApplicationTask task = new CollegeApplicationTask();
+        task.setTaskTitle("New Task");
+        task.setTaskState(0);
+        task.setTaskEndDate(System.currentTimeMillis());
+        task.setTaskDescription("");
+        return task;
     }
 }

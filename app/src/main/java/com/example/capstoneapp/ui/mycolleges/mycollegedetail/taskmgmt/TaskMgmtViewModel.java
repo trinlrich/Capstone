@@ -52,4 +52,8 @@ public class TaskMgmtViewModel extends ViewModel  {
             }
         });
     }
+
+    public void createNewApplicationStep() {
+        CollegeApplicationTask task = new CollegeApplicationTask();
+    }
 }
