@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import com.devhoony.lottieproegressdialog.LottieProgressDialog;
 import android.widget.TextView;
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.model.College;
@@ -32,7 +33,8 @@ public class MyCollegesFragment extends Fragment {
     private MyCollegesAdapter favCollegesAdapter;
     private RecyclerView favCollegesRV;
     private RecyclerView.LayoutManager layoutManager;
-    private ProgressBar loadingProgressBar;
+    private LottieProgressDialog loadingProgressBar;
+
     private TextView tvNoFavColleges;
     public static MyCollegesFragment newInstance() {
         return new MyCollegesFragment();
@@ -53,7 +55,6 @@ public class MyCollegesFragment extends Fragment {
             getActivity().setTitle(R.string.colleges_title);
         }
 
-        loadingProgressBar = view.findViewById(R.id.favLoadingProgessBar);
         tvNoFavColleges = view.findViewById(R.id.tvNoFavColleges);
 
         // Set up recycler view
@@ -65,7 +66,7 @@ public class MyCollegesFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getContext());
         favCollegesRV.setLayoutManager(layoutManager);
         favCollegesRV.setAdapter(favCollegesAdapter);
-
+        setupProgress();
 
         // Colleges observer
         Observer<List<College>> favCollegesObserver = colleges -> {
@@ -83,12 +84,27 @@ public class MyCollegesFragment extends Fragment {
         // Progress update observer
         Observer<Boolean> progressUpdateObserver = visible -> {
             if (visible) {
-                loadingProgressBar.setVisibility(View.VISIBLE);
+                showProgress();
                 tvNoFavColleges.setVisibility(View.GONE);
             } else {
-                loadingProgressBar.setVisibility(View.GONE);
+                stopProgress();
             }
         };
         viewModel.getShowProgress().observe(getViewLifecycleOwner(), progressUpdateObserver);
+    }
+
+    private void showProgress(){
+        loadingProgressBar.show();
+    }
+
+    private void stopProgress(){
+        if (loadingProgressBar.isShowing())
+            loadingProgressBar.cancel();
+    }
+
+    private void setupProgress(){
+        String title = getString(R.string.progress_title);
+        loadingProgressBar = new LottieProgressDialog(getActivity(),true,null,null,null,null,LottieProgressDialog.SAMPLE_5, title, null);
+
     }
 }
