@@ -241,7 +241,8 @@ public class CollegeSearchViewModel extends AndroidViewModel {
             collegesListToFilter.addAll(allColleges);
 
         for (College college : collegesListToFilter) {
-            if (college.getName().toLowerCase().contains(newText.toLowerCase())) {
+            if (college.getName().toLowerCase().contains(newText.toLowerCase()) ||
+                    college.getCity().toLowerCase().contains(newText.toLowerCase())) {
                 allCollegesAfterSearch.add(college);
             }
         }
