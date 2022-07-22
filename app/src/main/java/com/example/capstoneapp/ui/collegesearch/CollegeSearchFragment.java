@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
@@ -169,16 +168,16 @@ public class CollegeSearchFragment extends Fragment {
     public void createAndShowDialog(College college) {
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(R.string.dialog_title)
-                .setMessage(R.string.dialog_message)
-                .setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
+        builder.setTitle(R.string.unfavorite_dialog_title)
+                .setMessage(R.string.unfavorite_dialog_message)
+                .setPositiveButton(R.string.unfavorite_dialog_ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Un favorite the College and delete tasks!
                         // Update the state to Parse through View Model
                         viewModel.updateFavCollege(college);
                     }
                 })
-                .setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.unfavorite_dialog_cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User cancelled the dialog. do nothing
 
