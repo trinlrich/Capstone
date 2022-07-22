@@ -40,7 +40,7 @@ public class SurveyViewModel extends ViewModel {
             if (e != null) {
                 Log.e(TAG, "Error while saving", e);
             } else {
-                Log.i(TAG, "Post save was successful");
+                Log.i(TAG, "User save was successful");
                 checkForUserId(firebaseUid);
             }
         });

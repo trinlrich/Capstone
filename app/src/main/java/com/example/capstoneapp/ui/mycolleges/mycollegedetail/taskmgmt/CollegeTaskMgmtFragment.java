@@ -19,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.transition.AutoTransition;
 import androidx.transition.Transition;
@@ -26,6 +27,7 @@ import androidx.transition.TransitionManager;
 
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.model.CollegeApplicationTask;
+import com.example.capstoneapp.ui.collegesearch.collegedetail.CollegeDetailFragment;
 import com.example.capstoneapp.ui.mycolleges.mycollegedetail.CustomCardDragShadowBuilder;
 
 import java.util.ArrayList;
@@ -62,11 +64,6 @@ public class CollegeTaskMgmtFragment extends Fragment {
 
     private TaskMgmtViewModel collegeTaskViewModel;
     private String userId ;
-
-    public CollegeTaskMgmtFragment(String userId, Integer collegeId) {
-        this.userId = userId;
-        this.collegeId = collegeId;
-    }
 
     private Integer collegeId;
 
@@ -114,9 +111,7 @@ public class CollegeTaskMgmtFragment extends Fragment {
         // To Do layout Setup And Initialization
         masterToDoLayout = view.findViewById(R.id.masterToDoLayout);
         createButton = view.findViewById(R.id.createTaskBtn);
-        createButton.setOnClickListener(v -> {
-            // TODO: Add functionality for creating new task
-        });
+        createButton.setOnClickListener(this::onCreateTaskClick);
 
         // In-progress layout Setup And Initialization
         masterInProgressLayout = view.findViewById(R.id.masterIPLayout);
@@ -253,8 +248,22 @@ public class CollegeTaskMgmtFragment extends Fragment {
 
                 // Indicate that the long-click was handled.
                 return true;
-
             });
+
+            // Set on click listener for card to go to detail view
+            newCard.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.i(TAG, "Task clicked: " + task.getTaskTitle());
+                    Fragment fragment = TaskDetailFragment.newInstance(task);
+                    ((FragmentActivity) getContext()).getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.flContainer, fragment)
+                            .addToBackStack(null)
+                            .commit();
+                }
+            });
+
             initalLayout.addView(newCard);
         }
     }
@@ -289,5 +298,14 @@ public class CollegeTaskMgmtFragment extends Fragment {
         textview.setText(taskName);
         cardview.addView(textview);
         return cardview;
+    }
+
+    private void onCreateTaskClick(View view) {
+        Fragment fragment = TaskDetailFragment.newInstance(collegeTaskViewModel.createDefaultTask());
+        ((FragmentActivity) getContext()).getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.flContainer, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 }

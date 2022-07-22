@@ -6,6 +6,7 @@ import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.model.CollegeApplicationTask;
 import com.example.capstoneapp.model.FavoriteCollege;
 import com.example.capstoneapp.model.ParseFirebaseUser;
+import com.example.capstoneapp.ui.mycolleges.mycollegedetail.taskmgmt.TaskDetailViewModel;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -14,6 +15,7 @@ import com.parse.SaveCallback;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -240,7 +242,6 @@ public class Utilities {
                 }
             }
         });
-
     }
 
     private static Long getCalculatedDate(int days) {
@@ -248,5 +249,4 @@ public class Utilities {
         cal.add(Calendar.DAY_OF_YEAR, days);
         return cal.getTimeInMillis();
     }
-
 }
