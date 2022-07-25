@@ -12,6 +12,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="35dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -23,23 +24,34 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/larger_margin"
-        android:text="Sign Up Survey"
+        android:layout_marginTop="@dimen/extra_large_margin"
+        android:text="Welcome"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/survey_anim" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/surveyCard"
+    <ImageButton
+        android:id="@+id/imageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/extra_large_margin"
+        android:layout_marginVertical="@dimen/larger_margin"
+        android:background="@drawable/circle_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/surveyCard"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/larger_margin"
         app:cardBackgroundColor="@android:color/transparent"
         app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title">
+        app:layout_constraintTop_toBottomOf="@+id/imageButton">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -50,94 +62,94 @@
                 android:id="@+id/firstNameHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/medium_margin"
                 android:text="First Name"
-                app:layout_constraintBottom_toBottomOf="@+id/firstNameText"
-                app:layout_constraintStart_toStartOf="@id/lastNameHeader"
-                app:layout_constraintTop_toTopOf="@+id/firstNameText" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
                 android:id="@+id/firstNameText"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/small_margin"
                 android:background="@drawable/edit_text_background"
                 android:ems="10"
                 android:hint="First Name"
                 android:inputType="textPersonName"
                 android:padding="@dimen/medium_margin"
                 android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="@+id/lastNameText"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/firstNameHeader" />
 
             <TextView
                 android:id="@+id/lastNameHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/larger_margin"
                 android:text="Last Name"
-                app:layout_constraintBottom_toBottomOf="@+id/lastNameText"
-                app:layout_constraintStart_toStartOf="@id/emailHeader"
-                app:layout_constraintTop_toTopOf="@+id/lastNameText" />
+                app:layout_constraintStart_toStartOf="@+id/firstNameHeader"
+                app:layout_constraintTop_toBottomOf="@+id/firstNameText" />
 
             <EditText
                 android:id="@+id/lastNameText"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/extra_large_margin"
                 android:background="@drawable/edit_text_background"
                 android:ems="10"
                 android:hint="Last Name"
                 android:inputType="textPersonName"
                 android:padding="@dimen/medium_margin"
                 android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="@id/emailText"
-                app:layout_constraintTop_toBottomOf="@+id/firstNameText" />
+                app:layout_constraintEnd_toEndOf="@+id/firstNameText"
+                app:layout_constraintStart_toStartOf="@+id/firstNameText"
+                app:layout_constraintTop_toBottomOf="@+id/lastNameHeader" />
 
             <TextView
                 android:id="@+id/emailHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/larger_margin"
                 android:text="@string/survey_email_header"
-                app:layout_constraintBottom_toBottomOf="@+id/emailText"
-                app:layout_constraintStart_toStartOf="@id/degreeSeekingHeader"
-                app:layout_constraintTop_toTopOf="@+id/emailText" />
+                app:layout_constraintStart_toStartOf="@+id/lastNameHeader"
+                app:layout_constraintTop_toBottomOf="@id/lastNameText" />
 
             <EditText
                 android:id="@+id/emailText"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/extra_large_margin"
                 android:background="@drawable/edit_text_background"
                 android:ems="10"
                 android:hint="@string/survey_email_hint"
                 android:inputType="textPersonName"
                 android:padding="@dimen/medium_margin"
                 android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="@id/degreeSeekingText"
-                app:layout_constraintTop_toBottomOf="@+id/lastNameText" />
+                app:layout_constraintEnd_toEndOf="@+id/lastNameText"
+                app:layout_constraintStart_toStartOf="@+id/lastNameText"
+                app:layout_constraintTop_toBottomOf="@id/emailHeader" />
 
             <TextView
                 android:id="@+id/degreeSeekingHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/large_margin"
+                android:layout_marginTop="@dimen/larger_margin"
                 android:text="Degree Seeking"
-                app:layout_constraintBottom_toBottomOf="@+id/degreeSeekingText"
-                app:layout_constraintEnd_toStartOf="@+id/degreeSeekingText"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/degreeSeekingText" />
+                app:layout_constraintStart_toStartOf="@+id/emailHeader"
+                app:layout_constraintTop_toBottomOf="@+id/emailText" />
 
             <EditText
                 android:id="@+id/degreeSeekingText"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/extra_large_margin"
                 android:background="@drawable/edit_text_background"
                 android:ems="10"
                 android:hint="Degree Seeking"
                 android:inputType="textPersonName"
                 android:padding="@dimen/medium_margin"
                 android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/emailText"
                 app:layout_constraintStart_toStartOf="@+id/emailText"
-                app:layout_constraintTop_toBottomOf="@id/emailText" />
+                app:layout_constraintTop_toBottomOf="@+id/degreeSeekingHeader" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -145,13 +157,14 @@
 
     <Button
         android:id="@+id/btnDone"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/extra_large_margin"
+        android:layout_marginTop="@dimen/larger_margin"
+        android:background="@drawable/round_button"
         android:onClick="onDoneClick"
         android:text="Done"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/surveyCard"
+        app:layout_constraintStart_toStartOf="@+id/surveyCard"
         app:layout_constraintTop_toBottomOf="@id/surveyCard" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

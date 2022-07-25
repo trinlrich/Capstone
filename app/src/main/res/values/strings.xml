@@ -87,7 +87,7 @@
     <string name="complete">Complete</string>
 
     // Content Descriptions
-    <string name="favorite_descrption">Favorite icon to represent favoring a college</string>
+    <string name="favorite_description">Favorite icon to represent favoring a college</string>
     <string name="filter_description">Filter icon</string>
 
     // Misc
