@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.model.ParseFirebaseUser;
 import com.example.capstoneapp.ui.UiUtils;
 import com.example.capstoneapp.model.CollegeFilter;
@@ -32,6 +33,9 @@ import com.example.capstoneapp.auth.AuthActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.navigation.NavigationView;
 import com.parse.ParseFile;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -148,7 +152,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void setDefaultFilters() {
         // Create filters with default "All" value
-        FilterUtils.putDefaultFilter(this, new CollegeFilter(getString(R.string.state_key)));
+        List<CollegeFilter> stateFilters = new ArrayList<>();
+        stateFilters.add(new CollegeFilter(getString(R.string.state_key)));
+        FilterUtils.putFilter(this, stateFilters);
         FilterUtils.putDefaultFilter(this, new CollegeFilter(getString(R.string.type_key)));
         FilterUtils.putDefaultFilter(this, new CollegeFilter(getString(R.string.mission_key)));
     }

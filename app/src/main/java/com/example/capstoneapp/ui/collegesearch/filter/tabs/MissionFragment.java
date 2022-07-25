@@ -82,4 +82,8 @@ public class MissionFragment extends Fragment {
         }
         return missions;
     }
+
+    private void resetItems() {
+        listView.setItemChecked(0, true);
+    }
 }

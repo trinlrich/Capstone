@@ -80,4 +80,8 @@ public class TypeFragment extends Fragment {
         types.addAll(College.getCollegeTypes().values());
         return types;
     }
+
+    private void resetItems() {
+        listView.setItemChecked(0, true);
+    }
 }

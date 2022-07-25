@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,9 +31,9 @@ public class StateFragment extends Fragment {
     public static final String TAG = "StateFragment";
 
     private SharedPreferences preferences;
-    private CollegeFilter state;
     private ListView listView;
     private String stateString;
+    private List<CollegeFilter> stateFilters =  new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,11 +49,8 @@ public class StateFragment extends Fragment {
         preferences = getContext().getSharedPreferences(getString(R.string.filter_key), Context.MODE_PRIVATE);
         stateString = getString(R.string.state_key);
 
-        // Create state CollegeFilter
-        state = new CollegeFilter(stateString);
-
         listView = view.findViewById(R.id.state_list_view);
-        listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         listView.setOnItemClickListener(this::onItemClick);
 
         initListViewData();
@@ -66,13 +64,31 @@ public class StateFragment extends Fragment {
     }
 
     private void setExistingFilters() {
-        CollegeFilter existingFilter = FilterUtils.getFilter(getContext(), stateString);
-        listView.setItemChecked(existingFilter.getPosition(), true);
+        List<CollegeFilter> existingFilter = FilterUtils.getFilterList(getContext(), stateString);
+        for (CollegeFilter filter : existingFilter) {
+            listView.setItemChecked(filter.getPosition(), true);
+        }
     }
 
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Log.i(TAG, "onItemClick: " +position);
-        FilterUtils.putFilter(getContext(), state, listView.getItemAtPosition(position).toString(), position);
+        if (listView.getCheckedItemCount() == 0) {
+            listView.setItemChecked(position, true);
+            return;
+        }
+        if (position == 0 && listView.isItemChecked(0)) {
+            resetItems();
+        } else if (listView.isItemChecked(0)) {
+            listView.setItemChecked(0, false);
+            stateFilters.clear();
+        }
+        if (listView.isItemChecked(position)) {
+            CollegeFilter state = new CollegeFilter(stateString);
+            state.setValue(listView.getItemAtPosition(position).toString());
+            state.setPosition(position);
+            stateFilters.add(state);
+            FilterUtils.putFilter(getContext(), stateFilters);
+        }
     }
 
     private List<String> getStates() {
@@ -82,4 +98,12 @@ public class StateFragment extends Fragment {
         states.add(0, "All");
         return states;
     }
+
+    private void resetItems() {
+        for (int i = 1; i < listView.getAdapter().getCount(); i++) {
+            listView.setItemChecked(i, false);
+        }
+        stateFilters.clear();
+    }
+
 }
