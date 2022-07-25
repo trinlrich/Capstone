@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @ParseClassName("CollegeApplicationTasks")
-public class CollegeApplicationTask  extends ParseObject {
+public class CollegeApplicationTask  extends ParseObject  implements Comparable<CollegeApplicationTask>{
     public static final String TASK_KEY_USER_UID = "firebaseUid";
     public static final String TASK_KEY_FAVCOLLEGE_ID = "favcollegeId";
     public static final String TASK_KEY_TITLE = "taskTitle";
@@ -150,5 +150,10 @@ public class CollegeApplicationTask  extends ParseObject {
         }
 
         return "";
+    }
+
+    @Override
+    public int compareTo(CollegeApplicationTask other) {
+        return (this.getTaskState() - other.getTaskState());
     }
 }

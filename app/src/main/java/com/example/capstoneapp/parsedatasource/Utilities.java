@@ -17,6 +17,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class Utilities {
@@ -248,5 +249,28 @@ public class Utilities {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DAY_OF_YEAR, days);
         return cal.getTimeInMillis();
+    }
+
+    public static void getAllFavCollegeTasks(String userId, List<College> favcolleges, FavCollegesTaskMapCallback callback){
+
+        Map<Integer, List<CollegeApplicationTask>> collegeApplicationTasksMap = new HashMap<>();
+
+        Log.i(TAG, "Querying All the tasks for FAV Colleges for a user ...");
+        ParseQuery<CollegeApplicationTask> query = ParseQuery.getQuery(CollegeApplicationTask.class);
+        query.whereEqualTo(CollegeApplicationTask.TASK_KEY_USER_UID, userId);
+
+        for (int indx =0 ; indx < favcolleges.size() ; indx++) {
+            int collegeId = favcolleges.get(indx).getCollegeId();
+            getAllApplicationTasks(userId,collegeId , new ApplicationTaskCallback() {
+                @Override
+                public void onCompleted(List<CollegeApplicationTask> applicationTasks, Boolean error) {
+                    collegeApplicationTasksMap.put(collegeId,applicationTasks);
+                    if (collegeApplicationTasksMap.size() == favcolleges.size())
+                        callback.onCompleted(collegeApplicationTasksMap,false);
+                }
+            });
+        }
+
+        return;
     }
 }

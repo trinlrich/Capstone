@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.model.College;
+import com.example.capstoneapp.model.CollegeApplicationTask;
 import com.example.capstoneapp.ui.UiUtils;
 import com.example.capstoneapp.ui.mycolleges.mycollegedetail.MyCollegeDetailFragment;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,7 +27,9 @@ import org.parceler.Parcel;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class MyCollegesAdapter extends RecyclerView.Adapter<MyCollegesAdapter.ViewHolder> {
@@ -38,10 +41,12 @@ public class MyCollegesAdapter extends RecyclerView.Adapter<MyCollegesAdapter.Vi
     private static final String TAG = "MyCollegesAdapter";
     private final Context context;
     private List<College> favColleges = new ArrayList<>();
+    private Map<Integer, List<CollegeApplicationTask>> collegeApplicationTasksMap = new HashMap<>();
     private final FavoriteButtonClickedCallback favButtonClickedCallback;
 
-    public void setFavColleges(List<College> favColleges) {
+    public void setFavColleges(List<College> favColleges ,Map<Integer, List<CollegeApplicationTask>> collegeAppTasksMap) {
         this.favColleges = favColleges;
+        this.collegeApplicationTasksMap = collegeAppTasksMap;
         notifyDataSetChanged();
     }
 
@@ -59,7 +64,8 @@ public class MyCollegesAdapter extends RecyclerView.Adapter<MyCollegesAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bind(favColleges.get(position));
+        College currentCollege = favColleges.get(position);
+        holder.bind(currentCollege,collegeApplicationTasksMap.get(currentCollege.getCollegeId()));
     }
 
     @Override
@@ -73,6 +79,7 @@ public class MyCollegesAdapter extends RecyclerView.Adapter<MyCollegesAdapter.Vi
         private final TextView tvFavCollegeLocation;
         private final ImageButton ibtnFavorite;
         private final FavoriteButtonClickedCallback favButtonClickedCallback;
+        private TaskProgressView taskProgressView;
 
         public ViewHolder(@NonNull View itemView, FavoriteButtonClickedCallback favBtnClickedCallback) {
             super(itemView);
@@ -80,18 +87,20 @@ public class MyCollegesAdapter extends RecyclerView.Adapter<MyCollegesAdapter.Vi
             tvFavCollegeName = itemView.findViewById(R.id.tvFavCollegeName);
             tvFavCollegeLocation = itemView.findViewById(R.id.tvFavCollegeLocation);
             ibtnFavorite = itemView.findViewById(R.id.ibtnFavorite);
+            taskProgressView = itemView.findViewById(R.id.task_progress_view);
             favButtonClickedCallback = favBtnClickedCallback;
         }
 
-        public void bind(College favCollege) {
+        public void bind(College favCollege, List<CollegeApplicationTask> appTasks) {
             UiUtils.setViewImage(context, ivFavCollegeThumbnail, favCollege.getThumbnail(), null, R.drawable.college_black_48);
             UiUtils.setViewText(context, tvFavCollegeName, favCollege.getName());
             UiUtils.setViewText(context, tvFavCollegeLocation, favCollege.getLocation());
-
+            taskProgressView.setTasks(appTasks);
             if (favCollege.isFavorite())
                 ibtnFavorite.setBackground(context.getDrawable(R.drawable.favorite_black_48));
             else
                 ibtnFavorite.setBackground(context.getDrawable(R.drawable.favorite_border_black_48));
+
 
             ibtnFavorite.setOnClickListener(this::onFavoriteClick);
             itemView.setOnClickListener(this::onClick);
