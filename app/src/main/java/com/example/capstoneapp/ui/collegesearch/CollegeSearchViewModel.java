@@ -11,7 +11,9 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.model.College;
+import com.example.capstoneapp.model.CollegeApplicationTask;
 import com.example.capstoneapp.model.FavoriteCollege;
+import com.example.capstoneapp.parsedatasource.FavCollegesTaskMapCallback;
 import com.example.capstoneapp.parsedatasource.Utilities;
 import com.example.capstoneapp.ui.collegesearch.filter.FilterUtils;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
@@ -58,6 +61,9 @@ public class CollegeSearchViewModel extends AndroidViewModel {
     }
     private MutableLiveData<List<College>> allFavCollegesLiveData = new MutableLiveData<>();
     private List<College> allFavColleges = new ArrayList<>();
+
+    // This section is for College Tasks
+    MutableLiveData<Map<Integer,List<CollegeApplicationTask>>> favCollegeTasksMap = new MutableLiveData<>();
 
     public CollegeSearchViewModel(@NonNull Application application) {
         // on viewmodel create initiate fetch of all data
@@ -246,5 +252,16 @@ public class CollegeSearchViewModel extends AndroidViewModel {
             }
         }
         allCollegesLiveData.setValue(allCollegesAfterSearch);
+    }
+
+    public LiveData<Map<Integer,List<CollegeApplicationTask>>> getAllFavCollegeTasks(List<College> allFavColleges){
+        Utilities.getAllFavCollegeTasks(firebaseUid, allFavColleges, new FavCollegesTaskMapCallback() {
+            @Override
+            public void onCompleted(Map<Integer, List<CollegeApplicationTask>> collegeApplicationTasksMap, Boolean error) {
+                Log.i(TAG, "GetAllFavCollegeTasks Completed");
+                favCollegeTasksMap.setValue(collegeApplicationTasksMap);
+            }
+        });
+        return favCollegeTasksMap;
     }
 }
