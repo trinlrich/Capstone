@@ -25,13 +25,17 @@ public class FilterFragmentPagerAdapter extends androidx.fragment.app.FragmentPa
     @Override
     public Fragment getItem(int position) {
         Fragment fragment = null;
-        if (position == 0)
-            fragment = new StateFragment();
-        else if (position == 1)
-            fragment = new TypeFragment();
-        else if (position == 2)
-            fragment = new MissionFragment();
-
+        switch (position) {
+            case 0:
+                fragment = new StateFragment();
+                break;
+            case 1:
+                fragment = new TypeFragment();
+                break;
+            case 2:
+                fragment = new MissionFragment();
+                break;
+        }
         return fragment;
     }
 

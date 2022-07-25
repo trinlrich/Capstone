@@ -12,6 +12,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.model.CollegeApplicationTask;
+import com.example.capstoneapp.model.CollegeFilter;
 import com.example.capstoneapp.model.FavoriteCollege;
 import com.example.capstoneapp.parsedatasource.FavCollegesTaskMapCallback;
 import com.example.capstoneapp.parsedatasource.Utilities;
@@ -192,23 +193,24 @@ public class CollegeSearchViewModel extends AndroidViewModel {
 
     public void filterCollegesList() {
         // Get filter values
-        String stateValue = FilterUtils.getFilterValue(context, stateString);
+        List<CollegeFilter> stateFilters = FilterUtils.getFilterList(context, stateString);
         String typeValue = FilterUtils.getFilterValue(context, typeString);
         String missionValue = FilterUtils.getFilterValue(context, missionString);
 
-        Log.i(TAG, "State Filter: " + stateValue);
+        Log.i(TAG, "State Filter: " + stateFilters);
         Log.i(TAG, "Type Filter: " + typeValue);
         Log.i(TAG, "Mission Filter: " + missionValue);
 
         // Remove college that do not fit criteria
         allCollegesAfterFilter.clear();
         allCollegesAfterFilter.addAll(allColleges);
-        if (isFilteringNeeded(stateValue)) {
-            allCollegesAfterFilter.removeIf(college -> !college.getFullCollegeState().equals(stateValue));
+        if (isFilteringNeeded(stateFilters.get(0).getValue())) {
+            Set<String> stateFilterValues = getFilterValueSet(stateFilters);
+            allCollegesAfterFilter.removeIf(college -> !stateFilterValues.contains(college.getFullCollegeState()));
             isFiltered = true;
         }
         if (isFilteringNeeded(typeValue)) {
-            allCollegesAfterFilter.removeIf(college -> !college.getCollegeTypeAsText().equals(typeValue));
+            allCollegesAfterFilter.removeIf(college -> !college.getCollegeTypeAsText().contains(typeValue));
             isFiltered = true;
         }
         if (isFilteringNeeded(missionValue)) {
@@ -219,6 +221,14 @@ public class CollegeSearchViewModel extends AndroidViewModel {
             isFiltered = false;
         }
         allCollegesLiveData.setValue(allCollegesAfterFilter);
+    }
+
+    private Set<String> getFilterValueSet(List<CollegeFilter> filters) {
+        Set<String> filterValues = new HashSet<String>();
+        for (CollegeFilter filter : filters) {
+            filterValues.add(filter.getValue());
+        }
+        return filterValues;
     }
 
     private boolean isFilteringNeeded(String value) {
@@ -247,7 +257,8 @@ public class CollegeSearchViewModel extends AndroidViewModel {
             collegesListToFilter.addAll(allColleges);
 
         for (College college : collegesListToFilter) {
-            if (college.getName().toLowerCase().contains(newText.toLowerCase())) {
+            if (college.getName().toLowerCase().contains(newText.toLowerCase()) ||
+                    college.getCity().toLowerCase().contains(newText.toLowerCase())) {
                 allCollegesAfterSearch.add(college);
             }
         }
