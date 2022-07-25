@@ -1,7 +1,5 @@
 package com.example.capstoneapp.ui.collegesearch.filter.tabs;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,7 +7,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
-import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +27,6 @@ public class StateFragment extends Fragment {
 
     public static final String TAG = "StateFragment";
 
-    private SharedPreferences preferences;
     private ListView listView;
     private String stateString;
     private List<CollegeFilter> stateFilters =  new ArrayList<>();
@@ -45,8 +41,6 @@ public class StateFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        preferences = getContext().getSharedPreferences(getString(R.string.filter_key), Context.MODE_PRIVATE);
         stateString = getString(R.string.state_key);
 
         listView = view.findViewById(R.id.state_list_view);
@@ -105,5 +99,4 @@ public class StateFragment extends Fragment {
         }
         stateFilters.clear();
     }
-
 }
