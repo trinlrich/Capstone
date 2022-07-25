@@ -21,11 +21,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
-import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.model.ParseFirebaseUser;
+import com.example.capstoneapp.ui.SharedPreferenceUtils;
 import com.example.capstoneapp.ui.UiUtils;
 import com.example.capstoneapp.model.CollegeFilter;
-import com.example.capstoneapp.ui.collegesearch.filter.FilterUtils;
 import com.example.capstoneapp.ui.mycolleges.MyCollegesFragment;
 import com.example.capstoneapp.ui.profile.ProfileFragment;
 import com.example.capstoneapp.ui.collegesearch.CollegeSearchFragment;
@@ -154,8 +153,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Create filters with default "All" value
         List<CollegeFilter> stateFilters = new ArrayList<>();
         stateFilters.add(new CollegeFilter(getString(R.string.state_key)));
-        FilterUtils.putFilter(this, stateFilters);
-        FilterUtils.putDefaultFilter(this, new CollegeFilter(getString(R.string.type_key)));
-        FilterUtils.putDefaultFilter(this, new CollegeFilter(getString(R.string.mission_key)));
+        SharedPreferenceUtils.putFilter(this, stateFilters);
+        SharedPreferenceUtils.putDefaultFilter(this, new CollegeFilter(getString(R.string.type_key)));
+        SharedPreferenceUtils.putDefaultFilter(this, new CollegeFilter(getString(R.string.mission_key)));
     }
 }

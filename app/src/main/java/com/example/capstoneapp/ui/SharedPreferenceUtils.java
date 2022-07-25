@@ -1,4 +1,4 @@
-package com.example.capstoneapp.ui.collegesearch.filter;
+package com.example.capstoneapp.ui;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -14,11 +14,13 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class FilterUtils {
+public class SharedPreferenceUtils {
 
-    public static final String TAG = "FilterUtils";
+    public static final String TAG = "SharedPreferenceUtils";
 
     public static CollegeFilter getFilter(Context context, String filterString) {
         // Retrieve filter preferences
@@ -81,6 +83,30 @@ public class FilterUtils {
         String filterJson = new Gson().toJson(filters, new TypeToken<List<CollegeFilter>>() {}.getType());
         // Put filter as json string
         editor.putString(filters.get(0).getKey(), filterJson);
+        // Apply preference changes
+        editor.apply();
+    }
+
+    public static Boolean getIsFirstTimeVisit(Context context, String userId) {
+        // Retrieve filter preferences
+        SharedPreferences preferences = context.getSharedPreferences(context.getString(R.string.screen_entered_first_time), Context.MODE_PRIVATE);
+        // Find user data in preferences and return boolean value
+        for (Map.Entry<String, ?> entry : preferences.getAll().entrySet()) {
+            if (entry.getKey().contains(userId)) {
+                return Boolean.parseBoolean(entry.getValue().toString());
+            }
+        }
+        return true;
+    }
+
+    public static void putIsFirstTimeVisit(Context context, String userId, Boolean isFirstTime) {
+        Log.i(TAG, "Putting first time visit preference: " + isFirstTime);
+        // Retrieve Screen Entered First Time preferences
+        SharedPreferences preferences = context.getSharedPreferences(context.getString(R.string.screen_entered_first_time), Context.MODE_PRIVATE);
+        // Get SharedPreferences editor
+        SharedPreferences.Editor editor = preferences.edit();
+        // Put filter as json string
+        editor.putBoolean(context.getString(R.string.screen_entered_first_time) + "-" + userId, isFirstTime);
         // Apply preference changes
         editor.apply();
     }

@@ -27,6 +27,10 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
     interface FavoriteButtonClickedCallback {
         void onFavButtonClicked(College college);
     }
+
+    public interface OnItemClick {
+        void onClick (String value);
+    }
     private static final String TAG = "CollegesAdapter";
 
     private Context context;

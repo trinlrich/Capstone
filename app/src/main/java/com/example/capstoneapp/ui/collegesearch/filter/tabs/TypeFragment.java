@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment;
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.model.CollegeFilter;
-import com.example.capstoneapp.ui.collegesearch.filter.FilterUtils;
+import com.example.capstoneapp.ui.SharedPreferenceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,13 +59,13 @@ public class TypeFragment extends Fragment {
     }
 
     private void setFilters() {
-        CollegeFilter existingFilter = FilterUtils.getFilter(getContext(), typeString);
+        CollegeFilter existingFilter = SharedPreferenceUtils.getFilter(getContext(), typeString);
         listView.setItemChecked(existingFilter.getPosition(), true);
     }
 
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Log.i(TAG, "onItemClick: " +position);
-        FilterUtils.putFilter(getContext(), type, listView.getItemAtPosition(position).toString(), position);
+        SharedPreferenceUtils.putFilter(getContext(), type, listView.getItemAtPosition(position).toString(), position);
     }
 
     private List<String> getTypes() {

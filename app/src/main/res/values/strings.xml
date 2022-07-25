@@ -93,6 +93,7 @@
     // Misc
     <string name="thumbnail_description">College thumbnail</string>
     <string name="filter_title">Filter</string>
+    <string name="screen_entered_first_time">ScreenEnteredFirstTime</string>
     <string name="apply">Apply</string>
     <string name="search_hint_text">Search by college name</string>
     <string name="no_colleges_text">No Colleges Found</string>

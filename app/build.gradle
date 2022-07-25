@@ -46,9 +46,9 @@ dependencies {
     // Firebase
     implementation 'com.firebaseui:firebase-ui-auth:8.0.1'
     implementation 'com.facebook.android:facebook-android-sdk:12.3.0'
-    implementation 'com.google.android.gms:play-services-auth:20.0.1'
+    implementation 'com.google.android.gms:play-services-auth:20.2.0'
 
-    def lifecycle_version = "2.5.0-rc02"
+    def lifecycle_version = "2.6.0-alpha01"
     def arch_version = "2.1.0"
 
     // ViewModel
@@ -83,6 +83,9 @@ dependencies {
     // LottieAnimation
     def lottieVersion = "5.2.0"
     implementation "com.airbnb.android:lottie:$lottieVersion"
+
+    // TapTargetView
+    implementation 'com.getkeepsafe.taptargetview:taptargetview:1.11.0'
 
 
 }

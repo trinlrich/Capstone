@@ -17,7 +17,7 @@ import android.widget.ListView;
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.model.CollegeFilter;
-import com.example.capstoneapp.ui.collegesearch.filter.FilterUtils;
+import com.example.capstoneapp.ui.SharedPreferenceUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -58,7 +58,7 @@ public class StateFragment extends Fragment {
     }
 
     private void setExistingFilters() {
-        List<CollegeFilter> existingFilter = FilterUtils.getFilterList(getContext(), stateString);
+        List<CollegeFilter> existingFilter = SharedPreferenceUtils.getFilterList(getContext(), stateString);
         for (CollegeFilter filter : existingFilter) {
             listView.setItemChecked(filter.getPosition(), true);
         }
@@ -81,7 +81,7 @@ public class StateFragment extends Fragment {
             state.setValue(listView.getItemAtPosition(position).toString());
             state.setPosition(position);
             stateFilters.add(state);
-            FilterUtils.putFilter(getContext(), stateFilters);
+            SharedPreferenceUtils.putFilter(getContext(), stateFilters);
         }
     }
 

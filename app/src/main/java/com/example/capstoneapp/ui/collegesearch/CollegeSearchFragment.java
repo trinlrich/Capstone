@@ -1,6 +1,8 @@
 package com.example.capstoneapp.ui.collegesearch;
 
 import android.content.DialogInterface;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,8 +28,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.model.College;
+import com.example.capstoneapp.ui.SharedPreferenceUtils;
 import com.example.capstoneapp.ui.collegesearch.filter.FilterFragment;
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
@@ -137,6 +143,11 @@ public class CollegeSearchFragment extends Fragment {
         };
         viewModel.getShowProgress().observe(getViewLifecycleOwner(), progressUpdateObserver);
 
+        // Check if user's first time visiting this screen and run TapTargetSequence
+        if (SharedPreferenceUtils.getIsFirstTimeVisit(getContext(), FirebaseAuth.getInstance().getUid())) {
+            startTapTargetSequence();
+            SharedPreferenceUtils.putIsFirstTimeVisit(getContext(), FirebaseAuth.getInstance().getUid(), false);
+        }
     }
 
     private void showNoColleges() {
@@ -153,11 +164,7 @@ public class CollegeSearchFragment extends Fragment {
 
     public void onFilterClick(View view) {
         FragmentManager fragmentManager = ((FragmentActivity) getContext()).getSupportFragmentManager();
-
         if (fragmentManager != null) {
-            // TODO :: Trying to collapse keyboard
-//            InputMethodManager inputMethodManager = InputMethodManager.getSystemService(Context.INPUT_METHOD_SERVICE);
-
             fragmentManager
                     .beginTransaction()
                     .replace(R.id.flContainer, FilterFragment.newInstance())
@@ -203,5 +210,53 @@ public class CollegeSearchFragment extends Fragment {
                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             }
         }
+    }
+
+    private void checkUserVisited() {
+
+    }
+
+    private void startTapTargetSequence() {
+        new TapTargetSequence(getActivity()).targets(
+                createTapTargetForView(
+                        getActivity().findViewById(R.id.svCollegeSearch),
+                        "This is the search bar",
+                        "Here you can search through the colleges by name or city",
+                        R.color.accent_blue,
+                        getContext().getDrawable(R.drawable.tap_target_search_icon),
+                        30),
+                createTapTargetForView(
+                        getActivity().findViewById(R.id.btnFilter),
+                        "This is the filter icon",
+                        "Here you can filter the colleges by state, type, or mission",
+                        R.color.accent_orange,
+                        null,
+                        30)
+        ).start();
+    }
+
+    private TapTarget createTapTargetForView(View target, String title, String description, int accentColor, Drawable icon, int targetRadius) {
+        TapTarget tapTarget = TapTarget.forView(target, title, description)
+                // All options below are optional
+                .outerCircleColor(accentColor)      // Specify a color for the outer circle
+                .outerCircleAlpha(0.96f)            // Specify the alpha amount for the outer circle
+                .targetCircleColor(R.color.white)   // Specify a color for the target circle
+                .titleTextSize(20)                  // Specify the size (in sp) of the title text
+                .titleTextColor(R.color.white)      // Specify the color of the title text
+                .descriptionTextSize(14)            // Specify the size (in sp) of the description text
+                .descriptionTextColor(accentColor)  // Specify the color of the description text
+                .textColor(R.color.white)           // Specify a color for both the title and description text
+                .textTypeface(Typeface.SANS_SERIF)  // Specify a typeface for the text
+                .dimColor(R.color.black)            // If set, will dim behind the view with 30% opacity of the given color
+                .drawShadow(true)                   // Whether to draw a drop shadow or not
+                .cancelable(false)                  // Whether tapping outside the outer circle dismisses the view
+                .tintTarget(true)                   // Whether to tint the target view's color
+                .transparentTarget(false)           // Specify whether the target is transparent (displays the content underneath)
+                .targetRadius(targetRadius);                  // Specify the target radius (in dp)
+
+        if (icon != null) {
+            tapTarget.icon(icon);                   // Specify a custom drawable to draw as the target
+        }
+        return tapTarget;
     }
 }

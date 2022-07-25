@@ -8,10 +8,7 @@ public class FirebaseUserLiveData extends LiveData<FirebaseUser> {
 
     private FirebaseUser user;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    private FirebaseAuth.AuthStateListener authStateListener = firebaseAuth -> {
-//            user = firebaseAuth.getCurrentUser();
-        setValue(firebaseAuth.getCurrentUser());
-    };
+    private FirebaseAuth.AuthStateListener authStateListener = firebaseAuth -> setValue(firebaseAuth.getCurrentUser());
 
     public FirebaseUser getUser() {
         return user;

@@ -88,9 +88,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:tabGravity="center"
-                app:tabIndicatorColor="@color/primary_blue"
+                app:tabIndicatorColor="@color/accent_blue"
                 app:tabMode="scrollable"
-                app:tabSelectedTextColor="@color/primary_blue" />
+                app:tabSelectedTextColor="@color/accent_blue" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.viewpager.widget.ViewPager

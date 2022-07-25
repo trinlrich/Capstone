@@ -254,7 +254,7 @@
                     android:autoLink="web"
                     android:linksClickable="true"
                     android:maxLines="4"
-                    android:textColorLink="@color/primary_blue"
+                    android:textColorLink="@color/accent_blue"
                     tools:text="www.ncat.eduweorineoingrioergnoeorginoiergineorngeg" />
             </TableRow>
 
