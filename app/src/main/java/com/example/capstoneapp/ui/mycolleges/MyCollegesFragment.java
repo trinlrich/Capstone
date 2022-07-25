@@ -20,9 +20,11 @@ import com.devhoony.lottieproegressdialog.LottieProgressDialog;
 import android.widget.TextView;
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.model.College;
+import com.example.capstoneapp.model.CollegeApplicationTask;
 import com.example.capstoneapp.ui.collegesearch.CollegeSearchViewModel;
 
 import java.util.List;
+import java.util.Map;
 
 public class MyCollegesFragment extends Fragment {
 
@@ -34,6 +36,7 @@ public class MyCollegesFragment extends Fragment {
     private RecyclerView favCollegesRV;
     private RecyclerView.LayoutManager layoutManager;
     private LottieProgressDialog loadingProgressBar;
+    private List<College> favColleges;
 
     private TextView tvNoFavColleges;
     public static MyCollegesFragment newInstance() {
@@ -68,7 +71,14 @@ public class MyCollegesFragment extends Fragment {
         favCollegesRV.setAdapter(favCollegesAdapter);
         setupProgress();
 
-        // Colleges observer
+        // Fav Colleges Tasks Observer
+        Observer<Map<Integer,List<CollegeApplicationTask>>> favCollegesTasksObserver = new Observer<Map<Integer, List<CollegeApplicationTask>>>() {
+            @Override
+            public void onChanged(Map<Integer, List<CollegeApplicationTask>> favCollegesTasks) {
+                favCollegesAdapter.setFavColleges(favColleges,favCollegesTasks );
+            }
+        };
+        //Colleges observer
         Observer<List<College>> favCollegesObserver = colleges -> {
             if ((colleges == null) || (colleges.size() == 0)){
                 Log.e(TAG, "No Fav colleges found");
@@ -76,7 +86,8 @@ public class MyCollegesFragment extends Fragment {
             } else {
                 Log.i(TAG, "Fav Colleges found");
                 tvNoFavColleges.setVisibility(View.GONE);
-                favCollegesAdapter.setFavColleges(colleges);
+                favColleges = colleges;
+                viewModel.getAllFavCollegeTasks(favColleges).observe(getViewLifecycleOwner(),favCollegesTasksObserver);
             }
         };
         viewModel.getAllFavCollegesLiveData().observe(getViewLifecycleOwner(), favCollegesObserver);
