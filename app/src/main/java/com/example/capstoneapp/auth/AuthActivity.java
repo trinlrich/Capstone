@@ -14,6 +14,7 @@ import android.util.Log;
 
 import com.example.capstoneapp.MainActivity;
 import com.example.capstoneapp.R;
+import com.example.capstoneapp.ui.SharedPreferenceUtils;
 import com.example.capstoneapp.ui.survey.SurveyActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract;
@@ -64,6 +65,7 @@ public class AuthActivity extends AppCompatActivity {
                 startHomeScreen();
             } else if (!signInState) {
                 Log.i(TAG, "Starting Survey Screen");
+                createUserSharedPreference();
                 startSignInSurvey();
             }
         };
@@ -106,5 +108,9 @@ public class AuthActivity extends AppCompatActivity {
     private void onSignInResult(FirebaseAuthUIAuthenticationResult result) {
         // No implementation needed here as viewmodel live data is being observed for Authentication
         Log.d("onSignInResult","onSignInResult");
+    }
+
+    private void createUserSharedPreference() {
+        SharedPreferenceUtils.putIsFirstTimeVisit(this, auth.getCurrentUser().getUid(), true);
     }
 }

@@ -14,13 +14,12 @@ import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.model.CollegeFilter;
 import com.example.capstoneapp.model.FavoriteCollege;
 import com.example.capstoneapp.parsedatasource.Utilities;
-import com.example.capstoneapp.ui.collegesearch.filter.FilterUtils;
+import com.example.capstoneapp.ui.SharedPreferenceUtils;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 
@@ -187,9 +186,9 @@ public class CollegeSearchViewModel extends AndroidViewModel {
 
     public void filterCollegesList() {
         // Get filter values
-        List<CollegeFilter> stateFilters = FilterUtils.getFilterList(context, stateString);
-        String typeValue = FilterUtils.getFilterValue(context, typeString);
-        String missionValue = FilterUtils.getFilterValue(context, missionString);
+        List<CollegeFilter> stateFilters = SharedPreferenceUtils.getFilterList(context, stateString);
+        String typeValue = SharedPreferenceUtils.getFilterValue(context, typeString);
+        String missionValue = SharedPreferenceUtils.getFilterValue(context, missionString);
 
         Log.i(TAG, "State Filter: " + stateFilters);
         Log.i(TAG, "Type Filter: " + typeValue);

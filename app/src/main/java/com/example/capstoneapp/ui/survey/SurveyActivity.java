@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +14,8 @@ import android.widget.Toast;
 
 import com.example.capstoneapp.MainActivity;
 import com.example.capstoneapp.R;
+import com.example.capstoneapp.ui.SharedPreferenceUtils;
+import com.facebook.share.Share;
 
 import java.util.HashMap;
 
@@ -26,6 +29,7 @@ public class SurveyActivity extends AppCompatActivity {
     private EditText lastNameText;
     private EditText degreeSeekingText;
     private Observer<Boolean> saveUserStateObserver;
+    private SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

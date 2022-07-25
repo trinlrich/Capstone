@@ -104,7 +104,7 @@ public class MyCollegesFragment extends Fragment {
 
     private void setupProgress(){
         String title = getString(R.string.progress_title);
-        loadingProgressBar = new LottieProgressDialog(getActivity(),true,null,null,null,null,LottieProgressDialog.SAMPLE_5, title, null);
+        loadingProgressBar = new LottieProgressDialog(getActivity(),false,null,null,null,null,LottieProgressDialog.SAMPLE_5, title, null);
 
     }
 }
