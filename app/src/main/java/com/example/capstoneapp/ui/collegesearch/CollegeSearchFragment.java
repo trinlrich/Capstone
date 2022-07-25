@@ -187,4 +187,21 @@ public class CollegeSearchFragment extends Fragment {
         // Create the AlertDialog object and show it
         builder.create().show();
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        hideKeyboard();
+    }
+
+    private void hideKeyboard() {
+        if (getActivity() != null) {
+            // Check if no view has focus:
+            View view = getActivity().getCurrentFocus();
+            if (view != null) {
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(getContext().INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
+        }
+    }
 }
