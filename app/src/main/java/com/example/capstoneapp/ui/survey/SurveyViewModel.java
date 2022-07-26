@@ -32,34 +32,48 @@ public class SurveyViewModel extends ViewModel {
         FIRST_NAME, LAST_NAME, DEGREE_SEEKING;
     }
 
-    public LiveData<Boolean> saveProfile(String imageUri, HashMap userInfo) {
-        // Save image file before saving user
-        ParseFile file = new ParseFile(new File(imageUri));
-        file.saveInBackground(new SaveCallback() {
+    public void saveProfile(ParseFirebaseUser user, File image) {
+        ParseFile profileImage = new ParseFile(image);
+        profileImage.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                saveUser(userInfo, file);
+                if (e != null) {
+                    Log.e(TAG, "Error while saving image", e);
+                } else {
+                    Log.i(TAG, "Image save was successful");
+                    user.setProfileImage(new ParseFile(image));
+                    user.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException ex) {
+                            if (ex != null) {
+                                Log.e(TAG, "Error while updating", ex);
+                            } else {
+                                Log.i(TAG, "User update was successful");
+                            }
+                        }
+                    });
+                }
             }
         });
-        return isUserSaved;
     }
 
-    public void saveUser(HashMap userInfo, ParseFile image) {
-        ParseFirebaseUser user = new ParseFirebaseUser();
-        user.setProfileImage(image);
-        user.setFirstName(userInfo.get(DictionaryKeys.FIRST_NAME).toString());
-        user.setLastName(userInfo.get(DictionaryKeys.LAST_NAME).toString());
-        user.setDegreeSeeking(userInfo.get(DictionaryKeys.DEGREE_SEEKING).toString());
-        Log.d(TAG,String.format("Saving Firebase UID:%s , F Name: %s, L Name: %s" ,firebaseUid,user.getFirstName(),user.getLastName()));
-        user.setFirebaseUid(firebaseUid);
-        user.saveInBackground(e -> {
-            if (e != null) {
-                Log.e(TAG, "Error while saving", e);
-            } else {
-                Log.i(TAG, "User save was successful");
-                checkForUserId(firebaseUid);
-            }
-        });
+    public LiveData<Boolean> saveUser(HashMap userInfo, File image) {
+          ParseFirebaseUser user = new ParseFirebaseUser();
+          user.setFirstName(userInfo.get(DictionaryKeys.FIRST_NAME).toString());
+          user.setLastName(userInfo.get(DictionaryKeys.LAST_NAME).toString());
+          user.setDegreeSeeking(userInfo.get(DictionaryKeys.DEGREE_SEEKING).toString());
+          Log.d(TAG,String.format("Saving Firebase UID:%s , F Name: %s, L Name: %s" ,firebaseUid,user.getFirstName(),user.getLastName()));
+          user.setFirebaseUid(firebaseUid);
+          user.saveInBackground(e -> {
+              if (e != null) {
+                  Log.e(TAG, "Error while saving", e);
+              } else {
+                  Log.i(TAG, "User save was successful");
+                  saveProfile(user, image);
+                  checkForUserId(firebaseUid);
+              }
+          });
+        return isUserSaved;
     }
 
     private void checkForUserId(String userId) {

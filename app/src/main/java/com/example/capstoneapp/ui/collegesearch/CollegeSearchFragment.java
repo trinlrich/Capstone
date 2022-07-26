@@ -75,7 +75,7 @@ public class CollegeSearchFragment extends Fragment {
         collegesAdapter = new CollegesAdapter(getContext(), college -> {
 
             // if it already favorite then user wants to un-favorite it.
-            // show dialog and get user cofirmation
+            // show dialog and get user confirmation
             if (viewModel.isCollegeFavorited(college)) {
                 createAndShowDialog(college);
             } else

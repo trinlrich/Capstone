@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.FileObserver;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -19,6 +20,7 @@ import com.example.capstoneapp.MainActivity;
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.ui.UiUtils;
 
+import java.io.File;
 import java.util.HashMap;
 
 public class SurveyActivity extends AppCompatActivity {
@@ -88,7 +90,7 @@ public class SurveyActivity extends AppCompatActivity {
         userInfo.put(SurveyViewModel.DictionaryKeys.FIRST_NAME, firstNameText.getText().toString());
         userInfo.put(SurveyViewModel.DictionaryKeys.LAST_NAME, lastNameText.getText().toString());
         userInfo.put(SurveyViewModel.DictionaryKeys.DEGREE_SEEKING, degreeSeekingText.getText().toString());
-        viewModel.saveProfile(selectedImage.toString(), userInfo).observe(this, saveUserStateObserver);
+        viewModel.saveUser(userInfo, new File(selectedImage.toString())).observe(this, saveUserStateObserver);
     }
 
     private void startHomeScreen() {
