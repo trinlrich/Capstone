@@ -53,29 +53,62 @@
         tools:text="City, State" />
 
     <Button
-        android:id="@+id/btnFavorite"
+        android:id="@+id/btnAddFavorite"
+        style="@style/NotSelectedButton"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/add_favorites_btn_height"
         android:layout_marginTop="@dimen/medium_margin"
         android:layout_marginEnd="@dimen/large_margin"
-        android:background="@drawable/round_button_selected"
+        android:background="@drawable/round_button_blue"
         android:drawableEnd="@drawable/button_icon_heart"
         android:paddingHorizontal="@dimen/large_margin"
         android:text="@string/add_favorites"
         android:textColor="@color/white"
         android:textSize="@dimen/add_favorites_btn_text_size"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvDetailName" />
+
+    <Button
+        android:id="@+id/btnGoFavorites"
+        style="@style/SelectedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/add_favorites_btn_height"
+        android:layout_marginTop="@dimen/medium_margin"
+        android:layout_marginEnd="@dimen/small_margin"
+        android:background="@drawable/round_button_white"
+        android:paddingHorizontal="@dimen/large_margin"
+        android:text="@string/go_favorites"
+        android:textColor="@color/white"
+        android:textSize="@dimen/add_favorites_btn_text_size"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/btnUnfavorite"
+        app:layout_constraintTop_toBottomOf="@id/tvDetailName" />
+
+    <ImageButton
+        android:id="@+id/btnUnfavorite"
+        android:layout_width="@dimen/add_favorites_btn_height"
+        android:layout_height="@dimen/add_favorites_btn_height"
+        android:layout_marginEnd="@dimen/large_margin"
+        android:adjustViewBounds="true"
+        android:background="@drawable/round_button_white"
+        android:padding="6dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/favorite_white_48"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/btnGoFavorites"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnGoFavorites" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/small_margin"
+        android:layout_marginTop="@dimen/larger_margin"
         app:layout_constrainedHeight="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnFavorite">
+        app:layout_constraintTop_toBottomOf="@+id/tvDetailLocation">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"

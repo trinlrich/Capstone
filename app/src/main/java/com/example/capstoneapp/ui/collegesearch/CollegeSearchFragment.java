@@ -115,7 +115,8 @@ public class CollegeSearchFragment extends Fragment {
                 Log.i(TAG, "Colleges found");
                 collegesAdapter.setColleges(colleges);
                 showColleges();
-                rvColleges.smoothScrollToPosition(0);
+                // TODO :: Used to scroll to top after filtering, but scrolls after coming back from detail view (find another way)
+//                rvColleges.smoothScrollToPosition(0);
             }
         };
         viewModel.getAllCollegesLiveData().observe(getViewLifecycleOwner(), collegesObserver);
