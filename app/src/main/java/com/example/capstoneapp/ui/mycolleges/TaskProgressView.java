@@ -79,4 +79,3 @@ public class TaskProgressView extends ConstraintLayout {
     }
 
 }
-

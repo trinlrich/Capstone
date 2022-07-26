@@ -52,4 +52,13 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="SelectedButton" parent="Theme.CapstoneApp">
+        <item name="backgroundTint">@color/grey</item>
+    </style>
+
+    <style name="NotSelectedButton" parent="Theme.CapstoneApp">
+        <item name="backgroundTint">@color/accent_blue</item>
+    </style>
+
+
 </resources>
