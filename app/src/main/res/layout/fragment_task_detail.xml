@@ -8,13 +8,17 @@
 
     <EditText
         android:id="@+id/tvTaskDetailName"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/extra_large_margin"
+        android:layout_marginEnd="@dimen/larger_margin"
         android:background="@android:color/transparent"
         android:ems="10"
         android:inputType="textPersonName"
         android:textStyle="bold"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/btnCloseTaskDetail"
         app:layout_constraintTop_toBottomOf="@+id/btnCloseTaskDetail"
         tools:text="Task Name" />
