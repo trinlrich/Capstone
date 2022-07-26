@@ -212,10 +212,6 @@ public class CollegeSearchFragment extends Fragment {
         }
     }
 
-    private void checkUserVisited() {
-
-    }
-
     private void startTapTargetSequence() {
         new TapTargetSequence(getActivity()).targets(
                 createTapTargetForView(

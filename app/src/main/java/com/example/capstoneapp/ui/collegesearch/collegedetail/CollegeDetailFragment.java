@@ -12,13 +12,14 @@ import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.ui.UiUtils;
-import com.example.capstoneapp.ui.mycolleges.mycollegedetail.MyCollegeDetailFragment;
+import com.example.capstoneapp.ui.collegesearch.CollegeSearchViewModel;
 import com.google.android.material.tabs.TabLayout;
 
 import org.parceler.Parcels;
@@ -28,13 +29,14 @@ public class CollegeDetailFragment extends Fragment {
     public static final String TAG = "CollegeDetailFragment";
     private static final String COLLEGE = "college";
 
-    private CollegeDetailViewModel viewModel;
+    private CollegeSearchViewModel viewModel;
 
     private College college;
 
     private ImageView ivThumbnail;
     private TextView tvName;
     private TextView tvLocation;
+    private Button btnFavorite;
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -61,7 +63,7 @@ public class CollegeDetailFragment extends Fragment {
             college = Parcels.unwrap(getArguments().getParcelable(COLLEGE));
         }
 
-        viewModel = new ViewModelProvider(this).get(CollegeDetailViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(CollegeSearchViewModel.class);
 
         FragmentActivity activity = getActivity();
         if (activity != null) {
@@ -71,6 +73,7 @@ public class CollegeDetailFragment extends Fragment {
         ivThumbnail = view.findViewById(R.id.ivDetailThumbnail);
         tvName = view.findViewById(R.id.tvDetailName);
         tvLocation = view.findViewById(R.id.tvDetailLocation);
+        btnFavorite = view.findViewById(R.id.btnFavorite);
 
         // Tabs ViewPager
         viewPager = view.findViewById(R.id.viewpager);
@@ -84,5 +87,10 @@ public class CollegeDetailFragment extends Fragment {
         UiUtils.setViewImage(getContext(), ivThumbnail, college.getThumbnail(), null, R.drawable.college_black_48);
         UiUtils.setViewText(getContext(), tvName, college.getName());
         UiUtils.setViewText(getContext(), tvLocation, college.getLocation());
+        btnFavorite.setOnClickListener(this::onFavoriteClick);
+    }
+
+    private void onFavoriteClick(View view) {
+        viewModel.updateFavCollege(college);
     }
 }
