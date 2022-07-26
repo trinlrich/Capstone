@@ -110,7 +110,8 @@
     <string name="close_task_dialog_title">Close Task</string>
     <string name="close_task_dialog_cancel">Continue Editing</string>
     <string name="close_task_dialog_ok">Close Task</string>
-    <string name="progress_title">Getting Colleges Information</string>
+    <string name="loading_progress_title">Getting Colleges Information</string>
+    <string name="save_user_progress_title">Saving Your Information</string>
 
     // Null Strings
     <string name="data_not_available">Data Not Available</string>

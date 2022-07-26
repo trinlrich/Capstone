@@ -6,12 +6,13 @@ import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.model.CollegeApplicationTask;
 import com.example.capstoneapp.model.FavoriteCollege;
 import com.example.capstoneapp.model.ParseFirebaseUser;
-import com.example.capstoneapp.ui.mycolleges.mycollegedetail.taskmgmt.TaskDetailViewModel;
 import com.parse.GetCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.SaveCallback;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -50,6 +51,25 @@ public class Utilities {
             Log.i(TAG, "FirebaseUid found");
             callback.onCompleted(users);
 
+        });
+    }
+
+    public static void updateUserProfileImage(ParseFirebaseUser user, ParseFile profileImage){
+        profileImage.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                user.setProfileImage(profileImage);
+                user.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException ex) {
+                        if (ex != null){
+                            Log.e(TAG, "User Image Save Failed...", ex);
+                        }else {
+                            Log.d(TAG, "User Image Save Success...");
+                        }
+                    }
+                });
+            }
         });
     }
 
@@ -217,10 +237,10 @@ public class Utilities {
 
     public static void updateApplicationTask(ParseObject applicationTask, UpdateApplicationTaskCallback callback){
         Log.i(TAG, "Updating Application task for fav college ...");
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("CollegeApplicationTasks");
-        query.getInBackground(applicationTask.getObjectId(), new GetCallback<ParseObject>() {
+        ParseQuery<CollegeApplicationTask> query = ParseQuery.getQuery(CollegeApplicationTask.class);
+        query.getInBackground(applicationTask.getObjectId(), new GetCallback<CollegeApplicationTask>() {
             @Override
-            public void done(ParseObject object, ParseException e) {
+            public void done(CollegeApplicationTask object, ParseException e) {
                 if (e != null){
                     Log.e(TAG, "Issue with getting application step for updating", e);
                 }else {

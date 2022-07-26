@@ -5,31 +5,20 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.ImageDecoder;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.devhoony.lottieproegressdialog.LottieProgressDialog;
 import com.example.capstoneapp.MainActivity;
 import com.example.capstoneapp.R;
-import com.example.capstoneapp.parsedatasource.Utilities;
-import com.example.capstoneapp.ui.SharedPreferenceUtils;
 import com.example.capstoneapp.ui.UiUtils;
-import com.facebook.share.Share;
 
-import java.io.IOException;
 import java.util.HashMap;
 
 public class SurveyActivity extends AppCompatActivity {
@@ -43,6 +32,7 @@ public class SurveyActivity extends AppCompatActivity {
     private EditText firstNameText;
     private EditText lastNameText;
     private EditText degreeSeekingText;
+    private LottieProgressDialog saveUserProgressBar;
     private Observer<Boolean> saveUserStateObserver;
     private Uri selectedImage;
 
@@ -73,6 +63,8 @@ public class SurveyActivity extends AppCompatActivity {
                 Log.e(TAG, "New $signInState state that doesn't require any UI change");
             }
         };
+
+        setupProgress();
     }
 
     public void onPickPhoto(View view) {
@@ -91,6 +83,7 @@ public class SurveyActivity extends AppCompatActivity {
     }
 
     public void onDoneClick(View view) {
+        showProgress();
         HashMap userInfo = new HashMap();
         userInfo.put(SurveyViewModel.DictionaryKeys.FIRST_NAME, firstNameText.getText().toString());
         userInfo.put(SurveyViewModel.DictionaryKeys.LAST_NAME, lastNameText.getText().toString());
@@ -99,9 +92,25 @@ public class SurveyActivity extends AppCompatActivity {
     }
 
     private void startHomeScreen() {
+        stopProgress();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private void setupProgress(){
+        String title = getString(R.string.save_user_progress_title);
+        saveUserProgressBar = new LottieProgressDialog(this,false,null,null,null,null,LottieProgressDialog.SAMPLE_5, title, null);
+
+    }
+
+    private void showProgress(){
+        saveUserProgressBar.show();
+    }
+
+    private void stopProgress(){
+        if (saveUserProgressBar.isShowing())
+            saveUserProgressBar.cancel();
     }
 
     private void makeToast() {

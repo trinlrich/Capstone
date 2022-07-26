@@ -33,18 +33,20 @@ public class SurveyViewModel extends ViewModel {
     }
 
     public LiveData<Boolean> saveProfile(String imageUri, HashMap userInfo) {
+        // Save image file before saving user
         ParseFile file = new ParseFile(new File(imageUri));
         file.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                saveUser(userInfo);
+                saveUser(userInfo, file);
             }
         });
         return isUserSaved;
     }
 
-    public void saveUser(HashMap userInfo) {
+    public void saveUser(HashMap userInfo, ParseFile image) {
         ParseFirebaseUser user = new ParseFirebaseUser();
+        user.setProfileImage(image);
         user.setFirstName(userInfo.get(DictionaryKeys.FIRST_NAME).toString());
         user.setLastName(userInfo.get(DictionaryKeys.LAST_NAME).toString());
         user.setDegreeSeeking(userInfo.get(DictionaryKeys.DEGREE_SEEKING).toString());
