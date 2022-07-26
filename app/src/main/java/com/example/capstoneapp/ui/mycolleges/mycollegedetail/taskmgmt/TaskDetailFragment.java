@@ -1,5 +1,7 @@
 package com.example.capstoneapp.ui.mycolleges.mycollegedetail.taskmgmt;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
@@ -23,11 +25,16 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.model.CollegeApplicationTask;
 import com.example.capstoneapp.ui.UiUtils;
+import com.noowenz.customdatetimepicker.CustomDateTimePicker;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -86,6 +93,7 @@ public class TaskDetailFragment extends Fragment {
 
         UiUtils.setViewText(getContext(), etTaskTitle, task.getTaskTitle());
         UiUtils.setViewText(getContext(), tvTaskDeadline, task.getTaskEndDateAsText());
+        tvTaskDeadline.setOnClickListener(this::onDateClick);
         UiUtils.setViewText(getContext(), tvRelativeTimeUntil, task.calculateTimeUntil());
         UiUtils.setViewText(getContext(), etTaskNotes, task.getTaskDescription());
         btnCloseTaskDetail.setOnClickListener(this::onCloseClick);
@@ -133,6 +141,24 @@ public class TaskDetailFragment extends Fragment {
         }
     }
 
+    private void onDateClick(View view) {
+        CustomDateTimePicker dateTimePicker = new CustomDateTimePicker(getActivity(), new CustomDateTimePicker.ICustomDateTimeListener() {
+            @Override
+            public void onSet(@NonNull Dialog dialog, @NonNull Calendar calendar, @NonNull Date date, int i, @NonNull String s, @NonNull String s1, int i1, int i2, @NonNull String s2, @NonNull String s3, int i3, int i4, int i5, int i6, @NonNull String s4) {
+                SimpleDateFormat df2 = new SimpleDateFormat("MMMM d, yyyy 'at' h:mm aaa");
+                tvTaskDeadline.setText(df2.format(date));
+            }
+
+            @Override
+            public void onCancel() {
+                // Do nothing
+            }
+        });
+
+        dateTimePicker.setDate(Calendar.getInstance());
+        dateTimePicker.showDialog();
+    }
+
     private void onCloseClick(View view) {
         createAndShowDialog();
     }
@@ -168,4 +194,6 @@ public class TaskDetailFragment extends Fragment {
         // Create the AlertDialog object and show it
         builder.create().show();
     }
+
+
 }

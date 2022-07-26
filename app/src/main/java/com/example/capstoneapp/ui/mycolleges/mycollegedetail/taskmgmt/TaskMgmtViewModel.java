@@ -46,7 +46,7 @@ public class TaskMgmtViewModel extends ViewModel  {
         });
     }
 
-    public void updateApplicationStepState(ParseObject task, Integer state){
+    public void updateApplicationStepState(CollegeApplicationTask task, Integer state){
         task.put(CollegeApplicationTask.TASK_KEY_STATE,state);
         Utilities.updateApplicationTask(task, new UpdateApplicationTaskCallback() {
             @Override

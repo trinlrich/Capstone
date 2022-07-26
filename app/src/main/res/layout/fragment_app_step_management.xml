@@ -5,27 +5,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <Button
+        android:id="@+id/createTaskBtn"
+        style="@style/buttonStyle1"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/round_button"
+        android:text="Create Task"
+        app:layout_constraintEnd_toEndOf="@+id/todoTaskHeaderTxt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineCenter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_begin="206dp" />
 
     <TextView
         android:id="@+id/todoTaskHeaderTxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/todoTaskHeader"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/amaranth_bold"
+        android:text="@string/todoTaskHeader"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/createTaskBtn" />
 
     <HorizontalScrollView
         android:id="@+id/scrollViewToDo"
@@ -33,11 +46,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/todoTaskHeaderTxt"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@+id/todoTaskHeaderTxt">
 
         <LinearLayout
             android:id="@+id/masterToDoLayout"
@@ -45,18 +56,14 @@
             android:layout_height="wrap_content"
             android:background="#DFD89A"
             android:orientation="horizontal"
+            android:gravity="center"
             android:tag="0">
 
             <Button
-                android:id="@+id/createTaskBtn"
+                android:id="@+id/dropAreaButtonToDo"
                 style="@style/buttonStyle1"
-                android:background="@drawable/border_dashed"
-                android:text="Create Task" />
-
-            <Button
-                android:id="@+id/dropAreaButton"
-                style="@style/buttonStyle1"
-                android:background="@drawable/border_dashed"
+                android:layout_height="wrap_content"
+                android:background="@drawable/circular_button"
                 android:text="Drag Here" />
 
         </LinearLayout>
@@ -93,12 +100,15 @@
             android:layout_height="wrap_content"
             android:background="#619CCC"
             android:orientation="vertical"
+            android:gravity="center"
             android:tag="1">
 
             <Button
                 android:id="@+id/dropIPAreaButton"
                 style="@style/buttonStyle1"
-                android:background="@drawable/border_dashed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/circular_button"
                 android:text="Drag Here" />
 
         </LinearLayout>
@@ -135,13 +145,15 @@
             android:layout_height="wrap_content"
             android:background="#FF9800"
             android:orientation="vertical"
-            android:layout_gravity="center_horizontal"
+            android:gravity="center"
             android:tag="2">
 
             <Button
                 android:id="@+id/dropCompletedAreaButton"
                 style="@style/buttonStyle1"
-                android:background="@drawable/border_dashed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/circular_button"
                 android:text="Drag Here" />
 
         </LinearLayout>

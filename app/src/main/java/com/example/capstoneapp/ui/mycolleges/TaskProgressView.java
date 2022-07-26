@@ -54,9 +54,9 @@ public class TaskProgressView extends ConstraintLayout {
     public void setTasks(List<CollegeApplicationTask> tasks){
         if (tasks == null)
             return;
+        // sort the tasks as per priority. we need completed to come first
         if (tasks.size() > 0) {
-            // sort the tasks as per priority. we need completed to come first
-            Collections.sort(tasks, Collections.reverseOrder());
+            Collections.sort(tasks,Collections.reverseOrder());
             int color = getContext().getColor(STATUS_COLORS.get(tasks.get(0).getTaskState()));
             view1.getBackground().setTint(color);
             color = getContext().getColor(STATUS_COLORS.get(tasks.get(1).getTaskState()));
@@ -69,6 +69,7 @@ public class TaskProgressView extends ConstraintLayout {
             view5.getBackground().setTint(color);
             invalidate();
         }
+
     }
 
     private void createStatusColorsMap() {
@@ -78,4 +79,3 @@ public class TaskProgressView extends ConstraintLayout {
     }
 
 }
-

@@ -215,32 +215,29 @@ public class Utilities {
         });
     }
 
-    public static void updateApplicationTask(ParseObject applicationTask, UpdateApplicationTaskCallback callback){
+    public static void updateApplicationTask(CollegeApplicationTask applicationTask, UpdateApplicationTaskCallback callback){
         Log.i(TAG, "Updating Application task for fav college ...");
         ParseQuery<ParseObject> query = ParseQuery.getQuery("CollegeApplicationTasks");
-        query.getInBackground(applicationTask.getObjectId(), new GetCallback<ParseObject>() {
-            @Override
-            public void done(ParseObject object, ParseException e) {
-                if (e != null){
-                    Log.e(TAG, "Issue with getting application step for updating", e);
-                }else {
-                    // Update the fields we want to
-                    object.put(CollegeApplicationTask.TASK_KEY_STATE, applicationTask.getInt(CollegeApplicationTask.TASK_KEY_STATE));
-                    //All other fields will remain the same
-                    object.saveInBackground(new SaveCallback() {
-                        @Override
-                        public void done(ParseException ex) {
-                            if (ex != null){
-                                Log.e(TAG, "App Step Save Failed...", ex);
-                                callback.onCompleted(true);
-                            }else {
-                                Log.d(TAG, "App Step Save Success...");
-                                callback.onCompleted(false);
-                            }
+        query.getInBackground(applicationTask.getObjectId(), (task, e) -> {
+            if (e != null){
+                Log.e(TAG, "Issue with getting application step for updating", e);
+            }else {
+                // Update the fields we want to
+                task.put(CollegeApplicationTask.TASK_KEY_TITLE, applicationTask.getTaskTitle());
+                task.put(CollegeApplicationTask.TASK_KEY_STATE, applicationTask.getTaskState());
+                task.put(CollegeApplicationTask.TASK_KEY_END_DATE, applicationTask.getTaskEndDate());
+                task.put(CollegeApplicationTask.TASK_KEY_DESCRIPTION, applicationTask.getTaskDescription());
+                //All other fields will remain the same
+                task.saveInBackground(ex -> {
+                    if (ex != null){
+                        Log.e(TAG, "App Step Save Failed...", ex);
+                        callback.onCompleted(true);
+                    }else {
+                        Log.d(TAG, "App Step Save Success...");
+                        callback.onCompleted(false);
+                    }
 
-                        }
-                    });
-                }
+                });
             }
         });
     }

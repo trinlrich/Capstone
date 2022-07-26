@@ -87,5 +87,6 @@ dependencies {
     // TapTargetView
     implementation 'com.getkeepsafe.taptargetview:taptargetview:1.11.0'
 
-
+    // CustomDateTimePicker
+    implementation 'com.github.noowenz:CustomDateTimePicker:1.01'
 }

@@ -50,6 +50,7 @@ public class CollegeTaskMgmtFragment extends Fragment {
     Map<Button, LinearLayout> dropAreaToLayoutMap = new HashMap<>();
     private Button createButton;
     private LinearLayout masterToDoLayout;
+    private Button dropButtonToDo;
 
     private LinearLayout masterInProgressLayout;
     private Button dropButtonIP;
@@ -66,6 +67,7 @@ public class CollegeTaskMgmtFragment extends Fragment {
     private String userId ;
 
     private Integer collegeId;
+    private final HashMap<Integer, Integer> STATUS_COLORS = new HashMap<>();
 
     public CollegeTaskMgmtFragment() {
         // Required empty public constructor
@@ -107,11 +109,15 @@ public class CollegeTaskMgmtFragment extends Fragment {
         if (getArguments().containsKey(COLLEGEID)){
             collegeId = getArguments().getInt(COLLEGEID);
         }
+        createStatusColorsMap();
+        // New Task Creation
+        createButton = view.findViewById(R.id.createTaskBtn);
+        createButton.setOnClickListener(this::onCreateTaskClick);
 
         // To Do layout Setup And Initialization
         masterToDoLayout = view.findViewById(R.id.masterToDoLayout);
-        createButton = view.findViewById(R.id.createTaskBtn);
-        createButton.setOnClickListener(this::onCreateTaskClick);
+        dropButtonToDo = view.findViewById(R.id.dropAreaButtonToDo);
+        attachDragListener(dropButtonToDo);
 
         // In-progress layout Setup And Initialization
         masterInProgressLayout = view.findViewById(R.id.masterIPLayout);
@@ -121,8 +127,10 @@ public class CollegeTaskMgmtFragment extends Fragment {
         // Completed layout Setup And Initialization
         masterCompletedLayout = view.findViewById(R.id.masterCompletedLayout);
         dropButtonCompleted = view.findViewById(R.id.dropCompletedAreaButton);
-        initStates();
         attachDragListener(dropButtonCompleted);
+
+        initStates();
+
         // viewmodel creation
         TaskMgmtViewModelFactory factory = new TaskMgmtViewModelFactory(userId,collegeId);
         collegeTaskViewModel = new ViewModelProvider( this, factory).get(TaskMgmtViewModel.class);
@@ -134,6 +142,7 @@ public class CollegeTaskMgmtFragment extends Fragment {
 
     private void initStates() {
         // Initialize the states drop area to LayoutMapping
+        dropAreaToLayoutMap.put(dropButtonToDo, masterToDoLayout);
         dropAreaToLayoutMap.put(dropButtonIP, masterInProgressLayout);
         dropAreaToLayoutMap.put(dropButtonCompleted, masterCompletedLayout);
 
@@ -179,9 +188,11 @@ public class CollegeTaskMgmtFragment extends Fragment {
                     dropButton.setAlpha(1.0f);
                     // Does a getResult(), and displays what happened.
                     if (e.getResult()) {
-                        Toast.makeText(getContext(), "The drop was handled.", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getContext(), "The drop was handled.", Toast.LENGTH_SHORT).show();
+                        Log.d(TAG, "The drop was handled");
                     } else {
-                        Toast.makeText(getContext(), "The drop didn't work.", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getContext(), "The drop didn't work.", Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, "The drop didn't work.");
                     }
                     v.invalidate();
                     return true;
@@ -206,19 +217,24 @@ public class CollegeTaskMgmtFragment extends Fragment {
                 .setDuration(1000);
         TransitionManager.beginDelayedTransition(srcLayout, move);
         srcLayout.removeView(draggableItem);
-        tgtLayout.addView(draggableItem);
+        changeTaskColor(draggableItem, state);
+        tgtLayout.addView(draggableItem,1);
         // Change the state of the tasks
         tasksToTaskLayoutMap.put((CardView) draggableItem, tgtLayout);
     }
+
+    private void changeTaskColor(View draggableItem, int state) {
+        CardView cardView = (CardView) draggableItem;
+        cardView.getChildAt(0).setBackgroundResource(STATUS_COLORS.get(state));
+    }
+
 
     private void loadApplicationsTasks() {
 
         for (int indx = 0; indx < applicationTasks.size(); indx++) {
             CollegeApplicationTask task = applicationTasks.get(indx);
-            CardView newCard = createCardView(task.getTaskTitle(), indx);
-            // For this example the newly created card is always in TODO Layout
-            // For other apps this table should be initialized after loading data from repository
-            // And drawing to UI
+            CardView newCard = createCardView(task.getTaskTitle(), indx, task.getTaskState());
+            // Put the task to thier layouts
             LinearLayout initalLayout = getInitialLayoutForTasks(task);
             tasksToTaskLayoutMap.put(newCard, initalLayout);
 
@@ -285,17 +301,20 @@ public class CollegeTaskMgmtFragment extends Fragment {
         }
     }
 
-    private CardView createCardView(String taskName, Integer appStepIndex) {
+    private CardView createCardView(String taskName, Integer appStepIndex, int taskstate) {
         ContextThemeWrapper newCardContext = new ContextThemeWrapper(getContext(), R.style.taskCardStyle);
         CardView cardview = new CardView(newCardContext);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(newCardContext.getResources().getDimensionPixelSize(R.dimen.task_card_width), newCardContext.getResources().getDimensionPixelSize(R.dimen.task_card_height));
         layoutParams.setMargins(5, 5, 5, 5);
         cardview.setLayoutParams(layoutParams);
+        cardview.setCardElevation(100);
+        cardview.setRadius(100);
         cardview.setTag(appStepIndex.toString());
 
         ContextThemeWrapper newCardTextContext = new ContextThemeWrapper(getContext(), R.style.taskCardTextStyle);
         TextView textview = new TextView(newCardTextContext);
         textview.setText(taskName);
+        textview.setBackgroundResource(STATUS_COLORS.get(taskstate));
         cardview.addView(textview);
         return cardview;
     }
@@ -307,5 +326,11 @@ public class CollegeTaskMgmtFragment extends Fragment {
                 .replace(R.id.flContainer, fragment)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    private void createStatusColorsMap() {
+        STATUS_COLORS.put(0, R.color.to_do_red);
+        STATUS_COLORS.put(1, R.color.in_progress_yellow);
+        STATUS_COLORS.put(2, R.color.complete_green);
     }
 }
