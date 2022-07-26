@@ -11,9 +11,12 @@ import com.example.capstoneapp.parsedatasource.Utilities;
 import com.example.capstoneapp.model.ParseFirebaseUser;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.parse.Parse;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.SaveCallback;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,10 +29,21 @@ public class SurveyViewModel extends ViewModel {
     private FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
     public enum DictionaryKeys{
-        FIRST_NAME, LAST_NAME, DEGREE_SEEKING
+        FIRST_NAME, LAST_NAME, DEGREE_SEEKING;
     }
 
-    public LiveData<Boolean> saveUser(HashMap userInfo) {
+    public LiveData<Boolean> saveProfile(String imageUri, HashMap userInfo) {
+        ParseFile file = new ParseFile(new File(imageUri));
+        file.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                saveUser(userInfo);
+            }
+        });
+        return isUserSaved;
+    }
+
+    public void saveUser(HashMap userInfo) {
         ParseFirebaseUser user = new ParseFirebaseUser();
         user.setFirstName(userInfo.get(DictionaryKeys.FIRST_NAME).toString());
         user.setLastName(userInfo.get(DictionaryKeys.LAST_NAME).toString());
@@ -44,7 +58,6 @@ public class SurveyViewModel extends ViewModel {
                 checkForUserId(firebaseUid);
             }
         });
-        return isUserSaved;
     }
 
     private void checkForUserId(String userId) {

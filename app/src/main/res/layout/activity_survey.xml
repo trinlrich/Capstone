@@ -32,11 +32,12 @@
         app:layout_constraintTop_toBottomOf="@+id/survey_anim" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/btnProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/larger_margin"
         android:background="@drawable/circle_image"
+        android:onClick="onPickPhoto"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title"
@@ -51,7 +52,7 @@
         app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton">
+        app:layout_constraintTop_toBottomOf="@+id/btnProfile">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -159,7 +160,7 @@
         android:id="@+id/btnDone"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/larger_margin"
+        android:layout_marginTop="@dimen/extra_large_margin"
         android:background="@drawable/round_button"
         android:onClick="onDoneClick"
         android:text="Done"
