@@ -49,7 +49,7 @@ public class SurveyActivity extends AppCompatActivity {
         degreeSeekingText = findViewById(R.id.degreeSeekingText);
         EditText emailText = findViewById(R.id.emailText);
 
-        UiUtils.setViewImage(this, btnProfile, "", null, R.drawable.profile_black_48);
+        UiUtils.setViewImage(this, btnProfile, "", null, R.drawable.camera_white_24);
         firstNameText.setText(viewModel.getUserFirstName());
         lastNameText.setText(viewModel.getUserLastName());
         emailText.setText(viewModel.getUserEmail());
@@ -78,7 +78,7 @@ public class SurveyActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK){
             selectedImage = data.getData();
-            UiUtils.setViewImage(this, btnProfile, selectedImage.toString(), new CircleCrop(), R.drawable.profile_black_48);
+            UiUtils.setViewImage(this, btnProfile, selectedImage.toString(), new CircleCrop(), R.drawable.camera_white_24);
         }
     }
 

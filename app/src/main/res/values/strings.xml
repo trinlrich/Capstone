@@ -117,6 +117,12 @@
     <string name="data_not_available">Data Not Available</string>
 
     // Survey Details
+    <string name="survey_first_name_header">First Name</string>
+    <string name="survey_first_name_hint">What is your first name?</string>
+    <string name="survey_last_name_header">Last Name</string>
+    <string name="survey_last_name_hint">What is your last name?</string>
+    <string name="survey_degree_header">Degree Seeking</string>
+    <string name="survey_degree_hint">What degree are you planning to get?</string>
     <string name="survey_email_header">E-Mail</string>
     <string name="survey_email_hint">E-Mail</string>
 </resources>

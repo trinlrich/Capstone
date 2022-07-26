@@ -22,6 +22,9 @@ public class UiUtils {
                         .load(imageUrl)
                         .into(imageView);
             }
+        } else if (defaultImage == R.drawable.camera_white_24) {
+            imageView.setImageResource(defaultImage);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         } else {
             imageView.setImageResource(defaultImage);
             imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);

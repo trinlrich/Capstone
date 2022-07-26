@@ -14,7 +14,11 @@
         <entry key="app/src/main/res/drawable-v24/search_view_background.xml" value="0.1785" />
         <entry key="app/src/main/res/drawable-v24/spinner_complete_background.xml" value="0.26" />
         <entry key="app/src/main/res/drawable-v24/spinner_inprogress_background.xml" value="0.26" />
+        <entry key="app/src/main/res/drawable/bg_gradient.xml" value="0.172" />
         <entry key="app/src/main/res/drawable/button_icon_heart.xml" value="0.2055" />
+        <entry key="app/src/main/res/drawable/camera_white_24.xml" value="0.172" />
+        <entry key="app/src/main/res/drawable/circle_image.xml" value="0.172" />
+        <entry key="app/src/main/res/drawable/circle_view_background.xml" value="0.172" />
         <entry key="app/src/main/res/drawable/edit_text_background.xml" value="0.261" />
         <entry key="app/src/main/res/drawable/filter_list_white_24.xml" value="0.1785" />
         <entry key="app/src/main/res/drawable/filter_selected.xml" value="0.1785" />
@@ -32,8 +36,9 @@
         <entry key="app/src/main/res/layout/academics_tab.xml" value="0.2359375" />
         <entry key="app/src/main/res/layout/activity_auth.xml" value="0.22267913818359375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1877303059895833" />
-        <entry key="app/src/main/res/layout/activity_survey.xml" value="0.23915608723958337" />
+        <entry key="app/src/main/res/layout/activity_survey.xml" value="0.3779149373372396" />
         <entry key="app/src/main/res/layout/admissions_tab.xml" value="0.2778961181640626" />
+        <entry key="app/src/main/res/layout/circle_view.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/costs_tab.xml" value="0.2947825113932292" />
         <entry key="app/src/main/res/layout/divider_view.xml" value="0.4338479021470323" />
         <entry key="app/src/main/res/layout/fragment_academics.xml" value="0.2359375" />
