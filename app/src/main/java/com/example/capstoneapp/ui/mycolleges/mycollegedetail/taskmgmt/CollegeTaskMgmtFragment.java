@@ -67,6 +67,7 @@ public class CollegeTaskMgmtFragment extends Fragment {
     private String userId ;
 
     private Integer collegeId;
+    private final HashMap<Integer, Integer> STATUS_COLORS = new HashMap<>();
 
     public CollegeTaskMgmtFragment() {
         // Required empty public constructor
@@ -108,6 +109,7 @@ public class CollegeTaskMgmtFragment extends Fragment {
         if (getArguments().containsKey(COLLEGEID)){
             collegeId = getArguments().getInt(COLLEGEID);
         }
+        createStatusColorsMap();
         // New Task Creation
         createButton = view.findViewById(R.id.createTaskBtn);
         createButton.setOnClickListener(this::onCreateTaskClick);
@@ -215,16 +217,23 @@ public class CollegeTaskMgmtFragment extends Fragment {
                 .setDuration(1000);
         TransitionManager.beginDelayedTransition(srcLayout, move);
         srcLayout.removeView(draggableItem);
+        changeTaskColor(draggableItem, state);
         tgtLayout.addView(draggableItem,1);
         // Change the state of the tasks
         tasksToTaskLayoutMap.put((CardView) draggableItem, tgtLayout);
     }
 
+    private void changeTaskColor(View draggableItem, int state) {
+        CardView cardView = (CardView) draggableItem;
+        cardView.getChildAt(0).setBackgroundResource(STATUS_COLORS.get(state));
+    }
+
+
     private void loadApplicationsTasks() {
 
         for (int indx = 0; indx < applicationTasks.size(); indx++) {
             CollegeApplicationTask task = applicationTasks.get(indx);
-            CardView newCard = createCardView(task.getTaskTitle(), indx);
+            CardView newCard = createCardView(task.getTaskTitle(), indx, task.getTaskState());
             // Put the task to thier layouts
             LinearLayout initalLayout = getInitialLayoutForTasks(task);
             tasksToTaskLayoutMap.put(newCard, initalLayout);
@@ -292,17 +301,20 @@ public class CollegeTaskMgmtFragment extends Fragment {
         }
     }
 
-    private CardView createCardView(String taskName, Integer appStepIndex) {
+    private CardView createCardView(String taskName, Integer appStepIndex, int taskstate) {
         ContextThemeWrapper newCardContext = new ContextThemeWrapper(getContext(), R.style.taskCardStyle);
         CardView cardview = new CardView(newCardContext);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(newCardContext.getResources().getDimensionPixelSize(R.dimen.task_card_width), newCardContext.getResources().getDimensionPixelSize(R.dimen.task_card_height));
         layoutParams.setMargins(5, 5, 5, 5);
         cardview.setLayoutParams(layoutParams);
+        cardview.setCardElevation(100);
+        cardview.setRadius(100);
         cardview.setTag(appStepIndex.toString());
 
         ContextThemeWrapper newCardTextContext = new ContextThemeWrapper(getContext(), R.style.taskCardTextStyle);
         TextView textview = new TextView(newCardTextContext);
         textview.setText(taskName);
+        textview.setBackgroundResource(STATUS_COLORS.get(taskstate));
         cardview.addView(textview);
         return cardview;
     }
@@ -314,5 +326,11 @@ public class CollegeTaskMgmtFragment extends Fragment {
                 .replace(R.id.flContainer, fragment)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    private void createStatusColorsMap() {
+        STATUS_COLORS.put(0, R.color.to_do_red);
+        STATUS_COLORS.put(1, R.color.in_progress_yellow);
+        STATUS_COLORS.put(2, R.color.complete_green);
     }
 }
