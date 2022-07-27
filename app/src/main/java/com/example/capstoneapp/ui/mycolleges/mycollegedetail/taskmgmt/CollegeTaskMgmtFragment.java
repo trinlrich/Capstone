@@ -29,6 +29,7 @@ import com.example.capstoneapp.R;
 import com.example.capstoneapp.model.CollegeApplicationTask;
 import com.example.capstoneapp.ui.collegesearch.collegedetail.CollegeDetailFragment;
 import com.example.capstoneapp.ui.mycolleges.mycollegedetail.CustomCardDragShadowBuilder;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,7 +49,7 @@ public class CollegeTaskMgmtFragment extends Fragment {
 
     Map<CardView, LinearLayout> tasksToTaskLayoutMap = new HashMap<>();
     Map<Button, LinearLayout> dropAreaToLayoutMap = new HashMap<>();
-    private Button createButton;
+    private FloatingActionButton createButton;
     private LinearLayout masterToDoLayout;
     private Button dropButtonToDo;
 
@@ -97,7 +98,7 @@ public class CollegeTaskMgmtFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_app_step_management, container, false);
+        return inflater.inflate(R.layout.fragment_task_mgmt, container, false);
     }
 
     @Override

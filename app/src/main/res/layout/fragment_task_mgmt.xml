@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="206dp" />
+
+    <TextView
+        android:id="@+id/todoTaskHeaderTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/large_margin"
+        android:layout_marginTop="@dimen/large_margin"
+        android:fontFamily="@font/amaranth_bold"
+        android:text="@string/todoTaskHeader"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/scrollViewToDo"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <HorizontalScrollView
+        android:id="@+id/scrollViewToDo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/small_margin"
+        android:clipToPadding="false"
+        android:padding="@dimen/medium_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/todoTaskHeaderTxt">
+
+        <LinearLayout
+            android:id="@+id/masterToDoLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/status_td_background"
+            android:clipToPadding="false"
+            android:elevation="@dimen/card_elevation"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:tag="0">
+
+            <Button
+                android:id="@+id/dropAreaButtonToDo"
+                style="@style/buttonStyle1"
+                android:layout_height="match_parent"
+                android:background="@drawable/circular_button"
+                android:text="Drag Here" />
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <TextView
+        android:id="@+id/ipTaskHeaderTxt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/medium_margin"
+        android:fontFamily="@font/amaranth_bold"
+        android:gravity="center"
+        android:text="@string/ipTaskHeader"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/scrollViewIP"
+        app:layout_constraintStart_toStartOf="@+id/scrollViewIP"
+        app:layout_constraintTop_toBottomOf="@+id/scrollViewToDo" />
+
+    <ScrollView
+        android:id="@+id/scrollViewIP"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/small_margin"
+        android:clipToPadding="false"
+        android:padding="@dimen/medium_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ipTaskHeaderTxt">
+
+        <LinearLayout
+            android:id="@+id/masterIPLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/status_ip_background"
+            android:clipToPadding="false"
+            android:elevation="@dimen/card_elevation"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:tag="1">
+
+            <Button
+                android:id="@+id/dropIPAreaButton"
+                style="@style/buttonStyle1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/circular_button"
+                android:text="Drag Here" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <ScrollView
+        android:id="@+id/scrollViewCompleted"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/small_margin"
+        android:clipToPadding="false"
+        android:padding="@dimen/medium_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guidelineCenter"
+        app:layout_constraintTop_toBottomOf="@id/completeTaskHeaderTxt">
+
+        <LinearLayout
+            android:id="@+id/masterCompletedLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/status_comp_background"
+            android:clipToPadding="false"
+            android:elevation="@dimen/card_elevation"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:tag="2">
+
+            <Button
+                android:id="@+id/dropCompletedAreaButton"
+                style="@style/buttonStyle1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/circular_button"
+                android:text="Drag Here" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/completeTaskHeaderTxt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/medium_margin"
+        android:fontFamily="@font/amaranth_bold"
+        android:gravity="center"
+        android:text="@string/completeTaskHeader"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/scrollViewCompleted"
+        app:layout_constraintStart_toStartOf="@+id/scrollViewCompleted"
+        app:layout_constraintTop_toBottomOf="@+id/scrollViewToDo" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/createTaskBtn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/favorite_black_48" />
+</androidx.constraintlayout.widget.ConstraintLayout>

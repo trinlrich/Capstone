@@ -4,5 +4,5 @@
         android:width="1dp"
         android:color="@color/black" />
     <corners
-        android:radius="@dimen/edit_text_radius" />
+        android:radius="@dimen/black_border_radius" />
 </shape>
