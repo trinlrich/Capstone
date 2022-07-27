@@ -72,7 +72,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="500dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal">
 
             <EditText
@@ -137,7 +137,7 @@
                 android:background="@drawable/edit_text_background"
                 android:ems="10"
                 android:hint="@string/survey_email_hint"
-                android:inputType="textPersonName"
+                android:inputType="textEmailAddress"
                 android:padding="@dimen/large_margin"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@+id/lastNameText"
@@ -156,51 +156,27 @@
                 app:layout_constraintStart_toStartOf="@+id/lastNameHeader"
                 app:layout_constraintTop_toBottomOf="@id/lastNameText" />
 
-            <EditText
-                android:id="@+id/degreeSeekingText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/medium_margin"
-                android:background="@drawable/edit_text_background"
-                android:ems="10"
-                android:hint="@string/survey_degree_hint"
-                android:inputType="textPersonName"
-                android:padding="@dimen/large_margin"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="@id/emailText"
-                app:layout_constraintStart_toStartOf="@+id/emailText"
-                app:layout_constraintTop_toTopOf="@+id/degreeSeekingHeader" />
-
-            <TextView
-                android:id="@+id/degreeSeekingHeader"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/larger_margin"
-                android:background="@color/white"
-                android:paddingHorizontal="@dimen/small_margin"
-                android:text="@string/survey_degree_header"
-                android:textColor="@color/grey"
-                app:layout_constraintStart_toStartOf="@+id/emailHeader"
-                app:layout_constraintTop_toBottomOf="@+id/emailText" />
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/degreeSpinnerLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/medium_margin"
+                android:background="@drawable/edit_text_background"
                 android:orientation="horizontal"
+                android:padding="@dimen/small_margin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/degreeSeekingText">
+                app:layout_constraintTop_toTopOf="@+id/degreeSeekingHeader">
 
                 <Spinner
                     android:id="@+id/degreeSpinner"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center"
                     android:autofillHints="@string/survey_degree_hint"
+                    android:background="@android:color/transparent"
                     android:gravity="center"
                     android:spinnerMode="dropdown"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -221,6 +197,18 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/degreeSeekingHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/larger_margin"
+                android:background="@color/white"
+                android:paddingHorizontal="@dimen/small_margin"
+                android:text="@string/survey_degree_header"
+                android:textColor="@color/grey"
+                app:layout_constraintStart_toStartOf="@+id/emailHeader"
+                app:layout_constraintTop_toBottomOf="@+id/emailText" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

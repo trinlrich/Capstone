@@ -40,7 +40,6 @@ public class SurveyActivity extends AppCompatActivity {
     private ImageButton btnProfile;
     private EditText firstNameText;
     private EditText lastNameText;
-    private EditText degreeSeekingText;
     private ConstraintLayout spinnerLayout;
     private Spinner degreeSpinner;
     private List<String> degreeList;
@@ -62,7 +61,6 @@ public class SurveyActivity extends AppCompatActivity {
         firstNameText = findViewById(R.id.firstNameText);
         lastNameText = findViewById(R.id.lastNameText);
         EditText emailText = findViewById(R.id.emailText);
-        degreeSeekingText = findViewById(R.id.degreeSeekingText);
         spinnerLayout = findViewById(R.id.degreeSpinnerLayout);
         degreeSpinner = findViewById(R.id.degreeSpinner);
         createDegreeList();
@@ -80,8 +78,8 @@ public class SurveyActivity extends AppCompatActivity {
             }
         });
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, degreeList);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.degree_spinner_item, degreeList);
+        adapter.setDropDownViewResource(R.layout.degree_spinner_item);
         degreeSpinner.setAdapter(adapter);
         degreeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

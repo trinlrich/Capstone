@@ -28,7 +28,6 @@ import com.example.capstoneapp.model.CollegeApplicationTask;
 import com.example.capstoneapp.ui.UiUtils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class TaskDetailFragment extends Fragment {
@@ -94,7 +93,7 @@ public class TaskDetailFragment extends Fragment {
             }
         });
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), R.layout.spinner_item, statusList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), R.layout.state_spinner_item, statusList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         statusSpinner.setAdapter(adapter);
         statusSpinner.setSelection(task.getTaskState());
