@@ -34,10 +34,12 @@
     <dimen name="fav_college_card_view_margin">8dp</dimen>
 
     <dimen name="task_list_radius">10dp</dimen>
-    <dimen name="task_button_height">115dp</dimen>
+    <dimen name="task_button_height">105dp</dimen>
     <dimen name="task_button_margin">5dp</dimen>
     <dimen name="task_card_height">115dp</dimen>
     <dimen name="task_card_width">115dp</dimen>
+
+    <dimen name="state_layout_min_dimens">115dip</dimen>
 
     <dimen name="icon_size">40dp</dimen>
     <dimen name="icon_elevation">11dp</dimen>

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:clipToPadding="false">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineCenter"
@@ -15,8 +17,8 @@
         android:id="@+id/todoTaskHeaderTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/large_margin"
-        android:layout_marginTop="@dimen/large_margin"
+        android:layout_marginStart="@dimen/larger_margin"
+        android:layout_marginTop="@dimen/medium_margin"
         android:fontFamily="@font/amaranth_bold"
         android:text="@string/todoTaskHeader"
         android:textSize="16sp"
@@ -24,7 +26,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/scrollViewToDo"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/createTaskBtn" />
 
     <HorizontalScrollView
         android:id="@+id/scrollViewToDo"
@@ -45,15 +47,32 @@
             android:clipToPadding="false"
             android:elevation="@dimen/card_elevation"
             android:gravity="center"
+            android:minWidth="@dimen/state_layout_min_dimens"
+            android:minHeight="@dimen/state_layout_min_dimens"
             android:orientation="horizontal"
             android:tag="0">
 
             <Button
                 android:id="@+id/dropAreaButtonToDo"
                 style="@style/buttonStyle1"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:alpha="0.3"
                 android:background="@drawable/circular_button"
-                android:text="Drag Here" />
+                android:text="Drag Here"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tvNoItemsTD"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:maxLines="2"
+                android:padding="@dimen/small_margin"
+                android:text="@string/no_items_to_do"
+                android:visibility="gone" />
 
         </LinearLayout>
     </HorizontalScrollView>
@@ -92,6 +111,7 @@
             android:clipToPadding="false"
             android:elevation="@dimen/card_elevation"
             android:gravity="center"
+            android:minHeight="@dimen/state_layout_min_dimens"
             android:orientation="vertical"
             android:tag="1">
 
@@ -99,9 +119,23 @@
                 android:id="@+id/dropIPAreaButton"
                 style="@style/buttonStyle1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:alpha="0.3"
                 android:background="@drawable/circular_button"
-                android:text="Drag Here" />
+                android:text="Drag Here"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tvNoItemsIP"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:maxLines="2"
+                android:padding="@dimen/small_margin"
+                android:text="@string/no_items_in_progress"
+                android:visibility="gone" />
 
         </LinearLayout>
     </ScrollView>
@@ -126,6 +160,7 @@
             android:clipToPadding="false"
             android:elevation="@dimen/card_elevation"
             android:gravity="center"
+            android:minHeight="@dimen/state_layout_min_dimens"
             android:orientation="vertical"
             android:tag="2">
 
@@ -133,9 +168,27 @@
                 android:id="@+id/dropCompletedAreaButton"
                 style="@style/buttonStyle1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:alpha="0.3"
                 android:background="@drawable/circular_button"
-                android:text="Drag Here" />
+                android:minWidth="@dimen/state_layout_min_dimens"
+                android:shadowColor="@color/black"
+                android:shadowDx="100"
+                android:shadowDy="100"
+                android:text="Drag Here"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tvNoItemsComp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:maxLines="2"
+                android:padding="@dimen/small_margin"
+                android:text="@string/no_items_complete"
+                android:visibility="gone" />
 
         </LinearLayout>
     </ScrollView>
@@ -154,15 +207,17 @@
         app:layout_constraintStart_toStartOf="@+id/scrollViewCompleted"
         app:layout_constraintTop_toBottomOf="@+id/scrollViewToDo" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <Button
         android:id="@+id/createTaskBtn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:clickable="true"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
+        style="@style/newTaskButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_button"
+        android:backgroundTint="@color/light_grey"
+        android:elevation="@dimen/card_elevation"
+        android:text="Create New Task"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/favorite_black_48" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

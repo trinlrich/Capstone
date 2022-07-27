@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,9 +26,7 @@ import androidx.transition.TransitionManager;
 
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.model.CollegeApplicationTask;
-import com.example.capstoneapp.ui.collegesearch.collegedetail.CollegeDetailFragment;
 import com.example.capstoneapp.ui.mycolleges.mycollegedetail.CustomCardDragShadowBuilder;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,15 +46,21 @@ public class CollegeTaskMgmtFragment extends Fragment {
 
     Map<CardView, LinearLayout> tasksToTaskLayoutMap = new HashMap<>();
     Map<Button, LinearLayout> dropAreaToLayoutMap = new HashMap<>();
-    private FloatingActionButton createButton;
+    private Button createButton;
     private LinearLayout masterToDoLayout;
     private Button dropButtonToDo;
+    private TextView noItemsTD;
+    private int tdTaskTotal;
 
     private LinearLayout masterInProgressLayout;
     private Button dropButtonIP;
+    private TextView noItemsIP;
+    private int ipTaskTotal;
 
     private LinearLayout masterCompletedLayout;
     private Button dropButtonCompleted;
+    private TextView noItemsComp;
+    private int compTaskTotal;
 
     private LinearLayout sourceLayout;
     private LinearLayout targetLayout;
@@ -119,16 +122,19 @@ public class CollegeTaskMgmtFragment extends Fragment {
         masterToDoLayout = view.findViewById(R.id.masterToDoLayout);
         dropButtonToDo = view.findViewById(R.id.dropAreaButtonToDo);
         attachDragListener(dropButtonToDo);
+        noItemsTD = view.findViewById(R.id.tvNoItemsTD);
 
         // In-progress layout Setup And Initialization
         masterInProgressLayout = view.findViewById(R.id.masterIPLayout);
         dropButtonIP = view.findViewById(R.id.dropIPAreaButton);
         attachDragListener(dropButtonIP);
+        noItemsIP = view.findViewById(R.id.tvNoItemsIP);
 
         // Completed layout Setup And Initialization
         masterCompletedLayout = view.findViewById(R.id.masterCompletedLayout);
         dropButtonCompleted = view.findViewById(R.id.dropCompletedAreaButton);
         attachDragListener(dropButtonCompleted);
+        noItemsComp = view.findViewById(R.id.tvNoItemsComp);
 
         initStates();
 
@@ -157,13 +163,13 @@ public class CollegeTaskMgmtFragment extends Fragment {
             switch (e.getAction()) {
                 case DragEvent.ACTION_DRAG_STARTED:
                     Log.d(TAG, "DragEvent.ACTION_DRAG_STARTED");
-                    dropButton.setAlpha(0.7f);
+                    dropButton.setAlpha(0.3f);
                     // Invalidate the view to force a redraw
                     v.invalidate();
                     return true;
                 case DragEvent.ACTION_DRAG_ENTERED:
                     Log.d(TAG, "DragEvent.ACTION_DRAG_ENTERED");
-                    dropButton.setAlpha(0.3f);
+                    dropButton.setAlpha(0.7f);
                     // When every drop area is entered we need to update the target layout
                     targetLayout = dropAreaToLayoutMap.get(dropButton);
                     v.invalidate();
@@ -174,19 +180,20 @@ public class CollegeTaskMgmtFragment extends Fragment {
                     return true;
                 case DragEvent.ACTION_DRAG_EXITED:
                     Log.d(TAG, "DragEvent.ACTION_DRAG_EXITED");
-                    dropButton.setAlpha(1.0f);
+                    dropButton.setAlpha(0.3f);
                     draggableItem.setVisibility(View.VISIBLE);
                     v.invalidate();
                     return true;
                 case DragEvent.ACTION_DROP:
                     Log.d(TAG, "DragEvent.ACTION_DROP");
-                    dropButton.setAlpha(1.0f);
+                    dropButton.setAlpha(0.3f);
+                    dropButton.setVisibility(View.GONE);
                     updateAppStep(sourceLayout, targetLayout, draggableItem);
                     v.invalidate();
                     return true;
                 case DragEvent.ACTION_DRAG_ENDED:
                     Log.d(TAG, "DragEvent.ACTION_DRAG_ENDED");
-                    dropButton.setAlpha(1.0f);
+                    dropButton.setVisibility(View.GONE);
                     // Does a getResult(), and displays what happened.
                     if (e.getResult()) {
                         //Toast.makeText(getContext(), "The drop was handled.", Toast.LENGTH_SHORT).show();
@@ -218,20 +225,32 @@ public class CollegeTaskMgmtFragment extends Fragment {
                 .setDuration(1000);
         TransitionManager.beginDelayedTransition(srcLayout, move);
         srcLayout.removeView(draggableItem);
-        changeTaskColor(draggableItem, state);
         tgtLayout.addView(draggableItem,1);
+        updateTaskTotals(srcLayout, tgtLayout);
+        setNoItemsText();
         // Change the state of the tasks
         tasksToTaskLayoutMap.put((CardView) draggableItem, tgtLayout);
     }
 
-    private void changeTaskColor(View draggableItem, int state) {
-        CardView cardView = (CardView) draggableItem;
-        cardView.getChildAt(0).setBackgroundResource(STATUS_COLORS.get(state));
+    private void updateTaskTotals(LinearLayout srcLayout, LinearLayout tgtLayout) {
+        if (srcLayout.getTag().toString().equals(masterToDoLayout.getTag().toString())) {
+            tdTaskTotal--;
+        } else if (srcLayout.getTag().toString().equals(masterInProgressLayout.getTag().toString())) {
+            ipTaskTotal--;
+        } else if (srcLayout.getTag().toString().equals(masterCompletedLayout.getTag().toString())) {
+            compTaskTotal--;
+        }
+
+        if (tgtLayout.getTag().toString().equals(masterToDoLayout.getTag().toString())) {
+            tdTaskTotal++;
+        } else if (tgtLayout.getTag().toString().equals(masterInProgressLayout.getTag().toString())) {
+            ipTaskTotal++;
+        } else if (tgtLayout.getTag().toString().equals(masterCompletedLayout.getTag().toString())) {
+            compTaskTotal++;
+        }
     }
 
-
     private void loadApplicationsTasks() {
-
         for (int indx = 0; indx < applicationTasks.size(); indx++) {
             CollegeApplicationTask task = applicationTasks.get(indx);
             CardView newCard = createCardView(task.getTaskTitle(), indx, task.getTaskState());
@@ -256,6 +275,9 @@ public class CollegeTaskMgmtFragment extends Fragment {
 
                 // Start the drag.
                 v.startDragAndDrop(dragData, cardShadow, v, 0);
+                dropButtonToDo.setVisibility(View.VISIBLE);
+                dropButtonIP.setVisibility(View.VISIBLE);
+                dropButtonCompleted.setVisibility(View.VISIBLE);
 
                 // Hide the card when drag is being started or you can do you custom implementation here
                 // v.setVisibility(View.INVISIBLE);
@@ -283,6 +305,29 @@ public class CollegeTaskMgmtFragment extends Fragment {
 
             initalLayout.addView(newCard);
         }
+
+        // Make No Items text visible if there are no items in state layout
+        setNoItemsText();
+    }
+
+    private void setNoItemsText() {
+        if (tdTaskTotal == 0) {
+            noItemsTD.setVisibility(View.VISIBLE);
+        } else {
+            noItemsTD.setVisibility(View.GONE);
+        }
+
+        if (ipTaskTotal == 0) {
+            noItemsIP.setVisibility(View.VISIBLE);
+        } else {
+            noItemsIP.setVisibility(View.GONE);
+        }
+
+        if (compTaskTotal == 0) {
+            noItemsComp.setVisibility(View.VISIBLE);
+        } else {
+            noItemsComp.setVisibility(View.GONE);
+        }
     }
 
     private LinearLayout getInitialLayoutForTasks(CollegeApplicationTask task) {
@@ -290,10 +335,13 @@ public class CollegeTaskMgmtFragment extends Fragment {
         Integer state = task.getTaskState();
         switch (state) {
             case 0:
+                tdTaskTotal++;
                 return masterToDoLayout;
             case 1:
+                ipTaskTotal++;
                 return masterInProgressLayout;
             case 2:
+                compTaskTotal++;
                 return masterCompletedLayout;
             default: {
                 Log.e(TAG, "INVALID STATE FOR App Step");
