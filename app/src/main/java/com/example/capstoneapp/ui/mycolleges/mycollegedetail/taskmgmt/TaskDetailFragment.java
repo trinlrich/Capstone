@@ -47,8 +47,6 @@ public class TaskDetailFragment extends Fragment {
     private EditText etTaskNotes;
     private Button btnSave;
 
-    private HashMap taskInfo;
-
     private int updatedTaskStatus;
 
     public TaskDetailFragment(CollegeApplicationTask task) {
@@ -81,8 +79,6 @@ public class TaskDetailFragment extends Fragment {
         tvRelativeTimeUntil = view.findViewById(R.id.tvRelativeTimeUntil);
         etTaskNotes = view.findViewById(R.id.etTaskNotes);
         btnSave = view.findViewById(R.id.btnSaveTask);
-
-        taskInfo = new HashMap();
 
         UiUtils.setViewText(getContext(), etTaskTitle, task.getTaskTitle());
         UiUtils.setViewText(getContext(), tvTaskDeadline, task.getTaskEndDateAsText());

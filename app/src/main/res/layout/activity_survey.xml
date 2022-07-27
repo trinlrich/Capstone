@@ -60,8 +60,9 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/surveyCard"
-        android:layout_width="300dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/extra_large_margin"
         android:layout_marginVertical="@dimen/larger_margin"
         app:cardBackgroundColor="@android:color/transparent"
         app:cardElevation="0dp"
@@ -71,7 +72,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="500dp"
             android:layout_gravity="center_horizontal">
 
             <EditText
@@ -182,29 +183,30 @@
                 app:layout_constraintStart_toStartOf="@+id/emailHeader"
                 app:layout_constraintTop_toBottomOf="@+id/emailText" />
 
-            <RelativeLayout
-                android:id="@+id/spinnerLayout"
-                android:layout_width="0dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/degreeSpinnerLayout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/medium_margin"
-                android:layout_weight=".28"
                 android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="@+id/degreeSeekingText"
-                app:layout_constraintStart_toStartOf="@+id/degreeSeekingText"
-                app:layout_constraintTop_toBottomOf="@+id/degreeSeekingText">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/degreeSeekingText">
 
                 <Spinner
                     android:id="@+id/degreeSpinner"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center"
-                    android:layout_marginHorizontal="@dimen/small_margin"
-                    android:layout_toStartOf="@+id/dropdownIcon"
-                    android:background="@android:color/transparent"
+                    android:autofillHints="@string/survey_degree_hint"
                     android:gravity="center"
-                    android:spinnerMode="dropdown" />
+                    android:spinnerMode="dropdown"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/dropdownIcon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/dropdownIcon"
@@ -213,9 +215,12 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center"
-                    android:src="@drawable/drop_down_white_24" />
+                    android:src="@drawable/drop_down_black_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

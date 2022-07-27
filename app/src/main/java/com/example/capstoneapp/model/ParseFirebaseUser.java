@@ -18,7 +18,8 @@ public class ParseFirebaseUser extends ParseObject{
 
     public static final String DATA_NOT_AVAILABLE = "Data Not Available";
 
-    public static final HashMap<Integer, String> DEGREES = new HashMap<>();
+    private static final HashMap<Integer, String> DEGREES = new HashMap<>();
+    public static HashMap<Integer, String> getDegrees() { return DEGREES; }
 
     public ParseFirebaseUser() {
         createDegreesMap();
@@ -50,7 +51,6 @@ public class ParseFirebaseUser extends ParseObject{
     }
     public String getDegreeSeekingAsText() { return convertDegreeCodeToString(getDegreeSeekingCode()); }
     public void setDegreeSeeking(String degreeSeeking) { put(KEY_DEGREE_SEEKING, convertDegreeStringToCode(degreeSeeking)); }
-    public static HashMap<Integer, String> getDegrees() { return DEGREES; }
 
     public ParseFile getProfileImage() {
         return getParseFile(KEY_PROFILE_IMAGE);
@@ -66,11 +66,11 @@ public class ParseFirebaseUser extends ParseObject{
         DEGREES.put(3, "Doctoral");
     }
 
-    private String convertDegreeCodeToString(int code) {
+    public String convertDegreeCodeToString(int code) {
         return DEGREES.getOrDefault(code, DATA_NOT_AVAILABLE);
     }
 
-    private int convertDegreeStringToCode(String degree) {
+    public static int convertDegreeStringToCode(String degree) {
         for (Map.Entry<Integer, String> entry : DEGREES.entrySet()) {
             if (entry.getValue().equals(degree)) {
                 return entry.getKey();
