@@ -3,254 +3,527 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingVertical="@dimen/small_margin">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/averageCostCard"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/medium_margin"
-            android:layout_marginTop="@dimen/medium_margin"
-            android:layout_marginBottom="0dp"
-            android:theme="@style/CardTheme"
-            app:cardCornerRadius="@dimen/corner_radius"
-            app:cardElevation="@dimen/card_elevation">
+            android:layout_weight="1"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/medium_margin">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+            <ImageView
+                android:id="@+id/costsIcon"
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:layout_marginBottom="@dimen/icon_offset_margin"
+                android:background="@drawable/round_button"
+                android:backgroundTint="@color/accent_blue"
+                android:elevation="@dimen/icon_elevation"
+                android:outlineSpotShadowColor="@color/grey"
+                android:padding="@dimen/small_margin"
+                app:layout_constraintBottom_toTopOf="@+id/CostsCard"
+                app:layout_constraintEnd_toEndOf="@+id/CostsCard"
+                app:layout_constraintStart_toStartOf="@+id/CostsCard"
+                app:srcCompat="@drawable/dollar_black_48" />
 
-                <TextView
-                    android:id="@+id/tvAvgCostTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:text="@string/average_cost" />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/CostsCard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/medium_margin"
+                android:clipToPadding="false"
+                android:forceHasOverlappingRendering="true"
+                android:theme="@style/CardTheme"
+                app:cardCornerRadius="@dimen/corner_radius"
+                app:cardElevation="@dimen/card_elevation"
+                app:cardPreventCornerOverlap="false"
+                app:contentPadding="@dimen/medium_margin"
+                app:layout_constrainedWidth="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
 
-                <include
-                    android:id="@+id/divider1"
-                    layout="@layout/divider_view"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/small_margin" />
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/tvAvgCost"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:text="$30,000"
-                    android:textStyle="bold"
-                    tools:text="$30,000" />
+                    <TextView
+                        android:id="@+id/tvAvgCostTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/medium_margin"
+                        android:gravity="center"
+                        android:text="@string/average_cost"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/tvAvgCost"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/larger_margin"
+                        android:maxLines="4"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvAvgCostTitle"
+                        tools:text="$30,000" />
 
-        </androidx.cardview.widget.CardView>
+                    <include
+                        android:id="@+id/divider"
+                        layout="@layout/divider_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18dp"
+                        app:layout_constraintTop_toBottomOf="@+id/tvAvgCost" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/divider">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/TuitionInCard"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/info_card_size"
+                            android:layout_margin="@dimen/medium_margin"
+                            android:layout_weight="1"
+                            android:clipToPadding="false"
+                            android:forceHasOverlappingRendering="true"
+                            android:theme="@style/CardTheme"
+                            app:cardElevation="0dp"
+                            app:contentPadding="@dimen/medium_margin"
+                            app:layout_constrainedWidth="false">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:id="@+id/tvTuitionInTitle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/medium_margin"
+                                    android:gravity="center"
+                                    android:text="@string/in_tuition"
+                                    android:textSize="@dimen/info_card_text_size"
+                                    android:textStyle="bold"
+                                    app:layout_constrainedWidth="true"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/tvTuitionIn"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:maxLines="4"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/tvTuitionInTitle"
+                                    tools:text="$5,000" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/TuitionOutCard"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/info_card_size"
+                            android:layout_margin="@dimen/medium_margin"
+                            android:layout_weight="1"
+                            android:clipToPadding="false"
+                            android:forceHasOverlappingRendering="true"
+                            android:theme="@style/CardTheme"
+                            app:cardElevation="0dp"
+                            app:contentPadding="@dimen/medium_margin"
+                            app:layout_constrainedWidth="false">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:id="@+id/tvTuitionOutTitle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/medium_margin"
+                                    android:gravity="center"
+                                    android:text="@string/out_tuition"
+                                    android:textSize="@dimen/info_card_text_size"
+                                    android:textStyle="bold"
+                                    app:layout_constrainedWidth="true"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/tvTuitionOut"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:maxLines="4"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/tvTuitionOutTitle"
+                                    tools:text="$11,500" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
-            android:id="@+id/tuitions"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="10">
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/inTuitionCard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_margin="@dimen/medium_margin"
-                android:layout_weight="5"
-                android:padding="@dimen/small_margin"
-                android:theme="@style/CardTheme"
-                app:cardCornerRadius="@dimen/corner_radius"
-                app:cardElevation="@dimen/card_elevation">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tvTuitionInTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="@string/in_tuition" />
-
-                    <include
-                        android:id="@+id/divider1"
-                        layout="@layout/divider_view"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="@dimen/small_margin" />
-
-                    <TextView
-                        android:id="@+id/tvTuitionIn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="$5,000"
-                        android:textStyle="bold"
-                        tools:text="$5,000" />
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/outTuitionCard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/medium_margin"
-                android:layout_weight="5"
-                android:padding="@dimen/small_margin"
-                android:theme="@style/CardTheme"
-                app:cardCornerRadius="@dimen/corner_radius"
-                app:cardElevation="@dimen/card_elevation">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tvTuitionOutTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="@string/out_tuition" />
-
-                    <include
-                        android:id="@+id/divider1"
-                        layout="@layout/divider_view"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="@dimen/small_margin" />
-
-                    <TextView
-                        android:id="@+id/tvTuitionOut"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="$11,500"
-                        android:textStyle="bold"
-                        tools:text="$11,500" />
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
-
-        <TableLayout
-            android:id="@+id/collegeCostInfo"
+            android:id="@+id/LinearLayout2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="@dimen/larger_margin"
-            android:layout_marginTop="@dimen/medium_margin"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/deadlines"
-            tools:layout_editor_absoluteX="20dp">
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/LinearLayout1"
+            android:baselineAligned="false">
 
-            <TableRow
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:theme="@style/TableRowStyle">
+                android:layout_weight="1"
+                android:clipToPadding="false"
+                android:paddingBottom="@dimen/medium_margin">
 
-                <TextView
-                    android:id="@+id/tvFedLoanPercentTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/medium_margin"
-                    android:layout_marginEnd="@dimen/extra_large_margin"
-                    android:text="@string/federal_loans"
-                    android:textStyle="bold" />
+                <ImageView
+                    android:id="@+id/fedLoanPercentIcon"
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_height="@dimen/icon_size"
+                    android:layout_marginBottom="@dimen/icon_offset_margin"
+                    android:background="@drawable/round_button"
+                    android:backgroundTint="@color/accent_orange"
+                    android:elevation="@dimen/icon_elevation"
+                    android:outlineSpotShadowColor="@color/grey"
+                    android:padding="7dp"
+                    app:layout_constraintBottom_toTopOf="@+id/FedLoanPercentCard"
+                    app:layout_constraintEnd_toEndOf="@+id/FedLoanPercentCard"
+                    app:layout_constraintStart_toStartOf="@+id/FedLoanPercentCard"
+                    app:srcCompat="@drawable/federal_loan_black" />
 
-                <TextView
-                    android:id="@+id/tvFedLoanPercent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="73%"
-                    tools:text="73%" />
-            </TableRow>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/FedLoanPercentCard"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/info_card_size"
+                    android:layout_margin="@dimen/medium_margin"
+                    android:clipToPadding="false"
+                    android:forceHasOverlappingRendering="true"
+                    android:theme="@style/CardTheme"
+                    app:cardCornerRadius="@dimen/corner_radius"
+                    app:cardElevation="@dimen/card_elevation"
+                    app:cardPreventCornerOverlap="false"
+                    app:contentPadding="@dimen/medium_margin"
+                    app:layout_constrainedWidth="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
 
-            <TableRow
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tvFedLoanPercentTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/small_margin"
+                            android:layout_marginTop="@dimen/medium_margin"
+                            android:gravity="center"
+                            android:text="@string/federal_loans"
+                            android:textSize="@dimen/info_card_text_size"
+                            android:textStyle="bold"
+                            app:layout_constrainedWidth="true"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvFedLoanPercent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:maxLines="4"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tvFedLoanPercentTitle"
+                            tools:text="73%" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:theme="@style/TableRowStyle">
+                android:layout_weight="1"
+                android:clipToPadding="false"
+                android:paddingBottom="@dimen/medium_margin">
 
                 <TextView
-                    android:id="@+id/tvPellPercentTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/medium_margin"
-                    android:layout_marginEnd="@dimen/extra_large_margin"
-                    android:text="@string/pell_students"
-                    android:textStyle="bold" />
+                    android:id="@+id/pellPercentIcon"
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_height="@dimen/icon_size"
+                    android:layout_marginBottom="@dimen/icon_offset_margin"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/round_button"
+                    android:backgroundTint="@color/accent_orange"
+                    android:elevation="@dimen/icon_elevation"
+                    android:gravity="center"
+                    android:outlineSpotShadowColor="@color/grey"
+                    android:padding="@dimen/small_margin"
+                    android:text="PELL"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/PellPercentCard"
+                    app:layout_constraintEnd_toEndOf="@+id/PellPercentCard"
+                    app:layout_constraintStart_toStartOf="@+id/PellPercentCard" />
 
-                <TextView
-                    android:id="@+id/tvPellPercent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="56%"
-                    tools:text="56%" />
-            </TableRow>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/PellPercentCard"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/info_card_size"
+                    android:layout_margin="@dimen/medium_margin"
+                    android:clipToPadding="false"
+                    android:forceHasOverlappingRendering="true"
+                    android:theme="@style/CardTheme"
+                    app:cardCornerRadius="@dimen/corner_radius"
+                    app:cardElevation="@dimen/card_elevation"
+                    app:cardPreventCornerOverlap="false"
+                    app:contentPadding="@dimen/medium_margin"
+                    app:layout_constrainedWidth="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
 
-            <TableRow
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tvPellPercentTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/small_margin"
+                            android:layout_marginTop="@dimen/medium_margin"
+                            android:gravity="center"
+                            android:text="@string/acceptance_rate"
+                            android:textSize="@dimen/info_card_text_size"
+                            android:textStyle="bold"
+                            app:layout_constrainedWidth="true"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvPellPercent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:maxLines="4"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tvPellPercentTitle"
+                            tools:text="56%" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LinearLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/LinearLayout2"
+            android:baselineAligned="false">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:theme="@style/TableRowStyle">
+                android:layout_weight="1"
+                android:clipToPadding="false"
+                android:paddingBottom="@dimen/medium_margin">
 
-                <TextView
-                    android:id="@+id/tvMedStudentDebtTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/medium_margin"
-                    android:layout_marginEnd="@dimen/extra_large_margin"
-                    android:text="@string/student_debt"
-                    android:textStyle="bold" />
+                <ImageView
+                    android:id="@+id/medStudentDebtIcon"
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_height="@dimen/icon_size"
+                    android:layout_marginBottom="@dimen/icon_offset_margin"
+                    android:background="@drawable/round_button"
+                    android:backgroundTint="@color/accent_yellow"
+                    android:elevation="@dimen/icon_elevation"
+                    android:outlineSpotShadowColor="@color/grey"
+                    android:padding="@dimen/small_margin"
+                    app:layout_constraintBottom_toTopOf="@+id/MedStudentDebtCard"
+                    app:layout_constraintEnd_toEndOf="@+id/MedStudentDebtCard"
+                    app:layout_constraintStart_toStartOf="@+id/MedStudentDebtCard"
+                    app:srcCompat="@drawable/student_black" />
 
-                <TextView
-                    android:id="@+id/tvMedStudentDebt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="$16,000"
-                    tools:text="$16,000" />
-            </TableRow>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/MedStudentDebtCard"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/info_card_size"
+                    android:layout_margin="@dimen/medium_margin"
+                    android:clipToPadding="false"
+                    android:forceHasOverlappingRendering="true"
+                    android:theme="@style/CardTheme"
+                    app:cardCornerRadius="@dimen/corner_radius"
+                    app:cardElevation="@dimen/card_elevation"
+                    app:cardPreventCornerOverlap="false"
+                    app:contentPadding="@dimen/medium_margin"
+                    app:layout_constrainedWidth="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
 
-            <TableRow
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tvMedStudentDebtTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/small_margin"
+                            android:layout_marginTop="@dimen/medium_margin"
+                            android:gravity="center"
+                            android:text="@string/student_debt"
+                            android:textSize="@dimen/info_card_text_size"
+                            android:textStyle="bold"
+                            app:layout_constrainedWidth="true"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvMedStudentDebt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:maxLines="4"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tvMedStudentDebtTitle"
+                            tools:text="$16,000" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:theme="@style/TableRowStyle">
+                android:layout_weight="1"
+                android:clipToPadding="false"
+                android:paddingBottom="@dimen/medium_margin">
 
-                <TextView
-                    android:id="@+id/tvMedParentDebtTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/medium_margin"
-                    android:layout_marginEnd="@dimen/extra_large_margin"
-                    android:text="@string/parent_debt"
-                    android:textStyle="bold" />
+                <ImageView
+                    android:id="@+id/medParentDebtIcon"
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_height="@dimen/icon_size"
+                    android:layout_marginBottom="@dimen/icon_offset_margin"
+                    android:background="@drawable/round_button"
+                    android:backgroundTint="@color/accent_yellow"
+                    android:elevation="@dimen/icon_elevation"
+                    android:outlineSpotShadowColor="@color/grey"
+                    app:layout_constraintBottom_toTopOf="@+id/MedParentDebtCard"
+                    app:layout_constraintEnd_toEndOf="@+id/MedParentDebtCard"
+                    app:layout_constraintStart_toStartOf="@+id/MedParentDebtCard"
+                    app:srcCompat="@drawable/parent_black" />
 
-                <TextView
-                    android:id="@+id/tvMedParentDebt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="$8,000"
-                    tools:text="$8,000" />
-            </TableRow>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/MedParentDebtCard"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/info_card_size"
+                    android:layout_margin="@dimen/medium_margin"
+                    android:clipToPadding="false"
+                    android:forceHasOverlappingRendering="true"
+                    android:theme="@style/CardTheme"
+                    app:cardCornerRadius="@dimen/corner_radius"
+                    app:cardElevation="@dimen/card_elevation"
+                    app:cardPreventCornerOverlap="false"
+                    app:contentPadding="@dimen/medium_margin"
+                    app:layout_constrainedWidth="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
 
-        </TableLayout>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tvMedParentDebtTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/small_margin"
+                            android:layout_marginTop="@dimen/medium_margin"
+                            android:gravity="center"
+                            android:text="@string/parent_debt"
+                            android:textSize="@dimen/info_card_text_size"
+                            android:textStyle="bold"
+                            app:layout_constrainedWidth="true"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvMedParentDebt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:autoLink="web"
+                            android:gravity="center"
+                            android:linksClickable="false"
+                            android:maxLines="4"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tvMedParentDebtTitle"
+                            tools:text="$8,000" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
     </LinearLayout>
+
 </ScrollView>

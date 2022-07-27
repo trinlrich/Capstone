@@ -3,101 +3,247 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-    <TableLayout
-        android:id="@+id/collegeAcademicsInfo"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/larger_margin"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/deadlines"
-        tools:layout_editor_absoluteX="20dp">
+        android:orientation="vertical"
+        android:paddingVertical="@dimen/medium_margin">
 
-        <TableRow
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:theme="@style/TableRowStyle">
+            android:layout_weight="1"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/medium_margin">
 
-            <TextView
-                android:id="@+id/tvGradRateTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/medium_margin"
-                android:layout_marginEnd="@dimen/extra_large_margin"
-                android:text="@string/graduation_rate"
-                android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/collegeTypeIcon"
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:layout_marginBottom="@dimen/icon_offset_margin"
+                android:background="@drawable/round_button"
+                android:backgroundTint="@color/accent_blue"
+                android:elevation="@dimen/icon_elevation"
+                android:outlineSpotShadowColor="@color/grey"
+                android:padding="@dimen/small_margin"
+                app:layout_constraintBottom_toTopOf="@+id/GradRateCard"
+                app:layout_constraintEnd_toEndOf="@+id/GradRateCard"
+                app:layout_constraintStart_toStartOf="@+id/GradRateCard"
+                app:srcCompat="@drawable/college_black_48" />
 
-            <TextView
-                android:id="@+id/tvGradRate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="55%" />
-        </TableRow>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/GradRateCard"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/info_card_size"
+                android:layout_margin="@dimen/medium_margin"
+                android:clipToPadding="false"
+                android:forceHasOverlappingRendering="true"
+                android:theme="@style/CardTheme"
+                app:cardCornerRadius="@dimen/corner_radius"
+                app:cardElevation="@dimen/card_elevation"
+                app:cardPreventCornerOverlap="false"
+                app:contentPadding="@dimen/medium_margin"
+                app:layout_constrainedWidth="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
 
-        <TableRow
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/tvGradRateTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/small_margin"
+                        android:layout_marginTop="@dimen/medium_margin"
+                        android:gravity="center"
+                        android:text="@string/graduation_rate"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constrainedWidth="true"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvGradRate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="4"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvGradRateTitle"
+                        tools:text="55%" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:theme="@style/TableRowStyle">
+            android:layout_weight="1"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/medium_margin">
 
             <TextView
-                android:id="@+id/tvAvgGpaTItle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/medium_margin"
-                android:layout_marginEnd="@dimen/extra_large_margin"
-                android:text="@string/average_gpa"
-                android:textStyle="bold" />
+                android:id="@+id/avgSatIcon"
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:layout_marginBottom="@dimen/icon_offset_margin"
+                android:autoSizeTextType="uniform"
+                android:background="@drawable/round_button"
+                android:backgroundTint="@color/accent_orange"
+                android:elevation="@dimen/icon_elevation"
+                android:gravity="center"
+                android:outlineSpotShadowColor="@color/grey"
+                android:padding="@dimen/small_margin"
+                android:text="SAT"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/AvgSatCard"
+                app:layout_constraintEnd_toEndOf="@+id/AvgSatCard"
+                app:layout_constraintStart_toStartOf="@+id/AvgSatCard" />
 
-            <TextView
-                android:id="@+id/tvAvgGpa"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="4.0" />
-        </TableRow>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/AvgSatCard"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/info_card_size"
+                android:layout_margin="@dimen/medium_margin"
+                android:clipToPadding="false"
+                android:forceHasOverlappingRendering="true"
+                android:theme="@style/CardTheme"
+                app:cardCornerRadius="@dimen/corner_radius"
+                app:cardElevation="@dimen/card_elevation"
+                app:cardPreventCornerOverlap="false"
+                app:contentPadding="@dimen/medium_margin"
+                app:layout_constrainedWidth="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
 
-        <TableRow
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/tvAvgSatTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/small_margin"
+                        android:layout_marginTop="@dimen/medium_margin"
+                        android:gravity="center"
+                        android:text="@string/average_sat"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constrainedWidth="true"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvAvgSat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="4"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvAvgSatTitle"
+                        tools:text="1320" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:theme="@style/TableRowStyle">
+            android:layout_weight="1"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/medium_margin">
 
             <TextView
-                android:id="@+id/tvAvgSatTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/medium_margin"
-                android:layout_marginEnd="@dimen/extra_large_margin"
-                android:text="@string/average_sat"
-                android:textStyle="bold" />
+                android:id="@+id/avgActIcon"
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:layout_marginBottom="@dimen/icon_offset_margin"
+                android:autoSizeTextType="uniform"
+                android:background="@drawable/round_button"
+                android:backgroundTint="@color/accent_yellow"
+                android:elevation="@dimen/icon_elevation"
+                android:gravity="center"
+                android:outlineSpotShadowColor="@color/grey"
+                android:padding="@dimen/small_margin"
+                android:text="ACT"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/AvgActCard"
+                app:layout_constraintEnd_toEndOf="@+id/AvgActCard"
+                app:layout_constraintStart_toStartOf="@+id/AvgActCard" />
 
-            <TextView
-                android:id="@+id/tvAvgSat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="1320" />
-        </TableRow>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/AvgActCard"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/info_card_size"
+                android:layout_margin="@dimen/medium_margin"
+                android:clipToPadding="false"
+                android:forceHasOverlappingRendering="true"
+                android:theme="@style/CardTheme"
+                app:cardCornerRadius="@dimen/corner_radius"
+                app:cardElevation="@dimen/card_elevation"
+                app:cardPreventCornerOverlap="false"
+                app:contentPadding="@dimen/medium_margin"
+                app:layout_constrainedWidth="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:theme="@style/TableRowStyle">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tvAvgActTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/medium_margin"
-                android:layout_marginEnd="@dimen/extra_large_margin"
-                android:text="@string/average_act"
-                android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/tvAvgActTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/small_margin"
+                        android:layout_marginTop="@dimen/medium_margin"
+                        android:gravity="center"
+                        android:text="@string/average_act"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constrainedWidth="true"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tvAvgAct"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="30" />
-        </TableRow>
+                    <TextView
+                        android:id="@+id/tvAvgAct"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="4"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvAvgActTitle"
+                        tools:text="30" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </TableLayout>
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
 
 </ScrollView>
