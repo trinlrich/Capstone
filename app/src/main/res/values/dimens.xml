@@ -37,4 +37,10 @@
     <dimen name="task_card_height">115dp</dimen>
     <dimen name="task_card_width">115dp</dimen>
 
+    <dimen name="icon_size">40dp</dimen>
+    <dimen name="icon_elevation">11dp</dimen>
+    <dimen name="icon_offset_margin">-15dp</dimen>
+    <dimen name="info_card_size">100dp</dimen>
+    <dimen name="info_card_text_size">16sp</dimen>
+
 </resources>
