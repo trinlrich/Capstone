@@ -5,260 +5,501 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:clipToPadding="false"
+        android:paddingVertical="@dimen/medium_margin">
 
         <LinearLayout
-            android:id="@+id/deadlines"
+            android:id="@+id/LinearLayout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clipToPadding="false"
             android:orientation="horizontal"
-            android:padding="@dimen/small_margin"
-            android:weightSum="10">
+            android:weightSum="2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:baselineAligned="false">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/eaDeadlineCard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/medium_margin"
-                android:layout_weight="5"
-                android:padding="@dimen/small_margin"
-                android:theme="@style/CardTheme"
-                app:cardCornerRadius="@dimen/corner_radius"
-                app:cardElevation="@dimen/card_elevation">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:paddingBottom="@dimen/medium_margin">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                <ImageView
+                    android:id="@+id/collegeTypeIcon"
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_height="@dimen/icon_size"
+                    android:layout_marginBottom="@dimen/icon_offset_margin"
+                    android:background="@drawable/round_button"
+                    android:backgroundTint="@color/accent_blue"
+                    android:elevation="@dimen/icon_elevation"
+                    android:outlineSpotShadowColor="@color/grey"
+                    android:padding="@dimen/small_margin"
+                    app:layout_constraintBottom_toTopOf="@+id/CollegeTypeCard"
+                    app:layout_constraintEnd_toEndOf="@+id/CollegeTypeCard"
+                    app:layout_constraintStart_toStartOf="@+id/CollegeTypeCard"
+                    app:srcCompat="@drawable/info_outline_black_48" />
 
-                    <TextView
-                        android:id="@+id/tvEADeadlineTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="@string/ea_deadline" />
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/CollegeTypeCard"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/info_card_size"
+                    android:layout_margin="@dimen/medium_margin"
+                    android:clipToPadding="false"
+                    android:forceHasOverlappingRendering="true"
+                    android:theme="@style/CardTheme"
+                    app:cardCornerRadius="@dimen/corner_radius"
+                    app:cardElevation="@dimen/card_elevation"
+                    app:cardPreventCornerOverlap="false"
+                    app:contentPadding="@dimen/medium_margin"
+                    app:layout_constrainedWidth="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
 
-                    <include
-                        android:id="@+id/divider1"
-                        layout="@layout/divider_view"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="@dimen/small_margin" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                    <TextView
-                        android:id="@+id/tvEDDeadline"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="12/12/2022"
-                        android:textStyle="bold"
-                        tools:text="12/12/2022" />
+                        <TextView
+                            android:id="@+id/tvCollegeTypeTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/small_margin"
+                            android:layout_marginTop="@dimen/medium_margin"
+                            android:gravity="center"
+                            android:text="@string/college_type"
+                            android:textSize="@dimen/info_card_text_size"
+                            android:textStyle="bold"
+                            app:layout_constrainedWidth="true"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+                        <TextView
+                            android:id="@+id/tvCollegeType"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:maxLines="4"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tvCollegeTypeTitle"
+                            tools:text="Public" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/rdDeadlineCard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/medium_margin"
-                android:layout_weight="5"
-                android:padding="@dimen/small_margin"
-                android:theme="@style/CardTheme"
-                app:cardCornerRadius="@dimen/corner_radius"
-                app:cardElevation="@dimen/card_elevation">
+                </androidx.cardview.widget.CardView>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <TextView
-                        android:id="@+id/tvRDDeadlineTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="@string/rd_deadline" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:paddingBottom="@dimen/medium_margin">
 
-                    <include
-                        android:id="@+id/divider1"
-                        layout="@layout/divider_view"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="@dimen/small_margin" />
+                <ImageView
+                    android:id="@+id/degreeTypeIcon"
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_height="@dimen/icon_size"
+                    android:layout_marginBottom="@dimen/icon_offset_margin"
+                    android:background="@drawable/round_button"
+                    android:backgroundTint="@color/accent_blue"
+                    android:elevation="@dimen/icon_elevation"
+                    android:outlineSpotShadowColor="@color/grey"
+                    android:padding="@dimen/small_margin"
+                    app:layout_constraintBottom_toTopOf="@+id/DegreeTypeCard"
+                    app:layout_constraintEnd_toEndOf="@+id/DegreeTypeCard"
+                    app:layout_constraintStart_toStartOf="@+id/DegreeTypeCard"
+                    app:srcCompat="@drawable/diploma_black_outline" />
 
-                    <TextView
-                        android:id="@+id/tvRDDeadline"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="12/12/2022"
-                        android:textStyle="bold"
-                        tools:text="12/12/2022" />
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/DegreeTypeCard"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/info_card_size"
+                    android:layout_margin="@dimen/medium_margin"
+                    android:clipToPadding="false"
+                    android:forceHasOverlappingRendering="true"
+                    android:theme="@style/CardTheme"
+                    app:cardCornerRadius="@dimen/corner_radius"
+                    app:cardElevation="@dimen/card_elevation"
+                    app:cardPreventCornerOverlap="false"
+                    app:contentPadding="@dimen/medium_margin"
+                    app:layout_constrainedWidth="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
 
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tvDegreeTypeTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/small_margin"
+                            android:layout_marginTop="@dimen/medium_margin"
+                            android:gravity="center"
+                            android:text="@string/degree_type"
+                            android:textSize="@dimen/info_card_text_size"
+                            android:textStyle="bold"
+                            app:layout_constrainedWidth="true"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvDegreeType"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:maxLines="4"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tvDegreeTypeTitle"
+                            tools:text="4-Year" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </LinearLayout>
 
-        <TableLayout
-            android:id="@+id/collegeOverviewInfo"
+        <LinearLayout
+            android:id="@+id/LinearLayout2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="@dimen/larger_margin"
-            android:shrinkColumns="1, 1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/deadlines"
-            tools:layout_editor_absoluteX="20dp">
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/LinearLayout1"
+            android:baselineAligned="false">
 
-            <TableRow
-                android:id="@+id/collegeTypeRow"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:theme="@style/TableRowStyle">
+                android:layout_weight="1"
+                android:clipToPadding="false"
+                android:paddingBottom="@dimen/medium_margin">
 
-                <TextView
-                    android:id="@+id/tvCollegeTypeTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/medium_margin"
-                    android:layout_marginEnd="@dimen/extra_large_margin"
-                    android:text="@string/college_type"
-                    android:textStyle="bold" />
+                <ImageView
+                    android:id="@+id/missionIcon"
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_height="@dimen/icon_size"
+                    android:layout_marginBottom="@dimen/icon_offset_margin"
+                    android:background="@drawable/round_button"
+                    android:backgroundTint="@color/accent_orange"
+                    android:elevation="@dimen/icon_elevation"
+                    android:outlineSpotShadowColor="@color/grey"
+                    android:padding="@dimen/small_margin"
+                    app:layout_constraintBottom_toTopOf="@+id/MissionCard"
+                    app:layout_constraintEnd_toEndOf="@+id/MissionCard"
+                    app:layout_constraintStart_toStartOf="@+id/MissionCard"
+                    app:srcCompat="@drawable/mission_black_outline" />
 
-                <TextView
-                    android:id="@+id/tvCollegeType"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxLines="4"
-                    tools:text="Public" />
-            </TableRow>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/MissionCard"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/info_card_size"
+                    android:layout_margin="@dimen/medium_margin"
+                    android:clipToPadding="false"
+                    android:forceHasOverlappingRendering="true"
+                    android:theme="@style/CardTheme"
+                    app:cardCornerRadius="@dimen/corner_radius"
+                    app:cardElevation="@dimen/card_elevation"
+                    app:cardPreventCornerOverlap="false"
+                    app:contentPadding="@dimen/medium_margin"
+                    app:layout_constrainedWidth="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
 
-            <TableRow
-                android:id="@+id/degreeTypeRow"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tvMissionTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/small_margin"
+                            android:layout_marginTop="@dimen/medium_margin"
+                            android:gravity="center"
+                            android:text="@string/special_mission"
+                            android:textSize="@dimen/info_card_text_size"
+                            android:textStyle="bold"
+                            app:layout_constrainedWidth="true"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvMission"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:maxLines="4"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tvMissionTitle"
+                            tools:text="HBCU" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:theme="@style/TableRowStyle">
+                android:layout_weight="1"
+                android:clipToPadding="false"
+                android:paddingBottom="@dimen/medium_margin">
 
-                <TextView
-                    android:id="@+id/tvDegreeTypeTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/medium_margin"
-                    android:layout_marginEnd="@dimen/extra_large_margin"
-                    android:text="@string/degree_type"
-                    android:textStyle="bold" />
+                <ImageView
+                    android:id="@+id/avgAcceptRateIcon"
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_height="@dimen/icon_size"
+                    android:layout_marginBottom="@dimen/icon_offset_margin"
+                    android:background="@drawable/round_button"
+                    android:backgroundTint="@color/accent_orange"
+                    android:elevation="@dimen/icon_elevation"
+                    android:outlineSpotShadowColor="@color/grey"
+                    android:padding="@dimen/small_margin"
+                    app:layout_constraintBottom_toTopOf="@+id/AvgAcceptRateCard"
+                    app:layout_constraintEnd_toEndOf="@+id/AvgAcceptRateCard"
+                    app:layout_constraintStart_toStartOf="@+id/AvgAcceptRateCard"
+                    app:srcCompat="@drawable/college_black_48" />
 
-                <TextView
-                    android:id="@+id/tvDegreeType"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxLines="4"
-                    tools:text="4-year" />
-            </TableRow>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/AvgAcceptRateCard"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/info_card_size"
+                    android:layout_margin="@dimen/medium_margin"
+                    android:clipToPadding="false"
+                    android:forceHasOverlappingRendering="true"
+                    android:theme="@style/CardTheme"
+                    app:cardCornerRadius="@dimen/corner_radius"
+                    app:cardElevation="@dimen/card_elevation"
+                    app:cardPreventCornerOverlap="false"
+                    app:contentPadding="@dimen/medium_margin"
+                    app:layout_constrainedWidth="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
 
-            <TableRow
-                android:id="@+id/specialMissionRow"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tvAvgAcceptRateTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/small_margin"
+                            android:layout_marginTop="@dimen/medium_margin"
+                            android:gravity="center"
+                            android:text="@string/acceptance_rate"
+                            android:textSize="@dimen/info_card_text_size"
+                            android:textStyle="bold"
+                            app:layout_constrainedWidth="true"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvAvgAcceptRate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:maxLines="4"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tvAvgAcceptRateTitle"
+                            tools:text="56.7%" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LinearLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/LinearLayout2"
+            android:baselineAligned="false">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:theme="@style/TableRowStyle">
+                android:layout_weight="1"
+                android:clipToPadding="false"
+                android:paddingBottom="@dimen/medium_margin">
 
-                <TextView
-                    android:id="@+id/tvMissionTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/medium_margin"
-                    android:layout_marginEnd="@dimen/extra_large_margin"
-                    android:text="@string/special_mission"
-                    android:textStyle="bold" />
+                <ImageView
+                    android:id="@+id/undergradEnrollIcon"
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_height="@dimen/icon_size"
+                    android:layout_marginBottom="@dimen/icon_offset_margin"
+                    android:background="@drawable/round_button"
+                    android:backgroundTint="@color/accent_yellow"
+                    android:elevation="@dimen/icon_elevation"
+                    android:outlineSpotShadowColor="@color/grey"
+                    android:padding="@dimen/small_margin"
+                    app:layout_constraintBottom_toTopOf="@+id/UndergradEnrollCard"
+                    app:layout_constraintEnd_toEndOf="@+id/UndergradEnrollCard"
+                    app:layout_constraintStart_toStartOf="@+id/UndergradEnrollCard"
+                    app:srcCompat="@drawable/group_black_48" />
 
-                <TextView
-                    android:id="@+id/tvMission"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxLines="4"
-                    tools:text="HBCU" />
-            </TableRow>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/UndergradEnrollCard"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/info_card_size"
+                    android:layout_margin="@dimen/medium_margin"
+                    android:clipToPadding="false"
+                    android:forceHasOverlappingRendering="true"
+                    android:theme="@style/CardTheme"
+                    app:cardCornerRadius="@dimen/corner_radius"
+                    app:cardElevation="@dimen/card_elevation"
+                    app:cardPreventCornerOverlap="false"
+                    app:contentPadding="@dimen/medium_margin"
+                    app:layout_constrainedWidth="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
 
-            <TableRow
-                android:id="@+id/acceptanceRateRow"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tvUndergradEnrollTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/small_margin"
+                            android:layout_marginTop="@dimen/medium_margin"
+                            android:gravity="center"
+                            android:text="@string/undergrad_enrollment"
+                            android:textSize="@dimen/info_card_text_size"
+                            android:textStyle="bold"
+                            app:layout_constrainedWidth="true"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvUndergradEnroll"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:maxLines="4"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tvUndergradEnrollTitle"
+                            tools:text="11,000" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:theme="@style/TableRowStyle">
+                android:layout_weight="1"
+                android:clipToPadding="false"
+                android:paddingBottom="@dimen/medium_margin">
 
-                <TextView
-                    android:id="@+id/tvAvgAcceptRateTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/medium_margin"
-                    android:layout_marginEnd="@dimen/extra_large_margin"
-                    android:text="@string/acceptance_rate"
-                    android:textStyle="bold" />
+                <ImageView
+                    android:id="@+id/webpageIcon"
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_height="@dimen/icon_size"
+                    android:layout_marginBottom="@dimen/icon_offset_margin"
+                    android:background="@drawable/round_button"
+                    android:backgroundTint="@color/accent_yellow"
+                    android:elevation="@dimen/icon_elevation"
+                    android:outlineSpotShadowColor="@color/grey"
+                    android:padding="@dimen/small_margin"
+                    app:layout_constraintBottom_toTopOf="@+id/WebpageCard"
+                    app:layout_constraintEnd_toEndOf="@+id/WebpageCard"
+                    app:layout_constraintStart_toStartOf="@+id/WebpageCard"
+                    app:srcCompat="@drawable/laptop_black_48" />
 
-                <TextView
-                    android:id="@+id/tvAvgAcceptRate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxLines="4"
-                    tools:text="56.7%" />
-            </TableRow>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/WebpageCard"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/info_card_size"
+                    android:layout_margin="@dimen/medium_margin"
+                    android:clipToPadding="false"
+                    android:forceHasOverlappingRendering="true"
+                    android:theme="@style/CardTheme"
+                    app:cardCornerRadius="@dimen/corner_radius"
+                    app:cardElevation="@dimen/card_elevation"
+                    app:cardPreventCornerOverlap="false"
+                    app:contentPadding="@dimen/medium_margin"
+                    app:layout_constrainedWidth="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
 
-            <TableRow
-                android:id="@+id/undergradEnrollmentRow"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:theme="@style/TableRowStyle">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/tvUndergradEnrollTItle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/medium_margin"
-                    android:layout_marginEnd="@dimen/extra_large_margin"
-                    android:text="@string/undergrad_enrollment"
-                    android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/tvWebpageTItle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/small_margin"
+                            android:layout_marginTop="@dimen/medium_margin"
+                            android:gravity="center"
+                            android:text="@string/website"
+                            android:textSize="@dimen/info_card_text_size"
+                            android:textStyle="bold"
+                            app:layout_constrainedWidth="true"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tvUndergradEnroll"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxLines="4"
-                    tools:text="11,000" />
-            </TableRow>
+                        <TextView
+                            android:id="@+id/tvWebpage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:autoLink="web"
+                            android:gravity="center"
+                            android:linksClickable="true"
+                            android:maxLines="4"
+                            android:textColorLink="@color/black"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tvWebpageTItle"
+                            tools:text="www.ncat.edu" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TableRow
-                android:id="@+id/websiteRow"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:theme="@style/TableRowStyle">
+                </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tvWebpageTItle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/medium_margin"
-                    android:layout_marginEnd="@dimen/extra_large_margin"
-                    android:text="@string/website"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tvWebpage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:autoLink="web"
-                    android:linksClickable="true"
-                    android:maxLines="4"
-                    android:textColorLink="@color/accent_blue"
-                    tools:text="www.ncat.eduweorineoingrioergnoeorginoiergineorngeg" />
-            </TableRow>
-
-        </TableLayout>
-
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
