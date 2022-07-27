@@ -13,6 +13,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -54,23 +55,55 @@ public class Utilities {
         });
     }
 
-    public static void updateUserProfileImage(ParseFirebaseUser user, ParseFile profileImage){
-        profileImage.saveInBackground(new SaveCallback() {
+    public static void updateUserProfileImage(ParseFirebaseUser user, File profileImage){
+        ParseFile parseFile = new ParseFile(profileImage);
+        parseFile.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                user.setProfileImage(profileImage);
-                user.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(ParseException ex) {
-                        if (ex != null){
-                            Log.e(TAG, "User Image Save Failed...", ex);
-                        }else {
-                            Log.d(TAG, "User Image Save Success...");
+                if (e != null) {
+                    Log.e(TAG, "ParseFile Save Failed...", e);
+                } else {
+                    Log.e(TAG, "ParseFile Save Success...");
+                    ParseQuery<ParseFirebaseUser> query = ParseQuery.getQuery(ParseFirebaseUser.class);
+                    // Retrieve the object by id
+                    query.getInBackground(user.getObjectId(), (object, ex) -> {
+                        if (ex == null) {
+                            Log.d(TAG, user.getObjectId() + " User Found...");
+                            // Update the fields we want to
+                            object.setProfileImage(parseFile);
+
+                            // All other fields will remain the same
+                            object.saveInBackground(new SaveCallback() {
+                                @Override
+                                public void done(ParseException ez) {
+                                    if (ez != null){
+                                        Log.e(TAG, "User Image Save Failed...", ez);
+                                    }else {
+                                        Log.d(TAG, "User Image Save Success...");
+                                    }
+                                }
+                            });
+
+                        } else {
+                            // something went wrong
+                            Log.e(TAG, "User Not Found...", ex);
                         }
-                    }
-                });
+                    });
+                }
             }
         });
+
+//        user.setProfileImage(new ParseFile(profileImage));
+//        user.saveInBackground(new SaveCallback() {
+//            @Override
+//            public void done(ParseException e) {
+//                if (e != null){
+//                    Log.e(TAG, "User Image Save Failed...", e);
+//                }else {
+//                    Log.d(TAG, "User Image Save Success...");
+//                }
+//            }
+//        });
     }
 
     public static void getCollegesListFromParse(Set<Integer> favCollegesSet, GetCollegeListListenerCallback callback) {

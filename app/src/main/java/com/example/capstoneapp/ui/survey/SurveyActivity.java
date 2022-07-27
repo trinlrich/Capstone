@@ -21,6 +21,7 @@ import com.example.capstoneapp.R;
 import com.example.capstoneapp.ui.UiUtils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 
 public class SurveyActivity extends AppCompatActivity {

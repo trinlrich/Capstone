@@ -33,25 +33,14 @@ public class SurveyViewModel extends ViewModel {
     }
 
     public void saveProfile(ParseFirebaseUser user, File image) {
-        ParseFile profileImage = new ParseFile(image);
-        profileImage.saveInBackground(new SaveCallback() {
+        user.saveInBackground(new SaveCallback() {
             @Override
-            public void done(ParseException e) {
-                if (e != null) {
-                    Log.e(TAG, "Error while saving image", e);
+            public void done(ParseException ex) {
+                if (ex != null) {
+                    Log.e(TAG, "Error while updating", ex);
                 } else {
-                    Log.i(TAG, "Image save was successful");
-                    user.setProfileImage(new ParseFile(image));
-                    user.saveInBackground(new SaveCallback() {
-                        @Override
-                        public void done(ParseException ex) {
-                            if (ex != null) {
-                                Log.e(TAG, "Error while updating", ex);
-                            } else {
-                                Log.i(TAG, "User update was successful");
-                            }
-                        }
-                    });
+                    Log.i(TAG, "User update was successful");
+                    Utilities.updateUserProfileImage(user, image);
                 }
             }
         });

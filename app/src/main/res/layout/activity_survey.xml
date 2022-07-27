@@ -182,6 +182,41 @@
                 app:layout_constraintStart_toStartOf="@+id/emailHeader"
                 app:layout_constraintTop_toBottomOf="@+id/emailText" />
 
+            <RelativeLayout
+                android:id="@+id/spinnerLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/medium_margin"
+                android:layout_weight=".28"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="@+id/degreeSeekingText"
+                app:layout_constraintStart_toStartOf="@+id/degreeSeekingText"
+                app:layout_constraintTop_toBottomOf="@+id/degreeSeekingText">
+
+                <Spinner
+                    android:id="@+id/degreeSpinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="@dimen/small_margin"
+                    android:layout_toStartOf="@+id/dropdownIcon"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:spinnerMode="dropdown" />
+
+                <ImageView
+                    android:id="@+id/dropdownIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:src="@drawable/drop_down_white_24" />
+
+            </RelativeLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
