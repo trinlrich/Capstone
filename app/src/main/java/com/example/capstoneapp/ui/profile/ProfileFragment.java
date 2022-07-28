@@ -1,5 +1,7 @@
 package com.example.capstoneapp.ui.profile;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -10,12 +12,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.os.RecoverySystem;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.capstoneapp.model.ParseFirebaseUser;
@@ -29,7 +33,6 @@ public class ProfileFragment extends Fragment {
 
     private ProfileViewModel viewModel;
 
-    private ImageView ivFragProfileImage;
     private TextView tvUserName;
     private TextView tvFirstName;
     private TextView tvLastName;
@@ -51,12 +54,16 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
 
-        FragmentActivity activity = getActivity();
+        FragmentActivity activity = ((AppCompatActivity) getActivity());
         if (activity != null) {
             activity.setTitle(R.string.profile_title);
+            ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+            if (actionBar != null) {
+                actionBar.setBackgroundDrawable(getContext().getDrawable(R.color.accent_blue));
+                actionBar.setElevation(30);
+            }
         }
 
-        ivFragProfileImage = view.findViewById(R.id.ivFragProfileImage);
         tvUserName = view.findViewById(R.id.tvFragUserName);
         tvFirstName = view.findViewById(R.id.tvFirstName);
         tvLastName = view.findViewById(R.id.tvLastName);
@@ -73,12 +80,21 @@ public class ProfileFragment extends Fragment {
                 UiUtils.setViewText(getContext(), tvFirstName, user.getFirstName());
                 UiUtils.setViewText(getContext(), tvLastName, user.getLastName());
                 UiUtils.setViewText(getContext(), tvDegreeSeeking, user.getDegreeSeekingAsText());
-                ParseFile profileImage = user.getProfileImage();
-                if (profileImage != null) {
-                    UiUtils.setViewImage(getContext(), ivFragProfileImage, profileImage.getUrl(), new CircleCrop(), R.drawable.profile_black_48);
-                }
             }
         };
         viewModel.user.observe(getViewLifecycleOwner(), userObserver);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        FragmentActivity activity = ((AppCompatActivity) getActivity());
+        if (activity != null) {
+            ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+            if (actionBar != null) {
+                actionBar.setBackgroundDrawable(getContext().getDrawable(R.color.white));
+                actionBar.setElevation(0);
+            }
+        }
     }
 }
