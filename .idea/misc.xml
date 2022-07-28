@@ -86,13 +86,13 @@
         <entry key="app/src/main/res/layout/item_task.xml" value="0.4370630900065105" />
         <entry key="app/src/main/res/layout/list_item.xml" value="0.20208333333333334" />
         <entry key="app/src/main/res/layout/navigation_action.xml" value="0.35531158447265626" />
-        <entry key="app/src/main/res/layout/navigation_header.xml" value="0.5568954467773438" />
+        <entry key="app/src/main/res/layout/navigation_header.xml" value="0.331427001953125" />
         <entry key="app/src/main/res/layout/navigation_home.xml" value="0.40260416666666665" />
         <entry key="app/src/main/res/layout/new_fragment_costs.xml" value="0.3875" />
         <entry key="app/src/main/res/layout/overview_tab.xml" value="0.2366073608398438" />
         <entry key="app/src/main/res/layout/spinner_item.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/task_card_view.xml" value="0.2004216954328011" />
-        <entry key="app/src/main/res/layout/task_progress_view.xml" value="0.240625" />
+        <entry key="app/src/main/res/layout/task_progress_view.xml" value="0.3639419555664063" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.20208333333333334" />
         <entry key="app/src/main/res/menu/navigation_menu.xml" value="0.203125" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.191" />
