@@ -226,7 +226,7 @@ public class CollegeSearchFragment extends Fragment {
                         getActivity().findViewById(R.id.btnFilter),
                         "This is the filter icon",
                         "Here you can filter the colleges by state, type, or mission",
-                        R.color.accent_orange,
+                        R.color.accent_blue,
                         null,
                         30)
         ).start();

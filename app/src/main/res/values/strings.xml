@@ -61,7 +61,7 @@
     <string name="costs_tab">Costs</string>
 
     <string name="add_favorites">ADD TO FAVORITES</string>
-    <string name="go_favorites">GO TO COLLEGE</string>
+    <string name="go_favorites">GO TO FAVORITES</string>
 
     // State Filter Tabs
     <string name="state_tab">State</string>
@@ -99,10 +99,6 @@
     <string name="search_hint_text">Search by college name</string>
     <string name="no_colleges_text">No Colleges Found</string>
     <string name="no_fav_colleges_text">You have not added any colleges to your favorites.</string>
-    <string name="manage_tasks">Manage Application Tasks</string>
-    <string name="todoTaskHeader">To-Do</string>
-    <string name="ipTaskHeader">In-Progress</string>
-    <string name="completeTaskHeader">Completed</string>
     <string name="unfavorite_dialog_message">Are you sure you want to unfavorite this? This will delete the applications steps as well</string>
     <string name="unfavorite_dialog_title">Un-favorite College</string>
     <string name="unfavorite_dialog_cancel">Cancel</string>
@@ -112,6 +108,15 @@
     <string name="close_task_dialog_cancel">Continue Editing</string>
     <string name="close_task_dialog_ok">Close Task</string>
     <string name="progress_title">Getting Colleges Information</string>
+
+    // Manage Application Tasks
+    <string name="manage_tasks">Manage Application Tasks</string>
+    <string name="todoTaskHeader">To-Do</string>
+    <string name="ipTaskHeader">In-Progress</string>
+    <string name="completeTaskHeader">Completed</string>
+    <string name="no_items_to_do">You have no items in to do</string>
+    <string name="no_items_in_progress">You have no items in progress</string>
+    <string name="no_items_complete">You have not completed any items</string>
 
     // Null Strings
     <string name="data_not_available">Data Not Available</string>

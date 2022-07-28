@@ -27,6 +27,7 @@ import com.example.capstoneapp.model.ParseFirebaseUser;
 import com.example.capstoneapp.ui.UiUtils;
 import com.example.capstoneapp.ui.collegesearch.CollegeSearchViewModel;
 import com.example.capstoneapp.ui.collegesearch.filter.FilterFragment;
+import com.example.capstoneapp.ui.mycolleges.MyCollegesFragment;
 import com.example.capstoneapp.ui.mycolleges.mycollegedetail.MyCollegeDetailFragment;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -141,7 +142,7 @@ public class CollegeDetailFragment extends Fragment {
         if (fragmentManager != null) {
             fragmentManager
                     .beginTransaction()
-                    .replace(R.id.flContainer, MyCollegeDetailFragment.newInstance(FirebaseAuth.getInstance().getUid(), college.getCollegeId(), college))
+                    .replace(R.id.flContainer, MyCollegesFragment.newInstance())
                     .addToBackStack(null)
                     .commit();
         }

@@ -97,6 +97,8 @@ public class AuthActivity extends AppCompatActivity {
         Intent signInIntent = AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers)
+                .setLogo(R.drawable.college_white_48)
+                .setTheme(R.style.FirebaseTheme)
                 .build();
         signInLauncher.launch(signInIntent);
     }

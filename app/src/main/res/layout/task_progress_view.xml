@@ -3,18 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/masterLayout"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:backgroundTint="@color/purple_200">
+    android:padding="@dimen/larger_margin">
 
 
     <View
         android:id="@+id/view1"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:background="@drawable/task_progress_circle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,17 +19,17 @@
 
     <View
         android:id="@+id/view2"
-        android:layout_width="30dp"
-        android:layout_height="10dp"
-        android:background="@drawable/task_progress_rectangle"
+        android:layout_width="40dp"
+        android:layout_height="5dp"
+        android:background="@color/grey"
         app:layout_constraintBottom_toBottomOf="@+id/view1"
         app:layout_constraintStart_toEndOf="@+id/view1"
         app:layout_constraintTop_toTopOf="@+id/view1" />
 
     <View
         android:id="@+id/view3"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:background="@drawable/task_progress_circle"
         app:layout_constraintBottom_toBottomOf="@+id/view1"
         app:layout_constraintStart_toEndOf="@+id/view2"
@@ -40,17 +37,17 @@
 
     <View
         android:id="@+id/view4"
-        android:layout_width="30dp"
-        android:layout_height="10dp"
-        android:background="@drawable/task_progress_rectangle"
+        android:layout_width="40dp"
+        android:layout_height="5dp"
+        android:background="@color/grey"
         app:layout_constraintBottom_toBottomOf="@+id/view3"
         app:layout_constraintStart_toEndOf="@+id/view3"
         app:layout_constraintTop_toTopOf="@+id/view3" />
 
     <View
         android:id="@+id/view5"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:background="@drawable/task_progress_circle"
         app:layout_constraintBottom_toBottomOf="@+id/view3"
         app:layout_constraintStart_toEndOf="@+id/view4"
@@ -58,17 +55,17 @@
 
     <View
         android:id="@+id/view6"
-        android:layout_width="30dp"
-        android:layout_height="10dp"
-        android:background="@drawable/task_progress_rectangle"
+        android:layout_width="40dp"
+        android:layout_height="5dp"
+        android:background="@color/grey"
         app:layout_constraintBottom_toBottomOf="@+id/view5"
         app:layout_constraintStart_toEndOf="@+id/view5"
         app:layout_constraintTop_toTopOf="@+id/view5" />
 
     <View
         android:id="@+id/view7"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:background="@drawable/task_progress_circle"
         app:layout_constraintBottom_toBottomOf="@+id/view5"
         app:layout_constraintStart_toEndOf="@+id/view6"
@@ -76,9 +73,9 @@
 
     <View
         android:id="@+id/view8"
-        android:layout_width="30dp"
-        android:layout_height="10dp"
-        android:background="@drawable/task_progress_rectangle"
+        android:layout_width="40dp"
+        android:layout_height="5dp"
+        android:background="@color/grey"
         app:layout_constraintBottom_toBottomOf="@+id/view7"
         app:layout_constraintEnd_toStartOf="@+id/view9"
         app:layout_constraintHorizontal_bias="0.5"
@@ -87,8 +84,8 @@
 
     <View
         android:id="@+id/view9"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:background="@drawable/task_progress_circle"
         app:layout_constraintBottom_toBottomOf="@+id/view7"
         app:layout_constraintStart_toEndOf="@+id/view8"

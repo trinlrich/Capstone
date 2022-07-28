@@ -1,6 +1,7 @@
 package com.example.capstoneapp.model;
 
 import android.graphics.Color;
+import android.text.format.DateUtils;
 import android.util.Log;
 
 import com.parse.ParseClassName;
@@ -84,7 +85,7 @@ public class CollegeApplicationTask  extends ParseObject  implements Comparable<
         return STATUSES.getOrDefault(statusCode, "NoStatus");
     }
 
-    public static int convertStatusStringToCode(String status) {
+    public int convertStatusStringToCode(String status) {
         for (Map.Entry<Integer, String> entry : STATUSES.entrySet()) {
             if (entry.getValue().equals(status)) {
                 return entry.getKey();
@@ -93,7 +94,7 @@ public class CollegeApplicationTask  extends ParseObject  implements Comparable<
         return -1;
     }
 
-    public static int getStatusColor(int status) {
+    public int getStatusColor(int status) {
         return Color.parseColor(STATUS_COLORS.get(status));
     }
 
@@ -103,7 +104,7 @@ public class CollegeApplicationTask  extends ParseObject  implements Comparable<
         return df2.format(date);
     }
 
-    public static Long convertDateStringToLong(String dateString) {
+    public Long convertDateStringToLong(String dateString) {
         SimpleDateFormat f = new SimpleDateFormat("MMMM d, yyyy 'at' h:mm aaa");
         Date d = null;
         try {
@@ -114,8 +115,8 @@ public class CollegeApplicationTask  extends ParseObject  implements Comparable<
         return d.getTime();
     }
 
-    public String calculateTimeUntil() {
-        Date date = new Date(getTaskEndDate());
+    public String calculateTimeUntil(Long deadline) {
+        Date date = new Date(deadline);
 
         int SECOND_MILLIS = 1000;
         int MINUTE_MILLIS = 60 * SECOND_MILLIS;
@@ -127,9 +128,8 @@ public class CollegeApplicationTask  extends ParseObject  implements Comparable<
             long time = date.getTime();
             long now = System.currentTimeMillis();
 
-            final long diff = time - now;
+            final long diff = time - now + DAY_MILLIS;
             if (diff < MINUTE_MILLIS) {
-            } else if (diff < MINUTE_MILLIS) {
                 return "past due";
             } else if (diff < 2 * MINUTE_MILLIS) {
                 return "in " + diff + " minute";

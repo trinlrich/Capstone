@@ -94,7 +94,7 @@ public class TaskDetailFragment extends Fragment {
         UiUtils.setViewText(getContext(), etTaskTitle, task.getTaskTitle());
         UiUtils.setViewText(getContext(), tvTaskDeadline, task.getTaskEndDateAsText());
         tvTaskDeadline.setOnClickListener(this::onDateClick);
-        UiUtils.setViewText(getContext(), tvRelativeTimeUntil, task.calculateTimeUntil());
+        UiUtils.setViewText(getContext(), tvRelativeTimeUntil, task.calculateTimeUntil(task.getTaskEndDate()));
         UiUtils.setViewText(getContext(), etTaskNotes, task.getTaskDescription());
         btnCloseTaskDetail.setOnClickListener(this::onCloseClick);
         btnSave.setOnClickListener(this::onSaveClick);
@@ -113,7 +113,7 @@ public class TaskDetailFragment extends Fragment {
         statusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                updatedTaskStatus = CollegeApplicationTask.convertStatusStringToCode(parent.getItemAtPosition(position).toString());
+                updatedTaskStatus = task.convertStatusStringToCode(parent.getItemAtPosition(position).toString());
                 updateColor(parent.getItemAtPosition(position).toString());
             }
 
@@ -146,7 +146,9 @@ public class TaskDetailFragment extends Fragment {
             @Override
             public void onSet(@NonNull Dialog dialog, @NonNull Calendar calendar, @NonNull Date date, int i, @NonNull String s, @NonNull String s1, int i1, int i2, @NonNull String s2, @NonNull String s3, int i3, int i4, int i5, int i6, @NonNull String s4) {
                 SimpleDateFormat df2 = new SimpleDateFormat("MMMM d, yyyy 'at' h:mm aaa");
-                tvTaskDeadline.setText(df2.format(date));
+                UiUtils.setViewText(getContext(), tvTaskDeadline, df2.format(date));
+                String newRelativeTimeUntil = task.calculateTimeUntil(date.getTime());
+                UiUtils.setViewText(getContext(), tvRelativeTimeUntil, newRelativeTimeUntil);
             }
 
             @Override
@@ -166,7 +168,7 @@ public class TaskDetailFragment extends Fragment {
     private void onSaveClick(View view) {
         task.setTaskTitle(etTaskTitle.getText().toString());
         task.setTaskState(updatedTaskStatus);
-        task.setTaskEndDate(CollegeApplicationTask.convertDateStringToLong(tvTaskDeadline.getText().toString()));
+        task.setTaskEndDate(task.convertDateStringToLong(tvTaskDeadline.getText().toString()));
         task.setTaskDescription(etTaskNotes.getText().toString());
         viewModel.updateTask(task);
         getActivity().getSupportFragmentManager().popBackStack();

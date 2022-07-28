@@ -19,7 +19,7 @@ import java.util.List;
 public class TaskProgressView extends ConstraintLayout {
 
     private final HashMap<Integer, Integer> STATUS_COLORS = new HashMap<>();
-    View view1,view2,view3,view4,view5;
+    View view1,view2,view3,view4,view5,view1Line,view2Line,view3Line,view4Line;
 
     public TaskProgressView(Context context) {
         super(context);
@@ -48,6 +48,11 @@ public class TaskProgressView extends ConstraintLayout {
         view4 = findViewById(R.id.view7);
         view5 = findViewById(R.id.view9);
 
+        view1Line = findViewById(R.id.view2);
+        view2Line = findViewById(R.id.view4);
+        view3Line = findViewById(R.id.view6);
+        view4Line = findViewById(R.id.view8);
+
         createStatusColorsMap();
 
     }
@@ -59,12 +64,16 @@ public class TaskProgressView extends ConstraintLayout {
             Collections.sort(tasks,Collections.reverseOrder());
             int color = getContext().getColor(STATUS_COLORS.get(tasks.get(0).getTaskState()));
             view1.getBackground().setTint(color);
+            view1Line.getBackground().setTint(color);
             color = getContext().getColor(STATUS_COLORS.get(tasks.get(1).getTaskState()));
             view2.getBackground().setTint(color);
+            view2Line.getBackground().setTint(color);
             color = getContext().getColor(STATUS_COLORS.get(tasks.get(2).getTaskState()));
             view3.getBackground().setTint(color);
+            view3Line.getBackground().setTint(color);
             color = getContext().getColor(STATUS_COLORS.get(tasks.get(3).getTaskState()));
             view4.getBackground().setTint(color);
+            view4Line.getBackground().setTint(color);
             color = getContext().getColor(STATUS_COLORS.get(tasks.get(4).getTaskState()));
             view5.getBackground().setTint(color);
             invalidate();

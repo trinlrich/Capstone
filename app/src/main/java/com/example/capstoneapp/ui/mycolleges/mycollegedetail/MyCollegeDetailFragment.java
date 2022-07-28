@@ -31,6 +31,7 @@ import org.parceler.Parcel;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MyCollegeDetailFragment extends Fragment {
@@ -94,6 +95,7 @@ public class MyCollegeDetailFragment extends Fragment {
             @Override
             public void onChanged(List<CollegeApplicationTask> tasks) {
                 applicationStepsList = tasks;
+                Collections.sort(applicationStepsList);
                 tasksAdapter.setTasks(applicationStepsList);
             }
         });

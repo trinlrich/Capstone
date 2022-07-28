@@ -7,20 +7,12 @@
     android:orientation="horizontal"
     android:padding="@dimen/medium_margin">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/small_margin"
-        app:cardCornerRadius="30dp"
-        app:cardElevation="5dp">
-
-        <ImageView
-            android:id="@+id/ivNavProfileImage"
-            android:layout_width="@dimen/nav_profile_image"
-            android:layout_height="@dimen/nav_profile_image"
-            android:onClick="onProfileClick"
-            app:srcCompat="@drawable/profile_black_48" />
-    </androidx.cardview.widget.CardView>
+    <ImageView
+        android:id="@+id/ivNavProfileImage"
+        android:layout_width="@dimen/nav_profile_image"
+        android:layout_height="@dimen/nav_profile_image"
+        android:onClick="onProfileClick"
+        app:srcCompat="@drawable/profile_black_48" />
 
     <TextView
         android:id="@+id/tvNavUserName"

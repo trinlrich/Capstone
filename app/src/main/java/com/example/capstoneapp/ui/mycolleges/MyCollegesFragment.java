@@ -5,7 +5,10 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,13 +18,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.devhoony.lottieproegressdialog.LottieProgressDialog;
-import android.widget.TextView;
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.model.CollegeApplicationTask;
+import com.example.capstoneapp.ui.collegesearch.CollegeSearchFragment;
 import com.example.capstoneapp.ui.collegesearch.CollegeSearchViewModel;
+import com.example.capstoneapp.ui.collegesearch.filter.FilterFragment;
 
 import java.util.List;
 import java.util.Map;
@@ -38,7 +43,9 @@ public class MyCollegesFragment extends Fragment {
     private LottieProgressDialog loadingProgressBar;
     private List<College> favColleges;
 
-    private TextView tvNoFavColleges;
+    private CardView noFavCollegesCard;
+    private Button btnToCollegeSearch;
+
     public static MyCollegesFragment newInstance() {
         return new MyCollegesFragment();
     }
@@ -58,7 +65,9 @@ public class MyCollegesFragment extends Fragment {
             getActivity().setTitle(R.string.my_colleges_title);
         }
 
-        tvNoFavColleges = view.findViewById(R.id.tvNoFavColleges);
+        noFavCollegesCard = view.findViewById(R.id.noFavCollegesCard);
+        btnToCollegeSearch = view.findViewById(R.id.btnToCollegeSearch);
+        btnToCollegeSearch.setOnClickListener(this::onToCollegeSearchClick);
 
         // Set up recycler view
         favCollegesRV = view.findViewById(R.id.favCollegesRV);
@@ -82,10 +91,10 @@ public class MyCollegesFragment extends Fragment {
         Observer<List<College>> favCollegesObserver = colleges -> {
             if ((colleges == null) || (colleges.size() == 0)){
                 Log.e(TAG, "No Fav colleges found");
-                tvNoFavColleges.setVisibility(View.VISIBLE);
+                showNoFavColleges();
             } else {
                 Log.i(TAG, "Fav Colleges found");
-                tvNoFavColleges.setVisibility(View.GONE);
+                hideNoFavColleges();
                 favColleges = colleges;
                 viewModel.getAllFavCollegeTasks(favColleges).observe(getViewLifecycleOwner(),favCollegesTasksObserver);
             }
@@ -96,12 +105,23 @@ public class MyCollegesFragment extends Fragment {
         Observer<Boolean> progressUpdateObserver = visible -> {
             if (visible) {
                 showProgress();
-                tvNoFavColleges.setVisibility(View.GONE);
+                hideNoFavColleges();
             } else {
                 stopProgress();
             }
         };
         viewModel.getShowProgress().observe(getViewLifecycleOwner(), progressUpdateObserver);
+    }
+
+    private void onToCollegeSearchClick(View view) {
+        FragmentManager fragmentManager = ((FragmentActivity) getContext()).getSupportFragmentManager();
+        if (fragmentManager != null) {
+            fragmentManager
+                    .beginTransaction()
+                    .replace(R.id.flContainer, CollegeSearchFragment.newInstance())
+                    .addToBackStack(null)
+                    .commit();
+        }
     }
 
     private void showProgress(){
@@ -117,5 +137,15 @@ public class MyCollegesFragment extends Fragment {
         String title = getString(R.string.progress_title);
         loadingProgressBar = new LottieProgressDialog(getActivity(),false,null,null,null,null,LottieProgressDialog.SAMPLE_5, title, null);
 
+    }
+
+    private void showNoFavColleges() {
+        favCollegesRV.setVisibility(View.GONE);
+        noFavCollegesCard.setVisibility(View.VISIBLE);
+    }
+
+    private void hideNoFavColleges() {
+        noFavCollegesCard.setVisibility(View.GONE);
+        favCollegesRV.setVisibility(View.VISIBLE);
     }
 }
