@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item android:id="@+id/nav_profile"
+        android:title="@string/profile_title"
+        android:icon="@drawable/profile_black_48" />
+
     <item android:id="@+id/nav_colleges"
         android:title="@string/my_colleges_title"
         android:icon="@drawable/college_black_48" />

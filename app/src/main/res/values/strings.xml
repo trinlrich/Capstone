@@ -88,7 +88,7 @@
     <string name="complete">Complete</string>
 
     // Content Descriptions
-    <string name="favorite_descrption">Favorite icon to represent favoring a college</string>
+    <string name="favorite_description">Favorite icon to represent favoring a college</string>
     <string name="filter_description">Filter icon</string>
 
     // Misc
@@ -107,7 +107,8 @@
     <string name="close_task_dialog_title">Close Task</string>
     <string name="close_task_dialog_cancel">Continue Editing</string>
     <string name="close_task_dialog_ok">Close Task</string>
-    <string name="progress_title">Getting Colleges Information</string>
+    <string name="loading_progress_title">Getting Colleges Information</string>
+    <string name="save_user_progress_title">Saving Your Information</string>
 
     // Manage Application Tasks
     <string name="manage_tasks">Manage Application Tasks</string>
@@ -122,6 +123,12 @@
     <string name="data_not_available">Data Not Available</string>
 
     // Survey Details
+    <string name="survey_first_name_header">First Name</string>
+    <string name="survey_first_name_hint">What is your first name?</string>
+    <string name="survey_last_name_header">Last Name</string>
+    <string name="survey_last_name_hint">What is your last name?</string>
+    <string name="survey_degree_header">Degree Seeking</string>
+    <string name="survey_degree_hint">What degree are you planning to get?</string>
     <string name="survey_email_header">E-Mail</string>
     <string name="survey_email_hint">E-Mail</string>
 </resources>

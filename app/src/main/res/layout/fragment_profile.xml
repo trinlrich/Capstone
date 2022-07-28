@@ -4,26 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/accent_blue"
     android:paddingHorizontal="@dimen/profile_padding"
     android:paddingTop="@dimen/extra_large_margin"
     tools:context=".ui.profile.ProfileFragment">
-
-    <ImageView
-        android:id="@+id/ivFragProfileImage"
-        android:layout_width="@dimen/frag_profile_image"
-        android:layout_height="@dimen/frag_profile_image"
-        android:layout_marginStart="@dimen/medium_margin"
-        android:src="@drawable/profile_black_48"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvFragUserName"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/frag_profile_image"
-        android:layout_marginStart="@dimen/small_margin"
+        android:layout_marginTop="@dimen/large_margin"
         android:gravity="center_vertical"
-        app:layout_constraintStart_toEndOf="@+id/ivFragProfileImage"
+        android:textColor="@color/white"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="John Doe" />
 
@@ -37,11 +32,11 @@
         app:contentPadding="@dimen/larger_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivFragProfileImage">
+        app:layout_constraintTop_toBottomOf="@+id/tvFragUserName">
 
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="500dp">
+            android:layout_height="wrap_content">
 
             <TableRow
                 android:layout_width="match_parent"

@@ -54,8 +54,6 @@ public class TaskDetailFragment extends Fragment {
     private EditText etTaskNotes;
     private Button btnSave;
 
-    private HashMap taskInfo;
-
     private int updatedTaskStatus;
 
     public TaskDetailFragment(CollegeApplicationTask task) {
@@ -89,8 +87,6 @@ public class TaskDetailFragment extends Fragment {
         etTaskNotes = view.findViewById(R.id.etTaskNotes);
         btnSave = view.findViewById(R.id.btnSaveTask);
 
-        taskInfo = new HashMap();
-
         UiUtils.setViewText(getContext(), etTaskTitle, task.getTaskTitle());
         UiUtils.setViewText(getContext(), tvTaskDeadline, task.getTaskEndDateAsText());
         tvTaskDeadline.setOnClickListener(this::onDateClick);
@@ -106,7 +102,7 @@ public class TaskDetailFragment extends Fragment {
             }
         });
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), R.layout.spinner_item, statusList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), R.layout.state_spinner_item, statusList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         statusSpinner.setAdapter(adapter);
         statusSpinner.setSelection(task.getTaskState());

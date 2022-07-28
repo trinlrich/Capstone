@@ -45,9 +45,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ActionBarDrawerToggle toggle;
     private ActionBar actionBar;
     private NavigationView sideNav;
-    private View navHeader;
-    private ImageView ivNavProfileImage;
-    private TextView tvNavUserName;
 
     // ViewModel
     private MainViewModel viewModel;
@@ -70,26 +67,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
         sideNav = findViewById(R.id.sideNav);
 
-        // Navigation Header
-        navHeader = sideNav.getHeaderView(0);
-        ivNavProfileImage = navHeader.findViewById(R.id.ivNavProfileImage);
-        tvNavUserName = navHeader.findViewById(R.id.tvNavUserName);
-
         viewModel.getUserProfileInfo();
-
-        // User observer
-        Observer<ParseFirebaseUser> userObserver = user -> {
-            if (user == null) {
-                Log.e(TAG, "No user found");
-            } else {
-                ParseFile profileImage = user.getProfileImage();
-                if (profileImage != null) {
-                    UiUtils.setViewImage(getApplicationContext(), ivNavProfileImage, profileImage.getUrl(), new CircleCrop(), R.drawable.profile_black_48);
-                }
-                UiUtils.setViewText(getApplicationContext(), tvNavUserName, user.getFirstName() + " " + user.getLastName());
-            }
-        };
-        viewModel.user.observe(this, userObserver);
 
         // Set toolbar
         setSupportActionBar(toolbar);
@@ -116,29 +94,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment fragment;
         switch (item.getItemId()) {
+            case R.id.nav_profile:
+                fragment = profileFragment;
+                break;
             case R.id.nav_college_search:
-                Log.i(TAG, "College Search Clicked");
                 setDefaultFilters();
                 fragment = collegeSearchFragment;
                 break;
             case R.id.nav_logout:
-                Log.i(TAG, "Logout Clicked");
                 logoutUser();
             case R.id.nav_colleges:
             default:
-                Log.i(TAG, "My Colleges Clicked");
                 fragment = collegesFragment;
                 break;
         }
         fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    public void onProfileClick(View view) {
-        Log.i(TAG, "Profile Clicked");
-        fragmentManager.beginTransaction().replace(R.id.flContainer, profileFragment).commit();
-        drawerLayout.closeDrawer(GravityCompat.START);
     }
 
     public void logoutUser() {
