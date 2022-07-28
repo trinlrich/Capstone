@@ -36,8 +36,7 @@
     <dimen name="task_list_radius">10dp</dimen>
     <dimen name="task_button_height">105dp</dimen>
     <dimen name="task_button_margin">5dp</dimen>
-    <dimen name="task_card_height">115dp</dimen>
-    <dimen name="task_card_width">115dp</dimen>
+    <dimen name="task_card_width">145dp</dimen>
 
     <dimen name="state_layout_min_dimens">115dip</dimen>
 

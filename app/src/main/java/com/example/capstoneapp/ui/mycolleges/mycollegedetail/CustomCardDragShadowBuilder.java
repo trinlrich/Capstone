@@ -32,7 +32,7 @@ public class CustomCardDragShadowBuilder extends View.DragShadowBuilder {
         int width, height;
 
         // Set the width of the shadow to half the width of the original View.
-        width = getView().getWidth() / 2;
+        width = getView().getHeight() / 2;
 
         // Set the height of the shadow to half the height of the original View.
         height = getView().getHeight() / 2;

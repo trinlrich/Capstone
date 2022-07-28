@@ -64,7 +64,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
         }
 
         public void bind(CollegeApplicationTask task) {
-            taskItemCard.setCardBackgroundColor(CollegeApplicationTask.getStatusColor(task.getTaskState()));
+            taskItemCard.setCardBackgroundColor(task.getStatusColor(task.getTaskState()));
             UiUtils.setViewText(context, tvTaskItemName, task.getTaskTitle());
             UiUtils.setViewText(context, tvTaskItemStatus, task.getTaskStateAsText());
         }

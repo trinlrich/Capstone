@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -26,6 +25,7 @@ import androidx.transition.TransitionManager;
 
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.model.CollegeApplicationTask;
+import com.example.capstoneapp.ui.mycolleges.TaskCardView;
 import com.example.capstoneapp.ui.mycolleges.mycollegedetail.CustomCardDragShadowBuilder;
 
 import java.util.ArrayList;
@@ -158,7 +158,7 @@ public class CollegeTaskMgmtFragment extends Fragment {
 
     private void attachDragListener(Button dropButton) {
         dropButton.setOnDragListener((v, e) -> {
-            View draggableItem = (View) e.getLocalState();
+            TaskCardView draggableItem = (TaskCardView) e.getLocalState();
             // Handles each of the expected events.
             switch (e.getAction()) {
                 case DragEvent.ACTION_DRAG_STARTED:
@@ -214,11 +214,12 @@ public class CollegeTaskMgmtFragment extends Fragment {
         });
     }
 
-    private void updateAppStep(LinearLayout srcLayout, LinearLayout tgtLayout, View draggableItem) {
+    private void updateAppStep(LinearLayout srcLayout, LinearLayout tgtLayout, TaskCardView draggableItem) {
         // update parse database via view model
         int state = Integer.parseInt((String) tgtLayout.getTag());
         int stepIndex = Integer.parseInt((String) draggableItem.getTag());
-        collegeTaskViewModel.updateApplicationStepState(applicationTasks.get(stepIndex), state);
+        CollegeApplicationTask task = applicationTasks.get(stepIndex);
+        collegeTaskViewModel.updateApplicationStepState(task, state);
         // Animation and adjust the view
         Transition move = new AutoTransition()
                 .addTarget(draggableItem)
@@ -227,6 +228,8 @@ public class CollegeTaskMgmtFragment extends Fragment {
         srcLayout.removeView(draggableItem);
         tgtLayout.addView(draggableItem,1);
         updateTaskTotals(srcLayout, tgtLayout);
+        draggableItem.setTaskColor();
+        draggableItem.setDeadlineColor(task.getTaskState(), task.getTaskEndDate());
         setNoItemsText();
         // Change the state of the tasks
         tasksToTaskLayoutMap.put((CardView) draggableItem, tgtLayout);
@@ -253,7 +256,7 @@ public class CollegeTaskMgmtFragment extends Fragment {
     private void loadApplicationsTasks() {
         for (int indx = 0; indx < applicationTasks.size(); indx++) {
             CollegeApplicationTask task = applicationTasks.get(indx);
-            CardView newCard = createCardView(task.getTaskTitle(), indx, task.getTaskState());
+            CardView newCard = createCardView(task, indx);
             // Put the task to thier layouts
             LinearLayout initalLayout = getInitialLayoutForTasks(task);
             tasksToTaskLayoutMap.put(newCard, initalLayout);
@@ -350,22 +353,13 @@ public class CollegeTaskMgmtFragment extends Fragment {
         }
     }
 
-    private CardView createCardView(String taskName, Integer appStepIndex, int taskstate) {
-        ContextThemeWrapper newCardContext = new ContextThemeWrapper(getContext(), R.style.taskCardStyle);
-        CardView cardview = new CardView(newCardContext);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(newCardContext.getResources().getDimensionPixelSize(R.dimen.task_card_width), newCardContext.getResources().getDimensionPixelSize(R.dimen.task_card_height));
-        layoutParams.setMargins(5, 5, 5, 5);
-        cardview.setLayoutParams(layoutParams);
-        cardview.setCardElevation(100);
-        cardview.setRadius(100);
-        cardview.setTag(appStepIndex.toString());
-
-        ContextThemeWrapper newCardTextContext = new ContextThemeWrapper(getContext(), R.style.taskCardTextStyle);
-        TextView textview = new TextView(newCardTextContext);
-        textview.setText(taskName);
-        textview.setBackgroundResource(STATUS_COLORS.get(taskstate));
-        cardview.addView(textview);
-        return cardview;
+    private CardView createCardView(CollegeApplicationTask task, Integer appStepIndex) {
+        TaskCardView cardView = new TaskCardView(getContext());
+        cardView.setElevation(0);
+        cardView.setRadius(30);
+        cardView.setTag(appStepIndex.toString());
+        cardView.setTaskInfo(task);
+        return cardView;
     }
 
     private void onCreateTaskClick(View view) {

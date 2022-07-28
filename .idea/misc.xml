@@ -17,6 +17,7 @@
         <entry key="app/src/main/res/drawable-v24/spinner_inprogress_background.xml" value="0.26" />
         <entry key="app/src/main/res/drawable-v24/status_comp_background.xml" value="0.1975" />
         <entry key="app/src/main/res/drawable-v24/status_ip_background.xml" value="0.1975" />
+        <entry key="app/src/main/res/drawable-v24/status_td_background.xml" value="0.167" />
         <entry key="app/src/main/res/drawable-v24/to_do_background.xml" value="0.1975" />
         <entry key="app/src/main/res/drawable/bg_gradient.xml" value="0.172" />
         <entry key="app/src/main/res/drawable/button_icon_heart.xml" value="0.2055" />
@@ -24,11 +25,14 @@
         <entry key="app/src/main/res/drawable/circle_image.xml" value="0.172" />
         <entry key="app/src/main/res/drawable/circle_view_background.xml" value="0.172" />
         <entry key="app/src/main/res/drawable/circular_button.xml" value="0.1975" />
+        <entry key="app/src/main/res/drawable/clock_grey_outline_24.xml" value="0.272" />
+        <entry key="app/src/main/res/drawable/clock_white_outline_24.xml" value="0.272" />
         <entry key="app/src/main/res/drawable/drop_down_white_24.xml" value="0.1975" />
         <entry key="app/src/main/res/drawable/edit_text_background.xml" value="0.261" />
         <entry key="app/src/main/res/drawable/filter_list_white_24.xml" value="0.1785" />
         <entry key="app/src/main/res/drawable/filter_selected.xml" value="0.1785" />
         <entry key="app/src/main/res/drawable/filter_selector.xml" value="0.1785" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.191" />
         <entry key="app/src/main/res/drawable/info_black_24.xml" value="0.1785" />
         <entry key="app/src/main/res/drawable/round_button.xml" value="0.2055" />
         <entry key="app/src/main/res/drawable/round_button_selected.xml" value="0.2055" />
@@ -39,6 +43,11 @@
         <entry key="app/src/main/res/drawable/table_divider.xml" value="0.1745" />
         <entry key="app/src/main/res/drawable/tap_target_search_icon.xml" value="0.172" />
         <entry key="app/src/main/res/drawable/task_progress_circle.xml" value="0.1975" />
+        <entry key="app/src/main/res/font/alata.xml" value="0.28125" />
+        <entry key="app/src/main/res/font/amaranth_bold.xml" value="0.28125" />
+        <entry key="app/src/main/res/font/bellota_text.xml" value="0.28125" />
+        <entry key="app/src/main/res/font/capriola.xml" value="0.28125" />
+        <entry key="app/src/main/res/font/catamaran.xml" value="0.28125" />
         <entry key="app/src/main/res/layout/abou_tab.xml" value="0.25104166666666666" />
         <entry key="app/src/main/res/layout/academics_tab.xml" value="0.2359375" />
         <entry key="app/src/main/res/layout/activity_auth.xml" value="0.22267913818359375" />
@@ -67,7 +76,7 @@
         <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.30648148148148147" />
         <entry key="app/src/main/res/layout/fragment_state.xml" value="0.3875" />
         <entry key="app/src/main/res/layout/fragment_task_detail.xml" value="0.2524592081705728" />
-        <entry key="app/src/main/res/layout/fragment_task_mgmt.xml" value="0.3229888916015625" />
+        <entry key="app/src/main/res/layout/fragment_task_mgmt.xml" value="0.3376251220703126" />
         <entry key="app/src/main/res/layout/fragment_type.xml" value="0.3875" />
         <entry key="app/src/main/res/layout/item_college.xml" value="0.35352172851562513" />
         <entry key="app/src/main/res/layout/item_college_search.xml" value="0.2598958333333333" />
@@ -82,9 +91,11 @@
         <entry key="app/src/main/res/layout/new_fragment_costs.xml" value="0.3875" />
         <entry key="app/src/main/res/layout/overview_tab.xml" value="0.2366073608398438" />
         <entry key="app/src/main/res/layout/spinner_item.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/task_card_view.xml" value="0.2004216954328011" />
         <entry key="app/src/main/res/layout/task_progress_view.xml" value="0.240625" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.20208333333333334" />
         <entry key="app/src/main/res/menu/navigation_menu.xml" value="0.203125" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.191" />
       </map>
     </option>
   </component>
