@@ -66,5 +66,9 @@
         <item name="backgroundTint">@color/accent_blue</item>
     </style>
 
+    <style name="WhiteButton" parent="Theme.CapstoneApp">
+        <item name="backgroundTint">@color/white</item>
+    </style>
+
 
 </resources>
