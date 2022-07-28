@@ -20,19 +20,19 @@
         android:id="@+id/survey_anim"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:layout_marginTop="@dimen/larger_margin"
+        android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/degree_anim" />
+        app:lottie_rawRes="@raw/college_anim" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/large_margin"
+        android:layout_marginTop="@dimen/medium_margin"
         android:text="Welcome"
         android:textColor="@color/white"
         android:textSize="24sp"
