@@ -72,7 +72,7 @@ public class ProfileFragment extends Fragment {
                 UiUtils.setViewText(getContext(), tvUserName, user.getFirstName() + " " + user.getLastName());
                 UiUtils.setViewText(getContext(), tvFirstName, user.getFirstName());
                 UiUtils.setViewText(getContext(), tvLastName, user.getLastName());
-                UiUtils.setViewText(getContext(), tvDegreeSeeking, user.getDegreeSeeking());
+                UiUtils.setViewText(getContext(), tvDegreeSeeking, user.getDegreeSeekingAsText());
                 ParseFile profileImage = user.getProfileImage();
                 if (profileImage != null) {
                     UiUtils.setViewImage(getContext(), ivFragProfileImage, profileImage.getUrl(), new CircleCrop(), R.drawable.profile_black_48);
