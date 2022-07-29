@@ -59,7 +59,7 @@ public class CollegeApplicationTask  extends ParseObject  implements Comparable<
     public void setTaskState(int stepState){put(TASK_KEY_STATE,stepState);}
 
     public int getTaskPriority() {return getInt(TASK_KEY_PRIORITY);}
-    public void setTaskPriority(int stepPriority) {put(TASK_KEY_PRIORITY,stepPriority);}
+    public void setTaskPriority(int stepPriority) {put(TASK_KEY_PRIORITY, stepPriority);}
 
     public Long getTaskStartDate() {return getLong(TASK_KEY_START_DATE);}
     public String getTaskStartDateAsText() {return convertDateLongToString(getTaskStartDate());}
