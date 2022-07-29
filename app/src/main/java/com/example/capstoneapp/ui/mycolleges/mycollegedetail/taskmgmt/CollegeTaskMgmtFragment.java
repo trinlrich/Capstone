@@ -257,9 +257,9 @@ public class CollegeTaskMgmtFragment extends Fragment {
         for (int indx = 0; indx < applicationTasks.size(); indx++) {
             CollegeApplicationTask task = applicationTasks.get(indx);
             CardView newCard = createCardView(task, indx);
-            // Put the task to thier layouts
-            LinearLayout initalLayout = getInitialLayoutForTasks(task);
-            tasksToTaskLayoutMap.put(newCard, initalLayout);
+            // Put the task to their layouts
+            LinearLayout initialLayout = getInitialLayoutForTasks(task);
+            tasksToTaskLayoutMap.put(newCard, initialLayout);
 
             newCard.setOnLongClickListener(v -> {
                 // Create a new ClipData.Item from the CardView object's tag.
@@ -306,7 +306,7 @@ public class CollegeTaskMgmtFragment extends Fragment {
                 }
             });
 
-            initalLayout.addView(newCard);
+            initialLayout.addView(newCard);
         }
 
         // Make No Items text visible if there are no items in state layout
