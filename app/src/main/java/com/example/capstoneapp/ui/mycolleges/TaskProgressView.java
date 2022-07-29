@@ -11,7 +11,11 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.capstoneapp.R;
 import com.example.capstoneapp.model.CollegeApplicationTask;
+import com.example.capstoneapp.parsedatasource.Utilities;
+import com.example.capstoneapp.ui.UiUtils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -54,31 +58,38 @@ public class TaskProgressView extends ConstraintLayout {
         view4Line = findViewById(R.id.view8);
 
         createStatusColorsMap();
-
     }
-    public void setTasks(List<CollegeApplicationTask> tasks){
+    public void setTasks(List<CollegeApplicationTask> tasks) {
         if (tasks == null)
             return;
+
+        List<CollegeApplicationTask> mandatoryTasks = new ArrayList<>();
+        // Remove tasks that are not mandatory
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getTaskPriority() == 1) {
+                mandatoryTasks.add(tasks.get(i));
+            }
+        }
+
         // sort the tasks as per priority. we need completed to come first
-        if (tasks.size() > 0) {
-            Collections.sort(tasks,Collections.reverseOrder());
-            int color = getContext().getColor(STATUS_COLORS.get(tasks.get(0).getTaskState()));
+        if (mandatoryTasks.size() > 0) {
+            Collections.sort(mandatoryTasks,Collections.reverseOrder());
+            int color = getContext().getColor(STATUS_COLORS.get(mandatoryTasks.get(0).getTaskState()));
             view1.getBackground().setTint(color);
             view1Line.getBackground().setTint(color);
-            color = getContext().getColor(STATUS_COLORS.get(tasks.get(1).getTaskState()));
+            color = getContext().getColor(STATUS_COLORS.get(mandatoryTasks.get(1).getTaskState()));
             view2.getBackground().setTint(color);
             view2Line.getBackground().setTint(color);
-            color = getContext().getColor(STATUS_COLORS.get(tasks.get(2).getTaskState()));
+            color = getContext().getColor(STATUS_COLORS.get(mandatoryTasks.get(2).getTaskState()));
             view3.getBackground().setTint(color);
             view3Line.getBackground().setTint(color);
-            color = getContext().getColor(STATUS_COLORS.get(tasks.get(3).getTaskState()));
+            color = getContext().getColor(STATUS_COLORS.get(mandatoryTasks.get(3).getTaskState()));
             view4.getBackground().setTint(color);
             view4Line.getBackground().setTint(color);
-            color = getContext().getColor(STATUS_COLORS.get(tasks.get(4).getTaskState()));
+            color = getContext().getColor(STATUS_COLORS.get(mandatoryTasks.get(4).getTaskState()));
             view5.getBackground().setTint(color);
             invalidate();
         }
-
     }
 
     private void createStatusColorsMap() {

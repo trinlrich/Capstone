@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -95,12 +96,7 @@ public class TaskDetailFragment extends Fragment {
         btnCloseTaskDetail.setOnClickListener(this::onCloseClick);
         btnSave.setOnClickListener(this::onSaveClick);
 
-        spinnerLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                statusSpinner.performClick();
-            }
-        });
+        spinnerLayout.setOnClickListener(v -> statusSpinner.performClick());
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), R.layout.state_spinner_item, statusList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

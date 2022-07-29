@@ -24,6 +24,7 @@ public class Utilities {
 
     private static final String TAG = "Utilities";
     private static final String[] stepTitles = {"Complete Essay", "Apply Scholarships", "Get Recommendation Letters", "Complete FAFSA", "Understand Tution Costs"};
+    public static String[] getStepTitles() { return stepTitles; }
 
     public static void getProfileFromParse(String userId, GetUserProfileListenerCallback callback) {
         ParseQuery<ParseFirebaseUser> query = ParseQuery.getQuery(ParseFirebaseUser.class);
@@ -155,7 +156,7 @@ public class Utilities {
             task.setCollegeId(college.getCollegeId());
             task.setTaskTitle(stepTitles[indx]);
             task.setTaskDescription(stepTitles[indx]);
-            task.setTaskPriority(0);
+            task.setTaskPriority(1);
             task.setTaskState(0);
             task.setTaskStartDate(new Date().getTime());
             task.setTaskEndDate(getCalculatedDate(30));
