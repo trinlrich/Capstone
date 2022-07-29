@@ -59,6 +59,12 @@ public class TaskProgressView extends ConstraintLayout {
     public void setTasks(List<CollegeApplicationTask> tasks){
         if (tasks == null)
             return;
+
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getTaskPriority() == 0) {
+                tasks.remove(i);
+            }
+        }
         // sort the tasks as per priority. we need completed to come first
         if (tasks.size() > 0) {
             Collections.sort(tasks,Collections.reverseOrder());

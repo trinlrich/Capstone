@@ -155,7 +155,7 @@ public class Utilities {
             task.setCollegeId(college.getCollegeId());
             task.setTaskTitle(stepTitles[indx]);
             task.setTaskDescription(stepTitles[indx]);
-            task.setTaskPriority(0);
+            task.setTaskPriority(1);
             task.setTaskState(0);
             task.setTaskStartDate(new Date().getTime());
             task.setTaskEndDate(getCalculatedDate(30));
