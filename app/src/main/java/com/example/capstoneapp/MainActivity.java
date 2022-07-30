@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.example.capstoneapp.model.College;
 import com.example.capstoneapp.model.ParseFirebaseUser;
 import com.example.capstoneapp.ui.SharedPreferenceUtils;
 import com.example.capstoneapp.ui.UiUtils;
@@ -32,6 +33,7 @@ import com.example.capstoneapp.auth.AuthActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.navigation.NavigationView;
 import com.parse.ParseFile;
+import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         actionBar = getSupportActionBar();
         if (actionBar != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
         }
     }
 
